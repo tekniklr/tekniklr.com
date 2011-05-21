@@ -4,9 +4,10 @@ gem 'sprockets', '2.0.0.beta.2'
 gem 'mysql2'
 
 # Asset template engines
-gem 'sass'
-gem 'coffee-script'
-gem 'uglifier'
+gem 'sass'          # css 
+gem 'haml'          # html
+gem 'coffee-script' # javacript
+gem 'uglifier'      # javascript condenser
 
 gem 'jquery-rails'
 
