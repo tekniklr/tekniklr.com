@@ -2,8 +2,8 @@ source 'http://rubygems.org'
 gem 'rails', '3.1.0.rc1'
 gem 'sprockets'
 gem 'mysql2'
-gem 'cached_model'
 gem 'rake', '0.8.7' # fixes undefined method 'Task' bug
+gem 'cached_model'
 
 # Asset template engines
 #gem 'sass'          # css 
@@ -11,7 +11,7 @@ gem 'rake', '0.8.7' # fixes undefined method 'Task' bug
 #gem 'coffee-script' # javacript
 #gem 'uglifier'      # javascript condenser
 
-# gem 'jquery-rails'
+gem 'jquery-rails'
 
 # Use unicorn as the web server
 # gem 'unicorn'
