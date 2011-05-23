@@ -1,4 +1,9 @@
 TekniklrCom::Application.routes.draw do
+  
+  root :to => 'main#index'
+  get "main/index"
+  resources :main
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
