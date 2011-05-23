@@ -8,3 +8,5 @@ doc/api
 doc/app
 config/database.yml
 public/wpblog/
+public/wpblog.old/
+public/wpblog.new/

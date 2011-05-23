@@ -46,6 +46,8 @@ module TekniklrCom
 
     # Enable IdentityMap for Active Record, to disable set to false or remove the line below.
     config.active_record.identity_map = true
+    
+    config.action_dispatch.best_standards_support = true
 
     # Enable the asset pipeline
     config.assets.enabled = true
