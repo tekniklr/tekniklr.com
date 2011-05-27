@@ -3,11 +3,10 @@ gem 'rails', '3.1.0.rc1'
 gem 'sprockets'
 gem 'mysql2'
 gem 'rake', '0.8.7' # fixes undefined method 'Task' bug
-gem 'cached_model'
 
 # Asset template engines
 #gem 'sass'          # css 
-#gem 'haml'          # html
+gem 'haml'          # html
 #gem 'coffee-script' # javacript
 #gem 'uglifier'      # javascript condenser
 
