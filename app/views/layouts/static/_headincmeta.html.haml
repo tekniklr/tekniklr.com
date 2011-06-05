@@ -6,11 +6,19 @@
       #{@page_title} ~ 
     tekniklr.com 
 
-%meta{:name => "description", :content => ""}/
-%meta{:name => "author", :content => ""}/
+%meta{:name => "description", :content => "Just trying out this website thing!"}/
+%meta{:name => "author", :content => "Teri Solow"}/
+%meta{:name => "DC.title", :content => "tekniklr.com"}/
+%meta{:name => "DC.rights", :scheme => "DCTERMS.URI", :content => "#{Rails.application.config.creative_commons_url}"}/
+%meta{:name => "DC.rights", :content => "(c) #{Time.now.year} Teri Solow"}/
+
 
 %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}/
+
 %link{:rel => "shortcut icon", :href => "/favicon.ico"}/
+%link{:rel => "openid2.provider",  :href => "https://www.google.com/accounts/o8/ud?source=profiles"}/
+%link{:rel => "openid2.local_id", :href => "http://www.google.com/profiles/tekniklr"}/
+
 = stylesheet_link_tag :application
 
 = csrf_meta_tag
