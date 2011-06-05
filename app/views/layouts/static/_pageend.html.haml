@@ -1,0 +1,35 @@
+/ # Javascript at the bottom for fast page loading
+
+/ # Grab Google CDN's jQuery. fall back to local if necessary -%>
+%script{:src => "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"}
+%script{:src => "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js"}
+:javascript
+  !window.jQuery && document.write('<script src="javascripts/jquery-1.5.min.js"><\/script>')
+
+= javascript_include_tag :application
+
+= yield :javascript
+
+/ # Fix any <img> or .png_bg background-images
+/[if lt IE 7 ]
+  = javascript_include_tag 'dd_belatedpng.js'
+  %script
+    DD_belatedPNG.fix('img, .png_bg');
+
+/ # yui profiler and profileviewer - except for production
+= javascript_include_tag 'profiling/yahoo-profiling.min.js' unless Rails.env.production?
+= javascript_include_tag 'profiling/config.js' unless Rails.env.production?
+
+/ # include all other javascript, which will be bundled
+= javascript_include_tag :application
+
+/ # asynchronous google analytics: mathiasbynens.be/notes/async-analytics-snippet 
+- if Rails.env.production?
+  :javascript
+    var _gaq = [['_setAccount', 'UA-6580125-1'], ['_trackPageview']];
+    (function(d, t) {
+      var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
+      g.async = true;
+      g.src = ('https:' == location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      s.parentNode.insertBefore(g, s);
+    })(document, 'script');
