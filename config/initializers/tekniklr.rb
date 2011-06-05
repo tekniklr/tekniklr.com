@@ -1,0 +1,1 @@
+TekniklrCom::Application.config.creative_commons_url = 'http://creativecommons.org/licenses/by-nc-sa/3.0/'

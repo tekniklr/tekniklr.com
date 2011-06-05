@@ -3,7 +3,7 @@
 - unless @wpblog
   %title
     - unless @page_title.blank?
-      #{@page_title} ~ 
+      #{@page_title.downcase} ~ 
     tekniklr.com 
 
 %meta{:name => "description", :content => "Just trying out this website thing!"}/

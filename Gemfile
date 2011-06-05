@@ -6,6 +6,7 @@ gem 'rake', '0.8.7' # fixes undefined method 'Task' bug
 
 # Asset template engines
 gem 'sass'          # css 
+gem 'compass'       # works with sass
 gem 'haml'          # html
 #gem 'coffee-script' # javacript
 #gem 'uglifier'      # javascript condenser
