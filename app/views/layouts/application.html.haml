@@ -53,8 +53,8 @@
   :javascript
     !window.jQuery && document.write('<script src="javascripts/jquery-1.5.min.js"><\/script>')
 
+  = javascript_include_tag :application
   = javascript_include_tag :plugins
-  = javascript_include_tag :defaults
 
   = yield :javascript
 
@@ -69,7 +69,6 @@
   = javascript_include_tag 'profiling/config.js' unless Rails.env.production?
 
   / # asynchronous google analytics: mathiasbynens.be/notes/async-analytics-snippet 
-  / # change the UA-XXXXX-X to be your site's ID 
   - if Rails.env.production?
     :javascript
       var _gaq = [['_setAccount', 'UA-6580125-1'], ['_trackPageview']];
