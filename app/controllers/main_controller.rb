@@ -4,4 +4,8 @@ class MainController < ApplicationController
   def index
   end
 
+  def acknowledgments
+    page_title 'acknowledgments'
+  end
+
 end
