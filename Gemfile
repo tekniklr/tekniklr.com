@@ -5,15 +5,11 @@ gem 'mysql2'
 gem 'rake', '0.8.7' # fixes undefined method 'Task' bug
 
 # Asset template engines
-#gem 'sass'          # css 
+gem 'sass'          # css 
 gem 'haml'          # html
 #gem 'coffee-script' # javacript
 #gem 'uglifier'      # javascript condenser
-
 gem 'jquery-rails'
-
-# Use unicorn as the web server
-# gem 'unicorn'
 
 # Deploy with Capistrano
 # gem 'capistrano'
