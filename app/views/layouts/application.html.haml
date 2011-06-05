@@ -68,6 +68,9 @@
   = javascript_include_tag 'profiling/yahoo-profiling.min.js' unless Rails.env.production?
   = javascript_include_tag 'profiling/config.js' unless Rails.env.production?
 
+  / # include all other javascript, which will be bundled
+  = javascript_include_tag :application
+
   / # asynchronous google analytics: mathiasbynens.be/notes/async-analytics-snippet 
   - if Rails.env.production?
     :javascript
