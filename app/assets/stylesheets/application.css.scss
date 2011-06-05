@@ -5,8 +5,7 @@
  * to this file and they'll appear at the top of the compiled
  * file, but it's generally better to create a new file per 
  * style scope.
- *= require_self
+ *= require config
  *= require layout
- *#= require_tree . 
+ *= require_tree . 
 */
-@import "base";

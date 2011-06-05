@@ -6,8 +6,8 @@
 // add code directly here, but if you do, it'll appear at the 
 // bottom of the the compiled file.
 //
-//# require jquery
-//# require jquery_ujs
-//# require_tree .
+//= require jquery
+//= require jquery_ujs
 //= require plugins
 //= require rails
+//# require_tree . # don't want to include dd_belatedpng and modernizr again
