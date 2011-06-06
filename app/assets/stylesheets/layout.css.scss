@@ -1,0 +1,106 @@
+/* ******************************************************** */
+/* configuration for all stylesheets                        */
+/* ******************************************************** */
+/* colors */
+$page_bg: #fef7ff;
+$content_bg: lighten($page_bg, 90%);
+$border_color: darken($page_bg, 50%);
+/* widths */
+$max_page_width: 61.75em;
+$head_width: 100%;
+$foot_width: 75%;
+/* fonts */
+$base_font_size: 13px;
+$content_font_family: Helvetica, Sans-Serif;
+
+/* ******************************************************** */
+/* mixins                                                   */
+/* ******************************************************** */
+@mixin rounded($size: 2px, $color: $border_color, $radius: 1em, $padding: 2em, $style: dashed) {
+  border: $size $style $color;
+  border-radius: $radius;
+  -moz-border-radius: $radius;
+  -webkit-border-radius: $radius;
+  padding: $padding;
+}
+
+/* ******************************************************** */
+/* styles                                                   */
+/* ******************************************************** */
+
+* {
+  /* default font size */
+  font-size: $base_font_size;
+  font-family: $content_font_family;
+}
+
+body {
+  background-color: $page_bg;
+}
+
+#container {
+  max-width: $max_page_width;
+  margin: auto;
+  #pagehead {
+    background-image: url(/images/tentacles.png);
+    background-repeat: no-repeat;
+    background-position: top right;
+    height: 100px;
+    overflow: hidden;
+    max-width: $head_width;
+    margin: auto;
+  }
+  #navigation {
+    max-width: $head_width;
+    margin: auto;
+    clear: both;
+    ul {
+      border-top: 1px dashed $border_color;
+      display: block;
+      clear: both;
+      list-style-type: none;
+      padding: 0px;
+      margin: auto;
+      li {
+        display: inline;
+        width: $max_page_width/5;
+        text-align: center;
+        margin: auto;
+        float: left;
+        padding: 0.75em 0em 0.75em 0em;
+      }
+    }
+    a:link, a:active, a:visited {
+      text-decoration: none;
+      font-size: 120%;
+    }
+    a:hover {
+      font-weight: bold;
+      font-size: 120%;
+    }
+  }
+  #main {
+    clear: both;
+    background-color: $content_bg;
+    @include rounded(.1em, $border_color, 1em, 2em, solid);
+  }
+  #pagefoot {
+    clear: both;
+    text-align: center;
+    font-size: 75%;
+    max-width: $foot_width;
+    margin: auto;
+    a:link, a:active, a:visited {
+      text-decoration: none;
+      font-size: 100%;
+    }
+    a:hover {
+      text-decoration: underline;
+      font-size: 100%;
+    }
+  }
+}
+
+.dialog {
+  
+}

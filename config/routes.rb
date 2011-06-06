@@ -6,6 +6,7 @@ TekniklrCom::Application.routes.draw do
     match 'login' => 'application#login'
     match 'logout' => 'application#logout'
 
+    match 'about' => 'main#about'
     match 'acknowledgments' => 'main#acknowledgments'
 
     # these are so that wordpress will use the layout generated

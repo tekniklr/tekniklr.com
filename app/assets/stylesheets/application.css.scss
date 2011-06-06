@@ -5,9 +5,8 @@
  * to this file and they'll appear at the top of the compiled
  * file, but it's generally better to create a new file per 
  * style scope.
- *= require config
  *= require html5bpreset
  *= require layout
  *= require html5bphelpers
- *= require_tree . 
+ *# require_tree . 
 */
