@@ -1,3 +1,6 @@
-%footer
-  %h6
-    sekret copyleft text!
+%footer#pagefoot
+  %p
+    copyleft © #{Time.now.year}
+    = mail_to TekniklrCom::Application.config.email, 'Teri Solow'
+  %p
+    = link_to '~ ack ~', acknowledgments_url

@@ -1,3 +1,24 @@
 #navigation
-  %h2
-    This is the weirdo nav place
+  %ul
+    %li
+      = link_to 'about', about_url
+    %li
+      = link_to 'résumé', 'resume_url'
+    %li
+      = link_to 'blog', '/wpblog/'
+    %li
+      = link_to 'gallery', '/wpblog/gallery/'
+    %li
+      = link_to 'programs', 'http://github.com/tekniklr'
+  - if @wpblog
+    %ul
+      %li
+        categories
+      %li
+        tags
+      %li
+        archive
+      %li
+        search
+      %li
+        rss
