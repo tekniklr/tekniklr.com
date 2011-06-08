@@ -10,7 +10,7 @@ $max_page_width: 61.75em;
 $head_width: 100%;
 $foot_width: 75%;
 /* fonts */
-$base_font_size: 13px;
+$base_font_size: 100%;
 $content_font_family: Helvetica, Sans-Serif;
 
 /* ******************************************************** */
@@ -32,6 +32,13 @@ $content_font_family: Helvetica, Sans-Serif;
   /* default font size */
   font-size: $base_font_size;
   font-family: $content_font_family;
+}
+
+img,
+embed,
+object,
+video {
+  max-width: 100%;
 }
 
 body {
