@@ -1,0 +1,29 @@
+/* ******************************************************** */
+/* configuration for all stylesheets                        */
+/* ******************************************************** */
+
+/* colors */
+$page_bg: #fef7ff;
+$content_bg: lighten($page_bg, 90%);
+$border_color: darken($page_bg, 50%);
+
+/* widths */
+$max_page_width: 61.75em;
+$head_width: 100%;
+$foot_width: 75%;
+
+/* fonts */
+$base_font_size: 100%;
+$content_font_family: Helvetica, Sans-Serif;
+
+/* ******************************************************** */
+/* mixins                                                   */
+/* ******************************************************** */
+
+@mixin rounded($size: 2px, $color: $border_color, $radius: 1em, $padding: 2em, $style: dashed) {
+  border: $size $style $color;
+  border-radius: $radius;
+  -moz-border-radius: $radius;
+  -webkit-border-radius: $radius;
+  padding: $padding;
+}
