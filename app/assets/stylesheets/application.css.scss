@@ -5,8 +5,12 @@
  * to this file and they'll appear at the top of the compiled
  * file, but it's generally better to create a new file per 
  * style scope.
- *= require html5bpreset
- *= require layout
- *= require html5bphelpers
+ *= require_self
  *# require_tree . 
 */
+@import "config.css.scss";
+@import "html5bpreset.css.scss";
+@import "layout.css.scss";
+@import "wordpress.css.scss";
+@import "main.css.scss";
+@import "html5bphelpers.css.scss";
