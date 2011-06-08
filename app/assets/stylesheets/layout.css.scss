@@ -40,7 +40,7 @@ body {
       margin: auto;
       li {
         display: inline;
-        width: $max_page_width/5;
+        width: $max_page_width/5; // 20% of full page
         text-align: center;
         margin: auto;
         float: left;
