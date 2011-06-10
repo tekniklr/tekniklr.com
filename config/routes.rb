@@ -3,9 +3,6 @@ TekniklrCom::Application.routes.draw do
   
   # make sure only the html format works for various things
   constraints :format => "html" do
-    match 'login' => 'application#login'
-    match 'logout' => 'application#logout'
-
     match 'about' => 'main#about'
     match 'acknowledgments' => 'main#acknowledgments'
 
