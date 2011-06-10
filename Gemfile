@@ -12,8 +12,9 @@ gem 'haml'          # html
 gem 'uglifier'      # javascript condenser
 gem 'jquery-rails'
 
-# authentication
+# needed for authentication
 gem 'omniauth'
+gem 'json'
 
 # Deploy with Capistrano
 # gem 'capistrano'

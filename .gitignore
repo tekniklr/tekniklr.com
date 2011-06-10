@@ -6,7 +6,8 @@ tmp/
 .DS_Store
 doc/api
 doc/app
-config/database.yml
 public/wpblog/
 public/wpblog.old/
 public/wpblog.new/
+config/database.yml
+config/initializers/omniauth.rb
