@@ -1,0 +1,18 @@
+The rails source for my current big website redesign. Always a 
+work in progress.
+
+Current goals:
+  * [ ] Do rails the right way. With testing and everything.
+    * [ ] manage about page/favorite things, etc in db
+    * [ ] manage work experience for uniformity and printability
+    * [ ] manage remote site links for hcard/rel links/bio display
+  * [ ] omniauth
+  * [ ] Social media bar
+  * [ ] hcard/hresume
+  * [X] HTML5 (boilerplate)
+  * [X] HAML
+  * [X] sass
+  * [ ] coffeescript
+  * [ ] ajaxy updatebits
+  * [ ] minimalist design
+  * [X] golden ratio
