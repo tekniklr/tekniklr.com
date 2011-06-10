@@ -9,7 +9,7 @@ gem 'sass'          # css
 #gem 'compass'       # works with sass, but there's currently a bug causing it to write faulty css to /public/stylesheets/
 gem 'haml'          # html
 #gem 'coffee-script' # javacript
-#gem 'uglifier'      # javascript condenser
+gem 'uglifier'      # javascript condenser
 gem 'jquery-rails'
 
 # authentication
