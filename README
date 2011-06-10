@@ -6,7 +6,7 @@ Current goals:
     * [ ] manage about page/favorite things, etc in db
     * [ ] manage work experience for uniformity and printability
     * [ ] manage remote site links for hcard/rel links/bio display
-  * [ ] omniauth
+  * [X] omniauth
   * [ ] Social media bar
   * [ ] hcard/hresume
   * [X] HTML5 (boilerplate)
