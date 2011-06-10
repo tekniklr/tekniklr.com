@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  start_date: 2011-06-09
+  end_date: 2011-06-09
+  title: MyString
+  affiliation: MyString
+  location: MyString
+  location: MyString
+  description: MyString
+  tasks: 
+
+two:
+  start_date: 2011-06-09
+  end_date: 2011-06-09
+  title: MyString
+  affiliation: MyString
+  location: MyString
+  location: MyString
+  description: MyString
+  tasks: 
