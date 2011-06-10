@@ -5,6 +5,10 @@ TekniklrCom::Application.routes.draw do
   match '/login' => redirect('/auth/twitter/')
   match "/auth/:provider/callback" => 'sessions#validate'
   match '/logout' => 'sessions#logout', :as => :logout
+  match '/auth/failure' => 'sessions#failure'
+  
+  # résumé
+  match '/resume' => 'resume#index'
   
   # make sure only the html format works for various things
   constraints :format => "html" do
