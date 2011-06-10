@@ -1,6 +1,11 @@
 TekniklrCom::Application.routes.draw do
   root :to => 'main#index'
   
+  # omniauth authentication
+  match '/login' => redirect('/auth/twitter/')
+  match "/auth/:provider/callback" => 'sessions#validate'
+  match '/logout' => 'sessions#logout', :as => :logout
+  
   # make sure only the html format works for various things
   constraints :format => "html" do
     match 'about' => 'main#about'

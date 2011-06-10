@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  provider: MyString
+  uid: MyString
+  handle: MyString
+  name: MyString
+
+two:
+  provider: MyString
+  uid: MyString
+  handle: MyString
+  name: MyString
