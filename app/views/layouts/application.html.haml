@@ -11,6 +11,14 @@
     = render :partial => 'layouts/static/header'
     = render :partial => 'layouts/static/navigation'
     #main
+      - if flash[:error]
+        #flash.error
+          %h1 Error
+          = flash[:error]
+      - if flash[:notice]
+        #flash.notice
+          %h1 Notice
+          = flash[:notice]
       = yield
     = render :partial => 'layouts/static/footer'
   = render :partial => 'layouts/static/pageend'
