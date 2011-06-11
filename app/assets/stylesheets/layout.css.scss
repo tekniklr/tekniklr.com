@@ -96,7 +96,7 @@ body {
 }
 
 /* flash notices / errors */
-#flash {
+#flash, #error_explanation {
   width: 80%;
   margin: auto;
   margin-bottom: 2em;
@@ -104,7 +104,8 @@ body {
   font-family: monospace;
   @include rounded(1px, $border_color, .5em, 1em, dotted);
   padding-top: .5em;
-  h1{
+  ul { list-style-type: none; }
+  h1, h2{
     font-weight: bold;
     font-size: 110%;
     border-bottom: 1px solid;
@@ -113,7 +114,7 @@ body {
 .notice {
   background-color: $content_bg - #220022;
 }
-.error {
+.error, #error_explanation {
   background-color: $content_bg - #002222;
 }
 
