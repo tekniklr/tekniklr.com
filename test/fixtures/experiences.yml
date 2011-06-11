@@ -1,21 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
 
 one:
-  start_date: 2011-06-09
-  end_date: 2011-06-09
-  title: MyString
-  affiliation: MyString
-  location: MyString
-  location: MyString
-  description: MyString
+  start_date: 2010-07-19
+  end_date: 
+  title: Web Programmer
+  affiliation: Reed College
+  location: Portland, OR
   tasks: 
 
 two:
-  start_date: 2011-06-09
-  end_date: 2011-06-09
-  title: MyString
-  affiliation: MyString
-  location: MyString
-  location: MyString
-  description: MyString
+  start_date: 2010-06-30
+  end_date: 2006-10-01
+  title: Web Programmer
+  affiliation: Cornell Cooperative Extension, Cornell University
+  location: Ithaca, NY
   tasks: 
