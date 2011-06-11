@@ -1,13 +1,8 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
 
 one:
-  provider: MyString
-  uid: MyString
-  handle: MyString
-  name: MyString
+  provider: twitter
+  uid: 12345
+  handle: tekniklr
+  name: Teri Solow
 
-two:
-  provider: MyString
-  uid: MyString
-  handle: MyString
-  name: MyString
