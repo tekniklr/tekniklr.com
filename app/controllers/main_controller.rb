@@ -12,4 +12,9 @@ class MainController < ApplicationController
     page_title 'acknowledgments'
   end
 
+  # https://github.com/rails/rails/issues/671
+  def routing_error
+    render '404', :status => 404
+  end
+
 end
