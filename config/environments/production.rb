@@ -51,4 +51,9 @@ TekniklrCom::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
+  TekniklrCom::Application.config.middleware.use ExceptionNotifier,
+    :email_prefix => "[tekniklr.com] ",
+    :sender_address => %{tsolow@tekniklr.com},
+    :exception_recipients => %w{tsolow@tekniklr.com}
+
 end
