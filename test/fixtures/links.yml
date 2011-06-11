@@ -1,11 +1,16 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
 
-one:
-  name: MyString
-  url: MyString
-  visible: false
+twitter:
+  name: Twitter
+  url: http://twitter.com/tekniklr
+  visible: true
 
-two:
-  name: MyString
-  url: MyString
+facebook:
+  name: Facebook
+  url: http://facebook.com/tekniklr
+  visible: true
+
+whuffie:
+  name: Whuffie Bank
+  url: http://thewhuffiebank.org/tekniklr
   visible: false
