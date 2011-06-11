@@ -10,7 +10,26 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110610040722) do
+ActiveRecord::Schema.define(:version => 20110611055105) do
+
+  create_table "experiences", :force => true do |t|
+    t.date     "start_date"
+    t.date     "end_date"
+    t.string   "title"
+    t.string   "affiliation"
+    t.string   "location"
+    t.text     "tasks"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "links", :force => true do |t|
+    t.string   "name"
+    t.string   "url"
+    t.boolean  "visible"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "provider"
