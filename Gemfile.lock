@@ -37,6 +37,7 @@ GEM
     bcrypt-ruby (2.1.4)
     builder (3.0.0)
     erubis (2.7.0)
+    exception_notification (2.4.1)
     execjs (1.1.2)
       multi_json (~> 1.0)
     faraday (0.6.1)
@@ -153,6 +154,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  exception_notification
   haml
   jquery-rails
   json
