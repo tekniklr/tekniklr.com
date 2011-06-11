@@ -6,9 +6,8 @@ class CreateExperiences < ActiveRecord::Migration
       t.string :title
       t.string :affiliation
       t.string :location
-      t.string :location
       t.string :description
-      t.hash :tasks
+      t.text :tasks
 
       t.timestamps
     end
