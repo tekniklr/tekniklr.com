@@ -26,7 +26,10 @@ TekniklrCom::Application.routes.draw do
   
   # restful routing:
   # resources 'main'
+  resources :experiences
+  resources :links
   
-  # This is a legacy wild controller route that's not recommended for RESTful applications:
-  # match ':controller(/:action(/:id(.:format)))'
+  # https://github.com/rails/rails/issues/671
+  # http://techoctave.com/c7/posts/36-rails-3-0-rescue-from-routing-error-solution
+  match '*a', :to => "main#routing_error"
 end
