@@ -7,7 +7,7 @@
 // bottom of the the compiled file.
 //
 //= require jquery
-//= require jquery_ujs
+//# require jquery_ujs # was causing delete confirmations to pop up twice
 //= require plugins
 //= require rails
 //# require_tree . # don't want to include dd_belatedpng and modernizr again
