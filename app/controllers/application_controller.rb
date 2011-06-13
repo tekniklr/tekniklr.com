@@ -8,6 +8,8 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
   helper_method :logged_in?
   
+  before_filter   :get_links
+  
   protected
   
   def page_title(title)
@@ -24,6 +26,10 @@ class ApplicationController < ActionController::Base
   
   def is_admin?
     logged_in? or raise UserNotAuthorized
+  end
+  
+  def get_links
+    @links = Link.all
   end
   
   private
