@@ -58,6 +58,8 @@ p {
   max-width: $navigation_width;
   color: $navigation_font_color;
   background-color: $navigation_bg;
+  position: relative;
+  z-index: 1;
   margin: 0;
   padding: 0;
   overflow: hidden;
@@ -130,7 +132,7 @@ p {
   clear: both;
   position: relative;
   top: -1em;
-  z-index: -1;
+  z-index: 0;
   background-color: $content_bg;
   @include rounded(.1em, $border_color, 1em, 1em, solid);
 }
