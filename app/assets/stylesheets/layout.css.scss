@@ -20,6 +20,11 @@ p {
   padding: .5em 0em .5em 0em;
 }
 
+// easily center things in haml
+.center {
+  text-align: center;
+}
+
 #container {
   max-width: $max_page_width;
   margin: auto;
@@ -178,6 +183,8 @@ p {
 
 /* used in scaffold lists */
 table.manage {
+  width: 80%;
+  margin: auto;
   tr {
     th, td {
       padding: .25em;
