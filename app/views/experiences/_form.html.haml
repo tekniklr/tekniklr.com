@@ -1,0 +1,18 @@
+%p
+  = f.label :title
+  = f.text_field :title, :size => 36
+%p
+  = f.label :affiliation
+  = f.text_field :affiliation, :size => 36
+%p
+  = f.label :location
+  = f.text_field :location, :size => 36
+%p
+  = f.label :start_date
+  = date_select :experience, :start_date, :discard_day => true
+%p
+  = f.label :end_date
+  = date_select :experience, :end_date, :discard_day => true, :include_blank => true
+%p
+  = f.label :tasks
+  = f.text_area :tasks
