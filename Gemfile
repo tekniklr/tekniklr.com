@@ -6,6 +6,8 @@ gem 'rake', '0.8.7' # fixes undefined method 'Task' bug
 
 gem 'exception_notification'
 
+gem 'validates_timeliness'
+
 # Asset template engines
 gem 'sass'          # css 
 #gem 'compass'       # works with sass, but there's currently a bug causing it to write faulty css to /public/stylesheets/
