@@ -11,10 +11,7 @@ class LinksControllerTest < ActionController::TestCase
     get :index
     assert_redirected_to root_url
 
-    post :create
-    assert_redirected_to root_url
-
-    put :update, id: @link.id, link: @link.attributes
+    post :create_and_update
     assert_redirected_to root_url
 
     delete :destroy, id: @link.to_param
@@ -27,16 +24,11 @@ class LinksControllerTest < ActionController::TestCase
     assert_not_nil assigns(:links)
   end
 
-  test "should create link" do
+  test "should create and update links" do
     assert_difference('Link.count') do
-      post(:create, {:name => 'test new', :url => 'http://google.com'}, {'user_id' => 1})
+      post(:create_and_update, {:link => {id: @link.to_param, experience: @link.attributes}, :newlink => {:name => 'test new', :url => 'http://google.com'}}, {'user_id' => 1})
     end
-    assert_redirected_to link_path
-  end
-
-  test "should update link" do
-    put(:update, {id: @link.to_param, link: @link.attributes}, {'user_id' => 1})
-    assert_redirected_to link_path
+    assert_redirected_to links_path
   end
 
   test "should destroy link" do

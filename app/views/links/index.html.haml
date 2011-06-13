@@ -1,0 +1,15 @@
+= form_for :link do
+  
+  - @links.each do |link|
+    %div[link]
+      = fields_for "links[]", link do |update|
+        = render 'form', :f => update
+        = link_to('Delete', link, confirm: "Are you sure you want to delete #{link.name}?", :method => :delete)
+      
+  - Link.new do |newlink|
+    %div#newlink
+      = fields_for :newlink do |create|
+        = render 'form', :f => create
+  
+  .center
+    = submit_tag "Add / Update"
