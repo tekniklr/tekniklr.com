@@ -11,7 +11,10 @@ class LinksControllerTest < ActionController::TestCase
     get :index
     assert_redirected_to root_url
 
-    post :create_and_update
+    post :update_all
+    assert_redirected_to root_url
+
+    post :create, link: @link.attributes
     assert_redirected_to root_url
 
     delete :destroy, id: @link.to_param
@@ -24,10 +27,15 @@ class LinksControllerTest < ActionController::TestCase
     assert_not_nil assigns(:links)
   end
 
-  test "should create and update links" do
+  test "should create link" do
     assert_difference('Link.count') do
-      post(:create_and_update, {:link => {id: @link.to_param, link: @link.attributes}, :newlink => {:name => 'test new', :url => 'http://google.com'}}, {'user_id' => 1})
+      post(:create, {link: @link.attributes}, {'user_id' => 1})
     end
+    assert_redirected_to links_path
+  end
+
+  test "should update links" do
+    put(:update_all, {links: links().to_params}, {'user_id' => 1})
     assert_redirected_to links_path
   end
 
