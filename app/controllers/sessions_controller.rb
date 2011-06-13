@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
   
   def failure
-    flash[:error] = h(params[:message])
+    flash[:error] = params[:message]
     redirect_to root_url
   end
   
