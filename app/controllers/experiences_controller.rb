@@ -14,16 +14,24 @@ class ExperiencesController < ApplicationController
 
   # POST /experiences
   def create_and_update
-    @experiences = Experience.all
-    @experiences.each do |experience|
-      experience.update_attributes!(params[:experience])
+    problems = false
+    if params[:experiences]
+      @experiences = Experience.update(params[:experiences].keys, params[:experiences].values).reject { |e| e.errors.empty? }
+      if @experiences.empty?
+        flash[:notice] = 'Experiences updated.'
+      else
+        problems = true
+      end
+    else
+      @experiences = Experience.all
     end
-    flash[:notice] = 'Experiences were successfully updated.'
     @newexp = Experience.new(params[:newexp])
     if @newexp.save
-      flash[:notice] += 'Experience added.'
+      flash[:notice] += ' Experience added.'
+    else
+      problems = true
     end
-    redirect_to experiences_path
+    problems ? render(:action => 'index') : redirect_to(experiences_url)
   end
 
   # DELETE /experiences/1
