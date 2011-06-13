@@ -195,3 +195,12 @@ table.manage {
     }
   }
 }
+
+/* scaffold errors */
+.field_with_errors {
+  display: inline;
+  input {
+    background-color: $content_bg - #002222;
+    border: 1px solid red;
+  }
+}
