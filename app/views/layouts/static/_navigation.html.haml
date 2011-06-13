@@ -11,14 +11,15 @@
     %li
       = link_to 'programs', 'http://github.com/tekniklr'
   - if @wpblog
-    %ul
+    %ul.subnav
       %li
-        categories
+        = link_to 'rss', '/wpblog/feed/'
       %li
-        tags
+        = link_to 'categories', 'wp_categories_url'
       %li
-        archive
+        = link_to 'tags', 'wp_tags_url'
+      %li
+        = link_to 'archive', 'wp_archive_url'
       %li
         search
-      %li
-        rss
+  .break

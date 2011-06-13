@@ -3,6 +3,10 @@
     #admin
       Logged in as #{current_user.name}
       ☣
+      = link_to 'links', links_path
+      ☣
+      = link_to 'experiences', experiences_path
+      ☣
       = link_to 'wpadmin', '/wpblog/wp-admin/'
       ☣
       = link_to 'logout', logout_path

@@ -16,6 +16,10 @@ body {
   background-color: $page_bg;
 }
 
+p {
+  padding: .5em 0em .5em 0em;
+}
+
 #container {
   max-width: $max_page_width;
   margin: auto;
@@ -46,43 +50,90 @@ body {
 }
 
 #navigation {
-  max-width: $head_width;
-  margin: auto;
-  clear: both;
+  max-width: $navigation_width;
+  color: $navigation_font_color;
+  background-color: $navigation_bg;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
   ul {
-    border-top: 1px dashed $border_color;
-    display: block;
     clear: both;
+    width: 100%;
+    display: block;
     list-style-type: none;
-    padding: 0px;
-    margin: auto;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
     li {
       display: inline;
-      width: $max_page_width/5; // 20% of full page
+      width: $max_page_width/5; // 20% of full page - will be a static number, not a percentage (as it should be)
       text-align: center;
-      margin: auto;
+      margin: 0;
       float: left;
       padding: 0.75em 0em 0.75em 0em;
+      background-color: $navigation_bg;
     }
   }
   a:link, a:active, a:visited {
     text-decoration: none;
     font-size: 120%;
+    color: $navigation_font_color;
   }
   a:hover {
     font-weight: bold;
     font-size: 120%;
+    color: $navigation_font_color;
   }
+  .break {
+    /*
+      the nav was doing stupid things when fluidly resized.
+      this fixes it. the 1px also makes subnavs look better.
+    */ 
+    clear: both;
+    background-color: $navigation_bg;
+    width: 100%;
+    height: 1px;
+  }
+  .subnav {
+    margin: 0px 1px 0px 1px;
+    background-color: $subnav_bg;
+    max-width: ($max_page_width - 0.15);
+    li {
+      background-color: $subnav_bg;
+      width: ($max_page_width - 0.15)/5;
+    }
+    a:link, a:active, a:visited {
+      color: $base_font_color;
+    }
+    a:hover {
+      color: $base_font_color;
+    }
+  }
+}
+
+#title {
+  font-weight: bold;
+  font-size: 125%;
+  text-align: right;
+  text-transform: lowercase;
+  border-bottom: 1px dotted $border_color;
+  margin: 1em 0em 1em 0em;
+  padding: 0em 0em .25em 0em;
 }
 
 #main {
   clear: both;
+  position: relative;
+  top: -1em;
+  z-index: -1;
   background-color: $content_bg;
-  @include rounded(.1em, $border_color, 1em, 2em, solid);
+  @include rounded(.1em, $border_color, 1em, 1em, solid);
 }
 
 #pagefoot {
   clear: both;
+  position: relative;
+  top: -1em;
   text-align: center;
   font-size: 75%;
   max-width: $foot_width;
@@ -92,6 +143,9 @@ body {
   }
   a:hover {
     text-decoration: underline;
+  }
+  p {
+    padding: 0;
   }
 }
 
@@ -105,7 +159,7 @@ body {
   @include rounded(1px, $border_color, .5em, 1em, dotted);
   padding-top: .5em;
   ul { list-style-type: none; }
-  h1, h2{
+  h2{
     font-weight: bold;
     font-size: 110%;
     border-bottom: 1px solid;
@@ -120,4 +174,14 @@ body {
 
 /* used for static error pages */
 .dialog {
+}
+
+/* used in scaffold lists */
+table.manage {
+  tr {
+    th, td {
+      padding: .25em;
+      border: 1px dotted $border_color;
+    }
+  }
 }
