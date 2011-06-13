@@ -6,4 +6,14 @@ class MainControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should get about" do
+    get :about
+    assert_response :success
+  end
+  
+  test "should get acknowledgments" do
+    get :acknowledgments
+    assert_response :success
+  end
+
 end
