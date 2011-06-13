@@ -22,4 +22,7 @@
 
 = javascript_include_tag 'modernizr-1.7.min.js'
 
+- for link in @links do
+  %link{:rel => 'me', :href => link.url}/
+
 = yield :header

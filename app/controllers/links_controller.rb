@@ -14,16 +14,20 @@ class LinksController < ApplicationController
 
   # POST /links
   def create_and_update
-    @links = Link.all
-    @links.each do |link|
-      link.update_attributes!(params[:link])
+    problems = false
+    if params[:links]
+      @links = Link.update(params[:links].keys, params[:links].values).reject { |l| l.errors.empty? }
+      if @links.empty?
+        flash[:notice] = 'Links updated.'
+      else
+        problems = true
+      end
     end
-    flash[:notice] = 'Links were successfully updated.'
     @newlink = Link.new(params[:newlink])
     if @newlink.save
-      flash[:notice] += 'Link added.'
+      flash[:notice] += ' Link added.'
     end
-    redirect_to links_path
+    problems ? render(:action => 'index') : redirect_to(links_url)
   end
 
   # DELETE /links/1

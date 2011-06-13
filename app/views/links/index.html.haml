@@ -1,15 +1,23 @@
 = form_for :link do
   
   - @links.each do |link|
+    - if link.errors.any?
+      - @errors = true
+      #error_explanation
+        %h2 #{pluralize(link.errors.count, "error")} prohibited this link from being saved:
+        %ul
+          - link.errors.full_messages.each do |msg|
+            %li #{msg}
     %div[link]
       = fields_for "links[]", link do |update|
-        = render 'form', :f => update
-        = link_to('Delete', link, confirm: "Are you sure you want to delete #{link.name}?", :method => :delete)
-      
-  - Link.new do |newlink|
-    %div#newlink
-      = fields_for :newlink do |create|
-        = render 'form', :f => create
+        = render 'form', :f => update, :link => link
+        = link_to('Delete', link, confirm: "Are you sure you want to delete #{link.name}?", :method => :delete) unless @errors
+
+  - unless @errors
+    - Link.new do |newlink|
+      %div#newlink
+        = fields_for :newlink do |create|
+          = render 'form', :f => create, :link => newlink
   
   .center
     = submit_tag "Add / Update"

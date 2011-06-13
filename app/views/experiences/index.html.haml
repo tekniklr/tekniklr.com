@@ -1,15 +1,29 @@
-= form_for :experience do |f|
+= form_for :experience do
   
   - @experiences.each do |experience|
+    - if experience.errors.any?
+      - @errors = true
+      #error_explanation
+        %h2 #{pluralize(experience.errors.count, "error")} prohibited this experience from being saved:
+        %ul
+          - experience.errors.full_messages.each do |msg|
+            %li #{msg}
     %div[experience]
       = fields_for "experiences[]", experience do |update|
-        = render 'form', :f => update
-        = link_to('Delete', experience, confirm: "Are you sure you want to delete #{experience.title}?", :method => :delete)
-      
-  - Experience.new do |newexp|
-    %div#newexp
-      = fields_for :newexp do |create|
-        = render 'form', :f => create
+        = render 'form', :f => update, :experience => experience
+        = link_to('Delete', experience, confirm: "Are you sure you want to delete #{experience.title}?", :method => :delete) unless @errors
+ 
+  - unless @errors     
+    - Experience.new do |newexp|
+      - if newexp.errors.any?
+        #error_explanation
+          %h2 #{pluralize(newexp.errors.count, "error")} prohibited this experience from being saved:
+          %ul
+            - newexp.errors.full_messages.each do |msg|
+              %li #{msg}
+      %div#newexp
+        = fields_for :newexp do |create|
+          = render 'form', :f => create, :experience =>newexp
   
   .center
     = submit_tag "Add / Update"
