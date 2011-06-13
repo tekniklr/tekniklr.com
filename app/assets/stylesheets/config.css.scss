@@ -7,14 +7,18 @@ $base_font_color: #555;
 $page_bg: #fef7ff;
 $content_bg: lighten($page_bg, 90%);
 $border_color: darken($page_bg, 50%);
+$navigation_bg: darken($page_bg, 90%);
+$subnav_bg: $page_bg;
+$navigation_font_color: $page_bg;
 
 /* widths */
 $max_page_width: 61.75em;
 $head_width: 100%;
+$navigation_width: 100%;
 $foot_width: 75%;
 
 /* fonts */
-$base_font_size: 100%; // set to 13px in boilerplate
+$base_font_size: 12px; // set to 13px in boilerplate
 $content_font_family: Helvetica, Sans-Serif;
 
 /* ******************************************************** */

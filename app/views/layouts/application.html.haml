@@ -11,13 +11,15 @@
     = render :partial => 'layouts/static/header'
     = render :partial => 'layouts/static/navigation'
     #main
+      - unless @page_title.blank?
+        %h1#title #{@page_title.downcase}
       - if flash[:error]
         #flash.error
-          %h1 Error
+          %h2 Error
           = flash[:error]
       - if flash[:notice]
         #flash.notice
-          %h1 Notice
+          %h2 Notice
           = flash[:notice]
       = yield
     = render :partial => 'layouts/static/footer'
