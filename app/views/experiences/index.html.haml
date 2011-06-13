@@ -4,7 +4,7 @@
     %div[experience]
       = fields_for "experiences[]", experience do |update|
         = render 'form', :f => update
-        = link_to('Delete', link, confirm: "Are you sure you want to delete #{experience.title}?", :method => :delete)
+        = link_to('Delete', experience, confirm: "Are you sure you want to delete #{experience.title}?", :method => :delete)
       
   - Experience.new do |newexp|
     %div#newexp

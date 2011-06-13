@@ -26,7 +26,7 @@ class LinksControllerTest < ActionController::TestCase
 
   test "should create and update links" do
     assert_difference('Link.count') do
-      post(:create_and_update, {:link => {id: @link.to_param, experience: @link.attributes}, :newlink => {:name => 'test new', :url => 'http://google.com'}}, {'user_id' => 1})
+      post(:create_and_update, {:link => {id: @link.to_param, link: @link.attributes}, :newlink => {:name => 'test new', :url => 'http://google.com'}}, {'user_id' => 1})
     end
     assert_redirected_to links_path
   end

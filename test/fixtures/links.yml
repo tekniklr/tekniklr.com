@@ -3,14 +3,14 @@
 twitter:
   name: Twitter
   url: http://twitter.com/tekniklr
-  visible: true
+  visible: 1
 
 facebook:
   name: Facebook
   url: http://facebook.com/tekniklr
-  visible: true
+  visible: 1
 
 whuffie:
   name: Whuffie Bank
   url: http://thewhuffiebank.org/tekniklr
-  visible: false
+  visible: 0

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+google movie:
+  favorite_id: 1
+  thing: google movie
+  link: http://google.com
+  order: 1
+
+yahoo movie:
+  favorite_id: 2
+  thing: yahoo movie
+  link: http://yahoo.com
+  order: 2

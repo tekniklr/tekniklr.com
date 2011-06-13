@@ -30,6 +30,8 @@ TekniklrCom::Application.routes.draw do
   resources :experiences, :only => [:index, :destroy]
   match     'experiences' => 'experiences#create_and_update', :via => :post
   
+  resources :favorites
+  
   # https://github.com/rails/rails/issues/671
   # http://techoctave.com/c7/posts/36-rails-3-0-rescue-from-routing-error-solution
   match '*a', :to => "main#routing_error"
