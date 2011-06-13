@@ -6,28 +6,37 @@ class LinksController < ApplicationController
   # GET /links.json
   def index
     @links = Link.all
+    @link ||= Link.new
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @links }
     end
   end
 
-  # POST /links
-  def create_and_update
-    problems = false
-    if params[:links]
-      @links = Link.update(params[:links].keys, params[:links].values).reject { |l| l.errors.empty? }
-      if @links.empty?
-        flash[:notice] = 'Links updated.'
+  # PUT /links
+  def update_all
+    @links = Link.update(params[:links].keys, params[:links].values).reject { |l| l.errors.empty? }
+    if @links.empty?
+      flash[:notice] = 'Links updated.'
+      redirect_to(links_url)
+    else
+      render(:action => 'index')
+    end
+  end
+
+  # POST /link
+  # POST /links.json
+  def create
+    @link = Link.new(params[:link])
+    respond_to do |format|
+      if @link.save
+        format.html { redirect_to links_url, notice: 'Link added.' }
+        format.json { render json: @link, status: :created, location: @favorite }
       else
-        problems = true
+        format.html { render action: "index" }
+        format.json { render json: @link.errors, status: :unprocessable_entity }
       end
     end
-    @newlink = Link.new(params[:newlink])
-    if @newlink.save
-      flash[:notice] += ' Link added.'
-    end
-    problems ? render(:action => 'index') : redirect_to(links_url)
   end
 
   # DELETE /links/1
