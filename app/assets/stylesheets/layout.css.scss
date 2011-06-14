@@ -127,6 +127,13 @@ p {
   margin: 1em 0em 1em 0em;
   padding: 0em 0em .25em 0em;
 }
+h2{
+  font-weight: bold;
+  font-size: 110%;
+  text-decoration: underline;
+  margin: 2em 0em 1em 0;
+  padding: 0;
+}
 
 #main {
   clear: both;
@@ -171,9 +178,12 @@ p {
     font-weight: bold;
     font-size: 110%;
     border-bottom: 1px solid;
+    text-decoration: none;
+    padding: 0;
+    margin: 0;
   }
 }
-.notice {
+.notice, #notice {
   background-color: $content_bg - #220022;
 }
 .error, #error_explanation {
@@ -184,23 +194,25 @@ p {
 .dialog {
 }
 
-/* used in scaffold lists */
-table.manage {
-  width: 80%;
-  margin: auto;
-  tr {
-    th, td {
-      padding: .25em;
-      border: 1px dotted $border_color;
-    }
+/*
+ *  row ensures that left and right are the same height
+ *  clear ensures that a new row (or anything else) won't flow around
+ *  a row
+ */
+.row {
+  .left {
+    width: 20%;
+    margin: 0;
+    float: left;
+    text-align: right;
   }
-}
-
-/* scaffold errors */
-.field_with_errors {
-  display: inline;
-  input {
-    background-color: $content_bg - #002222;
-    border: 1px solid red;
+  .right {
+    width: 80%;
+    margin: 0;
+    float: right;
+    text-align: left;
+  }
+  .clear {
+    clear: both;
   }
 }

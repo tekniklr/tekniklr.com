@@ -8,9 +8,20 @@
  *= require_self
  *# require_tree . 
 */
+
+// boilerplate begin
 @import "config.css.scss";
 @import "html5bpreset.css.scss";
+
+// layout used in many places
 @import "layout.css.scss";
+@import "scaffold.css.scss";
+@import "forms.css.scss";
 @import "wordpress.css.scss";
-@import "main.css.scss";
+
+// controller specific styles
+@import "links.css.scss";
+@import "experiences.css.scss";
+
+// boilerplate end
 @import "html5bphelpers.css.scss";
