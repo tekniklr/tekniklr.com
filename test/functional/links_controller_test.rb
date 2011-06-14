@@ -35,7 +35,8 @@ class LinksControllerTest < ActionController::TestCase
   end
 
   test "should update links" do
-    put(:update_all, {links: links().to_params}, {'user_id' => 1})
+    @link2 = links('facebook')
+    put(:update_all, {links: {@link.to_param => @link.attributes, @link2.to_param => @link2.attributes}}, {'user_id' => 1})
     assert_redirected_to links_path
   end
 
