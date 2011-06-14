@@ -6,32 +6,37 @@ class ExperiencesController < ApplicationController
   # GET /experiences.json
   def index
     @experiences = Experience.all
+    @experience ||= Experience.new
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @experiences }
     end
   end
 
-  # POST /experiences
-  def create_and_update
-    problems = false
-    if params[:experiences]
-      @experiences = Experience.update(params[:experiences].keys, params[:experiences].values).reject { |e| e.errors.empty? }
-      if @experiences.empty?
-        flash[:notice] = 'Experiences updated.'
+  # PUT /experiences
+  def update_all
+    @experiences = Experience.update(params[:experiences].keys, params[:experiences].values).reject { |e| e.errors.empty? }
+    if @experiences.empty?
+      flash[:notice] = 'Experiences updated.'
+      redirect_to(experiences_url)
+    else
+      render(:action => 'index')
+    end
+  end
+
+  # POST /experience
+  # POST /experiences.json
+  def create
+    @experience = Experience.new(params[:experience])
+    respond_to do |format|
+      if @experience.save
+        format.html { redirect_to experiences_url, notice: 'Experience added.' }
+        format.json { render json: @experience, status: :created, location: @experience }
       else
-        problems = true
+        format.html { render action: "index" }
+        format.json { render json: @experience.errors, status: :unprocessable_entity }
       end
-    else
-      @experiences = Experience.all
     end
-    @newexp = Experience.new(params[:newexp])
-    if @newexp.save
-      flash[:notice] += ' Experience added.'
-    else
-      problems = true
-    end
-    problems ? render(:action => 'index') : redirect_to(experiences_url)
   end
 
   # DELETE /experiences/1

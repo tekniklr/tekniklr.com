@@ -1,17 +1,19 @@
-%h2 Current links
-= form_for :link, :method => :put do
-  - @links.each do |link|
-    %div[link]
-      = fields_for "links[]", link do |update|
-        = render 'form', :f => update, :link => link
-        = link_to('Delete', link, confirm: "Are you sure you want to delete #{link.name}?", :method => :delete)
-  .center
-    = submit_tag "Update all"
+- if @links && @links.count > 0
+  %h2 Current links
+  = form_for :link, :method => :put do
+    - @links.each do |link|
+      %div[link]
+        = fields_for "links[]", link do |update|
+          = render 'form', :f => update, :link => link
+          = link_to('Delete', link, confirm: "Are you sure you want to delete #{link.name}?", :method => :delete)
+    .center
+      = submit_tag "Update all"
 
-%h2 New Link     
-= form_for :link do
-  %div#link
-    = fields_for @link do |create|
-      = render 'form', :f => create, :link => @link  
-  .center
-    = submit_tag "Add"
+- if @link
+  %h2 New Link     
+  = form_for :link do
+    %div#link
+      = fields_for @link do |create|
+        = render 'form', :f => create, :link => @link  
+    .center
+      = submit_tag "Add"
