@@ -5,21 +5,44 @@
       - experience.errors.full_messages.each do |msg|
         %li #{msg}
 
-%p
-  = f.label :title
-  = f.text_field :title, :size => 36
-%p
-  = f.label :affiliation
-  = f.text_field :affiliation, :size => 36
-%p
-  = f.label :location
-  = f.text_field :location, :size => 36
-%p
-  = f.label :start_date
-  = date_select :experience, :start_date, :discard_day => true
-%p
-  = f.label :end_date
-  = date_select :experience, :end_date, :discard_day => true, :include_blank => true
-%p
-  = f.label :tasks
-  = f.text_area :tasks
+.row
+  .left
+    = f.label :title
+  .right
+    = f.text_field :title, :size => 36
+  .clear
+  
+.row
+  .left
+    = f.label :affiliation
+  .right
+    = f.text_field :affiliation, :size => 36
+  .clear
+  
+.row
+  .left
+    = f.label :location
+  .right
+    = f.text_field :location, :size => 36
+  .clear
+  
+.row
+  .left
+    = f.label :start_date
+  .right
+    = date_select :experience, :start_date, :discard_day => true
+  .clear
+   
+.row
+  .left
+    = f.label :end_date
+  .right
+    = date_select :experience, :end_date, :discard_day => true, :include_blank => true
+  .clear
+  
+.row
+  .left
+    = f.label :tasks
+  .right
+    = f.text_area :tasks, :cols => 36, :rows => 6
+  .clear

@@ -1,0 +1,17 @@
+label {
+  font-weight: bold;
+  padding-right: 1em;
+}
+
+input, textarea {
+  @include rounded(1px, #cccccc, .5em, .2em, solid);
+  background-color: $page_bg;
+}
+
+input[type=submit] {
+  @include rounded(1px, #555555, .5em, .2em, solid);
+  background-color: white;
+  color: #333333;
+  padding: .2em 1em .2em 1em;
+  margin: .5em 0 .5em 0;
+}

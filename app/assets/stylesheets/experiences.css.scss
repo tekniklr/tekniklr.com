@@ -3,3 +3,9 @@
   They will automatically be included in application.css.
   You can use Sass (SCSS) here: http://sass-lang.com/
 */
+
+.experience {
+  @include rounded(1px, #999999, .5em, 1em, dotted);
+  width: 80%;
+  margin: auto;
+}
