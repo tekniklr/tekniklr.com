@@ -1,5 +1,5 @@
 class FavoriteThing < ActiveRecord::Base
-  attr_accessible :favorite_id, :thing, :link, :order
+  attr_accessible :thing, :link, :order
   
   belongs_to  :favorite
   
@@ -15,6 +15,6 @@ class FavoriteThing < ActiveRecord::Base
   validates_presence_of     :order
   validates_numericality_of :order
   
-  default_scope :order => "'order' asc"
+  default_scope :order => "'order' asc, thing asc"
   
 end

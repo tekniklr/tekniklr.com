@@ -1,0 +1,10 @@
+%h2
+  Favorite Type #{@favorite.order}: #{@favorite.favorite_type}
+%ol
+  - @favorite.favorite_things.each do |thing|
+    %li #{thing.thing}
+
+.center
+  = link_to 'Edit', edit_favorite_path(@favorite)
+  |
+  = link_to 'List', favorites_path

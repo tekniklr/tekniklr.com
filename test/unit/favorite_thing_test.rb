@@ -21,6 +21,11 @@ class FavoriteThingTest < ActiveSupport::TestCase
     assert_equal(false, @favorite_thing.save)
   end
   
+  def test_validates_presence_of_thing
+    @favorite_thing.thing = nil
+    assert_equal(false, @favorite_thing.save)
+  end
+  
   def test_validates_cromulence_of_link
     @favorite_thing.link = 'google.com'
     assert_equal(false, @favorite_thing.save)
