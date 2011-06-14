@@ -11,7 +11,10 @@ class ExperiencesControllerTest < ActionController::TestCase
     get :index
     assert_redirected_to root_url
 
-    post :create_and_update
+    post :update_all
+    assert_redirected_to root_url
+
+    post :create, experience: @experience.attributes
     assert_redirected_to root_url
 
     delete :destroy, id: @experience.to_param
@@ -24,10 +27,16 @@ class ExperiencesControllerTest < ActionController::TestCase
     assert_not_nil assigns(:experiences)
   end
 
-  test "should create and update experiences" do
+  test "should create experience" do
     assert_difference('Experience.count') do
-      post(:create_and_update, {:experience => {id: @experience.to_param, experience: @experience.attributes}, :newexp => {:start_date => '2099-01-01', :title => 'Mega Woman', :affiliation => 'Futureplace', :location => 'Portland, OR'}}, {'user_id' => 1})
+      post(:create, {experience: @experience.attributes}, {'user_id' => 1})
     end
+    assert_redirected_to experiences_path
+  end
+
+  test "should update experiences" do
+    @experience2 = experiences('two')
+    put(:update_all, {experiences: {@experience.to_param => @experience.attributes, @experience2.to_param => @experience2.attributes}}, {'user_id' => 1})
     assert_redirected_to experiences_path
   end
 
