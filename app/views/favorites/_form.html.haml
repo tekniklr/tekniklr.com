@@ -1,0 +1,27 @@
+= form_for(@favorite) do |f|
+  - if @favorite.errors.any?
+    #error_explanation
+      %h2 #{pluralize(@favorite.errors.count, "error")} prohibited this favorite from being saved:
+      %ul
+        - @favorite.errors.full_messages.each do |msg|
+          %li #{msg}
+
+  %p
+    = f.label :favorite_type
+    = f.text_field :favorite_type
+
+    = f.label :order
+    = f.number_field :order, :size => 5
+
+  .things
+    = f.fields_for :favorite_things do |ft|
+      %p
+        = ft.label :thing
+        = ft.text_field :thing, :size => 24
+        = ft.label :link
+        = ft.text_field :link, :size => 24
+        = ft.label :order
+        = ft.number_field :order, :size => 5
+
+  .center
+    = f.submit

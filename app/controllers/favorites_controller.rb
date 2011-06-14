@@ -28,6 +28,8 @@ class FavoritesController < ApplicationController
   # GET /favorites/new.json
   def new
     @favorite = Favorite.new
+    @favorite.order = Favorite.all.count + 1
+    1.upto(5) { |n| @favorite.favorite_things.build(:order => n) }
 
     respond_to do |format|
       format.html # new.html.erb
