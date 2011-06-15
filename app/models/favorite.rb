@@ -1,5 +1,5 @@
 class Favorite < ActiveRecord::Base
-  attr_accessible :favorite_type, :order
+  attr_accessible :favorite_type, :order, :favorite_things_attributes
   
   has_many  :favorite_things, :dependent => :destroy
   accepts_nested_attributes_for :favorite_things, :reject_if => proc { |attributes| attributes['thing'].blank? }

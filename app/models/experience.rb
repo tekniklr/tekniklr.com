@@ -7,12 +7,12 @@ class Experience < ActiveRecord::Base
   validates_presence_of :affiliation
   validates_length_of   :affiliation, :maximum => 60
   
-  validates_length_of   :location, :maximum => 60, :allow_nil => true
+  validates_length_of   :location, :maximum => 60, :allow_nil => true, :if => :location
   
   validates_presence_of :start_date
   validates_date        :start_date
   
-  validates_date        :end_date, :allow_nil => true
+  validates_date        :end_date, :allow_nil => true, :if => :end_date?
   
   default_scope :order => 'start_date desc'
 end
