@@ -15,7 +15,7 @@
 
   .things
     = f.fields_for :favorite_things do |ft|
-      %p
+      %div
         = ft.label :thing
         = ft.text_field :thing, :size => 24
         = ft.label :link
