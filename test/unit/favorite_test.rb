@@ -6,7 +6,7 @@ class FavoriteTest < ActiveSupport::TestCase
   def setup
     @favorite = Favorite.new
     @favorite.favorite_type = 'Movies'
-    @favorite.order = 1
+    @favorite.sort = 1
   end
 
   def test_validates_presence_of_type
@@ -19,13 +19,13 @@ class FavoriteTest < ActiveSupport::TestCase
     assert_equal(false, @favorite.save)
   end
   
-  def test_validates_presence_of_order
-    @favorite.order = nil
+  def test_validates_presence_of_sort
+    @favorite.sort = nil
     assert_equal(false, @favorite.save)
   end
 
-  def test_validates_type_of_order
-    @favorite.order = 'a'
+  def test_validates_type_of_sort
+    @favorite.sort = 'a'
     assert_equal(false, @favorite.save)
   end
   

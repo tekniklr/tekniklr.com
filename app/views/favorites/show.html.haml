@@ -1,5 +1,5 @@
 %h2
-  Favorite Type #{@favorite.order}: #{@favorite.favorite_type}
+  Favorite Type #{@favorite.sort}: #{@favorite.favorite_type}
 %ol
   - @favorite.favorite_things.each do |thing|
     %li #{thing.thing}

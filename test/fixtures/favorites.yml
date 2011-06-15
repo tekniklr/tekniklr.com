@@ -2,8 +2,8 @@
 
 movies:
   favorite_type: Movies
-  order: 1
+  sort: 1
 
 books:
   favorite_type: Books
-  order: 2
+  sort: 2

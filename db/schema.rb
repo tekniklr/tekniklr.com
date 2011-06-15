@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110615062149) do
+ActiveRecord::Schema.define(:version => 20110615064224) do
 
   create_table "experiences", :force => true do |t|
     t.date     "start_date"
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(:version => 20110615062149) do
     t.integer  "favorite_id"
     t.string   "thing"
     t.string   "link"
-    t.integer  "order"
+    t.integer  "sort"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(:version => 20110615062149) do
 
   create_table "favorites", :force => true do |t|
     t.string   "favorite_type"
-    t.integer  "order"
+    t.integer  "sort"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
