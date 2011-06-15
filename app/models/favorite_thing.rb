@@ -1,5 +1,5 @@
 class FavoriteThing < ActiveRecord::Base
-  attr_accessible :favorite_id, :thing, :link, :order
+  attr_accessible :favorite_id, :thing, :link, :sort
   
   belongs_to  :favorite
   
@@ -9,9 +9,9 @@ class FavoriteThing < ActiveRecord::Base
   validates_length_of   :link, :maximum => 60,      :allow_nil => true, :if => :link?
   validates_format_of   :link, :with => URI.regexp, :allow_nil => true, :if => :link?
   
-  validates_presence_of     :order
-  validates_numericality_of :order
+  validates_presence_of     :sort
+  validates_numericality_of :sort
   
-  default_scope :order => "favorite_things.order"
+  default_scope :order => "sort asc, thing asc"
   
 end

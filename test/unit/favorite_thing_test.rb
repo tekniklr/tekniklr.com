@@ -8,7 +8,7 @@ class FavoriteThingTest < ActiveSupport::TestCase
     @favorite_thing.favorite_id = 1
     @favorite_thing.thing = 'The google movie'
     @favorite_thing.link = 'http://google.com'
-    @favorite_thing.order = 1
+    @favorite_thing.sort = 1
   end
   
   def test_validates_presence_of_thing
@@ -41,13 +41,13 @@ class FavoriteThingTest < ActiveSupport::TestCase
     assert_equal(false, @favorite_thing.save)
   end
   
-  def test_validates_presence_of_order
-    @favorite_thing.order = nil
+  def test_validates_presence_of_sort
+    @favorite_thing.sort = nil
     assert_equal(false, @favorite_thing.save)
   end
   
-  def test_validates_type_of_order
-    @favorite_thing.order = 'a'
+  def test_validates_type_of_sort
+    @favorite_thing.sort = 'a'
     assert_equal(false, @favorite_thing.save)
   end
   
