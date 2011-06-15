@@ -20,6 +20,10 @@ p {
   padding: .5em 0em .5em 0em;
 }
 
+// other fonts defined in the boilerplate, but I think it's good to have
+// visited non-nav links be a different color
+a:visited { color: darken($border_color, 10%); }
+
 // easily center things in haml
 .center {
   text-align: center;
@@ -37,9 +41,11 @@ p {
   font-size: 75%;
   padding-bottom: 1em;
   a:link, a:active, a:visited {
+    color: $base_font_color;
     text-decoration: none;
   }
   a:hover {
+    color: $base_font_color;
     text-decoration: underline;
   }
 }
@@ -47,7 +53,7 @@ p {
 #pagehead {
   background-image: url(/images/tentacles.png);
   background-repeat: no-repeat;
-  background-position: top right;
+  background-position: bottom right;
   height: 100px;
   overflow: hidden;
   max-width: $head_width;
@@ -141,7 +147,7 @@ h2{
   top: -1em;
   z-index: 0;
   background-color: $content_bg;
-  @include rounded(.1em, $border_color, 1em, 1em, none);
+  @include rounded(.1em, $border_color, 2em, 2em, none);
 }
 
 #pagefoot {
@@ -153,9 +159,11 @@ h2{
   max-width: $foot_width;
   margin: auto;
   a:link, a:active, a:visited {
+    color: $base_font_color;
     text-decoration: none;
   }
   a:hover {
+    color: $base_font_color;
     text-decoration: underline;
   }
   p {
