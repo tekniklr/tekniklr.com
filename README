@@ -2,17 +2,17 @@ The rails source for my current big website redesign. Always a
 work in progress.
 
 Current goals:
-  * [ ] Do rails the right way. With testing and everything.
+  * [X] Do rails the right way. With testing and everything.
     * [ ] manage about page/favorite things, etc in db
-    * [ ] manage work experience for uniformity and printability
-    * [ ] manage remote site links for hcard/rel links/bio display
+    * [X] manage work experience for uniformity and printability
+    * [X] manage remote site links for hcard/rel links/bio display
   * [X] omniauth
   * [ ] Social media bar
   * [ ] hcard/hresume
   * [X] HTML5 (boilerplate)
   * [X] HAML
   * [X] sass
-  * [ ] coffeescript
-  * [ ] ajaxy updatebits
+  * [-] coffeescript (not using enough javascript to warrant it)
+  * [-] ajaxy updatebits (would actually rather not have this right now)
   * [ ] minimalist design
-  * [ ] golden ratio
+  * [?] golden ratio (at full size the background tentacles do this. does it count?)
