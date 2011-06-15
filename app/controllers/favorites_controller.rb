@@ -40,6 +40,10 @@ class FavoritesController < ApplicationController
   # GET /favorites/1/edit
   def edit
     @favorite = Favorite.find(params[:id])
+    things = @favorite.favorite_things.count
+    if things < 5
+      (things+1).upto(5) { |n| @favorite.favorite_things.build(:sort => n) }
+    end
   end
 
   # POST /favorites
