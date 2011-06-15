@@ -10,16 +10,6 @@ class FavoriteThingTest < ActiveSupport::TestCase
     @favorite_thing.link = 'http://google.com'
     @favorite_thing.order = 1
   end
-
-  def test_validates_presence_of_favorite
-    @favorite_thing.favorite_id = nil
-    assert_equal(false, @favorite_thing.save)
-  end
-  
-  def test_validates_type_of_favorite
-    @favorite_thing.favorite_id = 'a'
-    assert_equal(false, @favorite_thing.save)
-  end
   
   def test_validates_presence_of_thing
     @favorite_thing.thing = nil
