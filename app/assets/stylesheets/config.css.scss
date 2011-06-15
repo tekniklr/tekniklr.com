@@ -8,7 +8,7 @@ $page_bg: #fef7ff;
 $content_bg: lighten($page_bg, 90%);
 $border_color: darken($page_bg, 50%);
 $navigation_bg: darken($page_bg, 90%);
-$subnav_bg: $page_bg;
+$subnav_bg: $content_bg;
 $navigation_font_color: $page_bg;
 
 /* widths */
