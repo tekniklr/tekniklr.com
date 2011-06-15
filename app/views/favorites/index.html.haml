@@ -2,13 +2,13 @@
 
 %table.manage
   %tr
-    %th Order
+    %th #
     %th Type
     %th{colspan:3}
 
   - @favorites.each do |favorite|
     %tr
-      %td{rowspan:2} #{favorite.order}
+      %td{rowspan:2} #{favorite.sort}
       %td #{favorite.favorite_type}
       %td{rowspan:2}
         = link_to 'Show', favorite
