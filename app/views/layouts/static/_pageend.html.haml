@@ -1,9 +1,3 @@
-/ # Fix any <img> or .png_bg background-images
-/[if lt IE 7 ]
-  = javascript_include_tag 'dd_belatedpng.js'
-  %script
-    DD_belatedPNG.fix('img, .png_bg');
-
 / # include all other javascript, which will be bundled
 = javascript_include_tag :application
 = yield :javascript
