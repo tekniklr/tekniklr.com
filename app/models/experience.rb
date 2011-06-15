@@ -7,7 +7,7 @@ class Experience < ActiveRecord::Base
   validates_presence_of :affiliation
   validates_length_of   :affiliation, :maximum => 60
   
-  validates_length_of   :location, :maximum => 60, :allow_nil => true, :if => :location
+  validates_length_of   :location, :maximum => 60, :allow_nil => true, :allow_blank => true
   
   validates_presence_of :start_date
   validates_date        :start_date
