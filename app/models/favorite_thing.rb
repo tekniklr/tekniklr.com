@@ -1,5 +1,5 @@
 class FavoriteThing < ActiveRecord::Base
-  attr_accessible :favorite_id, :thing, :link, :sort
+  attr_accessible :thing, :link, :sort
   
   belongs_to  :favorite
   
