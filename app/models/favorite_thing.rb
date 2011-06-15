@@ -3,9 +3,6 @@ class FavoriteThing < ActiveRecord::Base
   
   belongs_to  :favorite
   
-  validates_presence_of     :favorite_id
-  validates_numericality_of :favorite_id
-  
   validates_presence_of :thing
   validates_length_of   :thing, :maximum => 60
   
