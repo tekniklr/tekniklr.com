@@ -2,7 +2,8 @@
   Favorite Type #{@favorite.sort}: #{@favorite.favorite_type}
 %ol
   - @favorite.favorite_things.each do |thing|
-    %li #{thing.thing}
+    %li
+      = thing.link ? link_to(thing.thing, thing.link) : thing.thing
 
 .center
   = link_to 'Edit', edit_favorite_path(@favorite)

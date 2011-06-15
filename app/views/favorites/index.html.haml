@@ -9,7 +9,8 @@
   - @favorites.each do |favorite|
     %tr
       %td{rowspan:2} #{favorite.sort}
-      %td #{favorite.favorite_type}
+      %td
+        %strong #{favorite.favorite_type}
       %td{rowspan:2}
         = link_to 'Show', favorite
       %td{rowspan:2}
@@ -20,7 +21,8 @@
       %td
         %ol
           - favorite.favorite_things.each do |thing|
-            %li #{thing.thing}
+            %li 
+              = thing.link ? link_to(thing.thing, thing.link) : thing.thing
 
 .center
   = link_to 'New Favorite', new_favorite_path
