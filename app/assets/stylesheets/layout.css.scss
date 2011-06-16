@@ -51,13 +51,18 @@ a:visited { color: darken($border_color, 10%); }
 }
 
 #pagehead {
-  background-image: url(/images/tentacles.png);
+  background-image: url(/assets/tentacles.png);
   background-repeat: no-repeat;
   background-position: bottom right;
   height: 100px;
   overflow: hidden;
   max-width: $head_width;
-  margin: auto;
+  padding: 0;
+  margin: 0;
+  h1 {
+    font-size: 150%;
+    margin: 1.5em 0 0 0;
+  }
 }
 
 #navigation {
