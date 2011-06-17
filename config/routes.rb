@@ -27,8 +27,7 @@ TekniklrCom::Application.routes.draw do
   resources :links, :only => [:index, :create, :destroy]
   match     'links' => 'links#update_all', :via => :put
   
-  resources :experiences, :only => [:index, :create, :destroy]
-  match     'experiences' => 'experiences#update_all', :via => :put
+  resources :experiences, :except => [:new, :show]
   
   resources :favorites
   

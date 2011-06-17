@@ -11,10 +11,13 @@ class ExperiencesControllerTest < ActionController::TestCase
     get :index
     assert_redirected_to root_url
 
-    post :update_all
-    assert_redirected_to root_url
-
     post :create, experience: @experience.attributes
+    assert_redirected_to root_url
+    
+    get :edit, id: @experience.to_param
+    assert_redirected_to root_url
+    
+    put :update, id: @experience.to_param, experience: @experience.attributes
     assert_redirected_to root_url
 
     delete :destroy, id: @experience.to_param
@@ -34,9 +37,13 @@ class ExperiencesControllerTest < ActionController::TestCase
     assert_redirected_to experiences_path
   end
 
-  test "should update experiences" do
-    @experience2 = experiences('two')
-    put(:update_all, {experiences: {@experience.to_param => @experience.attributes, @experience2.to_param => @experience2.attributes}}, {'user_id' => 1})
+  test "should get edit" do
+    get(:edit, {id: @experience.to_param}, {'user_id' => 1})
+    assert_response :success
+  end
+
+  test "should update experience" do
+    put(:update, {id: @experience.to_param, experience: @experience.attributes}, {'user_id' => 1})
     assert_redirected_to experiences_path
   end
 

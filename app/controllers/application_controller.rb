@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
   end
   
   def get_links
-    @links = Link.all
+    @links ||= Link.all
   end
   
   private

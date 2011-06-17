@@ -8,4 +8,44 @@
   @include rounded(1px, #999999, .5em, 1em, dotted);
   width: 80%;
   margin: auto;
+  margin-bottom: 2em;
+}
+
+.experience_metadata {
+  p {
+    margin: 0;
+    padding: 0;
+  }
+  padding: 0 0 .5em 0;
+  .left {
+    width: 70%;
+    margin: 0;
+    float: left;
+    text-align: left;
+  }
+  .right {
+    width: 30%;
+    margin: 0;
+    float: right;
+    text-align: right;
+  }
+  .clear {
+    clear: both;
+  }
+}
+
+.tasks {
+  border-top: 1px #cccccc dotted;
+  margin: 0;
+  padding: .5em 2em .5em 2em;
+  text-align: justify;
+  ul {
+    list-style-type: circle;
+    margin: 0;
+    padding: 0;
+    li {
+      margin: 0;
+      padding: 0;
+    }
+  }
 }
