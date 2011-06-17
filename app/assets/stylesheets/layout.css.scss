@@ -20,9 +20,15 @@ p {
   padding: .5em 0em .5em 0em;
 }
 
-// other fonts defined in the boilerplate, but I think it's good to have
-// visited non-nav links be a different color
-a:visited { color: darken($border_color, 10%); }
+em {
+  font-style: italic;
+}
+
+// other link stuff defined in the boilerplate, but I think it's good to
+// have visited non-nav links be a different color
+a:link, a:active { color: $border_color - #666600; }
+a:visited { color: darken($border_color, 15%); }
+a:hover { color: $border_color; }
 
 // easily center things in haml
 .center {

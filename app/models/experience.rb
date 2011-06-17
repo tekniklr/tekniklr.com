@@ -12,7 +12,7 @@ class Experience < ActiveRecord::Base
   validates_presence_of :start_date
   validates_date        :start_date
   
-  validates_date        :end_date, :allow_nil => true, :if => :end_date?
+  validates_date        :end_date, :allow_nil => true, :allow_blank => true
   
   default_scope :order => 'start_date desc'
 end
