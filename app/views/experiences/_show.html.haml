@@ -1,0 +1,16 @@
+.experience_metadata
+  .left
+    %p
+      %strong #{experience.title}
+    %p
+      %em #{experience.affiliation}
+  .right
+    %p #{experience.start_date.strftime("%Y/%m")} ~ #{experience.end_date ? experience.end_date.strftime("%Y/%m") : "present"}
+    %p #{experience.location}
+  .clear
+- if experience.tasks
+  .tasks
+    %ul
+      - experience.tasks.split("\n").each do |task|
+        %li
+          = sanitize task, :tags => %w(a strong em u)

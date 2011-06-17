@@ -13,15 +13,9 @@ class ExperiencesController < ApplicationController
     end
   end
 
-  # PUT /experiences
-  def update_all
-    @experiences = Experience.update(params[:experiences].keys, params[:experiences].values).reject { |e| e.errors.empty? }
-    if @experiences.empty?
-      flash[:notice] = 'Experiences updated.'
-      redirect_to(experiences_url)
-    else
-      render(:action => 'index')
-    end
+  # GET /experiences/1/edit
+  def edit
+    @experience = Experience.find(params[:id])
   end
 
   # POST /experience
@@ -34,6 +28,22 @@ class ExperiencesController < ApplicationController
         format.json { render json: @experience, status: :created, location: @experience }
       else
         format.html { render action: "index" }
+        format.json { render json: @experience.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PUT /experiences/1
+  # PUT /experiences/1.json
+  def update
+    @experience = Experience.find(params[:id])
+
+    respond_to do |format|
+      if @experience.update_attributes(params[:experience])
+        format.html { redirect_to experiences_url, notice: 'Experience was successfully updated.' }
+        format.json { head :ok }
+      else
+        format.html { render action: "edit" }
         format.json { render json: @experience.errors, status: :unprocessable_entity }
       end
     end
