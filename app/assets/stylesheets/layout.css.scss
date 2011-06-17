@@ -67,8 +67,11 @@ a:visited { color: darken($border_color, 10%); }
     font-size: 80%;
     font-style: italic;
     color: #888888;
-    padding: 0 0 0 2em;
-    margin: 0;
+    margin: 0 0 0 2em;
+    background-color: $page_bg;
+    @include rounded(1px, transparent, .5em, .5em, none);
+    @include transparent(0.8);
+    display: inline;
   }
 }
 

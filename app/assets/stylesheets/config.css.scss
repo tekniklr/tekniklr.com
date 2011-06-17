@@ -33,3 +33,10 @@ $base_font_color: #607890; // from boilerplate
   -webkit-border-radius: $radius;
   padding: $padding;
 }
+
+@mixin transparent($opacity) {
+  filter: alpha( opacity = $opacity*100 );
+  -moz-opacity: $opacity;
+  -khtml-opacity: $opacity;
+  opacity: $opacity;
+}
