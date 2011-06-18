@@ -24,12 +24,15 @@ TekniklrCom::Application.routes.draw do
     match '/static/pageend' => 'static#pageend_partial'
   end
   
-  resources :links, :only => [:index, :create, :destroy]
-  match     'links' => 'links#update_all', :via => :put
+  resources :links, :only => [:index, :create, :destroy] do
+    put 'update_all', :on => :collection
+  end
   
   resources :experiences, :except => [:new, :show]
   
-  resources :favorites
+  resources :favorites do
+    put 'sort', :on => :collection
+  end
   
   # https://github.com/rails/rails/issues/671
   # http://techoctave.com/c7/posts/36-rails-3-0-rescue-from-routing-error-solution
