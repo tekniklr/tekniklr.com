@@ -3,6 +3,10 @@ require 'test_helper'
 class FavoritesControllerTest < ActionController::TestCase
   setup do
     @favorite = favorites(:movies)
+    @favorite_thing1 = favorite_things(:google_movie)
+    @favorite_thing1.favorite = @favorite
+    @favorite_thing2 = favorite_things(:yahoo_movie)
+    @favorite_thing2.favorite = @favorite
   end
 
   test "should not work without login" do
@@ -19,6 +23,9 @@ class FavoritesControllerTest < ActionController::TestCase
     assert_redirected_to root_url
     
     get :edit, id: @favorite.to_param
+    assert_redirected_to root_url
+
+    put :sort, favorite_things: @favorite_thing1.attributes
     assert_redirected_to root_url
     
     put :update, id: @favorite.to_param, favorite: @favorite.attributes
@@ -43,7 +50,6 @@ class FavoritesControllerTest < ActionController::TestCase
     assert_difference('Favorite.count') do
       post(:create, {favorite: @favorite.attributes}, {'user_id' => 1})
     end
-
     assert_redirected_to favorite_path(assigns(:favorite))
   end
 
@@ -57,6 +63,11 @@ class FavoritesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should re-order things" do
+    put(:sort, {favorite_thing: [@favorite_thing1.to_param, @favorite_thing2.to_param]}, {'user_id' => 1})
+    assert_redirected_to favorites_path
+  end
+
   test "should update favorite" do
     put(:update, {id: @favorite.to_param, favorite: @favorite.attributes}, {'user_id' => 1})
     assert_redirected_to favorite_path(assigns(:favorite))
@@ -66,7 +77,6 @@ class FavoritesControllerTest < ActionController::TestCase
     assert_difference('Favorite.count', -1) do
       delete(:destroy, {id: @favorite.to_param}, {'user_id' => 1})
     end
-
     assert_redirected_to favorites_path
   end
 end
