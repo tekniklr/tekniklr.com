@@ -1,6 +1,6 @@
 - if @links && @links.count > 0
   %h2 Current links
-  = form_for :link, :method => :put do
+  = form_for :link, :url => update_all_links_path, :method => :put do
     - @links.each do |link|
       %div.link[link]
         = fields_for "links[]", link do |update|
