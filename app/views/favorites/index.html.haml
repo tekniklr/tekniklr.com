@@ -1,28 +1,20 @@
 %h2 Listing favorites
 
-%table.manage
-  %tr
-    %th #
-    %th Type
-    %th{colspan:3}
-
+%ol#sort_favorites
   - @favorites.each do |favorite|
-    %tr
-      %td{rowspan:2} #{favorite.sort}
-      %td
-        %strong #{favorite.favorite_type}
-      %td{rowspan:2}
+    = content_tag_for :li, favorite do
+      %span.drag ≡
+      %strong #{favorite.favorite_type}
+      %ol
+        - favorite.favorite_things.each do |thing|
+          %li 
+            = thing.link ? link_to(thing.thing, thing.link) : thing.thing
+      .list_manage
         = link_to 'Show', favorite
-      %td{rowspan:2}
+        |
         = link_to 'Edit', edit_favorite_path(favorite)
-      %td{rowspan:2}
+        |
         = link_to('Destroy', favorite, confirm: "Are you sure you want to delete your #{favorite.favorite_type} favorites?", :method => :delete)
-    %tr
-      %td
-        %ol
-          - favorite.favorite_things.each do |thing|
-            %li 
-              = thing.link ? link_to(thing.thing, thing.link) : thing.thing
 
 .center
   = link_to 'New Favorite', new_favorite_path

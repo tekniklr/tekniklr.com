@@ -13,7 +13,7 @@
     = f.label :sort
     = f.number_field :sort, :size => 5
 
-  .things
+  .things_edit
     = f.fields_for :favorite_things do |ft|
       %div
         = ft.label :thing

@@ -31,6 +31,12 @@ table.manage {
   }
 }
 
+// for scaffold management within a list
+.list_manage {
+  text-align: center;
+  padding: .5em 0 1em 0;
+}
+
 // for drag-and-drop sortable bits
 .drag {
   color: #666;

@@ -4,7 +4,12 @@
   You can use Sass (SCSS) here: http://sass-lang.com/
 */
 
-.things {
+.things_edit {
   margin: 0 2em 3em 3em;
   border-left: 1px solid #999999;
+}
+
+#sort_favorites {
+  width: 50%;
+  margin: auto;
 }
