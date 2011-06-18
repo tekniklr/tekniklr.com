@@ -3,6 +3,7 @@ require 'test_helper'
 class FavoritesControllerTest < ActionController::TestCase
   setup do
     @favorite = favorites(:movies)
+    @favorite2 = favorites(:books)
     @favorite_thing1 = favorite_things(:google_movie)
     @favorite_thing1.favorite = @favorite
     @favorite_thing2 = favorite_things(:yahoo_movie)
@@ -25,7 +26,10 @@ class FavoritesControllerTest < ActionController::TestCase
     get :edit, id: @favorite.to_param
     assert_redirected_to root_url
 
-    put :sort, favorite_things: @favorite_thing1.attributes
+    put :sort_favorites, favorite: @favorite.to_param
+    assert_redirected_to root_url
+
+    put :sort_things, favorite_thing: @favorite_thing1.to_param
     assert_redirected_to root_url
     
     put :update, id: @favorite.to_param, favorite: @favorite.attributes
@@ -63,8 +67,13 @@ class FavoritesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should re-order favorites" do
+    put(:sort_favorites, {favorite: [@favorite.to_param, @favorite2.to_param]}, {'user_id' => 1})
+    assert_redirected_to favorites_path
+  end
+
   test "should re-order things" do
-    put(:sort, {favorite_thing: [@favorite_thing1.to_param, @favorite_thing2.to_param]}, {'user_id' => 1})
+    put(:sort_things, {favorite_thing: [@favorite_thing1.to_param, @favorite_thing2.to_param]}, {'user_id' => 1})
     assert_redirected_to favorites_path
   end
 
