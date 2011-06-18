@@ -13,6 +13,8 @@ gem 'sass'          # css
 gem 'haml'          # html
 gem 'coffee-script' # javacript
 gem 'uglifier'      # javascript condenser
+
+# javascript funtimes
 gem 'jquery-rails'
 
 # needed for authentication
@@ -39,4 +41,5 @@ group :development do
   gem "wirble"
   gem "hirb"
   gem "awesome_print"
+  gem "looksee"
 end
