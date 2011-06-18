@@ -31,7 +31,8 @@ TekniklrCom::Application.routes.draw do
   resources :experiences, :except => [:new, :show]
   
   resources :favorites do
-    put 'sort', :on => :collection
+    put 'sort_favorites', :on => :collection
+    put 'sort_things',    :on => :collection
   end
   
   # https://github.com/rails/rails/issues/671
