@@ -6,7 +6,6 @@ class FavoritesController < ApplicationController
   # GET /favorites.json
   def index
     @favorites = Favorite.all
-
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @favorites }
@@ -17,7 +16,6 @@ class FavoritesController < ApplicationController
   # GET /favorites/1.json
   def show
     @favorite = Favorite.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @favorite }
@@ -30,7 +28,6 @@ class FavoritesController < ApplicationController
     @favorite = Favorite.new
     @favorite.sort = Favorite.all.count + 1
     1.upto(5) { |n| @favorite.favorite_things.build(:sort => n) }
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @favorite }
@@ -50,7 +47,6 @@ class FavoritesController < ApplicationController
   # POST /favorites.json
   def create
     @favorite = Favorite.new(params[:favorite])
-
     respond_to do |format|
       if @favorite.save
         format.html { redirect_to @favorite, notice: 'Favorite was successfully created.' }
@@ -62,11 +58,21 @@ class FavoritesController < ApplicationController
     end
   end
 
+  # PUT /favorites/sort
+  def sort
+    params[:favorite_thing].each_with_index do |id, index|  
+      FavoriteThing.update_all(['sort=?', index+1], ['id=?', id])
+    end
+    respond_to do |format|
+      format.html { redirect_to favorites_url, notice: 'Favorite things re-ordered.' }
+      format.js   { render :nothing => true }
+    end
+  end
+
   # PUT /favorites/1
   # PUT /favorites/1.json
   def update
     @favorite = Favorite.find(params[:id])
-
     respond_to do |format|
       if @favorite.update_attributes(params[:favorite])
         format.html { redirect_to @favorite, notice: 'Favorite was successfully updated.' }
@@ -83,7 +89,6 @@ class FavoritesController < ApplicationController
   def destroy
     @favorite = Favorite.find(params[:id])
     @favorite.destroy
-
     respond_to do |format|
       format.html { redirect_to favorites_url }
       format.json { head :ok }
