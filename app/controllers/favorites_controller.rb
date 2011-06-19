@@ -89,6 +89,7 @@ class FavoritesController < ApplicationController
     @favorite.destroy
     respond_to do |format|
       format.html { redirect_to favorites_url }
+      format.js
     end
   end
 end
