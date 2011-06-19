@@ -24,11 +24,15 @@ class ExperiencesController < ApplicationController
     @experience = Experience.new(params[:experience])
     respond_to do |format|
       if @experience.save
-        format.html { redirect_to experiences_url, notice: 'Experience added.' }
+        flash[:notice] = 'Experience added.'
+        format.html { redirect_to experiences_url }
         format.json { render json: @experience, status: :created, location: @experience }
+        format.js
       else
+        flash[:error] = 'Experience not valid: '+@experience.errors.full_messages.join(', ')
         format.html { render action: "index" }
         format.json { render json: @experience.errors, status: :unprocessable_entity }
+        format.js   { render action: "error" }
       end
     end
   end
@@ -58,6 +62,7 @@ class ExperiencesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to experiences_url }
       format.json { head :ok }
+      format.js   { render :nothing => true }
     end
   end
 end

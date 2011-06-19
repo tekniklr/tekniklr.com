@@ -5,3 +5,4 @@
 //= require jquery-setup
 //= require favorites
 //= require links
+//= require experiences

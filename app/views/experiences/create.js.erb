@@ -1,0 +1,5 @@
+$('#notification').hide(300);
+$('#notification').html('<div id="flash" class="notice"><%= escape_javascript(flash.discard(:notice)) %></div>');
+$('#notification').show(300);
+$('#experiences').append("<%= escape_javascript(render('show', :experience => @experience)) %>");
+$('#new_exp')[0].reset();
