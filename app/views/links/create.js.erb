@@ -1,5 +1,3 @@
-$('#notification').hide(300);
-$('#notification').html('<div id="flash" class="notice"><%= escape_javascript(flash.discard(:notice)) %></div>');
-$('#notification').show(300);
+notify("<%= escape_javascript(flash.discard(:notice)) %>");
 $('#links').append("<%= escape_javascript(render('link', :link => @link)) %>");
 $('#new_link')[0].reset();

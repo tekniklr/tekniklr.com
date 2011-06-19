@@ -1,11 +1,34 @@
-#error_explanation {
+/* flash notices / errors */
+#flash, .flash, #error_explanation {
+  width: 80%;
+  margin: auto;
+  margin-top: 1em;
+  margin-bottom: 2em;
+  text-align: center;
+  font-family: monospace;
+  @include rounded(1px, $border_color, .5em, 1em, dotted);
+  padding-top: .5em;
   ul {
     text-align: left;
-    li {
-      font-size: 12px;
-      list-style: square;
-    }
   }
+  h2{
+    font-weight: bold;
+    font-size: 110%;
+    border-bottom: 1px solid;
+    text-decoration: none;
+    padding: 0;
+    margin: 0;
+  }
+}
+.notice, #notice {
+  background-color: $content_bg - #220022;
+}
+.error, #error_explanation {
+  background-color: $content_bg - #002222;
+}
+
+/* used for static error pages */
+.dialog {
 }
 
 /* scaffold errors */
