@@ -1,0 +1,7 @@
+= form_for @experience do |f|
+  %div.experience#experience
+    = render 'form', :f => f, :experience => @experience
+  .center
+    = submit_tag "Update", :remote => true
+    %p
+      = link_to 'Cancel', @experience, :remote => true

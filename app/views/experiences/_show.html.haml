@@ -1,20 +1,3 @@
-%div.experience[experience]
-  .experience_metadata
-    .left
-      %p
-        %strong #{experience.title}
-      %p
-        %em #{experience.affiliation}
-    .right
-      %p #{experience.start_date.strftime("%Y/%m")} ~ #{experience.end_date ? experience.end_date.strftime("%Y/%m") : "present"}
-      %p #{experience.location}
-    .clear
-  - if !experience.tasks.blank?
-    .tasks
-      %ul
-        - experience.tasks.split("\n").each do |task|
-          %li
-            = sanitize task, :tags => %w(a strong em u)
-  %p.center
-    = link_to 'Edit', edit_experience_path(experience)
-    = link_to('Delete', experience, confirm: "Are you sure you want to delete #{experience.title} @ #{experience.affiliation}?", :method => :delete, :class => 'delete')
+.experience[experience]
+  %div{ :id => "notification_#{experience.id}" }
+  = render 'view', :experience => experience
