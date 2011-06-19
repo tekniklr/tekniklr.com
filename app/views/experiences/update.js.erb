@@ -1,0 +1,2 @@
+notify("<%= escape_javascript(flash.discard(:notice)) %>", 'notice', '#notification_<%= @experience.id %>');
+$('#experience_<%= @experience.id %>').html("<%= escape_javascript(render 'view', :experience => experience) %>");

@@ -11,6 +11,9 @@ class ExperiencesControllerTest < ActionController::TestCase
     get :index
     assert_redirected_to root_url
 
+    get :show, id: @experience.to_param
+    assert_redirected_to root_url
+
     post :create, experience: @experience.attributes
     assert_redirected_to root_url
     
@@ -37,6 +40,11 @@ class ExperiencesControllerTest < ActionController::TestCase
     assert_redirected_to experiences_path
   end
 
+  test "should show experience" do
+    get(:show, {id: @experience.id}, {'user_id' => 1})
+    assert_response :success
+  end
+  
   test "should get edit" do
     get(:edit, {id: @experience.to_param}, {'user_id' => 1})
     assert_response :success

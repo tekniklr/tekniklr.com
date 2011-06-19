@@ -28,7 +28,7 @@ TekniklrCom::Application.routes.draw do
     put 'update_all', :on => :collection
   end
   
-  resources :experiences, :except => [:new, :show]
+  resources :experiences, :except => [:new]
   
   resources :favorites do
     put 'sort_favorites', :on => :collection
