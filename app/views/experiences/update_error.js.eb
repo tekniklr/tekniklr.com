@@ -1,0 +1,2 @@
+$('#notification_<%= @experience.id %>').html('');
+$('#notification_<%= @experience.id %>').html('<div id="flash" class="error"><%= escape_javascript(flash.discard(:error)) %></div>');
