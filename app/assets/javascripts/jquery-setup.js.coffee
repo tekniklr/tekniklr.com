@@ -19,15 +19,4 @@ $(document).ready ->
     if typeof(AUTH_TOKEN) == "undefined"
       return
     settings.data = settings.data || ""
-    settings.data += (if settings.data then "&" else "") + "authenticity_token=" + encodeURIComponent(AUTH_TOKEN)    
-
-# delete in an ajaxy way
-$(document).ready ->
-  $('a.delete').click ->
-    if confirm $(@).attr('data-confirm')
-      row = $(@).closest("div").get(0);
-      $.post @href, { _method: 'delete' }, null, "script"
-      $(row).hide()
-      false
-    else
-      false
+    settings.data += (if settings.data then "&" else "") + "authenticity_token=" + encodeURIComponent(AUTH_TOKEN)
