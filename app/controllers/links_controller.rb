@@ -30,11 +30,15 @@ class LinksController < ApplicationController
     @link = Link.new(params[:link])
     respond_to do |format|
       if @link.save
-        format.html { redirect_to links_url, notice: 'Link added.' }
+        flash[:notice] = 'Link added.'
+        format.html { redirect_to links_url }
         format.json { render json: @link, status: :created, location: @favorite }
+        format.js   
       else
+        flash[:error] = 'Link not valid: '+@link.errors.full_messages.join(', ')
         format.html { render action: "index" }
         format.json { render json: @link.errors, status: :unprocessable_entity }
+        format.js   { render action: "error" }
       end
     end
   end
@@ -48,6 +52,7 @@ class LinksController < ApplicationController
     respond_to do |format|
       format.html { redirect_to links_url }
       format.json { head :ok }
+      format.js   { render :nothing => true }
     end
   end
 end
