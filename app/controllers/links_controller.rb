@@ -3,13 +3,11 @@ class LinksController < ApplicationController
   before_filter   { |c| c.page_title 'link management' }
   
   # GET /links
-  # GET /links.json
   def index
     @links = Link.all
     @link ||= Link.new
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @links }
     end
   end
 
@@ -25,33 +23,28 @@ class LinksController < ApplicationController
   end
 
   # POST /link
-  # POST /links.json
   def create
     @link = Link.new(params[:link])
     respond_to do |format|
       if @link.save
         flash[:notice] = 'Link added.'
         format.html { redirect_to links_url }
-        format.json { render json: @link, status: :created, location: @favorite }
         format.js   
       else
         flash[:error] = 'Link not valid: '+@link.errors.full_messages.join(', ')
         format.html { render action: "index" }
-        format.json { render json: @link.errors, status: :unprocessable_entity }
         format.js   { render action: "error" }
       end
     end
   end
 
   # DELETE /links/1
-  # DELETE /links/1.json
   def destroy
     @link = Link.find(params[:id])
     @link.destroy
 
     respond_to do |format|
       format.html { redirect_to links_url }
-      format.json { head :ok }
       format.js   { render :nothing => true }
     end
   end
