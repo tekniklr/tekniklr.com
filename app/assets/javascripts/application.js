@@ -5,5 +5,3 @@
 //= require jquery-setup
 //= require scaffold
 //= require favorites
-//= require links
-//= require experiences
