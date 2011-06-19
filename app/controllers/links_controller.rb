@@ -45,7 +45,7 @@ class LinksController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to links_url }
-      format.js   { render :nothing => true }
+      format.js   
     end
   end
 end
