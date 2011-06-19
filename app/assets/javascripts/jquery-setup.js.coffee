@@ -4,17 +4,3 @@
 # and therefore properly respond to js requests (via respond_to block, for example)
 $.ajaxSetup 'beforeSend': (xhr) -> 
   xhr.setRequestHeader "Accept", "text/javascript"
-
-$(document).ready ->
-  # UJS authenticity token fix: add the authenticy_token parameter
-  # expected by any Rails POST request.
-  $(document).ajaxSend (event, request, settings) ->
-    # do nothing if this is a GET request. Rails doesn't need
-    # the authenticity token, and IE converts the request method
-    # to POST, just because - with love from redmond.
-    if settings.type == 'GET'
-      return
-    if typeof(AUTH_TOKEN) == "undefined"
-      return
-    settings.data = settings.data || ""
-    settings.data += (if settings.data then "&" else "") + "authenticity_token=" + encodeURIComponent(AUTH_TOKEN)

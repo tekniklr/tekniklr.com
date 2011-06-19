@@ -69,7 +69,7 @@ class ExperiencesController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to experiences_url }
-      format.js   { render :nothing => true }
+      format.js   
     end
   end
 end
