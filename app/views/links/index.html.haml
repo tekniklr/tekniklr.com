@@ -1,17 +1,16 @@
 - if @links && @links.count > 0
   %h2 Current links
   = form_for :link, :url => update_all_links_path, :method => :put do
-    - @links.each do |link|
-      %div.link[link]
-        = fields_for "links[]", link do |update|
-          = render 'form', :f => update, :link => link
-          = link_to('Delete', link, confirm: "Are you sure you want to delete #{link.name}?", :method => :delete)
+    #links
+      - @links.each do |link|
+        = render 'link', :link => link
     .center
       = submit_tag "Update all"
 
 - if @link
-  %h2 New Link     
-  = form_for :link do
+  %h2 New Link
+  #notification
+  = form_for :link, :html => {:id => 'new_link'}, :remote => true do
     %div.link#link
       = fields_for @link do |create|
         = render 'form', :f => create, :link => @link  
