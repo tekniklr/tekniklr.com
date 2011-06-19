@@ -192,37 +192,6 @@ h2{
   }
 }
 
-/* flash notices / errors */
-#flash, #error_explanation {
-  width: 80%;
-  margin: auto;
-  margin-top: 1em;
-  margin-bottom: 2em;
-  text-align: center;
-  font-family: monospace;
-  @include rounded(1px, $border_color, .5em, 1em, dotted);
-  padding-top: .5em;
-  ul { list-style-type: none; }
-  h2{
-    font-weight: bold;
-    font-size: 110%;
-    border-bottom: 1px solid;
-    text-decoration: none;
-    padding: 0;
-    margin: 0;
-  }
-}
-.notice, #notice {
-  background-color: $content_bg - #220022;
-}
-.error, #error_explanation {
-  background-color: $content_bg - #002222;
-}
-
-/* used for static error pages */
-.dialog {
-}
-
 /*
  *  row ensures that left and right are the same height
  *  clear ensures that a new row (or anything else) won't flow around
