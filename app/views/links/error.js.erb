@@ -1,0 +1,3 @@
+$('#notification').hide(300);
+$('#notification').html('<div id="flash" class="error"><%= escape_javascript(flash.discard(:error)) %></div>');
+$('#notification').show(300);
