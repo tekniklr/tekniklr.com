@@ -1,15 +1,13 @@
 - if @experiences && @experiences.count > 0
   %h2 Current experiences
+  #experiences
   - @experiences.each do |experience|
-    %div.experience[experience]
-      = render 'show', :experience => experience
-      .center
-        = link_to 'Edit', edit_experience_path(experience)
-        = link_to('Delete', experience, confirm: "Are you sure you want to delete #{experience.title} @ #{experience.affiliation}?", :method => :delete)
+    = render 'show', :experience => experience
 
 - if @experience
   %h2 New experience
-  = form_for :experience do    
+  #notification
+  = form_for :experience, :html => {:id => 'new_exp'} do    
     %div.experience#experience
       = fields_for @experience do |create|
         = render 'form', :f => create, :experience => @experience  
