@@ -3,7 +3,8 @@ work in progress.
 
 Current goals:
   * [X] Do rails the right way. With testing and everything.
-    * [ ] manage about page/favorite things, etc in db
+    * [ ] manage about page
+    * [X] manage favorite things, etc in db
     * [X] manage work experience for uniformity and printability
     * [X] manage remote site links for hcard/rel links/bio display
   * [X] omniauth
@@ -12,7 +13,7 @@ Current goals:
   * [X] HTML5 (boilerplate)
   * [X] HAML
   * [X] sass
-  * [-] coffeescript (not using enough javascript to warrant it)
-  * [-] ajaxy updatebits (would actually rather not have this right now)
+  * [X] coffeescript
+  * [X] ajaxy updatebits
   * [ ] minimalist design
-  * [?] golden ratio (at full size the background tentacles do this. does it count?)
+  * [?] golden ratio (at full size the background tentacles do this. does it count? what more to do with a one column layout?)
