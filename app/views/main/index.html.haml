@@ -1,2 +1,14 @@
-%p
-  Front page
+%h1
+  = link_to 'Tweets', 'http://twitter.com/tekniklr'
+- @tweets.each do |tweet|
+  = render 'tweet', :tweet => tweet
+
+%h1
+  = link_to 'Blog', '/wpblog'
+
+%h1
+  = link_to 'Consumption', 'http://www.allconsuming.net/person/tekniklr/'
+#allconsuming
+  - content_for :header do
+    %link{:rel => "dns-prefetch", :href => "http://www.allconsuming.net"}/
+  %script{:type => "text/javascript", :src  => "http://www.allconsuming.net/person/tekniklr/completed_js/all/6?suppress_header=1"}

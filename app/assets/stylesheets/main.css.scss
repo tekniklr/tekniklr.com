@@ -1,4 +1,25 @@
-/* 
-  Place all the styles related to the matching controller here.
-  They will automatically be included in application.css.
-*/
+/* all consuming */
+#allconsuming {
+  width: 93%;
+  margin: auto;
+  text-align: center;
+  overflow: hidden;
+  height: 10em;
+  font-size: 80%;
+  .ac-item {
+    width: 9em;
+    height: 10em;
+    text-align: center;
+    padding: 0 1em 0 1em;
+    float: left;
+    overflow: hidden;
+    img {
+      width: 7em;
+      height: 7em;
+      overflow: hidden;
+    }
+  }
+  .ac-logo {
+    display: none;
+  }
+}

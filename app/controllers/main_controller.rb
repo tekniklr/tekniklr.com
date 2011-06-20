@@ -2,6 +2,7 @@ class MainController < ApplicationController
   #before_filter  { |c| c.page_title 'home' }
 
   def index
+    @tweets ||= Tweet.limit(3)
   end
 
   def acknowledgments

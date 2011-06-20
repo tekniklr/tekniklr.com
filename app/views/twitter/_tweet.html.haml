@@ -1,5 +1,4 @@
 %div.tweet[tweet]
-  %p
-    = sanitize tweet.tweet, :tags => %w(a p)
+  = sanitize tweet.tweet, :tags => %w(a p)
   .center
     = link_to('Delete', {:controller => :twitter, :action => :destroy, :id => tweet.id}, confirm: "Are you sure you want to delete '#{tweet.tw_text}'?", :method => :delete, :remote => true)
