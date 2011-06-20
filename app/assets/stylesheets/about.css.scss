@@ -1,5 +1,37 @@
-/* 
-  Place all the styles related to the matching controller here.
-  They will automatically be included in application.css.
-  You can use Sass (SCSS) here: http://sass-lang.com/
-*/
+dl.contact, dl.info, dl.favorites {
+  width: 95%;
+  margin: auto;
+  dt {
+    font-weight: bold;
+    font-size: 110%;
+    text-transform: lowercase;
+  }
+  dd {
+    margin: 0 0 1.5em 2.5em;
+    text-align: justify;
+  }
+  a:link, a:visited, a:active {
+    text-decoration: none;
+  }
+  a:hover {
+    font-weight: bold;
+  }
+}
+
+ul.contact {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+dl.favorites {
+  ol {
+    margin-bottom: 1em;
+  }
+  a:link, a:visited, a:active {
+    text-decoration: none;
+  }
+  a:hover {
+    font-weight: bold;
+  }
+}
