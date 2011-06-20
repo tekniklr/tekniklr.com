@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110620030537) do
+ActiveRecord::Schema.define(:version => 20110620062521) do
 
   create_table "experiences", :force => true do |t|
     t.date     "start_date"
