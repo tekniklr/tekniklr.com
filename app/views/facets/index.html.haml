@@ -1,11 +1,11 @@
 - if @facets && @facets.count > 0
-  %h2 Current facets
+  %h1 Current facets
   #facets
   - @facets.each do |facet|
     = render 'show', :facet => facet
 
 - if @facet
-  %h2 New facet
+  %h1 New facet
   #notification
   = form_for :facet, :html => {:id => 'new_facet'}, :remote => true do    
     %div.facet#facet
