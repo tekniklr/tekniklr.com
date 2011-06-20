@@ -35,7 +35,24 @@
       = link_to(link.name.chomp, link.url) + sep
 
 %h2 General Info
-
+%dl.info
+  - if @definition
+    %dt #{@definition.name}
+    %dd
+      = facet_value @definition.value
+  - if @location
+    %dt #{@location.name}
+    %dd
+      = facet_value @location.value
+  - if @tech
+    %dt #{@tech.name}
+    %dd
+      = facet_value @tech.value
+  - if @interests
+    %dt #{@interests.name}
+    %dd
+      = facet_value @interests.value
+    
 %h2 Stuff I like
 %dl.favorites
   - @favorites.each do |favorite|
