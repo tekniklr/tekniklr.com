@@ -1,5 +1,5 @@
 - if @links && @links.count > 0
-  %h2 Current links
+  %h1 Current links
   = form_for :link, :url => update_all_links_path, :method => :put do
     #links
       - @links.each do |link|
@@ -8,7 +8,7 @@
       = submit_tag "Update all"
 
 - if @link
-  %h2 New Link
+  %h1 New Link
   #notification
   = form_for :link, :html => {:id => 'new_link'}, :remote => true do
     %div.link#link

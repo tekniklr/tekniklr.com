@@ -1,4 +1,4 @@
-%h2 Contact
+%h1 Contact
 %dl.contact
 
   %dt Email
@@ -34,7 +34,7 @@
       - link == @about_links.last ? sep = '' : sep = ', '
       = link_to(link.name.chomp, link.url) + sep
 
-%h2 General Info
+%h1 General Info
 %dl.info
   - if @definition
     %dt #{@definition.name}
@@ -53,7 +53,7 @@
     %dd
       = facet_value @interests.value
     
-%h2 Stuff I like
+%h1 Stuff I like
 %dl.favorites
   - @favorites.each do |favorite|
     %dt #{favorite.favorite_type}

@@ -1,11 +1,11 @@
 - if @experiences && @experiences.count > 0
-  %h2 Current experiences
+  %h1 Current experiences
   #experiences
   - @experiences.each do |experience|
     = render 'show', :experience => experience
 
 - if @experience
-  %h2 New experience
+  %h1 New experience
   #notification
   = form_for :experience, :html => {:id => 'new_exp'}, :remote => true do    
     %div.experience#experience

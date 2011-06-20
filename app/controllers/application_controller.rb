@@ -12,8 +12,9 @@ class ApplicationController < ActionController::Base
   
   protected
   
-  def page_title(title)
+  def page_title(title, display = false)
     @page_title = title ? title : nil
+    @title_display = display
   end
   
   def logged_in?
