@@ -7,5 +7,5 @@ class Facet < ActiveRecord::Base
   validates_presence_of  :slug
   validates_length_of    :slug, :maximum => 12
   
-  default_scope :order => "name asc"
+  default_scope :order => "slug asc"
 end
