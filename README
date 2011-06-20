@@ -1,5 +1,4 @@
-The rails source for my current big website redesign. Always a 
-work in progress.
+The rails source for my current big website redesign. Always a work in progress.
 
 Current goals:
   * [X] Do rails the right way. With testing and everything.
@@ -7,12 +6,17 @@ Current goals:
     * [X] manage favorite things, etc in db
     * [X] manage work experience for uniformity and printability
     * [X] manage remote site links for hcard/rel links/bio display
-    * [ ] manage wp_resume table in rails
   * [X] integrate wordpress
     * [ ] wordpress styles
+    * [X] wp_twitter
+    * [ ] most recent blog post
+    * [ ] tags?
+    * [ ] archive?
   * [X] omniauth
   * [ ] Social media bar
-  * [ ] hcard/hresume
+  * [ ] hcard
+  * [ ] gravatar
+  * [ ] hresume
   * [X] HTML5 (boilerplate)
   * [X] HAML
   * [X] sass
