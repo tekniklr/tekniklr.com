@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+skills:
+  name: Technical Skills
+  slug: tech
+  value: "i do things, lots of things."
+
+ed:
+  name: Education
+  slug: education
+  value: Rutgers
