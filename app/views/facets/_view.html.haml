@@ -1,0 +1,13 @@
+%h1 #{facet.name}
+- if !facet.value.blank?
+  - lines = facet.value.split("\n")
+  - if lines.count > 1
+    %ul
+      - lines.each do |line|
+        %li
+          = sanitize line, :tags => %w(a strong em u)
+  -else
+    = sanitize lines.first, :tags => %w(a strong em u)
+%p.center
+  = link_to 'Edit', edit_facet_path(facet), :remote => true
+  = link_to('Delete', facet, confirm: "Are you sure you want to delete #{facet.name}?", :method => :delete, :remote => true)
