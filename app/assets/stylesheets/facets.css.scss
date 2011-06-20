@@ -1,0 +1,12 @@
+.facet {
+  @include rounded(1px, #999999, .5em, 1em, dotted);
+  width: 80%;
+  margin: auto;
+  margin-bottom: 2em;
+  h1 {
+    font-weight: bold;
+    font-size: 110%;
+    border-bottom: 1px solid #dddddd;
+    text-transform: lowercase;
+  }
+}

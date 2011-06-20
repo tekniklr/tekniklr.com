@@ -1,4 +1,5 @@
 TekniklrCom::Application.routes.draw do
+
   root :to => 'main#index'
   
   # omniauth authentication
@@ -31,6 +32,8 @@ TekniklrCom::Application.routes.draw do
   end
   
   resources :experiences, :except => [:new]
+  
+  resources :facets, :except => [:new]
   
   resources :favorites do
     put 'sort_favorites', :on => :collection

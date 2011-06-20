@@ -1,0 +1,30 @@
+- if facet.errors.any?
+  #error_explanation
+    %h2 #{pluralize(facet.errors.count, "error")} prohibited this facet from being saved:
+    %ul
+      - facet.errors.full_messages.each do |msg|
+        %li #{msg}
+
+.row
+  .left
+    = f.label :name
+  .right
+    = f.text_field :name, :size => 48
+  .clear
+
+.row
+  .left
+    = f.label :slug
+  .right
+    - if facet.slug
+      %strong #{facet.slug}
+    - else
+      = f.text_field :slug, :size => 48, :maxlength => 12
+  .clear
+
+.row
+  .left
+    = f.label :value
+  .right
+    = f.text_area :value, :cols => 46, :rows => 13
+  .clear

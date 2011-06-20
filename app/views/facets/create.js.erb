@@ -1,0 +1,3 @@
+notify("<%= escape_javascript(flash.discard(:notice)) %>");
+$('#facets').append("<%= escape_javascript(render('show', :facet => @facet)) %>");
+$('#new_facet')[0].reset();

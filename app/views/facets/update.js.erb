@@ -1,0 +1,3 @@
+notify("<%= escape_javascript(flash.discard(:notice)) %>", 'notice', '#notification_<%= @facet.id %>');
+$('#facet_<%= @facet.id %>').html("<%= escape_javascript(render 'view', :facet => @facet) %>");
+$('#notification').hide();

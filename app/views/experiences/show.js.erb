@@ -1,1 +1,3 @@
 $('#experience_<%= @experience.id %>').html("<%= escape_javascript(render 'view', :experience => @experience) %>");
+$('#notification_<%= @experience.id %>').hide();
+$('#notification').hide();

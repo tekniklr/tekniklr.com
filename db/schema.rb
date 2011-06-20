@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110615064224) do
+ActiveRecord::Schema.define(:version => 20110620030537) do
 
   create_table "experiences", :force => true do |t|
     t.date     "start_date"
@@ -22,6 +22,16 @@ ActiveRecord::Schema.define(:version => 20110615064224) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "facets", :force => true do |t|
+    t.string   "name"
+    t.text     "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "slug"
+  end
+
+  add_index "facets", ["slug"], :name => "index_facets_on_slug"
 
   create_table "favorite_things", :force => true do |t|
     t.integer  "favorite_id"
