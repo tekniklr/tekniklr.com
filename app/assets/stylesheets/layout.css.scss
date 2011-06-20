@@ -156,10 +156,12 @@ a:hover { color: $border_color; }
 }
 h2{
   font-weight: bold;
-  font-size: 110%;
-  text-decoration: underline;
+  font-size: 115%;
+  text-transform: lowercase;
   margin: 2em 0em 1em 0;
   padding: 0;
+  text-align: left;
+  border-bottom: 1px dashed lighten($border_color, 30%);
 }
 
 #main {

@@ -1,0 +1,46 @@
+%h2 Contact
+%dl.contact
+
+  %dt Email
+  %dd
+    = mail_to EMAIL
+  
+  %dt Twitter
+  %dd
+    = link_to '@tekniklr', 'http://twitter.com/tekniklr'
+  
+  %dt Messaging
+  %dd
+    %ul.contact
+      %li
+        %strong aim:
+        = link_to 'TDarkRose', 'aim:goim?screenname=TDarkRose'
+      %li
+        %strong yahoo messenger:
+        = link_to 'tekniklr', 'ymsgr:sendIM?tekniklr'
+      %li
+        %strong gtalk / jabber:
+        = link_to 'tekniklr@gmail.com', 'xmpp:tekniklr@gmail.com'
+      %li
+        %strong msn:
+        = link_to 'tekniklr@hotmail.com', 'msnim:chat?contact=tekniklr@hotmail.com'
+      %li
+        %strong skype:
+        = link_to 'tekniklr', 'skype:tekniklr?userinfo'
+  
+  %dt Other sites
+  %dd
+    - @about_links.each do |link|
+      - link == @about_links.last ? sep = '' : sep = ', '
+      = link_to(link.name.chomp, link.url) + sep
+
+%h2 General Info
+
+%h2 Stuff I like
+%dl.favorites
+  - @favorites.each do |favorite|
+    %dt #{favorite.favorite_type}
+    %dd
+      - favorite.favorite_things.each do |thing|
+        - thing == favorite.favorite_things.last ? sep = '' : sep = '  ☆ '
+        = (thing.link ? link_to(thing.thing.chomp, thing.link) : thing.thing.chomp) + sep
