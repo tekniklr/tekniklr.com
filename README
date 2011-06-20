@@ -3,10 +3,13 @@ work in progress.
 
 Current goals:
   * [X] Do rails the right way. With testing and everything.
-    * [ ] manage about page
+    * [X] manage about page
     * [X] manage favorite things, etc in db
     * [X] manage work experience for uniformity and printability
     * [X] manage remote site links for hcard/rel links/bio display
+    * [ ] manage wp_resume table in rails
+  * [X] integrate wordpress
+    * [ ] wordpress styles
   * [X] omniauth
   * [ ] Social media bar
   * [ ] hcard/hresume
