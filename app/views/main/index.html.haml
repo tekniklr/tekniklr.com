@@ -2,6 +2,8 @@
   = link_to 'Tweets', 'http://twitter.com/tekniklr'
 - @tweets.each do |tweet|
   = render 'tweet', :tweet => tweet
+.right
+  = link_to 'Follow @tekniklr', 'http://twitter.com/tekniklr', :class => 'twitter-follow-button', 'data-align' => 'right'
 
 %h1
   = link_to 'Blogs', '/wpblog'
@@ -9,6 +11,11 @@
 %h1
   = link_to 'Consumes', 'http://www.allconsuming.net/person/tekniklr/'
 #allconsuming
-  - content_for :header do
-    %link{:rel => "dns-prefetch", :href => "http://www.allconsuming.net"}/
   %script{:type => "text/javascript", :src  => "http://www.allconsuming.net/person/tekniklr/completed_js/all/6?suppress_header=1"}
+    
+- content_for :header do
+  %link{:rel => "dns-prefetch", :href => "http://twitter.com"}/
+  %link{:rel => "dns-prefetch", :href => "http://www.allconsuming.net"}/
+
+- content_for :javascript do    
+  %script{:type => 'text/javascript', :src => 'http://platform.twitter.com/widgets.js'}
