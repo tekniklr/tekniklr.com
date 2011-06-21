@@ -4,29 +4,16 @@
   %dt Email
   %dd
     = mail_to EMAIL
-  
-  %dt Twitter
-  %dd
-    = link_to '@tekniklr', 'http://twitter.com/tekniklr'
-  
-  %dt Messaging
-  %dd
-    %ul.contact
-      %li
-        %strong aim:
-        = link_to 'TDarkRose', 'aim:goim?screenname=TDarkRose'
-      %li
-        %strong yahoo messenger:
-        = link_to 'tekniklr', 'ymsgr:sendIM?tekniklr'
-      %li
-        %strong gtalk / jabber:
-        = link_to 'tekniklr@gmail.com', 'xmpp:tekniklr@gmail.com'
-      %li
-        %strong msn:
-        = link_to 'tekniklr@hotmail.com', 'msnim:chat?contact=tekniklr@hotmail.com'
-      %li
-        %strong skype:
-        = link_to 'tekniklr', 'skype:tekniklr?userinfo'
+
+  - if @twitter
+    %dt #{@twitter.name}
+    %dd
+      = facet_value @twitter.value
+
+  - if @messaging
+    %dt #{@messaging.name}
+    %dd
+      = facet_value @messaging.value
   
   %dt Other sites
   %dd
