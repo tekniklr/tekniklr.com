@@ -1,6 +1,10 @@
 .vcard
 
   %h1 General Info
+  
+  .gravatar
+    = image_tag "http://gravatar.com/avatar/#{@gravatar_id}.png?s=150&r", :class => 'photo'
+  
   %dl.info
     - if @who
       %dt #{@who.name}
