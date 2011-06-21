@@ -1,5 +1,40 @@
-/* 
-  Place all the styles related to the matching controller here.
-  They will automatically be included in application.css.
-  You can use Sass (SCSS) here: http://sass-lang.com/
-*/
+#hresume {
+  address {
+    width: 95%;
+    margin: auto;
+    text-align:center;
+    .fn {
+      font-size: 150%;
+      font-weight: bold;
+    }
+    .adr {
+      font-size: 80%;
+    }
+    .email {
+      font-size: 90%;
+    }
+    .url {
+      font-size: 90%;
+    }
+  }
+  dl {
+    width: 95%;
+    margin: auto;
+    dt {
+      font-weight: bold;
+      font-size: 120%;
+      text-transform: uppercase;
+      border-bottom: 1px solid lighten($base_font_color, 25%);
+    }
+    dd {
+      margin: 0 0 2em 3em;
+      text-align: justify;
+    }
+  }
+  a:link, a:visited, a:active {
+    text-decoration: none;
+  }
+  a:hover {
+    font-weight: bold;
+  }
+}

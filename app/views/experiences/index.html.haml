@@ -8,7 +8,7 @@
   %h1 New experience
   #notification
   = form_for :experience, :html => {:id => 'new_exp'}, :remote => true do    
-    %div.experience#experience
+    %div.exp#experience
       = fields_for @experience do |create|
         = render 'form', :f => create, :experience => @experience  
     .center
