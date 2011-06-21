@@ -3,11 +3,13 @@ class Tweet < ActiveRecord::Base
   set_table_name       "wp_ak_twitter"
   set_primary_key      'ID'
   
+  attr_accessible
+  
   default_scope :order => 'tw_created_at desc', :limit => 25
   
   # will linkify @s and #s and links
   def tweet
-    tweet = self.tw_text
+    tweet = self.tw_text.clone # copies tw_text; otherwise we modify the original
     
     # links
     tweet.gsub!(/((http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:\/~\+#]*[\w\-\@?^=%&amp;\/~\+#])?)/, '<a href="\1">\1</a>')
