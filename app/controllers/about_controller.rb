@@ -9,6 +9,7 @@ class AboutController < ApplicationController
   
   def collect_facets
     @twitter     ||= Facet.find_by_slug('twitter')
+    @who         ||= Facet.find_by_slug('who')
     @messaging   ||= Facet.find_by_slug('messaging')
     @definition  ||= Facet.find_by_slug('definition')
     @location    ||= Facet.find_by_slug('location')
