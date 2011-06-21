@@ -15,7 +15,7 @@ Current goals:
   * [X] omniauth
   * [ ] hcard
   * [ ] gravatar
-  * [ ] hresume
+  * [X] hresume
   * [X] HTML5 (boilerplate)
   * [X] HAML
   * [X] sass

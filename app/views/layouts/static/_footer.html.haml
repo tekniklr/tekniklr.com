@@ -1,4 +1,6 @@
 %footer#pagefoot
+  .footnote
+    = yield :footnote
   %p
     copyleft © 2000-#{Time.now.year}
     = mail_to EMAIL, 'Teri Solow'
