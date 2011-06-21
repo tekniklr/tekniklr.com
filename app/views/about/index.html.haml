@@ -62,6 +62,9 @@
       - @about_links.each do |link|
         - link == @about_links.last ? sep = '' : sep = ', '
         = link_to(link.name.chomp, link.url) + sep
+
+- content_for :header do
+  %link{:rel => "dns-prefetch", :href => "http://gravatar.com"}/
         
 -content_for :footnote do
   %p
