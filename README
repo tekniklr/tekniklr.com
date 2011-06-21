@@ -13,8 +13,8 @@ Current goals:
     * [ ] tags?
     * [ ] archive?
   * [X] omniauth
-  * [ ] hcard
-  * [ ] gravatar
+  * [X] hcard
+  * [X] gravatar
   * [X] hresume
   * [X] HTML5 (boilerplate)
   * [X] HAML
