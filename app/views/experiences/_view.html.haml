@@ -3,7 +3,8 @@
     %p
       %strong #{experience.title}
     %p
-      %em #{experience.affiliation}
+      %em
+        = experience.affiliation_link ? link_to(experience.affiliation, experience.affiliation_link): experience.affiliation
   .right
     %p #{experience.start_date.strftime("%Y/%m")} ~ #{experience.end_date ? experience.end_date.strftime("%Y/%m") : "present"}
     %p #{experience.location}

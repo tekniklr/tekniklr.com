@@ -8,7 +8,7 @@ class ResumeController < ApplicationController
   private
   
   def collect_facets
-    @experiences  ||= Experience.all
+    @experiences  ||= Experience.limit(4)
     @tech         ||= Facet.find_by_slug('tech')
     @fun_dev      ||= Facet.find_by_slug('fun_dev')
     @publications ||= Facet.find_by_slug('publications')

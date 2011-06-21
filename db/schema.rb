@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110620062521) do
+ActiveRecord::Schema.define(:version => 20110621073410) do
 
   create_table "experiences", :force => true do |t|
     t.date     "start_date"
@@ -21,7 +21,10 @@ ActiveRecord::Schema.define(:version => 20110620062521) do
     t.text     "tasks"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "affiliation_link"
   end
+
+  add_index "experiences", ["affiliation_link"], :name => "index_experiences_on_affiliation_link"
 
   create_table "facets", :force => true do |t|
     t.string   "name"
