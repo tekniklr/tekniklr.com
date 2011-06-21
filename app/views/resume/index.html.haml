@@ -1,2 +1,40 @@
-%p
-  résumé
+#hresume
+  %address.vcard
+    .fn Teri Solow
+    .adr
+      %span.locality Portland,
+      %span.region OR
+    .email
+      = mail_to EMAIL, EMAIL, :class => :email
+    .url
+      = link_to 'http://teniklr.com', :class => :url
+
+  %dl
+    - if @tech
+      %dt.skill #{@tech.name}
+      %dd
+        = facet_value @tech.value
+  
+    - if @fun_dev
+      %dt.experience #{@fun_dev.name}
+      %dd
+        = facet_value @fun_dev.value, true, 'vcalendar', 'experience vevent'
+  
+    - if @experiences
+      %dt.experience Professional experience
+      %dd
+    
+    - if @publications
+      %dt.publications #{@publications.name}
+      %dd
+        = facet_value @publications.value, true
+    
+    - if @education
+      %dt.education #{@education.name}
+      %dd
+        = facet_value @education.value, true, 'vcalendar', 'education vevent'
+    
+    - if @activities
+      %dt.affiliation #{@activities.name}
+      %dd
+        = facet_value @activities.value, true, '', 'affiliation vcard'
