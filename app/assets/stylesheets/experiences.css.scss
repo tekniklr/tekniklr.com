@@ -1,11 +1,11 @@
-.experience {
+.exp {
   @include rounded(1px, #999999, .5em, 1em, dotted);
   width: 80%;
   margin: auto;
   margin-bottom: 2em;
 }
 
-.experience_metadata {
+.exp_metadata {
   p {
     margin: 0;
     padding: 0;

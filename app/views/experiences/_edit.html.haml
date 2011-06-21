@@ -1,5 +1,5 @@
 = form_for @experience, :remote => true do |f|
-  %div.experience#experience
+  %div.exp#experience
     = render 'form', :f => f, :experience => @experience
   .center
     = submit_tag "Update"
