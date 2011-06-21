@@ -4,10 +4,10 @@
     .adr
       %span.locality Portland,
       %span.region OR
-    .email
+    %div
       = mail_to EMAIL, EMAIL, :class => :email
-    .url
-      = link_to 'http://teniklr.com', :class => :url
+    %div
+      = link_to 'http://teniklr.com', 'http://teniklr.com', :class => :url
 
   %dl
     - if @tech
@@ -23,6 +23,27 @@
     - if @experiences
       %dt.experience Professional experience
       %dd
+        %ul.vcalendar#exp
+          - @experiences.each do |experience|
+            %li{:class => 'experience vevent'}
+              .left
+                %p
+                  %strong.summary #{experience.title}
+                %p
+                  %em.location
+                    = experience.affiliation_link ? link_to(experience.affiliation, experience.affiliation_link): experience.affiliation
+              .right
+                %p
+                  %span.dtstart{:title => experience.start_date.strftime("%F")} #{experience.start_date.strftime("%Y/%m")}
+                  \~
+                  %span.dtend{:title => experience.end_date ? experience.end_date.strftime("%F") : ''} #{experience.end_date ? experience.end_date.strftime("%Y/%m") : "present"}
+                %p #{experience.location}
+              .clear
+              - if !experience.tasks.blank?
+                %ul
+                  - experience.tasks.split("\n").each do |task|
+                    %li
+                      = sanitize task, :tags => %w(a strong em u)
     
     - if @publications
       %dt.publications #{@publications.name}
