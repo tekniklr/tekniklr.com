@@ -11,13 +11,15 @@ TekniklrCom::Application.routes.draw do
   # about page
   match '/about'  => 'about#index'
   
+  # ack
+  match '/acknowledgments'    => 'main#acknowledgments'
+
   # résumé
-  match '/resume' => 'resume#index'
+  match '/resume'       => 'resume#index'
+  match '/resume/clean' => 'resume#clean'
   
   # make sure only the html format works for various things
   constraints :format => "html" do
-    match '/acknowledgments'    => 'main#acknowledgments'
-
     # these are so that wordpress will use the layout generated
     # by rails
     match '/static/headincmeta' => 'static#headincmeta_partial'

@@ -4,6 +4,10 @@ class ResumeController < ApplicationController
 
   def index
   end
+  
+  def clean
+    render :index, :layout   => 'simple.html'
+  end
 
   private
   
