@@ -5,6 +5,7 @@ one:
   end_date: 
   title: Web Programmer
   affiliation: Reed College
+  affiliation_link: http://reed.edu
   location: Portland, OR
   tasks: 
 
@@ -13,5 +14,6 @@ two:
   end_date: 2006-10-01
   title: Web Programmer
   affiliation: Cornell Cooperative Extension, Cornell University
+  affiliation_link: http://cce.cornell.edu
   location: Ithaca, NY
   tasks: 
