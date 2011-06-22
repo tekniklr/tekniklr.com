@@ -21,5 +21,6 @@
       %li
         = link_to 'archive', 'wp_archive_url'
       %li
-        search
+        = form_tag '/wpblog', :method => 'get', :id => 'wp_search' do
+          = text_field_tag :s
   .break
