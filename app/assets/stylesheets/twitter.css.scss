@@ -1,5 +1,5 @@
 .tweet {
-  @include rounded(1px, darken($page_bg, 3%), 1em, 1em, solid);
+  @include rounded(1px, $faint_border_color, 1em, 1em, solid);
   text-align: left;
   width: 90%;
   margin: auto;

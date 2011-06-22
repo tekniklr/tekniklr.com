@@ -22,11 +22,15 @@ p {
   padding: 0;
 }
 
+address {
+  font-style: normal;
+}
+
 // other link stuff defined in the boilerplate, but I think it's good to
 // have visited non-nav links be a different color
-a:link, a:active { color: $border_color - #666600; }
-a:visited { color: darken($border_color, 15%); }
-a:hover { color: $border_color; }
+a:link, a:active { color: $hover_color - #666600; }
+a:visited { color: darken($hover_color, 15%); }
+a:hover { color: $hover_color; }
 
 // easily align things in haml
 .center {
@@ -49,7 +53,7 @@ a:hover { color: $border_color; }
     text-decoration: none;
   }
   a:hover {
-    color: $border_color;
+    color: $hover_color;
     text-decoration: underline;
   }
 }
@@ -65,13 +69,11 @@ a:hover { color: $border_color; }
   clear: both;
   font-size: 75%;
   padding-bottom: .25em;
-  a:link, a:active, a:visited {
-    color: $base_font_color;
+  a:link, a:active, a:visited, a:hover {
     text-decoration: none;
   }
   a:hover {
-    color: $base_font_color;
-    text-decoration: underline;
+    color: $hover_color;
   }
 }
 
@@ -107,8 +109,8 @@ a:hover { color: $border_color; }
   max-width: $navigation_width;
   color: $navigation_font_color;
   background-color: $navigation_bg;
-  position: relative;
-  z-index: 1;
+  border-top: 2px solid $navigation_border_color;
+  border-bottom: 2px solid $navigation_border_color;
   margin: 0;
   padding: 0;
   overflow: hidden;
@@ -151,74 +153,62 @@ a:hover { color: $border_color; }
     height: 1px;
   }
   .subnav {
-    margin: 0px 1px 0px 1px;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid $navigation_border_color;
     background-color: $subnav_bg;
-    max-width: ($max_page_width - 0.15);
+    max-width: $navigation_width;
     li {
       background-color: $subnav_bg;
-      width: ($max_page_width - 0.15)/5;
+      width: $max_page_width/5;
     }
     a:link, a:active, a:visited {
-      color: $base_font_color;
+      color: $subnav_font_color;
     }
     a:hover {
-      color: $base_font_color;
+      color: $subnav_font_color;
     }
   }
 }
 
-#title {
-  font-weight: bold;
-  font-size: 150%;
-  text-align: left;
-  text-transform: lowercase;
-  border-bottom: 1px dotted $border_color;
-  margin: .5em 0em 1em 0em;
-  padding: 0em 0em .25em 0em;
-}
 h1 {
   font-weight: bold;
   font-size: 130%;
   text-transform: lowercase;
-  margin: 1.5em 0em 1.5em 0;
+  margin: 1em 0em 1.5em 0;
   padding: 0.25em 0 0.25em 0;
   text-align: center;
-  border-top: 1px dashed darken($page_bg, 20%);
-  border-bottom: 1px dashed darken($page_bg, 20%);
+  border-top: 1px dashed $border_color;
+  border-bottom: 1px dashed $border_color;
   a:link, a:visited, a:active {
     color: $base_font_color;
     text-decoration: none;
   }
   a:hover {
-    color: $border_color;
+    color: $hover_color;
   }
 }
 
 #main {
   clear: both;
-  position: relative;
-  top: -1em;
-  z-index: 0;
   background-color: $content_bg;
-  @include rounded(.1em, $border_color, 2em, 2em, none);
   padding-top: 1.5em;
 }
 
 #pagefoot {
+  border-top: 1px solid $faint_border_color;
   clear: both;
-  position: relative;
-  top: -1em;
   text-align: center;
   font-size: 75%;
   max-width: $foot_width;
+  padding: .5em 0 .5em 0;
+  margin-top: 3em;
   margin: auto;
-  a:link, a:active, a:visited {
-    color: $base_font_color;
+  a:link, a:active, a:visited, a:hover {
     text-decoration: none;
   }
   a:hover {
-    color: $base_font_color;
-    text-decoration: underline;
+    color: $hover_color;
   }
   p {
     margin: 0;
