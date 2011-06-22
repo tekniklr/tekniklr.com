@@ -1,3 +1,3 @@
 CREATIVE_COMMONS_URL = 'http://creativecommons.org/licenses/by-nc-sa/3.0/'
 EMAIL = 'tsolow@tekniklr.com'
-SUBTITLE = 'the personal whatever of Teri Solow and stuff'
+TAGLINE = 'the personal whatever of Teri Solow and stuff'
