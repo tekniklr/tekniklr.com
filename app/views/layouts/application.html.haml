@@ -8,7 +8,7 @@
       = render :partial => 'layouts/static/navigation'
       #main
         - unless @page_title.blank? || !@title_display
-          %h1#title #{@page_title.downcase}
+          %h1 #{@page_title}
         - if flash[:error]
           #flash.error
             %h2 Error
