@@ -6,6 +6,7 @@ label {
 input, textarea {
   @include rounded(1px, #cccccc, .5em, .2em, solid);
   background-color: $the_color;
+  margin: .25em 0 .25em 0;
 }
 
 input[type=submit] {
