@@ -140,7 +140,7 @@ a:hover { color: $hover_color; }
   a:hover {
     font-weight: bold;
     font-size: 120%;
-    color: $navigation_font_color;
+    color: $hover_color;
   }
   .break {
     /*
@@ -166,7 +166,7 @@ a:hover { color: $hover_color; }
       color: $subnav_font_color;
     }
     a:hover {
-      color: $subnav_font_color;
+      color: $hover_color;
     }
   }
 }
