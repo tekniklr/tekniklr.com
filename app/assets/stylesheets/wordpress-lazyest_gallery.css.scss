@@ -10,19 +10,30 @@ copyright (C) 2008 Brimosoft http://brimosoft.nl
 }
 
 
+.nocomments {
+  display: none;
+}
+
+
 /* ========================
  * The top folder navigator
  * ======================== */
 .lg_gallery .top_navigator {
-	/* Uncomment this if you want to hide the gallery navigator bar */
-	/* display:none; */
-	font-family:        Helvetica, Sans-Serif;
-	font-weight:        bold;
-	margin:         5px 0px 5px 0px;
-	font-size: 115%;
-	color:          #2f0f0f;
-	border-bottom:      2px solid #2f0f0f;
-	clear: both;
+  font-weight: bold;
+  font-size: 130%;
+  text-transform: lowercase;
+  margin: 1em 0em 1.5em 0;
+  padding: 0.25em 0 0.25em 0;
+  text-align: center;
+  border-top: 1px dashed $border_color;
+  border-bottom: 1px dashed $border_color;
+  a:link, a:visited, a:active {
+    color: $base_font_color;
+    text-decoration: none;
+  }
+  a:hover {
+    color: $hover_color;
+  }
 }
 
 /* ==========================
@@ -30,8 +41,8 @@ copyright (C) 2008 Brimosoft http://brimosoft.nl
  * ========================== */
 .lg_gallery .lazyest_navigator {
 	display:block;
-	height:21px;
-	padding:0 4px;
+	height: 2em;
+	padding: 0 1em;
 }
 
 .lg_gallery .lazyest_navigator .alignleft {
@@ -46,11 +57,11 @@ copyright (C) 2008 Brimosoft http://brimosoft.nl
  * ==================================== */
 .lg_gallery .folder_pagination {
 	text-align: center;
-	padding-bottom:5px;
+	padding-bottom: 1em;
 }
 .lg_gallery .image_pagination {
 	text-align: center;
-	padding-bottom:5px;
+	padding-bottom: 1em;
 }
 
 /* =================
@@ -59,21 +70,16 @@ copyright (C) 2008 Brimosoft http://brimosoft.nl
 
 /* Where the folders are listed */
 .lg_gallery .folders {
-	margin: 6px 0px 6px 0px;
-  max-width: 100%;
+  max-width: $max_page_width;
+	margin: auto;
 }
 /* Where the folder icon is shown */
 .lg_gallery .folder {
-	text-align:left;
-	padding:5px;
-	padding-bottom:20px;
-	/* Uncomment this if you want to hide the folder icon */
 	display:none;
 }
 
 /* Captions of the folders */
 .lg_gallery .folder_caption {
-	/*padding:5px 15px 5px 15px;*/
 	display:none;
 }
 /* Icons Style */
@@ -92,7 +98,7 @@ copyright (C) 2008 Brimosoft http://brimosoft.nl
 .lg_gallery .dir_view {
 	margin:0 auto;
 	text-align:center;
-  max-width: 100%;
+  max-width: $max_page_width;
 }
 
 .lg_gallery .folder_description {
@@ -119,8 +125,8 @@ copyright (C) 2008 Brimosoft http://brimosoft.nl
 
 .lg_gallery table td {
 	vertical-align:top;
-	padding-bottom:8px;
-  max-width: 140px;
+	padding-bottom:2em;
+  max-width: $max_page_width/3;
 }
 
 .lg_gallery .category_icon {
@@ -134,8 +140,7 @@ copyright (C) 2008 Brimosoft http://brimosoft.nl
 .lg_gallery .lazyest_thumb_view {
 	margin:0 auto;
 	text-align:center;
-	padding-bottom:5px;
-  max-width: 100%;
+	padding-bottom: 1em;
 }
 
 .lg_gallery .lg_thumb {
@@ -153,18 +158,15 @@ copyright (C) 2008 Brimosoft http://brimosoft.nl
 
 .lg_gallery .lg_thumb_caption {
 	overflow:hidden;
-	width: 100px;
-	padding: 2px 5px 2px 5px;
-	color: #321a1b;
+	width: 10em;
+	padding: .5em 1em .5em 1em;
+	color: #cccccc;
 }
 
 
 .lg_image {
-/*	border: 1px #bbbbbb dashed;*/
 	text-align:center;
-	-moz-border-radius: 5px;
-	padding:4px;
-/*	margin:4px;*/
+	padding: 1em;
 	display: inline;
 }
 .lg_image div {
@@ -177,19 +179,14 @@ copyright (C) 2008 Brimosoft http://brimosoft.nl
 }
 
 .lg_gallery .lazyest_thumb_view {
-  max-width: 100%;
-  width: 100%;
 }
 .lg_gallery .lazyest_thumb_view img {
-	border: 2px #bbbbbb solid;
-	padding: 3px;
-	margin: 6px 6px 6px 6px;
-	background-color:white;
-	-moz-border-radius: 5px;
+	border: .5em $border_color solid;
+	padding: .5em;
+	margin: 1em;
 }
 .lg_gallery .lazyest_thumb_view img:hover, .lazyest_thumb_view img:focus {
-	border: 2px #2f0f0f solid;
-	-moz-border-radius: 5px;
+	border: 2px $hover_color solid;
 }
 
 /* Slide view follow... */
@@ -197,14 +194,14 @@ copyright (C) 2008 Brimosoft http://brimosoft.nl
 	text-align: center;
 }
 .lg_gallery .lazyest_image img {
-	border: 1px solid #a9a9a9;
-	margin: 6px 6px 6px 6px;
-	padding: 2px;
+	border: 1px solid $border_color;
+	margin: 1em;
+	padding: .5em;
 	margin:0 auto;
 
 }
 .lg_gallery .lazyest_image img:hover, .lazyest_image img:focus {
-	background-color: #a9a9a9;
+	background-color: $the_color;
 }
 
 .lg_gallery #lg_slideshow {
