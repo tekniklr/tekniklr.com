@@ -4,16 +4,13 @@
 
 /* colors */
 $the_color: #fef7ff;
-$base_font_color: #555;
 $page_bg: #ffffff;
 $content_bg: $page_bg;
-$faint_border_color: darken($the_color, 3%);
-$border_color: darken($the_color, 20%);
-$navigation_border_color: darken($the_color, 80%);
 $navigation_bg: $content_bg;
 $subnav_bg: $content_bg;
-$navigation_font_color: $base_font_color;
-$subnav_font_color: $base_font_color;
+$faint_border_color: darken($the_color, 3%);
+$border_color: darken($the_color, 20%);
+$navigation_border_color: darken($the_color, 70%);
 
 /* widths */
 $max_page_width: 61.75em;
@@ -22,10 +19,14 @@ $navigation_width: 100%;
 $foot_width: 100%;
 
 /* fonts */
-$hover_color: darken($the_color, 50%);
 $base_font_size: 12px; // set to 13px in boilerplate
 $content_font_family: Helvetica, "Helvetica Neue", Arial, sans-serif;
 $base_font_color: #607890; // from boilerplate
+$navigation_font_color: $base_font_color;
+$subnav_font_color: $base_font_color;
+$hover_color: darken($the_color, 50%);
+$link_color: $hover_color - #666600;
+$visited_link_color: darken($hover_color, 15%);
 
 /* ******************************************************** */
 /* mixins                                                   */

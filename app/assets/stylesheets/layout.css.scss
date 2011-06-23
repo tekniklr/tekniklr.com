@@ -28,8 +28,8 @@ address {
 
 // other link stuff defined in the boilerplate, but I think it's good to
 // have visited non-nav links be a different color
-a:link, a:active { color: $hover_color - #666600; }
-a:visited { color: darken($hover_color, 15%); }
+a:link, a:active { color: $link_color; }
+a:visited { color: $visited_link_color; }
 a:hover { color: $hover_color; }
 
 // easily align things in haml
