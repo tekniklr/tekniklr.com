@@ -25,3 +25,56 @@
 .bypostauthor{}
 .sticky{}
 /** END WordPress-Defined CSS Classes **/
+
+.error404 {
+  p {
+    text-align: center;
+  }
+}
+
+ul#archives {
+  list-style-type: none;
+  font-size: 110%;
+  width: $max_page_width/5;
+  margin: auto;
+  li {
+    padding: .25em 0 .25em 0;
+  }
+  a:link {
+    text-decoration: none;
+  }
+  a:hover {
+    font-weight: bold;
+  }
+}
+ul#category_list {
+  list-style-type: circle;
+  font-size: 120%;
+  width: $max_page_width/4;
+  margin: auto;
+  li {
+    padding: .25em 0 .25em 0;
+  }
+  a:link {
+    text-decoration: none;
+  }
+  a:hover {
+    font-weight: bold;
+  }
+}
+.st-tag-cloud {
+  width: $max_page_width - 20;
+  margin: auto;
+  a:link {
+    text-decoration: none;
+  }
+  a:hover {
+    font-weight: bold;
+    color: $hover_color;
+  }
+}
+
+a.post-edit-link:link, a.post-edit-link:visited, a.post-edit-link:active, a.post-edit-link:hover {
+  font-size: 80%;
+  text-decoration: none;
+}
