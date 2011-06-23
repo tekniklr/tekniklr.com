@@ -146,7 +146,6 @@ copyright (C) 2008 Brimosoft http://brimosoft.nl
 .lg_gallery .lg_thumb {
 	border: 1px #eeeeee dashed;
 	text-align:center;
-	-moz-border-radius: 5px;
 }
 
 .lg_gallery .dir_view .lg_thumb {
@@ -207,57 +206,25 @@ copyright (C) 2008 Brimosoft http://brimosoft.nl
 .lg_gallery #lg_slideshow {
 	margin: 0 auto;	
 }
-	/* Where exif data are displayed */
-	.lg_gallery .imageData {
-		border: 1px solid #530b0e;
-		margin: 0px auto;
-		padding: 3px;
-		font-family: monospace;
-		background-color: #bfbcc4;
-		color: #530b0e;
-		padding-bottom: 15px;
-		padding-left: 20px;
-	}
-	.lg_gallery .imageDataTable tr, th, td{
-		background-color: transparent;
-		vertical-align: top;
-		padding: 1px;
-		padding-left: 5px;
-	}
-	.lg_gallery .imageSubTable {
-		background-color: transparent;
-	}
-	.lg_gallery .imageSubTable th{
-		width: 180px;
-	}
-	.lg_gallery .imageSubTable td{
-		background-color: transparent;
-		font-style: italic;
-		color: #336699;
-	}
 
-	/* Where captions are shown*/
-	.lg_gallery .caption {
-		font-family: Verdana, sans-serif;
-		padding: 3px;
-		text-align: center;
-		color: #2f0f0f;
-		font-weight: bold;
-	}
-	
+/* Where captions are shown*/
+.lg_gallery .caption {
+	padding: .5em;
+	text-align: center;
+	color: #cccccc;
+	font-weight: bold;
+}
 
-/* ...ends here (slides) */
 
 /* ===============
  * The admin links
  * =============== */
 
 .lg_gallery .lg_admin {
-	border-bottom: dashed 1px #a9a9a9;
-	/* border-left: solid 3px #a9a9a9; */
-	padding: 3px;
+	border-bottom: dashed 1px $border_color;
+	padding: 1em;
 	text-align: left;
-	font-size: xx-small;
+	font-size: 80%;
 }
 
 /* ================
@@ -265,35 +232,7 @@ copyright (C) 2008 Brimosoft http://brimosoft.nl
  * ================ */
 
 .lg_powered {
-	/* Uncomment this if you want to hide the gallery footer */
 	display:none;
-}
-
-.lg_powered .lgpow {
-	font-size:xx-small;
-	border: solid 1px #a9a9a9;
-	padding:3px;
-	padding-right: 20px;
-	text-align: right;
-}
-
-/* ===============
- * Sidebar related
- * =============== */
-
-#lazyest_sidebox {
-	padding: 2px;
-	text-align:center;
-}
-
-#lazyest_sidebox img {
-	border: 1px solid #ccc;
-	vertical-align:middle;
-	padding:2px;
-}
-
-#lazyest_sidebox a:hover img {
-	border:1px solid #757575;
 }
 
 /**
@@ -302,7 +241,7 @@ copyright (C) 2008 Brimosoft http://brimosoft.nl
  
 .lg_slideshow {
 	position:relative;
-  margin: 10px auto;
+  margin: 1em auto;
 }
 
 .lg_slideshow a {
@@ -329,9 +268,9 @@ copyright (C) 2008 Brimosoft http://brimosoft.nl
 
 .lg_slideshow .sscaption h3 {
   font-weight:bold;
-  margin: 5px 5px 0 5px;
+  margin: .5em;
 }
 
 .lg_slideshow .sscaption p {
-  margin: 5px;
+  margin: .5em;
 }
