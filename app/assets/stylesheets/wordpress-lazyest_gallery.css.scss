@@ -1,0 +1,340 @@
+﻿/* 
+Lazyest Gallery Default Style Sheet
+copyright (C) 2008 Brimosoft http://brimosoft.nl
+*/
+.lg_gallery {
+}
+
+
+.lg_gallery a {
+}
+
+
+/* ========================
+ * The top folder navigator
+ * ======================== */
+.lg_gallery .top_navigator {
+	/* Uncomment this if you want to hide the gallery navigator bar */
+	/* display:none; */
+	font-family:        Helvetica, Sans-Serif;
+	font-weight:        bold;
+	margin:         5px 0px 5px 0px;
+	font-size: 115%;
+	color:          #2f0f0f;
+	border-bottom:      2px solid #2f0f0f;
+	clear: both;
+}
+
+/* ==========================
+ * The navigator (prev, next)
+ * ========================== */
+.lg_gallery .lazyest_navigator {
+	display:block;
+	height:21px;
+	padding:0 4px;
+}
+
+.lg_gallery .lazyest_navigator .alignleft {
+	float: left;
+}
+.lg_gallery .lazyest_navigator .alignright {
+	float: right;
+}
+
+/* ====================================
+ * Pagination (page by page, next prev)
+ * ==================================== */
+.lg_gallery .folder_pagination {
+	text-align: center;
+	padding-bottom:5px;
+}
+.lg_gallery .image_pagination {
+	text-align: center;
+	padding-bottom:5px;
+}
+
+/* =================
+ * Folders and Icons
+ * ================= */
+
+/* Where the folders are listed */
+.lg_gallery .folders {
+	margin: 6px 0px 6px 0px;
+  max-width: 100%;
+}
+/* Where the folder icon is shown */
+.lg_gallery .folder {
+	text-align:left;
+	padding:5px;
+	padding-bottom:20px;
+	/* Uncomment this if you want to hide the folder icon */
+	display:none;
+}
+
+/* Captions of the folders */
+.lg_gallery .folder_caption {
+	/*padding:5px 15px 5px 15px;*/
+	display:none;
+}
+/* Icons Style */
+.lg_gallery .icon {
+	vertical-align:middle;
+	border:none;
+}
+
+
+
+/* =============
+ * Gallery Views
+ * ============= */
+
+/* Directory listing (TABLE)*/
+.lg_gallery .dir_view {
+	margin:0 auto;
+	text-align:center;
+  max-width: 100%;
+}
+
+.lg_gallery .folder_description {
+	text-align: left;
+}
+
+.lg_folders_img {
+  display: none;
+}
+.lg_folders_img icon {
+  display: none;
+}
+
+.lg_gallery .lg_folder_thumb_image {
+}
+.lg_gallery .lg_foldernum {
+	/* display: none; */
+}
+
+.dir_view td.folders {
+	text-align:left;
+}
+
+
+.lg_gallery table td {
+	vertical-align:top;
+	padding-bottom:8px;
+  max-width: 140px;
+}
+
+.lg_gallery .category_icon {
+}
+
+.lg_gallery .random_image {
+}
+
+
+/* Image's Thumbnails */
+.lg_gallery .lazyest_thumb_view {
+	margin:0 auto;
+	text-align:center;
+	padding-bottom:5px;
+  max-width: 100%;
+}
+
+.lg_gallery .lg_thumb {
+	border: 1px #eeeeee dashed;
+	text-align:center;
+	-moz-border-radius: 5px;
+}
+
+.lg_gallery .dir_view .lg_thumb {
+	border:none;
+}
+
+.lg_gallery .lg_thumb_image {
+}
+
+.lg_gallery .lg_thumb_caption {
+	overflow:hidden;
+	width: 100px;
+	padding: 2px 5px 2px 5px;
+	color: #321a1b;
+}
+
+
+.lg_image {
+/*	border: 1px #bbbbbb dashed;*/
+	text-align:center;
+	-moz-border-radius: 5px;
+	padding:4px;
+/*	margin:4px;*/
+	display: inline;
+}
+.lg_image div {
+	display: inline;
+}
+
+.thumb_caption {
+	text-align:center;
+	color: #321a1b;
+}
+
+.lg_gallery .lazyest_thumb_view {
+  max-width: 100%;
+  width: 100%;
+}
+.lg_gallery .lazyest_thumb_view img {
+	border: 2px #bbbbbb solid;
+	padding: 3px;
+	margin: 6px 6px 6px 6px;
+	background-color:white;
+	-moz-border-radius: 5px;
+}
+.lg_gallery .lazyest_thumb_view img:hover, .lazyest_thumb_view img:focus {
+	border: 2px #2f0f0f solid;
+	-moz-border-radius: 5px;
+}
+
+/* Slide view follow... */
+.lg_gallery .lazyest_image {
+	text-align: center;
+}
+.lg_gallery .lazyest_image img {
+	border: 1px solid #a9a9a9;
+	margin: 6px 6px 6px 6px;
+	padding: 2px;
+	margin:0 auto;
+
+}
+.lg_gallery .lazyest_image img:hover, .lazyest_image img:focus {
+	background-color: #a9a9a9;
+}
+
+.lg_gallery #lg_slideshow {
+	margin: 0 auto;	
+}
+	/* Where exif data are displayed */
+	.lg_gallery .imageData {
+		border: 1px solid #530b0e;
+		margin: 0px auto;
+		padding: 3px;
+		font-family: monospace;
+		background-color: #bfbcc4;
+		color: #530b0e;
+		padding-bottom: 15px;
+		padding-left: 20px;
+	}
+	.lg_gallery .imageDataTable tr, th, td{
+		background-color: transparent;
+		vertical-align: top;
+		padding: 1px;
+		padding-left: 5px;
+	}
+	.lg_gallery .imageSubTable {
+		background-color: transparent;
+	}
+	.lg_gallery .imageSubTable th{
+		width: 180px;
+	}
+	.lg_gallery .imageSubTable td{
+		background-color: transparent;
+		font-style: italic;
+		color: #336699;
+	}
+
+	/* Where captions are shown*/
+	.lg_gallery .caption {
+		font-family: Verdana, sans-serif;
+		padding: 3px;
+		text-align: center;
+		color: #2f0f0f;
+		font-weight: bold;
+	}
+	
+
+/* ...ends here (slides) */
+
+/* ===============
+ * The admin links
+ * =============== */
+
+.lg_gallery .lg_admin {
+	border-bottom: dashed 1px #a9a9a9;
+	/* border-left: solid 3px #a9a9a9; */
+	padding: 3px;
+	text-align: left;
+	font-size: xx-small;
+}
+
+/* ================
+ * Footer Copyright
+ * ================ */
+
+.lg_powered {
+	/* Uncomment this if you want to hide the gallery footer */
+	display:none;
+}
+
+.lg_powered .lgpow {
+	font-size:xx-small;
+	border: solid 1px #a9a9a9;
+	padding:3px;
+	padding-right: 20px;
+	text-align: right;
+}
+
+/* ===============
+ * Sidebar related
+ * =============== */
+
+#lazyest_sidebox {
+	padding: 2px;
+	text-align:center;
+}
+
+#lazyest_sidebox img {
+	border: 1px solid #ccc;
+	vertical-align:middle;
+	padding:2px;
+}
+
+#lazyest_sidebox a:hover img {
+	border:1px solid #757575;
+}
+
+/**
+ * Slideshow related styling
+ */
+ 
+.lg_slideshow {
+	position:relative;
+  margin: 10px auto;
+}
+
+.lg_slideshow a {
+	float:left;
+	position:absolute; 
+}
+
+.lg_slideshow a img {
+	border:none;
+  margin: 0;
+}
+
+.lg_slideshow a.show {
+	z-index:500
+}
+
+.lg_slideshow .sscaption {
+	z-index:600; 
+	background-color:#000; 
+	color:#ffffff; 
+	height:100px; 
+	position:absolute;
+}
+
+.lg_slideshow .sscaption h3 {
+  font-weight:bold;
+  margin: 5px 5px 0 5px;
+}
+
+.lg_slideshow .sscaption p {
+  margin: 5px;
+}
