@@ -9,9 +9,9 @@ Current goals:
   * [X] integrate wordpress
     * [ ] wordpress styles
     * [X] wp_twitter
-    * [ ] most recent blog post
-    * [ ] tags?
-    * [ ] archive?
+    * [X] most recent blog post
+    * [X] tags?
+    * [X] archive?
   * [X] omniauth
   * [X] hcard
   * [X] gravatar
