@@ -15,11 +15,11 @@
       %li
         = link_to 'rss', '/wpblog/feed/'
       %li
-        = link_to 'categories', 'wp_categories_url'
+        = link_to 'categories', '/wpblog/categories/'
       %li
         = link_to 'tags', '/wpblog/tag-cloud/'
       %li
-        = link_to 'archive', 'wp_archive_url'
+        = link_to 'archive', '/wpblog/archives/'
       %li
         = form_tag '/wpblog', :method => 'get', :id => 'wp_search' do
           = text_field_tag :s
