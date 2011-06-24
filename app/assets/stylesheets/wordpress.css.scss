@@ -51,10 +51,14 @@ ul#archives {
   }
 }
 ul#category_list {
-  list-style-type: circle;
+  list-style-type: none;
   font-size: 120%;
   width: $max_page_width/4;
   margin: auto;
+  ul {
+    list-style-type: none;
+    border-left: 1px dashed $base_font_color;
+  }
   li {
     padding: .25em 0 .25em 0;
   }
@@ -277,5 +281,6 @@ ol#current_comments {
     color: #333333;
     padding: .2em 1em .2em 1em;
     margin: .5em 0 .5em 0;
+    font-family: $content_font_family;
   }
 }
