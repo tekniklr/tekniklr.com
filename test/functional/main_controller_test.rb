@@ -11,4 +11,8 @@ class MainControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should get navigation" do
+    get :navigation
+    assert_response :success
+  end
 end
