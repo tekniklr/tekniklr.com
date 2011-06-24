@@ -108,7 +108,7 @@ a:hover { color: $hover_color; }
 
 #navigation {
   // navigation will switch to mobile @ given size
-  @media screen and (min-width: 750px) {
+  @media screen and (min-width: 500px) {
     /* regular layout */
     .mobile {
       display: none;
@@ -117,7 +117,7 @@ a:hover { color: $hover_color; }
       display: block;
     }
   }
-  @media screen and (max-width: 750px) {
+  @media screen and (max-width: 500px) {
     /* mobile layout */
     .mobile {
       display: block;
