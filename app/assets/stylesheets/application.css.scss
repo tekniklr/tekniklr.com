@@ -22,7 +22,8 @@
 
 // wordpress crap
 @import "wordpress.css.scss";
-@import "wordpress-lazyest_gallery.css.scss";
+// lazyest gallery is kinda dumb. using the lazyest stylesheet plugin.
+//@import "wordpress-lazyest_gallery.css.scss";
 
 // controller specific styles
 @import "main.css.scss";

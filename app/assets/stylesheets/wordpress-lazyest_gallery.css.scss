@@ -144,7 +144,6 @@ copyright (C) 2008 Brimosoft http://brimosoft.nl
 }
 
 .lg_gallery .lg_thumb {
-	border: 1px #eeeeee dashed;
 	text-align:center;
 }
 
@@ -159,7 +158,7 @@ copyright (C) 2008 Brimosoft http://brimosoft.nl
 	overflow:hidden;
 	width: 10em;
 	padding: .5em 1em .5em 1em;
-	color: #cccccc;
+	color: #999999;
 }
 
 
@@ -180,12 +179,12 @@ copyright (C) 2008 Brimosoft http://brimosoft.nl
 .lg_gallery .lazyest_thumb_view {
 }
 .lg_gallery .lazyest_thumb_view img {
-	border: .5em $border_color solid;
+	border: 1px $border_color solid;
 	padding: .5em;
 	margin: 1em;
 }
 .lg_gallery .lazyest_thumb_view img:hover, .lazyest_thumb_view img:focus {
-	border: 2px $hover_color solid;
+	border: 1px $hover_color solid;
 }
 
 /* Slide view follow... */
@@ -204,14 +203,17 @@ copyright (C) 2008 Brimosoft http://brimosoft.nl
 }
 
 .lg_gallery #lg_slideshow {
-	margin: 0 auto;	
+	margin: 0 auto;
+	a:link {
+	 text-decoration: none; 
+	}
 }
 
 /* Where captions are shown*/
 .lg_gallery .caption {
 	padding: .5em;
 	text-align: center;
-	color: #cccccc;
+	color: #999999;
 	font-weight: bold;
 }
 
@@ -273,4 +275,10 @@ copyright (C) 2008 Brimosoft http://brimosoft.nl
 
 .lg_slideshow .sscaption p {
   margin: .5em;
+}
+
+.lg_slideshow_button {
+  a:link {
+    text-decoration: none;
+  }
 }
