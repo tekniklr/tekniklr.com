@@ -163,14 +163,11 @@ article {
 /*
  * custom classes I've been known to use inside of posts
  */
-.photo_blurb {
-  padding: 0 3em 0 3em;
-}
 blockquote, .quote {
-  margin: .5em 1em .5em 1em;
-  padding: .5em;
+  margin: .75em 2em .75em 2em;
+  padding: .5em 1em .5em .5em;
   background-color: $the_color;
-  border-left: 2px solid $base_font_color;
+  border-left: 1px solid $base_font_color;
   text-align: justify;
 }
 code {
@@ -182,16 +179,21 @@ code {
   text-align: left;
   font-family: monospace;
 }
-.subhead {
-  font-weight: bold;
-  margin: 1em 0 1em 0;
-  font-size: 110%;
-}
-.subtext {}
-.footnote {
-  margin: 3em 0 0 10em;
-  font-size: 80%;
-  text-align: left;
+article {
+  .photo_blurb {
+    padding: 0 3em 0 3em;
+  }
+  .subhead {
+    font-weight: bold;
+    margin: 1em 0 1em 0;
+    font-size: 110%;
+  }
+  .subtext {}
+  .footnote {
+    margin: 3em 0 0 10em;
+    font-size: 80%;
+    text-align: left;
+  }
 }
  
 /*
