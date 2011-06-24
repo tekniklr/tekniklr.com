@@ -1,26 +1,5 @@
 #navigation
-  %ul
-    %li
-      = link_to 'about', about_url
-    %li
-      = link_to 'résumé', resume_url
-    %li
-      = link_to 'blog', '/wpblog/'
-    %li
-      = link_to 'gallery', '/wpblog/gallery/'
-    %li
-      = link_to 'programs', 'http://github.com/tekniklr'
+  = render :partial => 'layouts/static/nav_main'
   - if @wpblog
-    %ul.subnav
-      %li
-        = link_to 'rss', '/wpblog/feed/'
-      %li
-        = link_to 'categories', '/wpblog/categories/'
-      %li
-        = link_to 'tags', '/wpblog/tag-cloud/'
-      %li
-        = link_to 'archive', '/wpblog/archives/'
-      %li
-        = form_tag '/wpblog', :method => 'get', :id => 'wp_search' do
-          = text_field_tag :s
+    = render :partial => 'layouts/static/nav_sub'
   .break

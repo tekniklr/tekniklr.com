@@ -10,6 +10,10 @@ class MainController < ApplicationController
     page_title 'acknowledgments'
   end
 
+  def navigation
+    page_title 'navigation'
+  end
+
   # https://github.com/rails/rails/issues/671
   def routing_error
     render '404', :status => 404

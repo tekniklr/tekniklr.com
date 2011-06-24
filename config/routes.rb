@@ -14,6 +14,9 @@ TekniklrCom::Application.routes.draw do
   # ack
   match '/acknowledgments'    => 'main#acknowledgments'
 
+  # navigation for mobile site
+  match '/navigation'    => 'main#navigation'
+
   # résumé
   match '/resume'       => 'resume#index'
   match '/resume/clean' => 'resume#clean'
