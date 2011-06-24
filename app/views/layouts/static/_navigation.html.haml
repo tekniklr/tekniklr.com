@@ -1,5 +1,10 @@
 #navigation
-  = render :partial => 'layouts/static/nav_main'
-  - if @wpblog
-    = render :partial => 'layouts/static/nav_sub'
-  .break
+  .mobile
+    %ul
+      %li
+        = link_to 'navigation', navigation_url
+  .regular
+    = render :partial => 'layouts/static/nav_main'
+    - if @wpblog
+      = render :partial => 'layouts/static/nav_sub'
+    .break
