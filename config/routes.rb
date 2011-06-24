@@ -44,6 +44,10 @@ TekniklrCom::Application.routes.draw do
     put 'sort_things',    :on => :collection
   end
   
+  # external redirects
+  match "/blog" => redirect("http://tekniklr.com/wpblog"), :as => :blog
+  match "/hair" => redirect("http://tekniklr.com/wpblog/2009/10/13/technicolor-hair-howto/"), :as => :hair
+  
   # https://github.com/rails/rails/issues/671
   # http://techoctave.com/c7/posts/36-rails-3-0-rescue-from-routing-error-solution
   match '*a', :to => "main#routing_error"
