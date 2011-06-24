@@ -7,7 +7,7 @@ Current goals:
     * [X] manage work experience for uniformity and printability
     * [X] manage remote site links for hcard/rel links/bio display
   * [X] integrate wordpress
-    * [ ] wordpress styles
+    * [X] wordpress styles
     * [X] wp_twitter
     * [X] most recent blog post
     * [X] tags?
