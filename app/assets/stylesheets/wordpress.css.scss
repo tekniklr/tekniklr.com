@@ -32,6 +32,9 @@
   }
 }
 
+/*
+ * for pages i've made
+ */
 ul#archives {
   list-style-type: none;
   font-size: 110%;
@@ -74,7 +77,205 @@ ul#category_list {
   }
 }
 
-a.post-edit-link:link, a.post-edit-link:visited, a.post-edit-link:active, a.post-edit-link:hover {
+.navigation {
+  a:link, a:visited, a:active {
+   text-decoration: none;
+   font-size: 80%;
+   color: $navigation_font_color;
+  }
+  a:hover {
+    color: $hover_color;
+  }
+  .nav-previous {
+    width: 50%;
+    float: left;
+    text-align: left;
+  }
+  .nav-next {
+    width: 50%;
+    float: right;
+    text-align: right;
+  }
+}
+#nav-above {
+  margin: -1em 0 4em 0;
+}
+#nav-below {
+  margin: 2em 0 -1em 0;
+}
+
+/*
+ * post styles - used nearly everywhere
+ */
+article {
+  clear: both;
+  margin: 3em 3em 3em 3em;
+}
+.entry-title {
+  font-weight: bold;
+  font-size: 130%;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  border-bottom: 1px solid $base_font_color;
+  a:link, a:visited, a:active {
+    color: $base_font_color;
+    text-decoration: none;
+  }
+  a:hover {
+    color: $hover_color;
+  }
+}
+.entry-meta {
   font-size: 80%;
-  text-decoration: none;
+  text-align: right;
+  margin: 0;
+  a:link, a:visited, a:active {
+    text-decoration: none;
+  }
+  a:hover {
+    color: $hover_color;
+  }
+}
+.entry-content {
+  text-align: justify;
+  margin: 1.5em 1em 1em 1em;
+}
+.entry-utility {
+  clear: both;
+  padding: 0;
+  margin: 0;
+  font-size: 80%;
+  text-align: center;
+  border-top: 1px solid $faint_border_color;
+  a:link, a:visited, a:active {
+    text-decoration: none;
+  }
+  a:hover {
+    color: $hover_color;
+  }
+}
+
+/*
+ * custom classes I've been known to use inside of posts
+ */
+.photo_blurb {
+  padding: 0 3em 0 3em;
+}
+blockquote, .quote {
+  margin: .5em 1em .5em 1em;
+  padding: .5em;
+  background-color: $the_color;
+  border-left: 2px solid $base_font_color;
+  text-align: justify;
+}
+code {
+  display: block;
+  margin: .5em 1em .5em 1em;
+  padding: .5em;
+  border: 1px dashed $base_font_color;
+  background-color: $the_color;
+  text-align: left;
+  font-family: monospace;
+}
+.subhead {
+  font-weight: bold;
+  margin: 1em 0 1em 0;
+  font-size: 110%;
+}
+.subtext {}
+.footnote {
+  margin: 3em 0 0 10em;
+  font-size: 80%;
+  text-align: left;
+}
+ 
+/*
+ * current comments
+ */
+ol#current_comments {
+  list-style-type: none;
+  margin: 0 3em 0 3em;
+  padding: 0;
+  li {
+    margin: 2em 0 2em 0;
+    padding: 1em;
+    .even {
+      background-color: $the_color;
+    }
+    article {
+      margin: 0;
+      padding: 0;
+      .comment-author {
+        width: 50%;
+        float: left;
+        text-align: left;
+        a:link, a:visited, a:active {
+          text-decoration: none;
+        }
+        a:hover {
+          color: $hover_color;
+        }
+        img.avatar {
+          height: 3em;
+          width: 3em;
+        }
+      }
+      .comment-meta {
+        width: 50%;
+        float: right;
+        text-align: right;
+        font-size: 80%;
+        margin: 2.5em 0 0 0;
+        a:link, a:visited, a:active {
+          text-decoration: none;
+        }
+        a:hover {
+          color: $hover_color;
+        }
+      }
+      .comment-body {
+        clear: both;
+        margin: 0;
+        border-top: 1px solid $faint_border_color;
+        padding: 0 1em 0 1em;
+        text-align: justify;
+      }
+    }
+  }
+}
+
+/*
+ * commenting
+ */
+#comments-title, #reply-title {
+  font-weight: bold;
+  font-size: 110%;
+  margin: 1em 3em 1em 3em;
+}
+#respond {
+  p {
+    margin: .25em 6em .25em 6em;
+    padding: 0;
+  }
+  p.form-submit {
+    text-align: center;
+  }
+  label {
+    font-weight: bold;
+    padding: 0 1em 0 1em;
+  }
+  input, textarea {
+    @include rounded(1px, #cccccc, .5em, .2em, solid);
+    background-color: $the_color;
+    margin: .25em 0 .25em 0;
+    font-family: 'Comic Sans MS', cursive;
+  }
+  input[type=submit] {
+    @include rounded(1px, #555555, .5em, .2em, solid);
+    background-color: white;
+    color: #333333;
+    padding: .2em 1em .2em 1em;
+    margin: .5em 0 .5em 0;
+  }
 }
