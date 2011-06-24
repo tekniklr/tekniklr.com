@@ -115,6 +115,9 @@ a:hover { color: $hover_color; }
     }
     .regular {
       display: block;
+      ul {
+        width: 100%;
+      }
     }
   }
   @media screen and (max-width: 500px) {
@@ -122,6 +125,9 @@ a:hover { color: $hover_color; }
     .mobile {
       display: block;
       margin: auto;
+      ul {
+        width: $max_page_width/5;
+      }
     }
     .regular {
       display: none;
@@ -132,12 +138,11 @@ a:hover { color: $hover_color; }
   background-color: $navigation_bg;
   border-top: 2px solid $navigation_border_color;
   border-bottom: 2px solid $navigation_border_color;
-  margin: auto;
+  margin: 0;
   padding: 0;
   overflow: hidden;
   ul {
     clear: both;
-    width: 100%;
     display: block;
     list-style-type: none;
     padding: 0;
@@ -147,7 +152,7 @@ a:hover { color: $hover_color; }
       display: inline;
       width: $max_page_width/5; // 20% of full page - will be a static number, not a percentage (as it should be)
       text-align: center;
-      margin: auto;
+      margin: 0;
       float: left;
       padding: 0.75em 0em 0.75em 0em;
       background-color: $navigation_bg;
