@@ -18,7 +18,7 @@ namespace :deploy do
   end
 
   desc "Link secret token"
-  task :link_secet_token do
+  task :link_secret_token do
     run "rm -drf #{release_path}/config/initializers/secret_token.rb"
     run "ln -s #{shared_path}/secret_token.rb #{release_path}/config/initializers/secret_token.rb"
   end
