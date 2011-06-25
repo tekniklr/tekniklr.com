@@ -34,6 +34,11 @@ namespace :deploy do
     run "touch #{current_path}/tmp/restart.txt"
   end
   
+  desc "Sync wordpress theme"
+  task :wptheme do
+    system "rsync -vr --exclude='.DS_store' --exclude='.git' public/wpblog/wp-content/themes/tekniklr.com/ #{user}@#{application}:#{shared_path}/wpblog/wp-content/themes/tekniklr.com/"
+  end
+  
 end
 
 before "deploy:symlink", "deploy:link_database", "deploy:link_omniauth", "deploy:link_secret_token", "deploy:link_wpblog"
