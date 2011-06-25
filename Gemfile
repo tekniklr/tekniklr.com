@@ -4,15 +4,10 @@ gem 'sprockets'
 gem 'mysql2'
 gem 'rake', '0.8.7' # fixes undefined method 'Task' bug
 
-gem 'exception_notification'
-
-gem 'validates_timeliness'
-
 # Asset template engines
 gem 'sass'          # css 
 gem 'haml'          # html
 gem 'coffee-script' # javacript
-gem 'uglifier'      # javascript condenser
 
 # javascript funtimes
 gem 'jquery-rails'
@@ -21,15 +16,19 @@ gem 'jquery-rails'
 gem 'omniauth'
 gem 'json'
 
+gem 'validates_timeliness'
+
 # Deploy with Capistrano
 gem 'capistrano'
-
-# To use debugger
-# gem 'ruby-debug19', :require => 'ruby-debug'
 
 group :test do
   # Pretty printed test output
   gem 'turn', :require => false
+end
+
+group :production do
+  gem 'uglifier'      # javascript condenser
+  gem 'exception_notification'
 end
 
 # if your’e using Bundler in your Rails app, AND use gems in your 
@@ -42,4 +41,6 @@ group :development do
   gem "hirb"
   gem "awesome_print"
   gem "looksee"
+  
+  # gem 'ruby-debug19', :require => 'ruby-debug'
 end
