@@ -29,6 +29,7 @@ end
 group :production do
   gem 'uglifier'      # javascript condenser
   gem 'exception_notification'
+  gem 'therubyracer'  # dreamhost doesn't provide a js  runtime but OSX does
 end
 
 # if your’e using Bundler in your Rails app, AND use gems in your 
