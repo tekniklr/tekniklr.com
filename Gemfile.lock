@@ -194,7 +194,6 @@ DEPENDENCIES
   mysql2
   omniauth
   rails (= 3.1.0.rc1)
-  rake (= 0.8.7)
   sass
   sprockets
   therubyracer
