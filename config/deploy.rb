@@ -16,7 +16,6 @@ set :scm_verbose, true
 set :deploy_via, :remote_cache
 set :copy_compression, :bz2
 
-
 role :web, domain
 role :app, domain
 role :db,  domain, :primary => true   # Where migrations will run
