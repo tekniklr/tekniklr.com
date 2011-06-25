@@ -117,7 +117,7 @@ article {
 }
 .entry-title {
   font-weight: bold;
-  font-size: 130%;
+  font-size: 150%;
   margin: 0;
   padding: 0;
   text-align: left;
@@ -143,7 +143,8 @@ article {
 }
 .entry-content {
   text-align: justify;
-  margin: 1.5em 1em 1em 1em;
+  margin: 0;
+  padding: 1em 2em 1em 2em;
 }
 .entry-utility {
   clear: both;
@@ -167,7 +168,7 @@ blockquote, .quote {
   margin: .75em 2em .75em 2em;
   padding: .5em 1em .5em .5em;
   background-color: $the_color;
-  border-left: 1px solid $base_font_color;
+  border-left: 1px dotted $base_font_color;
   text-align: justify;
 }
 code {
