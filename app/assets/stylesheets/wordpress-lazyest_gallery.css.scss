@@ -14,18 +14,21 @@ copyright (C) 2008 Brimosoft http://brimosoft.nl
   display: none;
 }
 
+article#post-1700 {
+  margin: 0;
+  padding: 0;
+}
 
 /* ========================
  * The top folder navigator
  * ======================== */
 .lg_gallery .top_navigator {
   font-weight: bold;
-  font-size: 130%;
+  font-size: 150%;
   text-transform: lowercase;
-  margin: 1em 0em 1.5em 0;
+  margin: 0em 0em 1.5em 0;
   padding: 0.25em 0 0.25em 0;
   text-align: center;
-  border-top: 1px dashed $border_color;
   border-bottom: 1px dashed $border_color;
   a:link, a:visited, a:active {
     color: $base_font_color;
