@@ -37,4 +37,4 @@ namespace :deploy do
 end
 
 after "deploy:symlink", "deploy:link_database", "deploy:link_omniauth", "deploy:link_secret_token", "deploy:link_wpblog"
-after "deploy:restart", "deploy:passenger_restart"
+before "deploy:restart", "deploy:passenger_restart"
