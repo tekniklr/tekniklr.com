@@ -8,11 +8,6 @@ AddHandler cgi-script .cgi
 
 Options +FollowSymLinks +ExecCGI 
 
-<Location /wpblog>
-  DirectoryIndex index.html index.php
-  PassengerEnabled off
-</Location>
-
 RewriteEngine On 
 
 RewriteCond %{REQUEST_FILENAME} !-f
