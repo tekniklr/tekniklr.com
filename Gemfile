@@ -1,10 +1,9 @@
 source 'http://rubygems.org'
 gem 'rails', '3.1.0.rc1'
-gem 'sprockets'
 gem 'mysql2'
-gem 'rake', '0.8.7' # fixes undefined method 'Task' bug
 
-# Asset template engines
+# assets
+gem 'sprockets'     # asset system
 gem 'sass'          # css 
 gem 'haml'          # html
 gem 'coffee-script' # javacript
@@ -42,6 +41,5 @@ group :development do
   gem "hirb"
   gem "awesome_print"
   gem "looksee"
-  
   # gem 'ruby-debug19', :require => 'ruby-debug'
 end
