@@ -29,6 +29,12 @@ namespace :deploy do
     run "ln -s #{shared_path}/wpblog #{release_path}/public/wpblog"
   end
   
+  desc "Passenger restart"
+  task :passenger_restart do
+    run "touch #{release_path}/tmp/restart.txt"
+  end
+  
 end
 
 after "deploy:symlink", "deploy:link_database", "deploy:link_omniauth", "deploy:link_secret_token", "deploy:link_wpblog"
+after "deploy:restart", "deploy:passenger_restart"
