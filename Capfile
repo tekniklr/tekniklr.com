@@ -5,6 +5,12 @@ load 'config/deploy' # remove this line to skip loading any of the default tasks
 
 namespace :deploy do
 
+  desc "Link .rvmrc"
+  task :link_rvmrc do
+    run "rm -drf #{release_path}/.rvmrc"
+    run "ln -s #{shared_path}/rvmrc #{release_path}/.rvmrc"
+  end
+
   desc "Link database.yml"
   task :link_database do
     run "rm -drf #{release_path}/config/database.yml"
@@ -41,4 +47,4 @@ namespace :deploy do
   
 end
 
-before "deploy:symlink", "deploy:link_database", "deploy:link_omniauth", "deploy:link_secret_token", "deploy:link_wpblog", "deploy:wptheme"
+before "deploy:symlink", "deploy:link_rvmrc", "deploy:link_database", "deploy:link_omniauth", "deploy:link_secret_token", "deploy:link_wpblog", "deploy:wptheme"
