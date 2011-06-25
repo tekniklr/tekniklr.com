@@ -1,16 +1,19 @@
 <IfModule mod_fastcgi.c>
-AddHandler fastcgi-script .fcgi
+  AddHandler fastcgi-script .fcgi
 </IfModule>
 <IfModule mod_fcgid.c>
-AddHandler fcgid-script .fcgi
+  AddHandler fcgid-script .fcgi
 </IfModule>
 AddHandler cgi-script .cgi
 
 Options +FollowSymLinks +ExecCGI 
 
+<Location /wpblog>
+  DirectoryIndex index.html index.php
+  PassengerEnabled off
+</Location>
+
 RewriteEngine On 
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*)$ dispatch.fcgi/$1 [QSA,L] 
- 
-ErrorDocument 500 "Rails application failed to start properly"
