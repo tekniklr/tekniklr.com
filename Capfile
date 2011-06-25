@@ -30,11 +30,10 @@ namespace :deploy do
   end
   
   desc "Passenger restart"
-  task :passenger_restart do
-    run "touch #{release_path}/tmp/restart.txt"
+  task :restart do
+    run "touch #{current_path}/tmp/restart.txt"
   end
   
 end
 
 after "deploy:symlink", "deploy:link_database", "deploy:link_omniauth", "deploy:link_secret_token", "deploy:link_wpblog"
-before "deploy:restart", "deploy:passenger_restart"
