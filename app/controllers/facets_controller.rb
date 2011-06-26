@@ -1,6 +1,7 @@
 class FacetsController < ApplicationController
   before_filter   :is_admin?
   before_filter   { |c| c.page_title 'Facet management' }
+  cache_sweeper   :facet_sweeper, :only => [:create, :update, :destroy]
   
   # GET /facets
   def index
@@ -34,8 +35,6 @@ class FacetsController < ApplicationController
     @facet = Facet.new(params[:facet])
     respond_to do |format|
       if @facet.save
-        expire_fragment :controller => 'about', :action => 'index'
-        expire_fragment :controller => 'resume', :action => 'index'
         flash[:notice] = 'Facet added.'
         format.html { redirect_to facets_url }
         format.js
@@ -50,11 +49,8 @@ class FacetsController < ApplicationController
   # PUT /facets/1
   def update
     @facet = Facet.find(params[:id])
-
     respond_to do |format|
       if @facet.update_attributes(params[:facet])
-        expire_fragment :controller => 'about', :action => 'index'
-        expire_fragment :controller => 'resume', :action => 'index'
         flash[:notice] = 'Facet was successfully updated.'
         format.html { redirect_to facets_url }
         format.js
@@ -70,8 +66,6 @@ class FacetsController < ApplicationController
   def destroy
     @facet = Facet.find(params[:id])
     @facet.destroy
-    expire_fragment :controller => 'about', :action => 'index'
-    expire_fragment :controller => 'resume', :action => 'index'
     respond_to do |format|
       format.html { redirect_to facets_url }
       format.js   

@@ -1,6 +1,7 @@
 class LinksController < ApplicationController
   before_filter   :is_admin?
   before_filter   { |c| c.page_title 'link management' }
+  cache_sweeper   :link_sweeper, :only => [:create, :update, :destroy]
   
   # GET /links
   def index
@@ -15,8 +16,6 @@ class LinksController < ApplicationController
   def update_all
     @links = Link.update(params[:links].keys, params[:links].values).reject { |l| l.errors.empty? }
     if @links.empty?
-      expire_fragment :controller => 'about', :action => 'index'
-      expire_fragment 'header_links'
       Rails.cache.delete('all_links')
       flash[:notice] = 'Links updated.'
       redirect_to(links_url)
@@ -30,8 +29,6 @@ class LinksController < ApplicationController
     @link = Link.new(params[:link])
     respond_to do |format|
       if @link.save
-        expire_fragment :controller => 'about', :action => 'index'
-        expire_fragment 'header_links'
         Rails.cache.delete('all_links')
         flash[:notice] = 'Link added.'
         format.html { redirect_to links_url }
@@ -48,8 +45,6 @@ class LinksController < ApplicationController
   def destroy
     @link = Link.find(params[:id])
     @link.destroy
-    expire_fragment :controller => 'about', :action => 'index'
-    expire_fragment 'header_links'
     Rails.cache.delete('all_links')
     respond_to do |format|
       format.html { redirect_to links_url }

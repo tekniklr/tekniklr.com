@@ -1,6 +1,7 @@
 class ExperiencesController < ApplicationController
   before_filter   :is_admin?
   before_filter   { |c| c.page_title 'experience management' }
+  cache_sweeper   :experience_sweeper, :only => [:create, :update, :destroy]
   
   # GET /experiences
   def index
@@ -34,7 +35,6 @@ class ExperiencesController < ApplicationController
     @experience = Experience.new(params[:experience])
     respond_to do |format|
       if @experience.save
-        expire_fragment :controller => 'resume', :action => 'index'
         flash[:notice] = 'Experience added.'
         format.html { redirect_to experiences_url }
         format.js
@@ -52,7 +52,6 @@ class ExperiencesController < ApplicationController
 
     respond_to do |format|
       if @experience.update_attributes(params[:experience])
-        expire_fragment :controller => 'resume', :action => 'index'
         flash[:notice] = 'Experience was successfully updated.'
         format.html { redirect_to experiences_url }
         format.js
@@ -68,7 +67,6 @@ class ExperiencesController < ApplicationController
   def destroy
     @experience = Experience.find(params[:id])
     @experience.destroy
-    expire_fragment :controller => 'resume', :action => 'index'
     respond_to do |format|
       format.html { redirect_to experiences_url }
       format.js   
