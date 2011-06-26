@@ -99,7 +99,7 @@ a:hover { color: $hover_color; }
     color: #888888;
     margin: 0;
     background-color: $page_bg;
-    @include rounded(1px, transparent, .5em, .5em, none);
+    @include rounded(1px, transparent, .75em, .3em, none);
     padding-left: 0;
     @include transparent(0.8);
     display: inline;
