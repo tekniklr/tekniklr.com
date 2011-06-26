@@ -14,7 +14,6 @@ TekniklrCom::Application.configure do
 
   # Compress both stylesheets and JavaScripts
   config.assets.js_compressor  = :uglifier
-  config.assets.css_compressor = :scss
 
   # Specifies the header that your server uses for sending files
   # (comment out if your front-end server doesn't support this)
