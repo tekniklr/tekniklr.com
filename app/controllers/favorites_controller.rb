@@ -1,6 +1,7 @@
 class FavoritesController < ApplicationController
   before_filter   :is_admin?
   before_filter   { |c| c.page_title 'favorite management' }
+  cache_sweeper   :favorite_sweeper, :only => [:create, :update, :destroy, :sort_favorites, :sort_things]
    
   # GET /favorites
   def index
@@ -42,7 +43,6 @@ class FavoritesController < ApplicationController
     @favorite = Favorite.new(params[:favorite])
     respond_to do |format|
       if @favorite.save
-        expire_fragment :controller => 'about', :action => 'index'
         format.html { redirect_to @favorite, :notice => 'Favorite was successfully created.' }
       else
         format.html { render :action => "new" }
@@ -56,7 +56,6 @@ class FavoritesController < ApplicationController
       Favorite.update_all(['sort=?', index+1], ['id=?', id])
     end
     respond_to do |format|
-      expire_fragment :controller => 'about', :action => 'index'
       format.html { redirect_to favorites_url, :notice => 'Favorites re-ordered.' }
       format.js   { render :nothing => true }
     end
@@ -68,7 +67,6 @@ class FavoritesController < ApplicationController
       FavoriteThing.update_all(['sort=?', index+1], ['id=?', id])
     end
     respond_to do |format|
-      expire_fragment :controller => 'about', :action => 'index'
       format.html { redirect_to favorites_url, :notice => 'Favorite things re-ordered.' }
       format.js   { render :nothing => true }
     end
@@ -79,7 +77,6 @@ class FavoritesController < ApplicationController
     @favorite = Favorite.find(params[:id])
     respond_to do |format|
       if @favorite.update_attributes(params[:favorite])
-        expire_fragment :controller => 'about', :action => 'index'
         format.html { redirect_to @favorite, :notice => 'Favorite was successfully updated.' }
       else
         format.html { render :action => "edit" }
@@ -91,7 +88,6 @@ class FavoritesController < ApplicationController
   def destroy
     @favorite = Favorite.find(params[:id])
     @favorite.destroy
-    expire_fragment :controller => 'about', :action => 'index'
     respond_to do |format|
       format.html { redirect_to favorites_url }
       format.js
