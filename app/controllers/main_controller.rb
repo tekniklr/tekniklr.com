@@ -22,7 +22,13 @@ class MainController < ApplicationController
   private
   
   def get_blog_post
-    post = `php public/wpblog/wp-content/themes/tekniklr.com/newest.php`
+    if File.exists?('/usr/local/bin/php')
+      post = `/usr/local/bin/php public/wpblog/wp-content/themes/tekniklr.com/newest.php`
+    elsif File.exists?('/usr/bin/php')
+        post = `/usr/bin/php public/wpblog/wp-content/themes/tekniklr.com/newest.php`
+    else
+      post = ''
+    end
   end
 
 end
