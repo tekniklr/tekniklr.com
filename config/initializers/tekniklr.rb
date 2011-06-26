@@ -1,2 +1,2 @@
 EMAIL = 'tsolow@tekniklr.com'
-TAGLINE = 'the personal whatever of Teri Solow and stuff'
+TAGLINE = 'My, Internet really is full of things!'
