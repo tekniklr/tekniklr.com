@@ -59,3 +59,9 @@
       %dt.affiliation #{@activities.name}
       %dd
         = facet_value @activities.value, true, '', 'affiliation vcard'
+        
+#footnote
+  %p
+    provided in the #{link_to 'hresume', 'http://microformats.org/wiki/hresume'} #{link_to 'microformat', 'http://microformats.org/'}
+  %p
+    = link_to 'view outside layout', resume_clean_url
