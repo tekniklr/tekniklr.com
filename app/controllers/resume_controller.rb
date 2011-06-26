@@ -1,13 +1,14 @@
 class ResumeController < ApplicationController
   before_filter  { |c| c.page_title 'resume' }
-  before_filter   :collect_facets
   caches_action   :index, :layout => false
   caches_action   :clean
 
   def index
+    collect_facets
   end
   
   def clean
+    collect_facets
     render        :layout   => 'simple.html'
   end
 

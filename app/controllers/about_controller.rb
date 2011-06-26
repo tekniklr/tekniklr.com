@@ -1,9 +1,9 @@
 class AboutController < ApplicationController
   before_filter   { |c| c.page_title 'about Teri', false }
-  before_filter   :collect_facets
   caches_action   :index, :layout => false
   
   def index
+    collect_facets
   end
   
   private
