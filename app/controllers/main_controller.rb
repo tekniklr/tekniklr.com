@@ -25,7 +25,7 @@ class MainController < ApplicationController
     if File.exists?('/usr/local/bin/php')
       post = `/usr/local/bin/php public/wpblog/wp-content/themes/tekniklr.com/newest.php`
     elsif File.exists?('/usr/bin/php')
-        post = `/usr/bin/php public/wpblog/wp-content/themes/tekniklr.com/newest.php`
+      post = `/usr/bin/php public/wpblog/wp-content/themes/tekniklr.com/newest.php`
     else
       post = ''
     end
