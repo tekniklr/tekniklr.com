@@ -5,3 +5,4 @@
 //= require jquery-setup
 //= require scaffold
 //= require favorites
+//= require prettify
