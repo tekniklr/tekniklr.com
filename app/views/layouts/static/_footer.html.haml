@@ -1,5 +1,6 @@
 %footer#pagefoot
   .footnote
+    = @footnote and sanitize @footnote, :tags => %w(a p)
     = yield :footnote
   %p
     copyleft © 2000-#{Time.now.year}
