@@ -13,6 +13,6 @@ observe Link
   end
   private
   def expire_cache_for(favorite)
-    expire_fragment :controller => 'about', :action => 'index'
+    expire_action :controller => 'about', :action => 'index'
   end
 end
