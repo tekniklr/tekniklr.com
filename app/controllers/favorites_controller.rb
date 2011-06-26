@@ -42,9 +42,9 @@ class FavoritesController < ApplicationController
     @favorite = Favorite.new(params[:favorite])
     respond_to do |format|
       if @favorite.save
-        format.html { redirect_to @favorite, notice: 'Favorite was successfully created.' }
+        format.html { redirect_to @favorite, :notice => 'Favorite was successfully created.' }
       else
-        format.html { render action: "new" }
+        format.html { render :action => "new" }
       end
     end
   end
@@ -55,7 +55,7 @@ class FavoritesController < ApplicationController
       Favorite.update_all(['sort=?', index+1], ['id=?', id])
     end
     respond_to do |format|
-      format.html { redirect_to favorites_url, notice: 'Favorites re-ordered.' }
+      format.html { redirect_to favorites_url, :notice => 'Favorites re-ordered.' }
       format.js   { render :nothing => true }
     end
   end
@@ -66,7 +66,7 @@ class FavoritesController < ApplicationController
       FavoriteThing.update_all(['sort=?', index+1], ['id=?', id])
     end
     respond_to do |format|
-      format.html { redirect_to favorites_url, notice: 'Favorite things re-ordered.' }
+      format.html { redirect_to favorites_url, :notice => 'Favorite things re-ordered.' }
       format.js   { render :nothing => true }
     end
   end
@@ -76,9 +76,9 @@ class FavoritesController < ApplicationController
     @favorite = Favorite.find(params[:id])
     respond_to do |format|
       if @favorite.update_attributes(params[:favorite])
-        format.html { redirect_to @favorite, notice: 'Favorite was successfully updated.' }
+        format.html { redirect_to @favorite, :notice => 'Favorite was successfully updated.' }
       else
-        format.html { render action: "edit" }
+        format.html { render :action => "edit" }
       end
     end
   end
