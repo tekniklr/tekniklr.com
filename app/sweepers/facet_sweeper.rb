@@ -13,7 +13,8 @@ observe Link
   end
   private
   def expire_cache_for(facet)
-    expire_fragment :controller => 'about', :action => 'index'
-    expire_fragment :controller => 'resume', :action => 'index'
+    expire_action   :controller => 'about',  :action => 'index'
+    expire_action   :controller => 'resume', :action => 'index'
+    expire_action   :controller => 'resume', :action => 'clean'
   end
 end

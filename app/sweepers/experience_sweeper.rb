@@ -13,6 +13,7 @@ observe Link
   end
   private
   def expire_cache_for(experience)
-    expire_fragment :controller => 'resume', :action => 'index'
+    expire_action  :controller => 'resume', :action => 'index'
+    expire_action  :controller => 'resume', :action => 'clean'
   end
 end

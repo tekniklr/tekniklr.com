@@ -16,7 +16,6 @@ class LinksController < ApplicationController
   def update_all
     @links = Link.update(params[:links].keys, params[:links].values).reject { |l| l.errors.empty? }
     if @links.empty?
-      Rails.cache.delete('all_links')
       flash[:notice] = 'Links updated.'
       redirect_to(links_url)
     else
@@ -29,7 +28,6 @@ class LinksController < ApplicationController
     @link = Link.new(params[:link])
     respond_to do |format|
       if @link.save
-        Rails.cache.delete('all_links')
         flash[:notice] = 'Link added.'
         format.html { redirect_to links_url }
         format.js   
@@ -45,7 +43,6 @@ class LinksController < ApplicationController
   def destroy
     @link = Link.find(params[:id])
     @link.destroy
-    Rails.cache.delete('all_links')
     respond_to do |format|
       format.html { redirect_to links_url }
       format.js   
