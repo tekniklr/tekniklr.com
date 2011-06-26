@@ -13,7 +13,7 @@
 @import "config.css.scss";
 
 // boilerplate begin
-@import "html5bpnormalization.css.scss";
+@import "../../../vendor/assets/stylesheets/html5bpnormalization.css";
 
 // layout used in many places
 @import "layout.css.scss";
@@ -36,4 +36,4 @@
 @import "resume.css.scss";
 
 // boilerplate end
-@import "html5bphelpers.css.scss";
+@import "../../../vendor/assets/stylesheets/html5bphelpers.css";
