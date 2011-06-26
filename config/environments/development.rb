@@ -20,5 +20,7 @@ TekniklrCom::Application.configure do
 
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
+  
+  config.logger = Logger.new(Rails.root.join("log",Rails.env + ".log"),1,5*1024*1024)
 end
 
