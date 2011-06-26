@@ -14,10 +14,10 @@ class LinksControllerTest < ActionController::TestCase
     post :update_all
     assert_redirected_to root_url
 
-    post :create, link: @link.attributes
+    post :create, :link => @link.attributes
     assert_redirected_to root_url
 
-    delete :destroy, id: @link.to_param
+    delete :destroy, :id => @link.to_param
     assert_redirected_to root_url
   end
 
@@ -29,20 +29,20 @@ class LinksControllerTest < ActionController::TestCase
 
   test "should create link" do
     assert_difference('Link.count') do
-      post(:create, {link: @link.attributes}, {'user_id' => 1})
+      post(:create, {:link => @link.attributes}, {'user_id' => 1})
     end
     assert_redirected_to links_path
   end
 
   test "should update links" do
     @link2 = links('facebook')
-    put(:update_all, {links: {@link.to_param => @link.attributes, @link2.to_param => @link2.attributes}}, {'user_id' => 1})
+    put(:update_all, {:links => {@link.to_param => @link.attributes, @link2.to_param => @link2.attributes}}, {'user_id' => 1})
     assert_redirected_to links_path
   end
 
   test "should destroy link" do
     assert_difference('Link.count', -1) do
-      delete(:destroy, {id: @link.to_param}, {'user_id' => 1})
+      delete(:destroy, {:id => @link.to_param}, {'user_id' => 1})
     end
     assert_redirected_to links_path
   end

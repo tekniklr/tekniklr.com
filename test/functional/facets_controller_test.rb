@@ -11,19 +11,19 @@ class FacetsControllerTest < ActionController::TestCase
     get :index
     assert_redirected_to root_url
 
-    get :show, id: @facet.to_param
+    get :show, :id => @facet.to_param
     assert_redirected_to root_url
 
-    post :create, facet: @facet.attributes
+    post :create, :facet => @facet.attributes
     assert_redirected_to root_url
     
-    get :edit, id: @facet.to_param
+    get :edit, :id => @facet.to_param
     assert_redirected_to root_url
     
-    put :update, id: @facet.to_param, facet: @facet.attributes
+    put :update, :id => @facet.to_param, :facet => @facet.attributes
     assert_redirected_to root_url
 
-    delete :destroy, id: @facet.to_param
+    delete :destroy, :id => @facet.to_param
     assert_redirected_to root_url
   end
 
@@ -35,29 +35,29 @@ class FacetsControllerTest < ActionController::TestCase
 
   test "should create facet" do
     assert_difference('Facet.count') do
-      post(:create, {facet: @facet.attributes}, {'user_id' => 1})
+      post(:create, {:facet => @facet.attributes}, {'user_id' => 1})
     end
     assert_redirected_to facets_path
   end
 
   test "should show facet" do
-    get(:show, {id: @facet.id}, {'user_id' => 1})
+    get(:show, {:id => @facet.id}, {'user_id' => 1})
     assert_response :success
   end
   
   test "should get edit" do
-    get(:edit, {id: @facet.to_param}, {'user_id' => 1})
+    get(:edit, {:id => @facet.to_param}, {'user_id' => 1})
     assert_response :success
   end
 
   test "should update facet" do
-    put(:update, {id: @facet.to_param, facet: @facet.attributes}, {'user_id' => 1})
+    put(:update, {:id => @facet.to_param, :facet => @facet.attributes}, {'user_id' => 1})
     assert_redirected_to facets_path
   end
 
   test "should destroy facet" do
     assert_difference('Facet.count', -1) do
-      delete(:destroy, {id: @facet.to_param}, {'user_id' => 1})
+      delete(:destroy, {:id => @facet.to_param}, {'user_id' => 1})
     end
     assert_redirected_to facets_path
   end
