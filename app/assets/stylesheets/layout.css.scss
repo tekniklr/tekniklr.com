@@ -256,6 +256,14 @@ h1 {
   clear: both;
   background-color: $content_bg;
   padding: 1.5em 1em 1.5em 1em;
+  #footnote {
+    text-align: center;
+    font-size: 80%;
+    padding-top: 2em;
+    a:link {
+      text-decoration: none;
+    }
+  }
 }
 
 #pagefoot {
@@ -275,10 +283,6 @@ h1 {
   }
   p {
     margin: 0;
-  }
-  .footnote {
-    font-size: 125%;
-    padding-bottom: 1em;
   }
 }
 
