@@ -27,7 +27,7 @@ group :test do
 end
 
 group :production do
-  gem 'uglifier'      # javascript condenser
+  # gem 'uglifier'      # javascript condenser - was causing passenger to crash
   gem 'exception_notification'
   gem 'therubyracer'  # dreamhost doesn't provide a js  runtime but OSX does
 end
