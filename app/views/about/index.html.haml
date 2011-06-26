@@ -1,71 +1,73 @@
-.vcard
+- cache do 
 
-  %h1 General Info
+  .vcard
+
+    %h1 General Info
   
-  .gravatar
-    = image_tag "http://gravatar.com/avatar/#{@gravatar_id}.png?s=150", :class => 'photo'
+    .gravatar
+      = image_tag "http://gravatar.com/avatar/#{@gravatar_id}.png?s=150", :class => 'photo'
   
-  %dl.info
-    - if @who
-      %dt #{@who.name}
-      %dd
-        = facet_value @who.value
-    - if @definition
-      %dt #{@definition.name}
-      %dd.label
-        = facet_value @definition.value
-    - if @location
-      %dt #{@location.name}
-      %dd.adr
-        = facet_value @location.value
-    - if @tech
-      %dt #{@tech.name}
-      %dd
-        = facet_value @tech.value
-    - if @interests
-      %dt #{@interests.name}
-      %dd
-        = facet_value @interests.value
+    %dl.info
+      - if @who
+        %dt #{@who.name}
+        %dd
+          = facet_value @who.value
+      - if @definition
+        %dt #{@definition.name}
+        %dd.label
+          = facet_value @definition.value
+      - if @location
+        %dt #{@location.name}
+        %dd.adr
+          = facet_value @location.value
+      - if @tech
+        %dt #{@tech.name}
+        %dd
+          = facet_value @tech.value
+      - if @interests
+        %dt #{@interests.name}
+        %dd
+          = facet_value @interests.value
     
-  %h1 Stuff I like
-  %dl.favorites
-    - @favorites.each do |favorite|
-      %dt #{favorite.favorite_type}
-      %dd
-        - favorite.favorite_things.each do |thing|
-          - thing == favorite.favorite_things.last ? sep = '' : sep = '  ☆ '
-          = (thing.link ? link_to(thing.thing.chomp, thing.link) : thing.thing.chomp) + sep
+    %h1 Stuff I like
+    %dl.favorites
+      - @favorites.each do |favorite|
+        %dt #{favorite.favorite_type}
+        %dd
+          - favorite.favorite_things.each do |thing|
+            - thing == favorite.favorite_things.last ? sep = '' : sep = '  ☆ '
+            = (thing.link ? link_to(thing.thing.chomp, thing.link) : thing.thing.chomp) + sep
           
-  %h1 Contact
-  %dl.contact
+    %h1 Contact
+    %dl.contact
 
-    %dt Web
-    %dd
-      = link_to 'http://tekniklr.com', 'http://tekniklr.com', :class => "url"
-
-    %dt Email
-    %dd
-      = mail_to EMAIL, EMAIL, :class => "email"
-
-    - if @twitter
-      %dt #{@twitter.name}
+      %dt Web
       %dd
-        = facet_value @twitter.value
+        = link_to 'http://tekniklr.com', 'http://tekniklr.com', :class => "url"
 
-    - if @messaging
-      %dt #{@messaging.name}
+      %dt Email
       %dd
-        = facet_value @messaging.value
+        = mail_to EMAIL, EMAIL, :class => "email"
 
-    %dt Other sites
-    %dd
-      - @about_links.each do |link|
-        - link == @about_links.last ? sep = '' : sep = ', '
-        = link_to(link.name.chomp, link.url) + sep
+      - if @twitter
+        %dt #{@twitter.name}
+        %dd
+          = facet_value @twitter.value
 
-- content_for :header do
-  %link{:rel => "dns-prefetch", :href => "http://gravatar.com"}/
+      - if @messaging
+        %dt #{@messaging.name}
+        %dd
+          = facet_value @messaging.value
+
+      %dt Other sites
+      %dd
+        - @about_links.each do |link|
+          - link == @about_links.last ? sep = '' : sep = ', '
+          = link_to(link.name.chomp, link.url) + sep
+
+  - content_for :header do
+    %link{:rel => "dns-prefetch", :href => "http://gravatar.com"}/
         
--content_for :footnote do
-  %p
-    provided in the #{link_to 'hcard', 'http://microformats.org/wiki/hcard'} #{link_to 'microformat', 'http://microformats.org/'}
+  -content_for :footnote do
+    %p
+      provided in the #{link_to 'hcard', 'http://microformats.org/wiki/hcard'} #{link_to 'microformat', 'http://microformats.org/'}
