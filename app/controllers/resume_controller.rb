@@ -5,10 +5,12 @@ class ResumeController < ApplicationController
   caches_action   :clean
 
   def index
+    @footnote     = '<p>provided in the <a href="http://microformats.org/wiki/hresume">hresume</a> <a href="http://microformats.org/">microformat</a></p>
+<p><a href="/resume/clean">view outside layout</a></p>'
   end
   
   def clean
-    render :index, :layout   => 'simple.html'
+    render        :index, :layout   => 'simple.html'
   end
 
   private

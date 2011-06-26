@@ -4,6 +4,7 @@ class AboutController < ApplicationController
   caches_action   :index, :layout => false
   
   def index
+    @footnote    = '<p>provided in the <a href="http://microformats.org/wiki/hcard">hcard</a> <a href="http://microformats.org/">microformat</a></p>' 
   end
   
   private
