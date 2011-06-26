@@ -15,6 +15,9 @@ class LinksController < ApplicationController
   def update_all
     @links = Link.update(params[:links].keys, params[:links].values).reject { |l| l.errors.empty? }
     if @links.empty?
+      expire_fragment :controller => 'about', :action => 'index'
+      expire_fragment 'header_links'
+      Rails.cache.delete('all_links')
       flash[:notice] = 'Links updated.'
       redirect_to(links_url)
     else
@@ -27,6 +30,9 @@ class LinksController < ApplicationController
     @link = Link.new(params[:link])
     respond_to do |format|
       if @link.save
+        expire_fragment :controller => 'about', :action => 'index'
+        expire_fragment 'header_links'
+        Rails.cache.delete('all_links')
         flash[:notice] = 'Link added.'
         format.html { redirect_to links_url }
         format.js   
@@ -42,7 +48,9 @@ class LinksController < ApplicationController
   def destroy
     @link = Link.find(params[:id])
     @link.destroy
-
+    expire_fragment :controller => 'about', :action => 'index'
+    expire_fragment 'header_links'
+    Rails.cache.delete('all_links')
     respond_to do |format|
       format.html { redirect_to links_url }
       format.js   

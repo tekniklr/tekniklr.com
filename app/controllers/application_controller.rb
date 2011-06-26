@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
   end
   
   def get_links
-    @links ||= Link.all
+    @links ||= Rails.cache.fetch('all_links') { Link.all }
   end
   
   private

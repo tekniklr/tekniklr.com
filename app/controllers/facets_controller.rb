@@ -34,6 +34,8 @@ class FacetsController < ApplicationController
     @facet = Facet.new(params[:facet])
     respond_to do |format|
       if @facet.save
+        expire_fragment :controller => 'about', :action => 'index'
+        expire_fragment :controller => 'resume', :action => 'index'
         flash[:notice] = 'Facet added.'
         format.html { redirect_to facets_url }
         format.js
@@ -51,6 +53,8 @@ class FacetsController < ApplicationController
 
     respond_to do |format|
       if @facet.update_attributes(params[:facet])
+        expire_fragment :controller => 'about', :action => 'index'
+        expire_fragment :controller => 'resume', :action => 'index'
         flash[:notice] = 'Facet was successfully updated.'
         format.html { redirect_to facets_url }
         format.js
@@ -66,7 +70,8 @@ class FacetsController < ApplicationController
   def destroy
     @facet = Facet.find(params[:id])
     @facet.destroy
-
+    expire_fragment :controller => 'about', :action => 'index'
+    expire_fragment :controller => 'resume', :action => 'index'
     respond_to do |format|
       format.html { redirect_to facets_url }
       format.js   
