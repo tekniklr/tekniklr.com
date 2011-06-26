@@ -2,7 +2,7 @@
 %html{ :lang => 'en' }
   %head
     = render :partial => 'layouts/static/headincmeta'
-  %body
+  %body{:onload => "prettyPrint()"}
     #container
       = render :partial => 'layouts/static/header'
       = render :partial => 'layouts/static/navigation'
