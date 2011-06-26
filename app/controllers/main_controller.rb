@@ -1,5 +1,8 @@
 class MainController < ApplicationController
   #before_filter  { |c| c.page_title 'home' }
+  caches_action   :acknowledgments, :layout => false
+  caches_action   :navigation,      :layout => false
+  caches_action   :routing_error,   :layout => false
 
   def index
     @blog_post ||= Rails.cache.fetch('blog_post', :expires_in => 15.minutes) { get_blog_post }

@@ -13,7 +13,8 @@ observe Link
   end
   private
   def expire_cache_for(link)
-    expire_fragment :controller => 'about', :action => 'index'
+    expire_action   :controller => 'about', :action => 'index'
     expire_fragment 'header_links'
+    Rails.cache.delete('all_links')
   end
 end
