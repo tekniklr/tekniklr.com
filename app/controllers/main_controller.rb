@@ -2,8 +2,8 @@ class MainController < ApplicationController
   #before_filter  { |c| c.page_title 'home' }
 
   def index
-    @blog_post ||= get_blog_post
-    @tweets    ||= Tweet.limit(3)
+    @blog_post ||= Rails.cache.fetch('blog_post', :expires_in => 15.minutes) { get_blog_post }
+    @tweets    ||= Rails.cache.fetch('recent_tweets', :expires_in => 5.minutes) { Tweet.limit(3) }
   end
 
   def acknowledgments

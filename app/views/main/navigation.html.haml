@@ -1,5 +1,6 @@
-#single_column_navigation
-  %h1 Site navigation
-  = render :partial => 'layouts/static/nav_main'
-  %h1 Blog navigation / search
-  = render :partial => 'layouts/static/nav_sub'
+- cache do 
+  #single_column_navigation
+    %h1 Site navigation
+    = render :partial => 'layouts/static/nav_main'
+    %h1 Blog navigation / search
+    = render :partial => 'layouts/static/nav_sub'
