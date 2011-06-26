@@ -1,5 +1,6 @@
 class FacetSweeper < ActionController::Caching::Sweeper
-observe Link 
+  observe Facet
+   
   def after_create(facet)
     expire_cache_for(facet)
   end

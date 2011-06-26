@@ -1,5 +1,6 @@
 class FavoriteSweeper < ActionController::Caching::Sweeper
-observe Link 
+  observe Favorite
+
   def after_create(favorite)
     expire_cache_for(favorite)
   end
