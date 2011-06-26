@@ -27,6 +27,7 @@ TekniklrCom::Application.configure do
 
   # Use a different logger for distributed setups
   # config.logger = SyslogLogger.new
+  config.logger = Logger.new(Rails.root.join("log",Rails.env + ".log"),10,5*1024*1024)
 
   # Use a different cache store in production
   config.cache_store = :memory_store
