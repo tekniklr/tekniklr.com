@@ -10,10 +10,10 @@ TekniklrCom::Application.configure do
   config.action_view.cache_template_loading = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
-  config.serve_static_assets = false
+  config.serve_static_assets = true
 
   # Compress both stylesheets and JavaScripts
-  config.assets.js_compressor  = :uglifier
+  # config.assets.js_compressor  = :uglifier
 
   # Specifies the header that your server uses for sending files
   # (comment out if your front-end server doesn't support this)
