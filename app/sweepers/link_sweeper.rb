@@ -1,5 +1,6 @@
 class LinkSweeper < ActionController::Caching::Sweeper
-observe Link 
+  observe Link
+
   def after_create(link)
     expire_cache_for(link)
   end

@@ -1,5 +1,6 @@
 class ExperienceSweeper < ActionController::Caching::Sweeper
-observe Link 
+  observe Experience
+  
   def after_create(experience)
     expire_cache_for(experience)
   end
