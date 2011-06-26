@@ -1,25 +1,23 @@
-The rails source for my current big website redesign. Always a work in progress.
+The rails source for website. Always a work in progress.
 
-Current goals:
-  * [X] Do rails the right way. With testing and everything.
-    * [X] manage about page
-    * [X] manage favorite things, etc in db
-    * [X] manage work experience for uniformity and printability
-    * [X] manage remote site links for hcard/rel links/bio display
-  * [X] integrate wordpress
-    * [X] wordpress styles
-    * [X] wp_twitter
-    * [X] most recent blog post
-    * [X] tags?
-    * [X] archive?
-  * [X] omniauth
-  * [X] hcard
-  * [X] gravatar
-  * [X] hresume
-  * [X] HTML5 (boilerplate)
-  * [X] HAML
-  * [X] sass
-  * [X] coffeescript
-  * [X] ajaxy updatebits
-  * [X] minimalist design
-  * [?] golden ratio (at full size the background tentacles do this. does it count? what more to do with a one column layout?)
+Not much that is visibly fancy to the end user, but I put some shinyness into the
+admin end in a quasi CMS sort of way.
+
+Also, it's designed to be a rails app with a running wordpress in the public/
+directory, so that's kinda neat. It's also not that hard; just make sure you have
+something like this in your apache config:
+  <Location /wpblog>
+    DirectoryIndex index.php
+    PassengerEnabled off
+  </Location>
+I don't know of any way to do this other than with Passenger.
+
+Anyway, things I used while implementing this include:
+  *  TDD
+  *  DRY
+  *  omniauth
+  *  HTML5 (boilerplate)
+  *  HAML
+  *  sass
+  *  CoffeeScript
+  *  modern railsy ajax
