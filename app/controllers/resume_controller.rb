@@ -8,7 +8,7 @@ class ResumeController < ApplicationController
   end
   
   def clean
-    render        :index, :layout   => 'simple.html'
+    render        :layout   => 'simple.html'
   end
 
   private
