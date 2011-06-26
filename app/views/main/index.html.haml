@@ -5,9 +5,10 @@
 .right
   = link_to 'Follow @tekniklr', 'http://twitter.com/tekniklr', :class => 'twitter-follow-button', 'data-align' => 'right'
 
-%h1
-  = link_to 'Blogs', '/wpblog'
-= raw @blog_post # if I can't trust my own blog I'm pretty screwed anyway
+- unless @blog_post.match(/Fatal error: /)
+  %h1
+    = link_to 'Blogs', '/wpblog'
+  = raw @blog_post # if I can't trust my own blog I'm pretty screwed anyway
 
 %h1
   = link_to 'Consumes', 'http://www.allconsuming.net/person/tekniklr/'
