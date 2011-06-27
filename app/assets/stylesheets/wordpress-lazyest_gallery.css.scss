@@ -137,6 +137,9 @@ article#post-1700 {
 	text-align:center;
 	padding: 1em;
 	display: inline;
+	.thumb_caption {
+	  display: none;
+	}
 }
 .lg_image div {
 	display: inline;
