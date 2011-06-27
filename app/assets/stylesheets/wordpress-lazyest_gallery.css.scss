@@ -3,12 +3,19 @@ Lazyest Gallery Default Style Sheet
 copyright (C) 2008 Brimosoft http://brimosoft.nl
 */
 .lg_gallery {
+  max-width: 100%;
+  table {
+    margin: 0 auto;
+    max-width: 100%;
+    td {
+      max-width: $max_page_width/3;
+      min-width: 10em;
+    }
+  }
 }
-
 
 .lg_gallery a {
 }
-
 
 .nocomments {
   display: none;
@@ -17,6 +24,10 @@ copyright (C) 2008 Brimosoft http://brimosoft.nl
 article#post-1700 {
   margin: 0;
   padding: 0;
+  .entry-content {
+    margin: 0;
+    padding: 0;
+  }
 }
 
 /* ========================
@@ -71,73 +82,29 @@ article#post-1700 {
  * Folders and Icons
  * ================= */
 
-/* Where the folders are listed */
-.lg_gallery .folders {
-  max-width: $max_page_width;
-	margin: auto;
-}
 /* Where the folder icon is shown */
 .lg_gallery .folder {
 	display:none;
 }
 
-/* Captions of the folders */
+/* Caption of the folder */
 .lg_gallery .folder_caption {
-	display:none;
+	font-weight: bold;
+  font-size: 125%;
+  margin: 1em 0em 1.5em 0;
+  padding: 0.25em 0 0.25em 0;
+  text-align: center;
+  border-bottom: 1px solid $faint_border_color;
 }
-/* Icons Style */
-.lg_gallery .icon {
-	vertical-align:middle;
-	border:none;
-}
-
-
 
 /* =============
  * Gallery Views
  * ============= */
 
-/* Directory listing (TABLE)*/
-.lg_gallery .dir_view {
-	margin:0 auto;
-	text-align:center;
-  max-width: $max_page_width;
-}
-
-.lg_gallery .folder_description {
-	text-align: left;
-}
-
-.lg_folders_img {
-  display: none;
-}
-.lg_folders_img icon {
-  display: none;
-}
-
-.lg_gallery .lg_folder_thumb_image {
-}
-.lg_gallery .lg_foldernum {
-	/* display: none; */
-}
-
-.dir_view td.folders {
-	text-align:left;
-}
-
-
-.lg_gallery table td {
+.lg_gallery table td, table.dir_view td.folder {
 	vertical-align:top;
 	padding-bottom:2em;
-  max-width: $max_page_width/3;
 }
-
-.lg_gallery .category_icon {
-}
-
-.lg_gallery .random_image {
-}
-
 
 /* Image's Thumbnails */
 .lg_gallery .lazyest_thumb_view {
@@ -161,11 +128,10 @@ article#post-1700 {
 
 .lg_gallery .lg_thumb_caption {
 	overflow:hidden;
-	width: 10em;
+	max-width: 10em;
 	padding: .5em 1em .5em 1em;
 	color: #999999;
 }
-
 
 .lg_image {
 	text-align:center;
@@ -181,8 +147,6 @@ article#post-1700 {
 	color: #321a1b;
 }
 
-.lg_gallery .lazyest_thumb_view {
-}
 .lg_gallery .lazyest_thumb_view img {
 	border: 1px $border_color solid;
 	padding: .5em;
@@ -273,7 +237,7 @@ article#post-1700 {
 }
 
 .lg_slideshow a.show {
-	z-index:500
+	z-index:500;
 	max-width: 100%;
   max-height: 100%;
 }
