@@ -17,11 +17,6 @@ class MainController < ApplicationController
     page_title 'navigation'
   end
 
-  # https://github.com/rails/rails/issues/671
-  def routing_error
-    render '404', :status => 404
-  end
-
   private
   
   def get_blog_post
