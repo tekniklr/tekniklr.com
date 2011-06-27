@@ -10,6 +10,14 @@ class ApplicationController < ActionController::Base
   
   before_filter   :get_links
   
+  # https://github.com/rails/rails/issues/671
+  def routing_error
+    respond_to do |format|
+      format.html { render '404', :status => 404 }
+      format.any  { redirect_to :action => 'routing_error', :format => 'html' }
+    end
+  end
+  
   protected
   
   def page_title(title, display = false)
