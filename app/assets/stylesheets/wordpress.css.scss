@@ -142,9 +142,14 @@ article {
   }
 }
 .entry-content {
-  text-align: justify;
   margin: 0;
   padding: 1em 2em 1em 2em;
+  font-size: 115%;
+  line-height: 115%;
+  p {
+    margin: 0 0 1.5em 0;
+    padding: 0;
+  }
 }
 .entry-utility {
   clear: both;
