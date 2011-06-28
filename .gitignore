@@ -1,14 +1,14 @@
 .bundle
 .sass-cache/*
+REVISION
 db/*.sqlite3
 log/*.log*
 tmp/
 .DS_Store
 doc/api
 doc/app
+public/static/
 public/wpblog/
-public/wpblog.old/
-public/wpblog.new/
 config/database.yml
 config/initializers/omniauth.rb
 config/initializers/secret_token.rb
