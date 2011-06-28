@@ -160,12 +160,12 @@ a:hover { color: $hover_color; }
   }
   a:link, a:active, a:visited {
     text-decoration: none;
-    font-size: 120%;
+    font-size: 130%;
     color: $navigation_font_color;
   }
   a:hover {
     font-weight: bold;
-    font-size: 120%;
+    font-size: 130%;
     color: $hover_color;
   }
   .break {
@@ -237,7 +237,7 @@ a:hover { color: $hover_color; }
 
 h1 {
   font-weight: bold;
-  font-size: 150%;
+  font-size: 160%;
   text-transform: lowercase;
   margin: 1em 0em 1.5em 0;
   padding: 0.25em 0 0.25em 0;

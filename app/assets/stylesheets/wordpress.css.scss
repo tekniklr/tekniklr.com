@@ -117,7 +117,7 @@ article {
 }
 .entry-title {
   font-weight: bold;
-  font-size: 150%;
+  font-size: 160%;
   margin: 0;
   padding: 0;
   text-align: left;
@@ -170,21 +170,25 @@ article {
  * custom classes I've been known to use inside of posts
  */
 blockquote, .quote {
-  margin: .75em 2em .75em 2em;
-  padding: .5em 1em .5em .5em;
-  background-color: $the_color;
+  margin: .5em 2em .5em 2em;
+  padding: .5em;
   border-left: 1px dotted $base_font_color;
   text-align: justify;
 }
 code {
-  display: block;
-  margin: .5em 1em .5em 1em;
-  padding: .5em;
-  border: 1px dashed $base_font_color;
-  background-color: $the_color;
-  text-align: left;
+  margin: 0 .5em 0 .5em;
+  border: 1px dashed $faint_border_color;
   font-family: monospace;
 }
+code.block {
+  display: block;
+  padding: .5em;
+  margin: .5em 2em .5em 2em;
+}
+pre code {
+  border: none;
+}
+  
 article {
   .photo_blurb {
     padding: 0 3em 0 3em;
