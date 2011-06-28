@@ -5,7 +5,10 @@ class MainController < ApplicationController
   caches_action   :routing_error,   :layout => false
 
   def index
-    @blog_post ||= Rails.cache.fetch('blog_post', :expires_in => 15.minutes) { get_blog_post }
+    @blog_post ||= Rails.cache.fetch('blog_post', :expires_in => 1.hour) { get_blog_post }
+    # was coming up empty more than it should; don't keep empty value in
+    # cache.
+    @blog_post.empty? and Rails.cache.delete('blog_post')
     @tweets    ||= Tweet.limit(3)
   end
 
