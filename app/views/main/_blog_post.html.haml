@@ -1,0 +1,11 @@
+- @post.comments.gsub!(/#comments/, '')
+%article.post
+  %h2.entry-title
+    = link_to @post.title, @post.comments
+  .entry-meta
+    %span.meta-prep
+      Posted on
+    %span.entry-date
+      = link_to @post.pubDate.to_date.strftime('%Y.%m.%d'), @post.comments
+  .entry-content
+    = raw @post.content_encoded

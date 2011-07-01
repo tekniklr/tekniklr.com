@@ -5,11 +5,8 @@ class MainController < ApplicationController
   caches_action   :routing_error,   :layout => false
 
   def index
-    @blog_post ||= Rails.cache.fetch('blog_post', :expires_in => 1.hour) { get_blog_post }
-    # was coming up empty more than it should; don't keep empty value in
-    # cache.
-    @blog_post.empty? and Rails.cache.delete('blog_post')
-    @tweets    ||= Tweet.limit(3)
+    @post   ||= Rails.cache.fetch('blog_post', :expires_in => 2.hours) { get_blog_post }
+    @tweets ||= Tweet.limit(3)
   end
 
   def acknowledgments
@@ -23,13 +20,9 @@ class MainController < ApplicationController
   private
   
   def get_blog_post
-    if File.exists?('/usr/local/bin/php')
-      post = `/usr/local/bin/php public/wpblog/wp-content/themes/tekniklr.com/newest.php`
-    elsif File.exists?('/usr/bin/php')
-      post = `/usr/bin/php public/wpblog/wp-content/themes/tekniklr.com/newest.php`
-    else
-      post = ''
-    end
+    require 'rss'
+    rss = RSS::Parser.parse(open('http://tekniklr.com/wpblog/feed/').read, false)
+    rss.items.first
   end
 
 end
