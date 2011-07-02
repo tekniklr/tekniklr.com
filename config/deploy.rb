@@ -1,7 +1,7 @@
 set :user, 'tekniklr'                 # Your dreamhost account's username
 set :domain, 'ps14010.dreamhost.com'  # Dreamhost servername where your account is located 
 set :project, 'tekniklr.com'          # Your application as its called in the repository
-set :application, 'new.tekniklr.com'  # Your app's location (domain or sub-domain name as setup in panel)
+set :application, 'tekniklr.com'  # Your app's location (domain or sub-domain name as setup in panel)
 set :applicationdir, "/home/#{user}/rails.tekniklr.com"
 set :rails_env, 'production'
 
