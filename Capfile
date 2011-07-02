@@ -29,6 +29,12 @@ namespace :deploy do
     run "ln -s #{shared_path}/wpblog #{release_path}/public/wpblog"
   end
   
+  desc "Link legacy images"
+  task :link_legacy do
+    run "rm -drf #{release_path}/public/images"
+    run "ln -s #{shared_path}/legacy/images #{release_path}/public/images"
+  end
+  
   desc "Passenger restart"
   task :restart do
     run "touch #{current_path}/tmp/restart.txt"
@@ -46,5 +52,5 @@ namespace :deploy do
   
 end
 
-before "deploy:symlink", "deploy:link_database", "deploy:link_omniauth", "deploy:link_secret_token", "deploy:link_wpblog", "deploy:wptheme"
+before "deploy:symlink", "deploy:link_database", "deploy:link_omniauth", "deploy:link_secret_token", "deploy:link_wpblog", "deploy:link_legacy", "deploy:wptheme"
 after  "deploy:restart", "deploy:cleanup", "deploy:bundle_install"
