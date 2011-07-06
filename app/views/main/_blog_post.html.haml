@@ -1,4 +1,4 @@
-- @post.comments.gsub!(/#comments/, '')
+- @post.comments.gsub!(/#[\w]+/, '')
 %article.post
   %h2.entry-title
     = link_to @post.title, @post.comments
