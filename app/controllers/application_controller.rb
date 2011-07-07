@@ -12,17 +12,6 @@ class ApplicationController < ActionController::Base
   
   # https://github.com/rails/rails/issues/671
   def routing_error
-    # This is really lame but passenger was crashing in such a way as to show 404
-    # pages on valid requests. Trying to catch those.
-    request.path == '' and return redirect_to root_url
-    request.path == '/' and return redirect_to root_url
-    request.path == '/about' and return redirect_to about_url
-    request.path == '/resume' and return redirect_to resume_url
-    request.path == '/acknowledgments' and return redirect_to acknowledgments_url
-    # rails shouldn't even touch wordpress, but it sometimes was.
-    request.path.match(/\/wpblog\//) and return redirect_to request.path
-    
-    # ok, it _really_ was not found.
     respond_to do |format|
       format.html { render '404', :status => 404 }
       format.any  { redirect_to :action => 'routing_error', :format => 'html' }
