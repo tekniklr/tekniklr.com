@@ -26,7 +26,7 @@ class LinkTest < ActiveSupport::TestCase
   end
   
   def test_validates_size_of_url
-    @link.url = 'http://qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyu.com'
+    @link.url = 'http://qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyfghjnctfvgbjnkmcfvgjnkmcdtfvgjnkmtfvgybhjnkmftcgvbhjnkvygbhjnkmu.com'
     assert_equal(false, @link.save)
   end
   
