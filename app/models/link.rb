@@ -5,7 +5,7 @@ class Link < ActiveRecord::Base
   validates_length_of   :name, :maximum => 36
   
   validates_presence_of :url
-  validates_length_of   :url, :maximum => 60
+  validates_length_of   :url, :maximum => 75
   validates_format_of   :url, :with => URI.regexp
 
   validates_inclusion_of :visible, :in => [true, false], :allow_nil => true
