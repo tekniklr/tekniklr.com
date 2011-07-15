@@ -16,7 +16,7 @@
       = link_to 'wpadmin', '/wpblog/wp-admin/'
       ☣
       = link_to 'logout', logout_path
-%header#pagehead
+%header#pagehead{:role => 'banner'}
   #banner
     = link_to image_tag("tekniklr_com.png", :alt => 'tekniklr.com'), root_url
   #tagline #{TAGLINE}
