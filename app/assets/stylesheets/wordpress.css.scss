@@ -155,7 +155,7 @@ article {
   font-size: 115%;
   line-height: 115%;
   p {
-    margin: 0 0 1.5em 0;
+    margin: .5em 0 .5em 0;
     padding: 0;
   }
 }
@@ -171,6 +171,13 @@ article {
   }
   a:hover {
     color: $hover_color;
+  }
+}
+
+article.main {
+  margin: 0;
+  .entry-content {
+    padding-bottom: 0;
   }
 }
 

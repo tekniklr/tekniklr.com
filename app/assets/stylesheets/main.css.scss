@@ -3,7 +3,7 @@
   margin: auto;
   text-align: center;
   overflow: hidden;
-  height: 6em;
+  height: 9em;
   font-size: 80%;
   .ac-item {
     width: 8em;
@@ -21,6 +21,10 @@
   .ac-logo {
     display: none;
   }
+}
+.ac-padding {
+  clear: both;
+  height: 3em;
 }
 
 .banksy {
