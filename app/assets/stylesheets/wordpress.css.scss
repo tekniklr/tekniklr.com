@@ -119,9 +119,10 @@ ul#category_list {
 /*
  * post styles - used nearly everywhere
  */
-article {
+article.post {
   clear: both;
-  margin: 0 0 3em 0;
+  padding: 1.5em 0 1.5em 0;
+  margin: 2em 0 2em 0;
 }
 .entry-title {
   font-weight: bold;
@@ -176,6 +177,7 @@ article {
 
 article.main {
   margin: 0;
+  padding: 0;
   .entry-content {
     padding-bottom: 0;
   }
