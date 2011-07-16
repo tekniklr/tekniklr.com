@@ -1,5 +1,14 @@
 .link {
+  @include rounded(1px, $faint_border_color, 1em, 1em, solid);
   clear: both;
-  width: 90%;
-  margin: auto;
+  .delete {
+    text-align: center;
+  }
+}
+
+.edit_link {
+  .icon {
+    margin: 1em;
+    float: right;
+  }
 }

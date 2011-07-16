@@ -9,6 +9,7 @@ tmp/
 doc/api
 doc/app
 public/static/
+public/system/
 public/wpblog/
 config/database.yml
 config/initializers/omniauth.rb

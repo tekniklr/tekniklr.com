@@ -1,6 +1,6 @@
 - if @links && @links.count > 0
   %h1 Current links
-  = form_for :link, :url => update_all_links_path, :method => :put do
+  = form_for :link, :url => update_all_links_path, :html => {:multipart => true}, :method => :put do
     #links
       - @links.each do |link|
         = render 'link', :link => link
@@ -10,7 +10,7 @@
 - if @link
   %h1 New Link
   #notification
-  = form_for :link, :html => {:id => 'new_link'}, :remote => true do
+  = form_for :link, :html => {:id => 'new_link', :multipart => true}, :remote => true do
     %div.link#link
       = fields_for @link do |create|
         = render 'form', :f => create, :link => @link  

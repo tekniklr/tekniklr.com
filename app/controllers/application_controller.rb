@@ -37,11 +37,12 @@ class ApplicationController < ActionController::Base
     logged_in? or raise UserNotAuthorized
   end
   
-  def get_links
-    @links ||= Rails.cache.fetch('all_links') { Link.all }
-  end
-  
   private
+  
+  def get_links
+    @links        = Link.all
+    @social_media = Link.get_social
+  end
   
   def user_not_authorized
     flash[:error] = "You do not have access to this page."

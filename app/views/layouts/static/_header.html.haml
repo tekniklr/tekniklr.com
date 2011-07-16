@@ -20,3 +20,7 @@
   #banner
     = link_to image_tag("tekniklr_com.png", :alt => 'tekniklr.com'), root_url
   #tagline #{TAGLINE}
+  %ul#social
+    - for social_medium in @social_media do
+      %li
+        = link_to image_tag(social_medium.icon.url(:default), :alt => social_medium.name, :title => social_medium.name), social_medium.url
