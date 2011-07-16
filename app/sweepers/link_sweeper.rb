@@ -12,8 +12,12 @@ class LinkSweeper < ActionController::Caching::Sweeper
   def after_destroy(link)
      expire_cache_for(link)
   end
+  
   private
+  
   def expire_cache_for(link)
-    expire_action   :controller => 'about', :action => 'index'
+    expire_action   :controller => 'about',  :action => 'index'
+    expire_page     :controller => 'static', :action => 'headincmeta_partial'
+    expire_page     :controller => 'static', :action => 'footer_partial'
   end
 end

@@ -1,7 +1,7 @@
 class LinksController < ApplicationController
   before_filter   :is_admin?
   before_filter   { |c| c.page_title 'link management' }
-  cache_sweeper   :link_sweeper, :only => [:create, :update, :destroy]
+  cache_sweeper   :link_sweeper, :only => [:create, :update_all, :destroy]
   
   # GET /links
   def index
