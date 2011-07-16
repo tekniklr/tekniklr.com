@@ -1,15 +1,27 @@
-- if link.errors.any?
-  #error_explanation
-    %h2 #{pluralize(link.errors.count, "error")} prohibited this link from being saved:
-    %ul
-      - link.errors.full_messages.each do |msg|
-        %li #{msg}
-        
-= f.label  :name
-= f.text_field :name, :size => 20
+.edit_link
+  - if link.errors.any?
+    #error_explanation
+      %h2 #{pluralize(link.errors.count, "error")} prohibited this link from being saved:
+      %ul
+        - link.errors.full_messages.each do |msg|
+          %li #{msg}
 
-= f.label :url
-= f.text_field :url, :size => 30
+  - if link.icon?
+    = image_tag(link.icon.url(:default), :alt => link.name, :class => 'icon')
+  
+  %div 
+    = f.label  :name
+    = f.text_field :name, :size => 20
+    
+    = f.label :social_icon, 'Show in nav?'
+    = f.check_box :social_icon
 
-= f.label :visible
-= f.check_box :visible
+    = f.label :visible, 'Show on bio?'
+    = f.check_box :visible
+
+  %div
+    = f.label :url
+    = f.text_field :url, :size => 30
+
+    = f.label :icon
+    = f.file_field :icon
