@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110621073410) do
+ActiveRecord::Schema.define(:version => 20110715222441) do
 
   create_table "experiences", :force => true do |t|
     t.date     "start_date"
@@ -60,7 +60,15 @@ ActiveRecord::Schema.define(:version => 20110621073410) do
     t.boolean  "visible"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "social_icon"
+    t.string   "icon_file_name"
+    t.string   "icon_content_type"
+    t.integer  "icon_file_size"
+    t.datetime "icon_updated_at"
   end
+
+  add_index "links", ["social_icon"], :name => "index_links_on_social_icon"
+  add_index "links", ["visible"], :name => "index_links_on_visible"
 
   create_table "users", :force => true do |t|
     t.string   "provider"

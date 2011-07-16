@@ -28,6 +28,5 @@
 
 = yield :header
 
-- cache('header_links') do
-  - for link in @links do
-    %link{:rel => 'me', :href => link.url}/
+- for link in @links do
+  %link{:rel => 'me', :href => link.url}/

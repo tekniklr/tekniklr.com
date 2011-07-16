@@ -235,6 +235,26 @@ a:hover { color: $hover_color; }
   }
 }
 
+ul#social {
+  padding: 0;
+  margin: 0;
+  display: inline;
+  position: relative;
+  right: 0;
+  top: -1em;
+  float: right;
+  clear: both;
+  list-style-type: none;
+  overflow: hidden;
+  li {
+    display: inline;
+    text-align: center;
+    margin: 0;
+    padding: 0 .1em 0 .1em;
+    @include transparent(0.75);
+  }
+}
+
 h1 {
   font-weight: bold;
   font-size: 160%;
@@ -255,7 +275,8 @@ h1 {
 #main {
   clear: both;
   background-color: $content_bg;
-  padding: 1.5em 1em 1.5em 1em;
+  margin: 0;
+  padding: .5em 1em 1em 1em;
   #footnote {
     text-align: center;
     font-size: 80%;

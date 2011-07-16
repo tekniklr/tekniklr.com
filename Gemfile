@@ -18,6 +18,8 @@ gem 'json'
 
 gem 'validates_timeliness'
 
+gem 'paperclip'
+
 # Deploy with Capistrano
 gem 'capistrano'
 

@@ -1,5 +1,9 @@
 class Link < ActiveRecord::Base
-  attr_accessible :name, :url, :visible
+  attr_accessible :name, :url, :visible, :social_icon, :icon 
+  
+  has_attached_file     :icon,
+                        :styles => { :default => ["32x32#", :png] }
+  validates_attachment_content_type :icon, :content_type => [ 'image/png', 'image/jpg', 'image/gif']
   
   validates_presence_of :name
   validates_length_of   :name, :maximum => 36
@@ -14,5 +18,8 @@ class Link < ActiveRecord::Base
 
   # will only return links where visible is set to true
   scope :get_visible, where('visible = ?', true)
+  
+  # will only return links where social_icon is set to true and an icon exists
+  scope :get_social, where('social_icon = ? and icon_file_name is not null', true)
 
 end
