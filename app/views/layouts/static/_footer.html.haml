@@ -4,3 +4,8 @@
   %p
     copyleft © 2000-#{Time.now.year}
     = mail_to EMAIL, 'Teri Solow'
+#social
+  %ul
+    - for social_medium in @social_media do
+      %li
+        = link_to image_tag(social_medium.icon.url(:default), :alt => social_medium.name, :title => social_medium.name), social_medium.url
