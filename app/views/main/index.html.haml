@@ -1,3 +1,8 @@
+- unless @post.blank?
+  %h1
+    = link_to 'Blogs', '/wpblog'
+  = render 'blog_post', :post => @post
+
 %h1
   = link_to 'Tweets', 'http://twitter.com/tekniklr'
 - @tweets.each do |tweet|
@@ -5,19 +10,15 @@
 .right
   = link_to 'Follow @tekniklr', 'http://twitter.com/tekniklr', :class => 'twitter-follow-button', 'data-align' => 'right'
 
-- unless @post.blank?
+- unless @consumption.blank?
   %h1
-    = link_to 'Blogs', '/wpblog'
-  = render 'blog_post', :post => @post
-
-%h1
-  = link_to 'Consumes', 'http://www.allconsuming.net/person/tekniklr/'
-#allconsuming
-  %script{:type => "text/javascript", :src  => "http://www.allconsuming.net/person/tekniklr/completed_js/all/7?suppress_header=1"}
+    = link_to 'Consumes', 'http://www.allconsuming.net/person/tekniklr/'
+  #allconsuming
+    - @consumption.each do |consumed|
+      = render 'consumed', :consumed => consumed
     
 - content_for :header do
   %link{:rel => "dns-prefetch", :href => "http://twitter.com"}/
-  %link{:rel => "dns-prefetch", :href => "http://www.allconsuming.net"}/
 
 - content_for :javascript do    
   %script{:type => 'text/javascript', :src => 'http://platform.twitter.com/widgets.js'}
