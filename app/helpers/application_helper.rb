@@ -6,6 +6,8 @@ module ApplicationHelper
     content_for(:header) { stylesheet_link_tag(*args) }
   end
   
+  # will output the value of a given facet with the optional provided styling;
+  # if the facet has multiple lines it will be converted to a list
   def facet_value(value, list = false, cssclass = false, csselclass = false)
     if value
       lines = value.split("\n")
