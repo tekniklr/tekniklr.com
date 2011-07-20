@@ -1,0 +1,15 @@
+ul#login_methods {
+  list-style-type: none;
+  width: 20em;
+  padding: 0;
+  margin: auto;
+  li {
+    font-size: 120%;
+    margin: 0;
+    padding: 1em 0 1em 0;
+    text-align: center;
+    a:link {
+      text-decoration: none;
+    }
+  }
+}
