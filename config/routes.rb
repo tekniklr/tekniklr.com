@@ -3,7 +3,7 @@ TekniklrCom::Application.routes.draw do
   root :to => 'main#index'
   
   # omniauth authentication
-  match '/login'                   => redirect('/auth/twitter/')
+  match '/login'                   => 'sessions#login', :as => :login
   match "/auth/:provider/callback" => 'sessions#validate'
   match '/logout'                  => 'sessions#logout', :as => :logout
   match '/auth/failure'            => 'sessions#failure'

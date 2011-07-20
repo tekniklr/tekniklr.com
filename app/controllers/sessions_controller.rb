@@ -1,5 +1,9 @@
 class SessionsController < ApplicationController
   
+  def login
+    page_title 'login', true
+  end
+  
   def failure
     flash[:error] = params[:message]
     redirect_to root_url
