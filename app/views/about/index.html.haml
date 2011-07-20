@@ -6,26 +6,11 @@
     = image_tag "http://gravatar.com/avatar/#{@gravatar_id}.png?s=150", :class => 'photo', :alt => 'Teri Solow'
 
   %dl.info
-    - if @who
-      %dt #{@who.name}
-      %dd
-        = facet_value @who.value
-    - if @definition
-      %dt #{@definition.name}
-      %dd.label
-        = facet_value @definition.value
-    - if @location
-      %dt #{@location.name}
-      %dd.adr
-        = facet_value @location.value
-    - if @tech
-      %dt #{@tech.name}
-      %dd
-        = facet_value @tech.value
-    - if @interests
-      %dt #{@interests.name}
-      %dd
-        = facet_value @interests.value
+    = facet_print @who
+    = facet_print @definition, 'label'
+    = facet_print @location, 'adr'
+    = facet_print @tech
+    = facet_print @interests
   
   %h1 Stuff I like
   %dl.favorites
@@ -47,15 +32,9 @@
     %dd
       = mail_to EMAIL, EMAIL, :class => "email"
 
-    - if @twitter
-      %dt #{@twitter.name}
-      %dd
-        = facet_value @twitter.value
+    = facet_print @twitter
 
-    - if @messaging
-      %dt #{@messaging.name}
-      %dd
-        = facet_value @messaging.value
+    = facet_print @messaging
 
     %dt Other sites
     %dd
