@@ -5,11 +5,14 @@
   margin: auto;
   margin-bottom: .5em;
   text-align: justify;
-  .tweet-reply {
+  footer.tweet-footer {
+    display: block;
     text-align: right;
     font-style: italic;
     font-size: 75%;
     color: #666666;
+    .tweet-reply {}
+    .tweet-when {}
   }
   a:link, a:visited, a:active {
     text-decoration: none;

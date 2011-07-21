@@ -1,2 +1,2 @@
-.ac-item
+.ac-item{:title => consumed.title + " " + time_ago_in_words(consumed.pubDate) + " ago"}
   = sanitize consumed.description, :tags => %w(div a img)

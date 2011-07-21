@@ -49,7 +49,13 @@ ul#xbox {
   padding: 0;
   list-style-type: none;
   li {
-    display: inline;
+    display: block;
+    a:link, a:visited, a:active {
+      text-decoration: none;
+    }
+    a:hover {
+      font-weight: bold;
+    }
   }
 }
 
