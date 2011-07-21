@@ -10,21 +10,19 @@
 .right
   = link_to 'Follow @tekniklr', 'http://twitter.com/tekniklr', :class => 'twitter-follow-button', 'data-align' => 'right'
 
-- unless @xbox.blank?
-  %h1
-    = link_to 'Plays', 'http://live.xbox.com/en-US/MyXbox/Profile?gamertag=tekniklr'
-  %ul#xbox
-    - @xbox.each do |game|
-      = render 'xbox', :game => game
-
 - unless @music.blank?
   %h1
     = link_to 'Listens', 'http://www.last.fm/user/tekniklr'
   %ul#lastfm
     - @music.each do |song|
       = render 'music', :song => song
-    %li
-      = link_to '...', 'http://www.last.fm/user/tekniklr'
+
+- unless @xbox.blank?
+  %h1
+    = link_to 'Achieves', 'http://live.xbox.com/en-US/MyXbox/Profile?gamertag=tekniklr'
+  %ul#xbox
+    - @xbox.each do |game|
+      = render 'xbox', :game => game
 
 - unless @consumption.blank?
   %h1
