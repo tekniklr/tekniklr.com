@@ -5,9 +5,10 @@ class MainController < ApplicationController
   caches_action   :routing_error,   :layout => false
 
   def index
-    @post        = Rails.cache.fetch('blog_post', :expires_in => 1.hour) { get_blog_post }
     @tweets      = Tweet.limit(3)
+    @post        = Rails.cache.fetch('blog_post', :expires_in => 10.minutes) { get_blog_post }
     @consumption = Rails.cache.fetch('consuming', :expires_in => 2.hours) { get_all_consuming}
+    @music       = Rails.cache.fetch('last_fm',   :expires_in => 15.minutes) { get_last_fm }
   end
 
   def acknowledgments
@@ -35,6 +36,16 @@ class MainController < ApplicationController
     begin
       rss = RSS::Parser.parse(open('http://www.allconsuming.net/person/tekniklr/rss').read, false)
       rss.items[1..7]
+    rescue
+      ''
+    end
+  end
+  
+  def get_last_fm
+    require 'rss'
+    begin
+      rss = RSS::Parser.parse(open('http://ws.audioscrobbler.com/1.0/user/tekniklr/recenttracks.rss').read, false)
+      rss.items[1..4]
     rescue
       ''
     end

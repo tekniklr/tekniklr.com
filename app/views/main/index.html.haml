@@ -10,6 +10,15 @@
 .right
   = link_to 'Follow @tekniklr', 'http://twitter.com/tekniklr', :class => 'twitter-follow-button', 'data-align' => 'right'
 
+- unless @music.blank?
+  %h1
+    = link_to 'Listens', 'http://www.last.fm/user/tekniklr'
+  %ul#lastfm
+    - @music.each do |song|
+      = render 'music', :song => song
+    %li
+      = link_to '...', 'http://www.last.fm/user/tekniklr'
+
 - unless @consumption.blank?
   %h1
     = link_to 'Consumes', 'http://www.allconsuming.net/person/tekniklr/'
