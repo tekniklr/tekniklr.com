@@ -43,6 +43,16 @@ ul#lastfm {
   }
 }
 
+ul#xbox {
+  width: 96%;
+  margin: auto;
+  padding: 0;
+  list-style-type: none;
+  li {
+    display: inline;
+  }
+}
+
 .banksy {
   width: 50em;
   margin: auto;
