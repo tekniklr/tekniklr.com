@@ -46,7 +46,7 @@ class MainController < ApplicationController
     require 'rss'
     begin
       rss = RSS::Parser.parse(open('http://ws.audioscrobbler.com/1.0/user/tekniklr/recenttracks.rss').read, false)
-      rss.items[1..4]
+      rss.items[1..5]
     rescue
       ''
     end
@@ -55,8 +55,8 @@ class MainController < ApplicationController
   def get_xbox
     require 'rss'
     begin
-      rss = RSS::Parser.parse(open('').read, false)
-      rss.items[1..3]
+      rss = RSS::Parser.parse(open('http://www.trueachievements.com/myachievementfeedrss.aspx?gamerid=294291').read, false)
+      rss.items[1..5]
     rescue
       ''
     end
