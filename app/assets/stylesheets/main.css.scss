@@ -1,3 +1,18 @@
+/* 
+ * can be applied to say, a list item to make progressive items more faint
+ */
+.fade0 {}
+.fade10 {@include transparent(0.95);}
+.fade20 {@include transparent(0.85);}
+.fade30 {@include transparent(0.75);}
+.fade40 {@include transparent(0.65);}
+.fade50 {@include transparent(0.55);}
+.fade60 {@include transparent(0.45);}
+.fade70 {@include transparent(0.35);}
+.fade80 {@include transparent(0.25);}
+.fade90 {@include transparent(0.15);}
+.fade100 {@include transparent(0.05);}
+
 #allconsuming {
   width: 96%;
   margin: 0 auto 3em 0;

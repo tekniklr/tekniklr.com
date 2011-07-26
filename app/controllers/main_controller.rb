@@ -56,7 +56,7 @@ class MainController < ApplicationController
     require 'rss'
     begin
       rss = RSS::Parser.parse(open('http://www.trueachievements.com/myachievementfeedrss.aspx?gamerid=294291').read, false)
-      rss.items[1..5]
+      rss.items[1..3]
     rescue
       ''
     end
