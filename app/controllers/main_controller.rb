@@ -6,8 +6,7 @@ class MainController < ApplicationController
 
   def index
     @tweets      = Tweet.limit(3)
-    #@post        = Rails.cache.fetch('blog_post', :expires_in => 10.minutes) { get_blog_post }
-    @post        = get_blog_post
+    @post        = Rails.cache.fetch('blog_post', :expires_in => 10.minutes) { get_blog_post }
     @consumption = Rails.cache.fetch('consuming', :expires_in => 2.hours) { get_all_consuming}
     @music       = Rails.cache.fetch('last_fm',   :expires_in => 15.minutes) { get_last_fm }
     @xbox        = Rails.cache.fetch('xbox',      :expires_in => 2.hours) { get_xbox }
