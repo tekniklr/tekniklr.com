@@ -11,18 +11,22 @@
   = link_to 'Follow @tekniklr', 'http://twitter.com/tekniklr', :class => 'twitter-follow-button', 'data-align' => 'right'
 
 - unless @music.blank?
+  - fade_music = 0
   %h1
     = link_to 'Listens', 'http://www.last.fm/user/tekniklr'
   %ul#lastfm
     - @music.each do |song|
-      = render 'music', :song => song
+      = render 'music', :song => song, :fade => fade_level(@music.count, fade_music)
+      - fade_music += 1
 
 - unless @xbox.blank?
+  - fade_xbox = 0
   %h1
     = link_to 'Plays', 'http://live.xbox.com/en-US/MyXbox/Profile?gamertag=tekniklr'
   %ul#xbox
     - @xbox.each do |game|
-      = render 'xbox', :game => game
+      = render 'xbox', :game => game, :fade => fade_level(@xbox.count, fade_xbox)
+      - fade_xbox += 1
 
 - unless @consumption.blank?
   %h1
