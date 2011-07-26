@@ -1,3 +1,3 @@
-%li
+%li{:class => "fade#{fade}"}
   = link_to game.title.gsub(/\Atekniklr won the (.+) achievement in (.+)\Z/, '\2  ☆ \1'), game.link
   = time_ago_in_words(game.pubDate)+' ago'
