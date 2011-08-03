@@ -18,7 +18,7 @@ class Tweet < ActiveRecord::Base
     tweet.gsub!(/@([_\w]+)/, '<a href="http://twitter.com/\1">@\1</a>')
     
     # hashtags
-    tweet.gsub!(/#([\w]+)/, '<a href="http://twitter.com/search?q=%23\1">@\1</a>')
+    tweet.gsub!(/#([\w]+)/, '<a href="http://twitter.com/search?q=%23\1">#\1</a>')
     
     tweet << "<footer class='tweet-footer'>"
     
