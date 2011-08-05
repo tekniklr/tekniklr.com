@@ -10,14 +10,12 @@
 .right
   = link_to 'Follow @tekniklr', 'http://twitter.com/tekniklr', :class => 'twitter-follow-button', 'data-align' => 'right'
 
-- unless @music.blank?
-  - fade_music = 0
+- unless @consumption.blank?
   %h1
-    = link_to 'Listens', 'http://www.last.fm/user/tekniklr'
-  %ul#lastfm
-    - @music.each do |song|
-      = render 'music', :song => song, :fade => fade_level(@music.count, fade_music)
-      - fade_music += 1
+    = link_to 'Consumes', 'http://www.allconsuming.net/person/tekniklr/'
+  #allconsuming
+    - @consumption.each do |consumed|
+      = render 'consumed', :consumed => consumed
 
 - unless @xbox.blank?
   - fade_xbox = 0
@@ -28,12 +26,25 @@
       = render 'xbox', :game => game, :fade => fade_level(@xbox.count, fade_xbox)
       - fade_xbox += 1
 
-- unless @consumption.blank?
+- unless @music.blank?
+  - fade_music = 0
   %h1
-    = link_to 'Consumes', 'http://www.allconsuming.net/person/tekniklr/'
-  #allconsuming
-    - @consumption.each do |consumed|
-      = render 'consumed', :consumed => consumed
+    = link_to 'Listens', 'http://www.last.fm/user/tekniklr'
+  %ul#lastfm
+    - @music.each do |song|
+      = render 'music', :song => song, :fade => fade_level(@music.count, fade_music)
+      - fade_music += 1
+
+- unless @bookmarks.blank?
+  - fade_bookmarks = 0
+  %h1
+    = link_to 'Finds', 'http://www.delicious.com/tekniklr'
+  %ul#delicious
+    - @bookmarks.each do |bookmark|
+      = render 'bookmark', :bookmark => bookmark, :fade => fade_level(@bookmarks.count, fade_bookmarks)
+      - fade_bookmarks += 1
+
+#footnote
     
 - content_for :header do
   %link{:rel => "dns-prefetch", :href => "http://twitter.com"}/
