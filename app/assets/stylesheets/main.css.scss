@@ -15,7 +15,7 @@
 
 #allconsuming {
   width: 96%;
-  margin: 0 auto 3em 0;
+  margin: 0 auto 3em auto;
   text-align: center;
   overflow: hidden;
   height: 6em;
@@ -42,23 +42,7 @@
   height: 3em;
 }
 
-ul#lastfm {
-  width: 96%;
-  margin: auto;
-  padding: 0;
-  list-style-type: none;
-  li {
-    display: block;
-    a:link, a:visited, a:active {
-      text-decoration: none;
-    }
-    a:hover {
-      font-weight: bold;
-    }
-  }
-}
-
-ul#xbox {
+ul#lastfm, ul#delicious, ul#xbox {
   width: 96%;
   margin: auto;
   padding: 0;
