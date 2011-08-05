@@ -8,6 +8,7 @@ class MainController < ApplicationController
     @tweets      = Tweet.limit(3)
     @post        = Rails.cache.fetch('blog_post', :expires_in => 10.minutes) { get_blog_post }
     @consumption = Rails.cache.fetch('consuming', :expires_in => 2.hours) { get_all_consuming}
+    @bookmarks   = Rails.cache.fetch('delicious', :expires_in => 4.hours) { get_delicious }
     @music       = Rails.cache.fetch('last_fm',   :expires_in => 15.minutes) { get_last_fm }
     @xbox        = Rails.cache.fetch('xbox',      :expires_in => 2.hours) { get_xbox }
   end
@@ -47,6 +48,17 @@ class MainController < ApplicationController
     begin
       rss = RSS::Parser.parse(open('http://www.allconsuming.net/person/tekniklr/rss').read, false)
       rss.items[1..7]
+    rescue
+      ''
+    end
+  end
+  
+  def get_delicious
+    logger.debug "Fetching delicious bookmarks from RSS..."
+    require 'rss'
+    begin
+      rss = RSS::Parser.parse(open('http://feeds.delicious.com/v2/rss/tekniklr?count=6').read, false)
+      rss.items[1..3]
     rescue
       ''
     end
