@@ -47,7 +47,7 @@ class MainController < ApplicationController
     require 'rss'
     begin
       rss = RSS::Parser.parse(open('http://www.allconsuming.net/person/tekniklr/rss').read, false)
-      rss.items[1..7]
+      rss.items[0..6]
     rescue
       ''
     end
@@ -58,7 +58,7 @@ class MainController < ApplicationController
     require 'rss'
     begin
       rss = RSS::Parser.parse(open('http://feeds.delicious.com/v2/rss/tekniklr?count=6').read, false)
-      rss.items[1..3]
+      rss.items[0..2]
     rescue
       ''
     end
@@ -69,7 +69,7 @@ class MainController < ApplicationController
     require 'rss'
     begin
       rss = RSS::Parser.parse(open('http://ws.audioscrobbler.com/1.0/user/tekniklr/recenttracks.rss').read, false)
-      rss.items[1..5]
+      rss.items[0..4]
     rescue
       ''
     end
@@ -80,7 +80,7 @@ class MainController < ApplicationController
     require 'rss'
     begin
       rss = RSS::Parser.parse(open('http://www.trueachievements.com/myachievementfeedrss.aspx?gamerid=294291').read, false)
-      rss.items[1..3]
+      rss.items[0..2]
     rescue
       ''
     end
