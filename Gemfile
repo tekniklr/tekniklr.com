@@ -1,5 +1,5 @@
 source 'http://rubygems.org'
-gem 'rails', '3.1.0.rc4'
+gem 'rails', '~>3.1.0'
 gem 'rake', '0.8.7'
 gem 'mysql2'
 
@@ -40,9 +40,9 @@ end
 # Gemfile
 # http://matthewhutchinson.net/2010/9/19/rails-3-bash-aliases-and-irbrc-configs/page/2
 group :development do
-  gem "wirble"
-  gem "hirb"
-  gem "awesome_print"
-  gem "looksee"
+  gem "wirble", :require => false
+  gem "hirb", :require => false
+  gem "awesome_print", :require => false
+  gem "looksee", :require => false
   # gem 'ruby-debug19', :require => 'ruby-debug'
 end
