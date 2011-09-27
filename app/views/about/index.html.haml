@@ -37,15 +37,7 @@
       - @about_links.each do |link|
         - link == @about_links.last ? sep = '' : sep = ', '
         = link_to(link.name.chomp, link.url) + sep
-   
-  .shortmail-compose-widget
     
 #footnote
   %p
     provided in the #{link_to 'hcard', 'http://microformats.org/wiki/hcard'} #{link_to 'microformat', 'http://microformats.org/'}
-    
-= javascript_include_tag 'http://shortmail.com/widgets/compose-widget.js?v=1'
-:javascript
-  Shortmail.ComposeWidget({
-    screenName: 'tekniklr'
-  });
