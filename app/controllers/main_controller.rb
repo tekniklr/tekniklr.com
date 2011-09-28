@@ -10,7 +10,7 @@ class MainController < ApplicationController
     @consumption = Rails.cache.fetch('consuming', :expires_in => 2.hours) { get_all_consuming}
     @bookmarks   = Rails.cache.fetch('delicious', :expires_in => 4.hours) { get_delicious }
     @music       = Rails.cache.fetch('last_fm',   :expires_in => 15.minutes) { get_last_fm }
-    @xbox        = Rails.cache.fetch('xbox',      :expires_in => 2.hours) { get_xbox }
+    @games       = Rails.cache.fetch('games',      :expires_in => 2.hours) { get_games }
   end
 
   def acknowledgments
@@ -75,12 +75,20 @@ class MainController < ApplicationController
     end
   end
 
-  def get_xbox
-    logger.debug "Fetching xbox achievements from RSS..."
+  def get_games
+    logger.debug "Fetching game info from RSS..."
     require 'rss'
     begin
-      rss = RSS::Parser.parse(open('http://www.trueachievements.com/myachievementfeedrss.aspx?gamerid=294291').read, false)
-      rss.items[0..2]
+      rss = RSS::Parser.parse(open('http://old.raptr.com/tekniklr/rss').read, false)
+      items = []
+      # iterate through for items actually about gaming
+      rss.items.each do |item|
+        if (match = item.title.match(/tekniklr unlocked/)) || (match = item.title.match(/tekniklr played/))
+          items << item
+          items.count >= 3 and return items
+        end
+      end
+      return items
     rescue
       ''
     end
