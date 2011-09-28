@@ -17,14 +17,14 @@
     - @consumption.each do |consumed|
       = render 'consumed', :consumed => consumed
 
-- unless @xbox.blank?
-  - fade_xbox = 0
+- unless @games.blank?
+  - fade_game = 0
   %h1
-    = link_to 'Plays', 'http://live.xbox.com/en-US/MyXbox/Profile?gamertag=tekniklr'
-  %ul#xbox
-    - @xbox.each do |game|
-      = render 'xbox', :game => game, :fade => fade_level(@xbox.count, fade_xbox)
-      - fade_xbox += 1
+    = link_to 'Plays', 'http://raptr.com/tekniklr'
+  %ul#games
+    - @games.each do |game|
+      = render 'game', :game => game, :fade => fade_level(@games.count, fade_game)
+      - fade_game += 1
 
 - unless @music.blank?
   - fade_music = 0

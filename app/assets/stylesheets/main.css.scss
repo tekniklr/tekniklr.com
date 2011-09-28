@@ -42,7 +42,7 @@
   height: 3em;
 }
 
-ul#lastfm, ul#delicious, ul#xbox {
+ul#lastfm, ul#delicious, ul#games {
   width: 96%;
   margin: auto;
   padding: 0;
@@ -54,6 +54,11 @@ ul#lastfm, ul#delicious, ul#xbox {
     }
     a:hover {
       font-weight: bold;
+    }
+    ul {
+      padding: 0 0 0 2em;
+      margin: 0;
+      font-size: 80%;
     }
   }
 }
