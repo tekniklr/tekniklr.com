@@ -196,6 +196,10 @@ a:hover { color: $hover_color; }
     }
   }
 }
+// fix for ie being stupid and not listening to media/size restrictions
+body.ie6 #navigation .mobile {display: none;}
+body.ie7 #navigation .mobile {display: none;}
+body.ie8 #navigation .mobile {display: none;}
 #single_column_navigation {
   width: $max_page_width/5;
   color: $navigation_font_color;
