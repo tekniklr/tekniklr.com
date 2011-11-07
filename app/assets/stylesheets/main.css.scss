@@ -1,3 +1,23 @@
+/*
+ * h1s and such work differently on the front page than they do typically
+ */
+#front_page {
+  
+  margin-top: -2em;
+  
+  h1 {
+    font-size: 170%;
+    margin: 2em 0em 1.5em 0;
+    border-bottom: 1px solid $med_border_color;
+  }
+  
+  .entry-title {
+    font-size: 150%;
+    text-align: left;
+    border-bottom: 1px solid $faint_border_color;
+  }
+}
+
 /* 
  * can be applied to say, a list item to make progressive items more faint
  */
