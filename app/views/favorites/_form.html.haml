@@ -9,9 +9,7 @@
   %p
     = f.label :favorite_type
     = f.text_field :favorite_type, :size => 36
-
-    = f.label :sort
-    = f.number_field :sort, :size => 2
+    = f.hidden_field :sort
 
   .things_edit
     = f.fields_for :favorite_things do |ft|
@@ -20,8 +18,7 @@
         = ft.text_field :thing, :size => 24
         = ft.label :link
         = ft.text_field :link, :size => 36
-        = ft.label :sort
-        = ft.number_field :sort, :size => 2
+        = ft.hidden_field :sort
 
   .center
     = f.submit
