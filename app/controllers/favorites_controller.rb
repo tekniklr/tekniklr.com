@@ -23,7 +23,7 @@ class FavoritesController < ApplicationController
   def new
     @favorite = Favorite.new
     @favorite.sort = Favorite.all.count + 1
-    1.upto(5) { |n| @favorite.favorite_things.build(:sort => n) }
+    1.upto(NUM_FAVS) { |n| @favorite.favorite_things.build(:sort => n) }
     respond_to do |format|
       format.html # new.html.erb
     end
@@ -33,8 +33,8 @@ class FavoritesController < ApplicationController
   def edit
     @favorite = Favorite.find(params[:id])
     things = @favorite.favorite_things.count
-    if things < 5
-      (things+1).upto(5) { |n| @favorite.favorite_things.build(:sort => n) }
+    if things < NUM_FAVS
+      (things+1).upto(NUM_FAVS) { |n| @favorite.favorite_things.build(:sort => n) }
     end
   end
 
