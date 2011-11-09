@@ -9,6 +9,10 @@ input, textarea {
   margin: .25em 0 .25em 0;
 }
 
+input[type=number] {
+  width: 3em;
+}
+
 input[type=submit] {
   @include rounded(1px, #555555, .5em, .2em, solid);
   background-color: white;
