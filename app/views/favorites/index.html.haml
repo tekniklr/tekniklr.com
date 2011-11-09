@@ -10,9 +10,9 @@
           %li 
             = thing.link ? link_to(thing.thing, thing.link) : thing.thing
       .list_manage
-        = link_to 'Show', favorite
+        = link_to 'Sort', favorite
         |
-        = link_to 'Edit', edit_favorite_path(favorite)
+        = link_to 'Change', edit_favorite_path(favorite)
         |
         = link_to('Destroy', favorite, :confirm => "Are you sure you want to delete your #{favorite.favorite_type} favorites?", :method => :delete, :remote => true)
 
