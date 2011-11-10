@@ -1,10 +1,10 @@
 require 'test_helper'
 
 class FacetsControllerTest < ActionController::TestCase
-  fixtures  :facets
   
   setup do
-    @facet = facets('skills')
+    @facet = Factory.create(:facet)
+    @user = Factory.create(:user)
   end
 
   test "should not work without login" do
@@ -28,36 +28,36 @@ class FacetsControllerTest < ActionController::TestCase
   end
 
   test "should get index" do
-    get(:index, nil, {'user_id' => 1})
+    get(:index, nil, {'user_id' => @user.id})
     assert_response :success
     assert_not_nil assigns(:facets)
   end
 
   test "should create facet" do
     assert_difference('Facet.count') do
-      post(:create, {:facet => @facet.attributes}, {'user_id' => 1})
+      post(:create, {:facet => @facet.attributes}, {'user_id' => @user.id})
     end
     assert_redirected_to facets_path
   end
 
   test "should show facet" do
-    get(:show, {:id => @facet.id}, {'user_id' => 1})
+    get(:show, {:id => @facet.id}, {'user_id' => @user.id})
     assert_response :success
   end
   
   test "should get edit" do
-    get(:edit, {:id => @facet.to_param}, {'user_id' => 1})
+    get(:edit, {:id => @facet.to_param}, {'user_id' => @user.id})
     assert_response :success
   end
 
   test "should update facet" do
-    put(:update, {:id => @facet.to_param, :facet => @facet.attributes}, {'user_id' => 1})
+    put(:update, {:id => @facet.to_param, :facet => @facet.attributes}, {'user_id' => @user.id})
     assert_redirected_to facets_path
   end
 
   test "should destroy facet" do
     assert_difference('Facet.count', -1) do
-      delete(:destroy, {:id => @facet.to_param}, {'user_id' => 1})
+      delete(:destroy, {:id => @facet.to_param}, {'user_id' => @user.id})
     end
     assert_redirected_to facets_path
   end

@@ -1,13 +1,9 @@
 require 'test_helper'
 
 class LinkTest < ActiveSupport::TestCase
-  fixtures :links
 
   def setup
-    @link = Link.new
-    @link.name = 'Link place'
-    @link.url = 'http://yahoo.com'
-    @link.visible = false
+    @link = Factory.build(:link)
   end
 
   def test_validates_presence_of_name
