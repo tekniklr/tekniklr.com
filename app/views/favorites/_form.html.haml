@@ -19,6 +19,9 @@
         = ft.label :link
         = ft.text_field :link, :size => 36
         = ft.hidden_field :sort
-
+        - unless ft.object.new_record?
+          = ft.label '_destroy', 'Remove'
+          = ft.check_box '_destroy'
+          
   .center
     = f.submit
