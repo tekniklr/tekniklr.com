@@ -1,9 +1,0 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
-
-movies:
-  favorite_type: Movies
-  sort: 1
-
-books:
-  favorite_type: Books
-  sort: 2

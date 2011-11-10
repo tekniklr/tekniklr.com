@@ -1,13 +1,9 @@
 require 'test_helper'
 
 class ExperienceTest < ActiveSupport::TestCase
-  fixtures :experiences
 
   def setup
-    @experience = Experience.new
-    @experience.title = 'Corrections officer'
-    @experience.affiliation = 'Hall of Records'
-    @experience.start_date = '2001-01-31'.to_date
+    @experience = Factory.build(:experience)
   end
 
   def test_validates_presence_of_title

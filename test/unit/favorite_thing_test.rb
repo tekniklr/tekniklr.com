@@ -1,14 +1,9 @@
 require 'test_helper'
 
 class FavoriteThingTest < ActiveSupport::TestCase
-  fixtures :favorite_things
 
   def setup
-    @favorite_thing = FavoriteThing.new
-    @favorite_thing.favorite_id = 1
-    @favorite_thing.thing = 'The google movie'
-    @favorite_thing.link = 'http://google.com'
-    @favorite_thing.sort = 1
+    @favorite_thing = Factory.build(:favorite_thing)
   end
   
   def test_validates_presence_of_thing

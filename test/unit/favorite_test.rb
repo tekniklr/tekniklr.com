@@ -1,12 +1,9 @@
 require 'test_helper'
 
 class FavoriteTest < ActiveSupport::TestCase
-  fixtures :favorites
 
   def setup
-    @favorite = Favorite.new
-    @favorite.favorite_type = 'Movies'
-    @favorite.sort = 1
+    @favorite = Factory.create(:favorite)
   end
 
   def test_validates_presence_of_type

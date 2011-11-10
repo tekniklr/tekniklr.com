@@ -1,9 +1,0 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
-
-tekniklr:
-  id: 1
-  provider: twitter
-  uid: 12345
-  handle: tekniklr
-  name: Teri Solow
-

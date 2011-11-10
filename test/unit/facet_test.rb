@@ -1,13 +1,9 @@
 require 'test_helper'
 
 class FacetTest < ActiveSupport::TestCase
-  fixtures  :facets
   
   def setup
-    @facet = Facet.new
-    @facet.name = "Education"
-    @facet.slug = "education"
-    @facet.value = "Rutgers"
+    @facet = Factory.build(:facet)
   end
 
   def test_validates_presence_of_name

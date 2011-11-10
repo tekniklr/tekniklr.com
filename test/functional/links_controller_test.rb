@@ -1,10 +1,10 @@
 require 'test_helper'
 
 class LinksControllerTest < ActionController::TestCase
-  fixtures  :links
   
   setup do
-    @link = links('twitter')
+    @link = Factory.create(:link)
+    @user = Factory.create(:user)
   end
 
   test "should not work without login" do
@@ -22,27 +22,27 @@ class LinksControllerTest < ActionController::TestCase
   end
 
   test "should get index" do
-    get(:index, nil, {'user_id' => 1})
+    get(:index, nil, {'user_id' => @user.id})
     assert_response :success
     assert_not_nil assigns(:links)
   end
 
   test "should create link" do
     assert_difference('Link.count') do
-      post(:create, {:link => @link.attributes}, {'user_id' => 1})
+      post(:create, {:link => @link.attributes}, {'user_id' => @user.id})
     end
     assert_redirected_to links_path
   end
 
   test "should update links" do
-    @link2 = links('facebook')
-    put(:update_all, {:links => {@link.to_param => @link.attributes, @link2.to_param => @link2.attributes}}, {'user_id' => 1})
+    @link2 = Factory.create(:link)
+    put(:update_all, {:links => {@link.to_param => @link.attributes, @link2.to_param => @link2.attributes}}, {'user_id' => @user.id})
     assert_redirected_to links_path
   end
 
   test "should destroy link" do
     assert_difference('Link.count', -1) do
-      delete(:destroy, {:id => @link.to_param}, {'user_id' => 1})
+      delete(:destroy, {:id => @link.to_param}, {'user_id' => @user.id})
     end
     assert_redirected_to links_path
   end
