@@ -3,8 +3,16 @@
     .fn Teri Solow
     %div
       = mail_to EMAIL, EMAIL, :class => :email
-    %div
-      = link_to 'http://teniklr.com', 'http://teniklr.com', :class => :url
+      &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+      %span.adr
+        %span.locality
+          portland
+        , 
+        %span.region
+          oregon
+      &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+      = link_to 'http://terisolow.com', 'http://terisolow.com', :class => :url
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
   %dl
     - if @tech
