@@ -9,7 +9,6 @@ class MainController < ApplicationController
     @post        = Rails.cache.fetch('blog_post', :expires_in => 10.minutes) { get_blog_post }
     @consumption = Rails.cache.fetch('consuming', :expires_in => 2.hours) { get_all_consuming}
     @bookmarks   = Rails.cache.fetch('delicious', :expires_in => 4.hours) { get_delicious }
-    @music       = Rails.cache.fetch('last_fm',   :expires_in => 15.minutes) { get_last_fm }
   end
 
   def acknowledgments
@@ -58,17 +57,6 @@ class MainController < ApplicationController
     begin
       rss = RSS::Parser.parse(open('http://feeds.delicious.com/v2/rss/tekniklr?count=6').read, false)
       rss.items[0..2]
-    rescue
-      ''
-    end
-  end
-  
-  def get_last_fm
-    logger.debug "Fetching last.fm from RSS..."
-    require 'rss'
-    begin
-      rss = RSS::Parser.parse(open('http://ws.audioscrobbler.com/1.0/user/tekniklr/recenttracks.rss').read, false)
-      rss.items[0..4]
     rescue
       ''
     end

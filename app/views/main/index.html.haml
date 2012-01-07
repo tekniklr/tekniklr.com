@@ -19,15 +19,6 @@
       - @consumption.each do |consumed|
         = render 'consumed', :consumed => consumed
 
-  - unless @music.blank?
-    - fade_music = 0
-    %h1
-      = link_to 'Listens', 'http://www.last.fm/user/tekniklr'
-    %ul#lastfm
-      - @music.each do |song|
-        = render 'music', :song => song, :fade => fade_level(@music.count, fade_music)
-        - fade_music += 1
-
   - unless @bookmarks.blank?
     - fade_bookmarks = 0
     %h1
