@@ -1,25 +1,34 @@
 #ack
-  %p
-    The current iteration of this website is brought to you by:
 
-  %ul
+  %ul.main
+
     %li
-      = link_to 'HTML5 Boilerplate', 'http://html5boilerplate.com/'
-    %li
-      = link_to 'Rails', 'http://rubyonrails.org/'
-    %li
-      = link_to 'WordPress', 'http://wordpress.org/'
-    %li
-      The #{link_to 'Boilerplate wordpress theme', 'http://wordpress.org/extend/themes/boilerplate'}, from which #{link_to 'this wordpress theme', 'https://github.com/tekniklr/tekniklr.com-wordpress-theme'} was derived
-    %li
-      The #{link_to 'Alpha Flight', 'http://www.dafont.com/alpha-flight.font'} font (used in the banner) by #{link_to 'ck!', 'http://www.freakyfonts.de/'}
-    %li
-      Banksy acsii art by #{link_to 'Banksy', 'http://www.banksy.co.uk/'} and #{link_to 'chris.com', 'http://www.chris.com/ascii/index.php?art=art%20and%20design/banksy' }
-    %li
-      #{link_to 'Helvetica', 'http://en.wikipedia.org/wiki/Helvetica'}, #{link_to 'kittens', '/wpblog/gallery/pics/Pets/cats/Dexter/'}, #{link_to 'Apple', 'http://apple.com'}, and #{link_to 'the color purple', 'http://en.wikipedia.org/wiki/Purple'}
+      Website source code available on #{link_to 'GitHub', 'https://github.com/tekniklr/tekniklr.com'}
   
-  %p
-    Website source code available on #{link_to 'GitHub', 'https://github.com/tekniklr/tekniklr.com'}
-    
-  %p
-    %span{ 'xmlns:dct' => "http://purl.org/dc/terms/", 'href' => "http://purl.org/dc/dcmitype/StillImage", 'rel' => "dct:type"} #{link_to 'Gallery images', '/wpblog/gallery'} are licensed under a #{link_to 'Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License', 'http://creativecommons.org/licenses/by-nc-sa/3.0/', :rel => "license"}.
+    %li
+      %span{ 'xmlns:dct' => "http://purl.org/dc/terms/", 'href' => "http://purl.org/dc/dcmitype/StillImage", 'rel' => "dct:type"}
+        All original content I've created (including, but not limited to, writing, art, and photographs) is licensed under a #{link_to 'Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License', 'http://creativecommons.org/licenses/by-nc-sa/3.0/', :rel => "license"}.
+        
+    %li
+      All content that I've reposted (from #{link_to 'tumblr', 'http://tekniklr.tumblr.com'}, etc) is owned by the original creator and will be removed at their request. I have kept attribution intact where available.
+
+    %li
+      The current iteration of this website is brought to you by:
+
+      %ul.sub
+        %li
+          = link_to 'HTML5 Boilerplate', 'http://html5boilerplate.com/'
+        %li
+          = link_to 'Rails', 'http://rubyonrails.org/'
+        %li
+          = link_to 'WordPress', 'http://wordpress.org/'
+        %li
+          The #{link_to 'Boilerplate wordpress theme', 'http://wordpress.org/extend/themes/boilerplate'}, from which #{link_to 'this wordpress theme', 'https://github.com/tekniklr/tekniklr.com-wordpress-theme'} was derived
+        %li
+          The #{link_to 'Alpha Flight', 'http://www.dafont.com/alpha-flight.font'} font (used in the banner) by #{link_to 'ck!', 'http://www.freakyfonts.de/'}
+        %li
+          Banksy acsii art by #{link_to 'Banksy', 'http://www.banksy.co.uk/'} and #{link_to 'chris.com', 'http://www.chris.com/ascii/index.php?art=art%20and%20design/banksy' }
+        %li
+          #{link_to 'Helvetica', 'http://en.wikipedia.org/wiki/Helvetica'}, #{link_to 'kittens', '/wpblog/gallery/pics/Pets/cats/Dexter/'}, #{link_to 'Apple', 'http://apple.com'}, and #{link_to 'the color purple', 'http://en.wikipedia.org/wiki/Purple'}
+  
+

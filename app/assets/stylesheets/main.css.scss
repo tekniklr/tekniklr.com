@@ -61,27 +61,6 @@
   height: 3em;
 }
 
-ul#lastfm, ul#delicious, ul#games {
-  width: 96%;
-  margin: auto;
-  padding: 0;
-  list-style-type: none;
-  li {
-    display: block;
-    a:link, a:visited, a:active {
-      text-decoration: none;
-    }
-    a:hover {
-      font-weight: bold;
-    }
-    ul {
-      padding: 0 0 0 2em;
-      margin: 0;
-      font-size: 80%;
-    }
-  }
-}
-
 .banksy {
   width: 50em;
   margin: auto;
@@ -92,4 +71,25 @@ ul#lastfm, ul#delicious, ul#games {
   }
 }
 
-#ack {}
+#ack {
+  
+  ul.main {
+    margin: 0;
+    padding: 0;
+    li {
+      list-style-type: none;
+      margin: 0;
+      padding: 1em 0 1em 0;
+    }
+  }
+  ul.sub {
+    margin: 0;
+    padding: 0;
+    li {
+      list-style-type: circle;
+      margin: 0 0 0 5em;
+      padding: .5em 0 .5em 0;
+    }
+  }
+  
+}
