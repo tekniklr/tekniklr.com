@@ -1,45 +1,47 @@
 source 'http://rubygems.org'
-gem 'rails', '~>3.1.0'
-gem 'rake', '0.8.7'
+
+gem 'rails', '3.2.1'
 gem 'mysql2'
 
-# assets
-gem 'sprockets'     # asset system
-gem 'sass'          # css 
-gem 'haml'          # html
-gem 'coffee-script' # javacript
+# better html
+gem 'haml'
 
 # javascript funtimes
 gem 'jquery-rails'
 
 # needed for authentication
 gem 'omniauth'
+gem 'omniauth-twitter'
+gem 'omniauth-facebook'
 gem 'json'
 
 gem 'validates_timeliness'
+
+gem 'feedzirra'
 
 gem 'paperclip'
 
 # Deploy with Capistrano
 gem 'capistrano'
 
+group :assets do
+  gem 'sass-rails', '~> 3.2.3'
+  gem 'coffee-rails', '~> 3.2.1'
+  gem 'uglifier', '~> 1.0.3'
+end
+
 group :test do
-  # Pretty printed test output
   gem 'turn', :require => false
-  gem 'factory_girl_rails', '~> 1.2', :require => false
+  gem 'factory_girl_rails', :require => false
+  gem 'minitest', :require => false
 end
 
 group :production do
-  # gem 'uglifier'      # javascript condenser - was causing passenger to crash
   gem 'exception_notification'
   gem 'therubyracer'  # dreamhost doesn't provide a js  runtime but OSX does
 end
 
-# if your’e using Bundler in your Rails app, AND use gems in your 
-# ~/.irbrc file AND attempt to start the Rails console; you’ll get 
-# errors/warnings on requiring them UNLESS you define them in your 
-# Gemfile
-# http://matthewhutchinson.net/2010/9/19/rails-3-bash-aliases-and-irbrc-configs/page/2
+# prevent console errors
 group :development do
   gem "wirble", :require => false
   gem "hirb", :require => false
