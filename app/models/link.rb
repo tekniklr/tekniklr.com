@@ -1,5 +1,5 @@
 class Link < ActiveRecord::Base
-  attr_accessible :name, :url, :visible, :social_icon, :icon 
+  attr_accessible :name, :url, :visible, :social_icon, :icon_file_name, :icon_content_type, :icon_file_size, :icon_updated_at
   
   has_attached_file     :icon,
                         :styles => { :default => ["32x32#", :png] }

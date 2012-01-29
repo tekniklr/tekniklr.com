@@ -22,18 +22,9 @@ class MainController < ApplicationController
   
   def get_blog_post
     logger.debug "Fetching blog post from RSS..."
-    require 'rss'
     begin
-      rss = RSS::Parser.parse(open('http://tekniklr.com/wpblog/feed/').read, false)
-      # iterate through for the first item that is not a twitter recap
-      rss.items.each do |item|
-        if match = item.title.match(/^Transmissions from/)
-          logger.debug "Skipping twitter post"
-        else
-          logger.debug "Found non-twitter post: #{item.title}"
-          return item
-        end
-      end
+      feed = Feedzirra::Feed.fetch_and_parse('http://tekniklr.com/wpblog/feed/')
+      feed.entries.reject{|e| e.title =~ /^Transmissions from/}.first
     rescue
       ''
     end
@@ -41,10 +32,9 @@ class MainController < ApplicationController
 
   def get_all_consuming
     logger.debug "Fetching all consuming from RSS..."
-    require 'rss'
     begin
-      rss = RSS::Parser.parse(open('http://www.allconsuming.net/person/tekniklr/rss').read, false)
-      rss.items[0..6]
+      feed = Feedzirra::Feed.fetch_and_parse('http://www.allconsuming.net/person/tekniklr/rss')
+      feed.entries[0..6]
     rescue
       ''
     end

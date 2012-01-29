@@ -1,7 +1,7 @@
 class Tweet < ActiveRecord::Base
   establish_connection :wordpress
-  set_table_name       "wp_ak_twitter"
-  set_primary_key      'ID'
+  self.table_name = "wp_ak_twitter"
+  self.primary_key = 'ID'
   
   attr_accessible
   

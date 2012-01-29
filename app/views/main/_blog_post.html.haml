@@ -1,9 +1,8 @@
-- @post.comments.gsub!(/#[\w]+/, '')
 %article.main
   %h2.entry-title
-    = link_to @post.title, @post.comments
+    = link_to @post.title, @post.entry_id
   .entry-meta
     %span.meta-prep
-      Posted #{time_ago_in_words(@post.pubDate)} ago
+      Posted #{time_ago_in_words(@post.published)} ago
   .entry-content
-    = raw @post.content_encoded
+    = raw @post.content
