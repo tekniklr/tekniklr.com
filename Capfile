@@ -50,7 +50,12 @@ namespace :deploy do
     run "cd #{release_path} && bundle install"
   end
   
+  desc "Precompile assets"
+  task :precompile_assets do
+    run "cd #{release_path}; RAILS_ENV=production rake assets:precompile"
+  end
+  
 end
 
-before "deploy:symlink", "deploy:link_database", "deploy:link_omniauth", "deploy:link_secret_token", "deploy:link_wpblog", "deploy:link_legacy", "deploy:wptheme"
+before "deploy:symlink", "deploy:link_database", "deploy:link_omniauth", "deploy:link_secret_token", "deploy:link_wpblog", "deploy:link_legacy", "deploy:wptheme", "deploy:precompile_assets"
 after  "deploy:restart", "deploy:cleanup"
