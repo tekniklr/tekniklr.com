@@ -204,6 +204,7 @@ DEPENDENCIES
   paperclip
   rails (= 3.2.1)
   sass-rails (~> 3.2.3)
+  sprockets
   therubyracer
   turn
   uglifier (~> 1.0.3)
