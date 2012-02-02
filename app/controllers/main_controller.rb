@@ -5,7 +5,7 @@ class MainController < ApplicationController
   caches_action   :routing_error,   :layout => false
 
   def index
-    @tweets      = Tweet.limit(3)
+    @tweets      = Tweet.limit(50).reject{|t| !t.tw_reply_username.blank?}.first(3)
     @post        = Rails.cache.fetch('blog_post', :expires_in => 10.minutes) { get_blog_post }
     @consumption = Rails.cache.fetch('consuming', :expires_in => 2.hours) { get_all_consuming}
   end
