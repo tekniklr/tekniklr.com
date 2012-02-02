@@ -53,12 +53,12 @@ module ApplicationHelper
   
   private
 
-  def add_class(name, attrs)
-    classes = attrs[:class] || ''
-    classes.strip!
-    classes = ' ' + classes if !classes.blank?
-    classes = name + classes
-    attrs.merge(:class => classes)
-  end
+    def add_class(name, attrs)
+      classes = attrs[:class] || ''
+      classes.strip!
+      classes = ' ' + classes if !classes.blank?
+      classes = name + classes
+      attrs.merge(:class => classes)
+    end
     
 end
