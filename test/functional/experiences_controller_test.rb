@@ -7,7 +7,7 @@ class ExperiencesControllerTest < ActionController::TestCase
     @user = Factory.create(:user)
   end
 
-  test "should not work without login" do
+  should "not work without login" do
     get :index
     assert_redirected_to root_url
 
@@ -27,35 +27,35 @@ class ExperiencesControllerTest < ActionController::TestCase
     assert_redirected_to root_url
   end
 
-  test "should get index" do
+  should "get index" do
     get(:index, nil, {'user_id' => @user.id})
     assert_response :success
     assert_not_nil assigns(:experiences)
   end
 
-  test "should create experience" do
+  should "create experience" do
     assert_difference('Experience.count') do
       post(:create, {:experience => @experience.attributes}, {'user_id' => @user.id})
     end
     assert_redirected_to experiences_path
   end
 
-  test "should show experience" do
+  should "show experience" do
     get(:show, {:id => @experience}, {'user_id' => @user.id})
     assert_response :success
   end
   
-  test "should get edit" do
+  should "get edit" do
     get(:edit, {:id => @experience}, {'user_id' => @user.id})
     assert_response :success
   end
 
-  test "should update experience" do
+  should "update experience" do
     put(:update, {:id => @experience, :experience => @experience.attributes}, {'user_id' => @user.id})
     assert_redirected_to experiences_path
   end
 
-  test "should destroy experience" do
+  should "destroy experience" do
     assert_difference('Experience.count', -1) do
       delete(:destroy, {:id => @experience}, {'user_id' => @user.id})
     end
