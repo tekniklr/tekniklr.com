@@ -6,32 +6,32 @@ class LinkTest < ActiveSupport::TestCase
     @link = Factory.build(:link)
   end
 
-  def test_validates_presence_of_name
+  should "validate presence of name" do
     @link.name = nil
     assert_equal(false, @link.save)
   end
   
-  def test_validates_size_of_name
+  should "validate size of name" do
     @link.name = '01234567890123456789012345678901234567890'
     assert_equal(false, @link.save)
   end
   
-  def test_validates_presence_of_url
+  should "validate presence of url" do
     @link.url = nil
     assert_equal(false, @link.save)
   end
   
-  def test_validates_size_of_url
+  should "validate size of url" do
     @link.url = 'http://qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyfghjnctfvgbjnkmcfvgjnkmcdtfvgjnkmtfvgybhjnkmftcgvbhjnkvygbhjnkmu.com'
     assert_equal(false, @link.save)
   end
   
-  def test_validates_cromulence_of_url
+  should "validate cromulence of url" do
     @link.url = 'google.com'
     assert_equal(false, @link.save)
   end
 
-  def test_visible_links_should_not_show_all
+  should "visible links should not show all" do
     visible = Link.get_visible
     whuffie = visible.find_by_name('Whuffie Bank')
     assert_equal(whuffie, nil)

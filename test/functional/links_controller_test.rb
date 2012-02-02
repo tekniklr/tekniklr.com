@@ -7,7 +7,7 @@ class LinksControllerTest < ActionController::TestCase
     @user = Factory.create(:user)
   end
 
-  test "should not work without login" do
+  should "not work without login" do
     get :index
     assert_redirected_to root_url
 
@@ -21,26 +21,26 @@ class LinksControllerTest < ActionController::TestCase
     assert_redirected_to root_url
   end
 
-  test "should get index" do
+  should "get index" do
     get(:index, nil, {'user_id' => @user.id})
     assert_response :success
     assert_not_nil assigns(:links)
   end
 
-  test "should create link" do
+  should "create link" do
     assert_difference('Link.count') do
       post(:create, {:link => @link.attributes}, {'user_id' => @user.id})
     end
     assert_redirected_to links_path
   end
 
-  test "should update links" do
+  should "update links" do
     @link2 = Factory.create(:link)
     put(:update_all, {:links => {@link.to_param => @link.attributes, @link2.to_param => @link2.attributes}}, {'user_id' => @user.id})
     assert_redirected_to links_path
   end
 
-  test "should destroy link" do
+  should "destroy link" do
     assert_difference('Link.count', -1) do
       delete(:destroy, {:id => @link.to_param}, {'user_id' => @user.id})
     end
