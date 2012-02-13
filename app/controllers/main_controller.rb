@@ -40,4 +40,14 @@ class MainController < ApplicationController
     end
   end
 
+  def get_getglue
+    logger.debug "Fetching getglue checkins from RSS..."
+    begin
+      feed = Feedzirra::Feed.fetch_and_parse('http://feeds.getglue.com/checkins/0%22jFMxg4Rtl')
+      feed.entries[0..6]
+    rescue
+      ''
+    end
+  end
+
 end
