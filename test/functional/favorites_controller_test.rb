@@ -11,7 +11,7 @@ class FavoritesControllerTest < ActionController::TestCase
     @user = Factory.create(:user)
   end
 
-  test "should not work without login" do
+  should "not work without login" do
     get :index
     assert_redirected_to root_url
     
@@ -40,50 +40,50 @@ class FavoritesControllerTest < ActionController::TestCase
     assert_redirected_to root_url
   end
 
-  test "should get index" do
+  should "get index" do
     get(:index, nil, {'user_id' => @user.id})
     assert_response :success
     assert_not_nil assigns(:favorites)
   end
 
-  test "should get new" do
+  should "get new" do
     get(:new, nil, {'user_id' => @user.id})
     assert_response :success
   end
 
-  test "should create favorite" do
+  should "create favorite" do
     assert_difference('Favorite.count') do
       post(:create, {:favorite => @favorite.attributes}, {'user_id' => @user.id})
     end
     assert_redirected_to favorite_path(assigns(:favorite))
   end
 
-  test "should show favorite" do
+  should "show favorite" do
     get(:show, {:id => @favorite.id}, {'user_id' => @user.id})
     assert_response :success
   end
 
-  test "should get edit" do
+  should "get edit" do
     get(:edit, {:id => @favorite.to_param}, {'user_id' => @user.id})
     assert_response :success
   end
 
-  test "should re-order favorites" do
+  should "re-order favorites" do
     put(:sort_favorites, {:favorite => [@favorite.to_param, @favorite2.to_param]}, {'user_id' => @user.id})
     assert_redirected_to favorites_path
   end
 
-  test "should re-order things" do
+  should "re-order things" do
     put(:sort_things, {:favorite_thing => [@favorite_thing1.to_param, @favorite_thing2.to_param]}, {'user_id' => @user.id})
     assert_redirected_to favorites_path
   end
 
-  test "should update favorite" do
+  should "update favorite" do
     put(:update, {:id => @favorite.to_param, :favorite => @favorite.attributes}, {'user_id' => @user.id})
     assert_redirected_to favorite_path(assigns(:favorite))
   end
 
-  test "should destroy favorite" do
+  should "destroy favorite" do
     assert_difference('Favorite.count', -1) do
       delete(:destroy, {:id => @favorite.to_param}, {'user_id' => @user.id})
     end
