@@ -6,11 +6,6 @@ class FavoriteThingTest < ActiveSupport::TestCase
     @favorite_thing = Factory.build(:favorite_thing)
   end
   
-  should "validate presence of thing" do
-    @favorite_thing.thing = nil
-    assert_equal(false, @favorite_thing.save)
-  end
-  
   should "validate cromulence of link" do
     @favorite_thing.link = 'google.com'
     assert_equal(false, @favorite_thing.save)
