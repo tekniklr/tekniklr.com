@@ -1,3 +1,5 @@
+= tekniklr.com
+
 The rails source for my website, http://tekniklr.com
 Always a work in progress.
 
@@ -6,19 +8,18 @@ admin end in a quasi CMS sort of way.
 
 Also, it's designed to be a rails app with a running wordpress in the public/
 directory, so that's kinda neat. It's also not that hard; just make sure you have
-something like this in your apache config:
-  <Location /wpblog>
-    DirectoryIndex index.php
-    PassengerEnabled off
-  </Location>
+an .htaccess with the following in the WordPress root directory:
+  PassengerEnabled off
 I don't know of any way to do this other than with Passenger.
 
+== Acknowledgements
+
 Anyway, things I used while implementing this include:
-  *  TDD
-  *  DRY
-  *  omniauth
-  *  HTML5 (boilerplate)
-  *  HAML
-  *  sass
-  *  CoffeeScript
-  *  modern railsy ajax
+* TDD
+* DRY
+* omniauth
+* HTML5 (boilerplate)
+* HAML
+* sass
+* CoffeeScript
+* modern railsy ajax
