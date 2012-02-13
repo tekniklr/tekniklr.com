@@ -6,22 +6,22 @@ class FavoriteTest < ActiveSupport::TestCase
     @favorite = Factory.create(:favorite)
   end
 
-  def test_validates_presence_of_type
+  should "validate presence of type" do
     @favorite.favorite_type = nil
     assert_equal(false, @favorite.save)
   end
   
-  def test_validates_size_of_type
+  should "validate size of type" do
     @favorite.favorite_type = '012345678901234567890123456789012345678901234567890123456789012345678901234567890'
     assert_equal(false, @favorite.save)
   end
   
-  def test_validates_presence_of_sort
+  should "validate presence of sort" do
     @favorite.sort = nil
     assert_equal(false, @favorite.save)
   end
 
-  def test_validates_type_of_sort
+  should "validate type of sort" do
     @favorite.sort = 'a'
     assert_equal(false, @favorite.save)
   end

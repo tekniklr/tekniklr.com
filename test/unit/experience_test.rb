@@ -6,62 +6,62 @@ class ExperienceTest < ActiveSupport::TestCase
     @experience = Factory.build(:experience)
   end
 
-  def test_validates_presence_of_title
+  should "validate presence of title" do
     @experience.title = nil
     assert_equal(false, @experience.save)
   end
   
-  def test_validates_size_of_title
+  should "validate size of title" do
     @experience.title = '012345678901234567890123456789012345678901234567890123456789012345678901234567890'
     assert_equal(false, @experience.save)
   end
   
-  def test_validates_presence_of_affiliation
+  should "validate presence of affiliation" do
     @experience.affiliation = nil
     assert_equal(false, @experience.save)
   end
  
-  def test_validates_size_of_affiliation
+  should "validate size of affiliation" do
     @experience.affiliation = '012345678901234567890123456789012345678901234567890123456789012345678901234567890'
     assert_equal(false, @experience.save)
   end
   
-  def test_validates_size_of_location
+  should "validate size of location" do
     @experience.location = '012345678901234567890123456789012345678901234567890123456789012345678901234567890'
     assert_equal(false, @experience.save)
   end
   
-  def test_submit_without_location
+  should "submit without location" do
     @experience.location = nil
     assert_equal(true, @experience.save)
   end
   
-  def test_submit_without_affiliation_link
+  should "submit without affiliation link" do
     @experience.affiliation_link = nil
     assert_equal(true, @experience.save)
   end
   
-  def test_validates_size_of_affiliation_link
+  should "validate size of affiliation link" do
     @experience.affiliation_link = 'http://qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyu.com/eryctuvyibunctvyibuictvybuhnictvybunimodctbhjnctfgvybhnjctvybqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyu.com/eryctuvyibunctvyibuictvybuhnictvybunimodctbhjnctfgvybhnjctvyb'
     assert_equal(false, @experience.save)
   end
   
-  def test_validates_cromulence_of_affiliation_link
+  should "validate cromulence of affiliation link" do
     @experience.affiliation_link = 'google.com'
     assert_equal(false, @experience.save)
   end
   
-  def test_validates_presence_of_start_date
+  should "validate presence of start date" do
     @experience.start_date = nil
     assert_equal(false, @experience.save)
   end
   
-  def test_validates_type_of_start_date
+  should "validate type of start date" do
     @experience.start_date = 'a'
     assert_equal(false, @experience.save)
   end
   
-  def test_submit_without_end_date
+  should "submit without end date" do
     @experience.end_date = nil
     assert_equal(true, @experience.save)
   end
