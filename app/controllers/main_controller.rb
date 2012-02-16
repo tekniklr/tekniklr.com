@@ -2,11 +2,12 @@ class MainController < ApplicationController
   caches_action   :acknowledgments, :layout => false
   caches_action   :navigation,      :layout => false
   caches_action   :routing_error,   :layout => false
+  caches_action   :index,           :layout => false, :expires_in => 5.minutes
 
   def index
     @tweets      = Tweet.limit(50).reject{|t| !t.tw_reply_username.blank?}.first(3)
     
-    @post        = Rails.cache.fetch('blog_post', :expires_in => 15.minutes) { get_blog_post }
+    @post        = Rails.cache.fetch('blog_post', :expires_in => 10.minutes) { get_blog_post }
     
     @getglue_expiry   = Rails.cache.read('getglue_expiry')
     @getglue          = Rails.cache.read('getglue')
