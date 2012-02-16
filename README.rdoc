@@ -23,3 +23,4 @@ Anyway, things I used while implementing this include:
 * sass
 * CoffeeScript
 * modern railsy ajax
+* ruby-aaws
