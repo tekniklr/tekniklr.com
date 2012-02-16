@@ -15,13 +15,17 @@ gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem 'json'
 
+gem 'paperclip'
 gem 'validates_timeliness'
 
+# rss fetcher/parser that actually works
 gem 'feedzirra'
 
-gem 'paperclip'
-
+# for amazon web services; not to be confused with ruby-aws
 gem 'ruby-aaws'
+
+# run processes in the background
+# TODO
 
 # Deploy with Capistrano
 gem 'capistrano'

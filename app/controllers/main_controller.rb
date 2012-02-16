@@ -1,13 +1,21 @@
 class MainController < ApplicationController
-  #before_filter  { |c| c.page_title 'home' }
   caches_action   :acknowledgments, :layout => false
   caches_action   :navigation,      :layout => false
   caches_action   :routing_error,   :layout => false
 
   def index
     @tweets      = Tweet.limit(50).reject{|t| !t.tw_reply_username.blank?}.first(3)
+    
     @post        = Rails.cache.fetch('blog_post', :expires_in => 15.minutes) { get_blog_post }
-    @getglue     = Rails.cache.fetch('getglue',   :expires_in => 2.hours) { get_getglue }
+    
+    @getglue_expiry = Rails.cache.read('getglue_expiry')
+    @getglue        = Rails.cache.read('getglue')
+    if @getglue_expiry.nil? || Time.now > @getglue_expiry
+      @getglue_expiry = Rails.cache.write('getglue_expiry', (Time.now + 2.hours))
+      # TODO - run this in background
+      get_getglue
+    end
+    
     @bookmarks   = Rails.cache.fetch('delicious', :expires_in => 2.hours) { get_delicious }
   end
 
@@ -43,8 +51,8 @@ class MainController < ApplicationController
 
   def get_getglue
     logger.debug "Fetching getglue checkins from RSS..."
+    parsed_items = []
     begin
-      parsed_items = []
       feed = Feedzirra::Feed.fetch_and_parse('http://feeds.getglue.com/checkins/0%22jFMxg4Rtl')
       items = feed.entries.uniq_by{|i| i.title}[0..7]
       items.each do |item|
@@ -74,10 +82,10 @@ class MainController < ApplicationController
           end
         end
       end
-      parsed_items
     rescue
       ''
     end
+    Rails.cache.write('getglue', parsed_items)
   end
 
 end
