@@ -63,5 +63,24 @@ namespace :deploy do
   
 end
 
+namespace :delayed_job do
+  desc "Start delayed_job process"
+  task :start, :roles => :app do
+    run "cd #{current_path}; script/delayed_job start #{rails_env}"
+  end
+  
+  desc "Stop delayed_job process"
+  task :stop, :roles => :app do
+    run "cd #{current_path}; script/delayed_job stop #{rails_env}"
+  end
+
+  desc "Restart delayed_job process"
+  task :restart, :roles => :app do
+    run "cd #{current_path}; script/delayed_job restart #{rails_env}"
+  end
+end
+
 before "deploy:symlink", "deploy:link_database", "deploy:link_omniauth", "deploy:link_secret_token", "deploy:link_amazon", "deploy:link_wpblog", "deploy:link_legacy", "deploy:wptheme", "deploy:bundle_install", "deploy:precompile_assets"
-after  "deploy:restart", "deploy:cleanup"
+after "deploy:start", "delayed_job:start"
+after "deploy:stop", "delayed_job:stop"
+after  "deploy:restart", "deploy:cleanup", "delayed_job:restart"

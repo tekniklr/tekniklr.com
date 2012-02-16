@@ -25,7 +25,9 @@ gem 'feedzirra'
 gem 'ruby-aaws'
 
 # run processes in the background
-# TODO
+gem 'delayed_job'
+gem 'delayed_job_active_record'
+gem 'daemons'
 
 # Deploy with Capistrano
 gem 'capistrano'

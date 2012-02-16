@@ -48,6 +48,12 @@ GEM
       execjs
     coffee-script-source (1.2.0)
     curb (0.7.18)
+    daemons (1.1.8)
+    delayed_job (3.0.1)
+      activesupport (~> 3.0)
+    delayed_job_active_record (0.3.2)
+      activerecord (> 2.1.0)
+      delayed_job (~> 3.0.0)
     erubis (2.7.0)
     exception_notification (2.5.2)
       actionmailer (>= 3.0.4)
@@ -191,6 +197,9 @@ DEPENDENCIES
   awesome_print
   capistrano
   coffee-rails (~> 3.2.1)
+  daemons
+  delayed_job
+  delayed_job_active_record
   exception_notification
   factory_girl_rails
   feedzirra
