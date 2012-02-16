@@ -22,6 +22,12 @@ namespace :deploy do
     run "rm -drf #{release_path}/config/initializers/secret_token.rb"
     run "ln -s #{shared_path}/secret_token.rb #{release_path}/config/initializers/secret_token.rb"
   end
+  
+  desc "Link amazon"
+  task :link_amazon do
+    run "rm -drf #{release_path}/config/.amazonrc"
+    run "ln -s #{shared_path}/amazonrc #{release_path}/config/.amazonrc"
+  end
 
   desc "Link wordpress"
   task :link_wpblog do
@@ -57,5 +63,5 @@ namespace :deploy do
   
 end
 
-before "deploy:symlink", "deploy:link_database", "deploy:link_omniauth", "deploy:link_secret_token", "deploy:link_wpblog", "deploy:link_legacy", "deploy:wptheme", "deploy:bundle_install", "deploy:precompile_assets"
+before "deploy:symlink", "deploy:link_database", "deploy:link_omniauth", "deploy:link_secret_token", "deploy:link_amazon", "deploy:link_wpblog", "deploy:link_legacy", "deploy:wptheme", "deploy:bundle_install", "deploy:precompile_assets"
 after  "deploy:restart", "deploy:cleanup"

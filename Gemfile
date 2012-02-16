@@ -21,6 +21,8 @@ gem 'feedzirra'
 
 gem 'paperclip'
 
+gem 'ruby-aaws'
+
 # Deploy with Capistrano
 gem 'capistrano'
 

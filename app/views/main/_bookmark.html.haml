@@ -1,0 +1,5 @@
+%li{:class => "fade#{fade}"}
+  = link_to bookmark.title, bookmark.url
+  = time_ago_in_words(bookmark.published)+' ago'
+  - if !bookmark.summary.blank?
+    .summary #{bookmark.summary}

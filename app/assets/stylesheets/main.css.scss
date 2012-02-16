@@ -32,33 +32,49 @@
 .fade90 {@include transparent(0.15);}
 .fade100 {@include transparent(0.05);}
 
-#allconsuming {
+ul#delicious {
   width: 96%;
-  margin: 0 auto 3em auto;
+  margin: auto;
+  padding: 0;
+  list-style-type: none;
+  li {
+    display: block;
+    a:link, a:visited, a:active {
+      text-decoration: none;
+    }
+    a:hover {
+      font-weight: bold;
+    }
+    .summary {
+      margin: 0;
+      padding: 0 0 0 1em;
+    }
+  }
+}
+
+ul#getglue {
+  width: 93%;
+  margin: 0 auto 0 auto;
+  padding: 0;
   text-align: center;
   overflow: hidden;
-  height: 6em;
+  height: 9.5em;
   font-size: 80%;
-  .ac-item {
+  li {
+    display: inline;
+    margin: 0;
     width: 8em;
-    height: 6em;
+    height: 9.5em;
     text-align: center;
     padding: 0 1em 0 1em;
     float: left;
     overflow: hidden;
     img {
       width: 5.5em;
-      height: 6em;
+      height: 6.5em;
       overflow: hidden;
     }
   }
-  .ac-logo {
-    display: none;
-  }
-}
-.ac-padding {
-  clear: both;
-  height: 3em;
 }
 
 .banksy {
@@ -72,7 +88,6 @@
 }
 
 #ack {
-  
   ul.main {
     margin: 0;
     padding: 0;
