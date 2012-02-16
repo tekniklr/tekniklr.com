@@ -14,3 +14,4 @@ public/wpblog/
 config/database.yml
 config/initializers/omniauth.rb
 config/initializers/secret_token.rb
+config/.amazonrc

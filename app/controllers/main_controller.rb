@@ -6,8 +6,9 @@ class MainController < ApplicationController
 
   def index
     @tweets      = Tweet.limit(50).reject{|t| !t.tw_reply_username.blank?}.first(3)
-    @post        = Rails.cache.fetch('blog_post', :expires_in => 10.minutes) { get_blog_post }
-    @consumption = Rails.cache.fetch('consuming', :expires_in => 2.hours) { get_all_consuming}
+    @post        = Rails.cache.fetch('blog_post', :expires_in => 15.minutes) { get_blog_post }
+    @getglue     = Rails.cache.fetch('getglue',   :expires_in => 2.hours) { get_getglue }
+    @bookmarks   = Rails.cache.fetch('delicious', :expires_in => 2.hours) { get_delicious }
   end
 
   def acknowledgments
@@ -30,11 +31,11 @@ class MainController < ApplicationController
     end
   end
 
-  def get_all_consuming
-    logger.debug "Fetching all consuming from RSS..."
+  def get_delicious
+    logger.debug "Fetching delicious bookmarks from RSS..."
     begin
-      feed = Feedzirra::Feed.fetch_and_parse('http://www.allconsuming.net/person/tekniklr/rss')
-      feed.entries[0..6]
+      feed = Feedzirra::Feed.fetch_and_parse('http://feeds.delicious.com/v2/rss/tekniklr?count=4')
+      feed.entries[0..4]
     rescue
       ''
     end
@@ -42,11 +43,60 @@ class MainController < ApplicationController
 
   def get_getglue
     logger.debug "Fetching getglue checkins from RSS..."
-    begin
+    #begin
+      parsed_items = []
       feed = Feedzirra::Feed.fetch_and_parse('http://feeds.getglue.com/checkins/0%22jFMxg4Rtl')
-      feed.entries[0..6]
+      items = feed.entries.uniq_by{|i| i.title}
+      items.each do |item|
+        logger.debug "Parsing #{item.title}..."
+        item.title.gsub!(/Teri Solow is ([A-Za-z]+) /, '')
+        case $1
+        when "watching"
+          type = 'DVD'
+        when "reading"
+          type = 'Books'
+        when "playing"
+          type = 'VideoGames'
+        end
+        if type
+          amazon = get_amazon(item.title, type)
+          if amazon
+            logger.debug "Amazon product found!"
+            parsed_items << {
+              :title      => item.title,
+              :url        => item.url,
+              :published  => item.published,
+              :image_url  => amazon[:image_url],
+              :amazon_url => amazon[:amazon_url]
+            }
+          end
+        end
+      end
+      parsed_items
+    #rescue
+    #  ''
+    #end
+  end
+
+  def get_amazon(item_title, item_type)
+    logger.debug "Searching amazon for a/n #{item_type} called #{item_title}"
+    require 'amazon/aws/search'
+    begin
+      resp = Amazon::AWS.item_search(
+        item_type,
+        {
+          'Keywords'     => item_title,
+          'MinimumPrice' => '0001',
+          'MaximumPrice' => '29999'
+        }
+      )
+      item = resp.item_search_response.items.item.first
+      return {
+        :image_url  => item.small_image.url.__val__,
+        :amazon_url => item.item_links.first.item_link.first.url.__val__
+      }
     rescue
-      ''
+      false
     end
   end
 

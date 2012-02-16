@@ -12,12 +12,22 @@
   .right
     = link_to 'Follow @tekniklr', 'http://twitter.com/tekniklr', :class => 'twitter-follow-button', 'data-align' => 'right'
 
-  - unless @consumption.blank?
+        
+  - unless @getglue.blank?
     %h1
-      = link_to 'Consumes', 'http://www.allconsuming.net/person/tekniklr/'
-    #allconsuming
-      - @consumption.each do |consumed|
-        = render 'consumed', :consumed => consumed
+      = link_to 'Does', 'http://getglue.com/tekniklr'
+    %ul#getglue
+      - @getglue.each do |item|
+        = render 'getglue', :item => item
+
+  - unless @bookmarks.blank?
+    - fade_bookmarks = 0
+    %h1
+      = link_to 'Saves', 'http://www.delicious.com/tekniklr'
+    %ul#delicious
+      - @bookmarks.each do |bookmark|
+        = render 'bookmark', :bookmark => bookmark, :fade => fade_level(@bookmarks.count, fade_bookmarks)
+        - fade_bookmarks += 1
 
   #footnote
     
