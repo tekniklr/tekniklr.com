@@ -16,19 +16,20 @@
   %dl.favorites
     - @favorites.each do |favorite|
       %dt #{favorite.favorite_type}
-      %dd
-        - if favorite.favorite_things.select{|t| !@things[t.id].nil?}.count == 0
+      - if !favorite.favorite_things.any?{|t| @things.keys.include?(t.thing)}
+        %dd
           - favorite.favorite_things.each do |thing|
             - thing == favorite.favorite_things.last ? sep = '' : sep = '  ☆ '
             = (!thing.link.blank? ? link_to(thing.thing.chomp, thing.link) : thing.thing.chomp) + sep
-        - else
+      - else
+        %dd.spacey
           %ul
             - favorite.favorite_things.each do |thing|
               %li{:class => (thing == favorite.favorite_things.last) ? '' : 'separated'}
                 = (!thing.link.blank? ? link_to(thing.thing.chomp, thing.link) : thing.thing.chomp)
-                - if @things[thing.id]
+                - if @things[thing.thing]
                   %br
-                  = link_to(image_tag(@things[thing.id][:image_url], :alt => thing.thing, :title => thing.thing), @things[thing.id][:amazon_url])
+                  = link_to(image_tag(@things[thing.thing][:image_url], :alt => thing.thing.chomp, :title => thing.thing.chomp), @things[thing.thing][:amazon_url])
         
   %h1 Contact
   %dl.contact
