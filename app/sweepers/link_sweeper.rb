@@ -19,5 +19,7 @@ class LinkSweeper < ActionController::Caching::Sweeper
     expire_action   :controller => 'about',  :action => 'index'
     expire_page     :controller => 'static', :action => 'headincmeta_partial'
     expire_page     :controller => 'static', :action => 'footer_partial'
+    Rails.cache.delete('links_all')
+    Rails.cache.delete('links_social')
   end
 end

@@ -40,8 +40,8 @@ class ApplicationController < ActionController::Base
   private
   
   def get_links
-    @links        = Link.all
-    @social_media = Link.get_social
+    @links        = Rails.cache.fetch('links_all')    { Link.all }
+    @social_media = Rails.cache.fetch('links_social') { Link.get_social }
   end
   
   def user_not_authorized
