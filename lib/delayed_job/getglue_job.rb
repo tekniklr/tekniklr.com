@@ -1,5 +1,5 @@
 class GetglueJob
-  require 'amazon_job'
+  require 'delayed_job/amazon_job'
   include AmazonJob
   
   def perform
