@@ -23,7 +23,7 @@ class AboutController < ApplicationController
   
   def build_favorites
     @favorites = Favorite.all
-    @things    = Rails.cache.fetch('things_amazon', :expires_in => 12.hours) { get_things_amazon }
+    @things    = Rails.cache.fetch('things_amazon') { get_things_amazon }
   end
   
   def get_things_amazon
