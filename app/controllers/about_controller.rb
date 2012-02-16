@@ -27,7 +27,7 @@ class AboutController < ApplicationController
     @things         = Rails.cache.read('things_amazon')
     if !@things_fetched && @things.nil?
       @things_fetched = Rails.cache.write('things_fetched', true)
-      require 'things_job'
+      require 'delayed_job/things_job'
       Delayed::Job.enqueue(ThingsJob.new(@favorites))
     end
   end
