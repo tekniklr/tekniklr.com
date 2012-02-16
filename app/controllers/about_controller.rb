@@ -28,7 +28,7 @@ class AboutController < ApplicationController
     if !@things_fetched && @things.nil?
       @things_fetched = Rails.cache.write('things_fetched', true)
       require 'delayed_job/things_job'
-      Delayed::Job.enqueue(ThingsJob.new(@favorites))
+      Delayed::Job.enqueue(DelayedJob::ThingsJob.new(@favorites))
     end
   end
   
