@@ -1,6 +1,6 @@
-class GetglueJob
+class DelayedJob::GetglueJob
   require 'delayed_job/amazon_job'
-  include AmazonJob
+  include DelayedJob::AmazonJob
   
   def perform
     Rails.logger.debug "Fetching getglue checkins from RSS..."
