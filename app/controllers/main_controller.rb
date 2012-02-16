@@ -13,7 +13,7 @@ class MainController < ApplicationController
     if @getglue_expiry.nil? || Time.now > @getglue_expiry
       @getglue_expiry = Rails.cache.write('getglue_expiry', (Time.now + 1.hours))
       require 'delayed_job/getglue_job'
-      Delayed::Job.enqueue(GetglueJob.new)
+      Delayed::Job.enqueue(DelayedJob::GetglueJob.new)
     end
     
     @bookmarks   = Rails.cache.fetch('delicious', :expires_in => 2.hours) { get_delicious }
