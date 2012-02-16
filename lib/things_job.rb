@@ -1,4 +1,4 @@
-class ThingsJob < Struct.new(:favorites) < ActionController::Caching::Sweeper
+class ThingsJob < Struct.new(:favorites)
   require 'amazon_job'
   include AmazonJob
   
@@ -29,7 +29,6 @@ class ThingsJob < Struct.new(:favorites) < ActionController::Caching::Sweeper
       end
     end
     Rails.cache.write('things_amazon', things)
-    expire_action :controller => 'about', :action => 'index'
   end
   
 end
