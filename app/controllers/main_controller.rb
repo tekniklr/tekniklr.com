@@ -46,7 +46,7 @@ class MainController < ApplicationController
     begin
       parsed_items = []
       feed = Feedzirra::Feed.fetch_and_parse('http://feeds.getglue.com/checkins/0%22jFMxg4Rtl')
-      items = feed.entries.uniq_by{|i| i.title}
+      items = feed.entries.uniq_by{|i| i.title}[0..7]
       items.each do |item|
         logger.debug "Parsing #{item.title}..."
         item.title.gsub!(/Teri Solow is ([A-Za-z]+) (to )?/, '')
