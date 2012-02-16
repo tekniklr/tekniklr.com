@@ -29,40 +29,43 @@ dl.favorites {
   dt {
     clear: both;
   }
-  ul {
-    margin: 0;
-    padding: 0;
-    text-align: center;
-    li {
-      display: inline;
+  dd {
+    height: 11em;
+    ul {
       margin: 0;
+      padding: 0;
       text-align: center;
-      padding: 0 1em 0 1em;
-      float: left;
-      width: 7em;
-      overflow: hidden;
+      li {
+        display: inline;
+        margin: 0;
+        text-align: center;
+        padding: 0 1em 0 1em;
+        float: left;
+        width: 7em;
+        overflow: hidden;
+      }
+      li.separated {
+        border-right: 1px solid $faint_border_color;
+        height: 9em;
+        display: inline;
+        margin: 0;
+        text-align: center;
+        padding: 0 .5em 0 .5em;
+        float: left;
+        width: 7em;
+        overflow: hidden;
+      }
+      img {
+        margin-top: .5em;
+        max-width: 5em;
+        max-height: 8em;
+      }
     }
-    li.separated {
-      border-right: 1px solid $faint_border_color;
-      height: 9em;
-      display: inline;
-      margin: 0;
-      text-align: center;
-      padding: 0 .5em 0 .5em;
-      float: left;
-      width: 7em;
-      overflow: hidden;
+    a:link, a:visited, a:active {
+      text-decoration: none;
     }
-    img {
-      margin-top: .5em;
-      max-width: 5em;
-      max-height: 8em;
+    a:hover {
+      font-weight: bold;
     }
-  }
-  a:link, a:visited, a:active {
-    text-decoration: none;
-  }
-  a:hover {
-    font-weight: bold;
   }
 }
