@@ -11,7 +11,7 @@ class MainController < ApplicationController
     @getglue_expiry   = Rails.cache.read('getglue_expiry')
     @getglue          = Rails.cache.read('getglue')
     if @getglue_expiry.nil? || Time.now > @getglue_expiry
-      @getglue_expiry = Rails.cache.write('getglue_expiry', (Time.now + 2.hours))
+      @getglue_expiry = Rails.cache.write('getglue_expiry', (Time.now + 1.hours))
       require 'getglue_job'
       Delayed::Job.enqueue(GetglueJob.new)
     end
