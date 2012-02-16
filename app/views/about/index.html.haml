@@ -16,7 +16,7 @@
   %dl.favorites
     - @favorites.each do |favorite|
       %dt #{favorite.favorite_type}
-      - if !favorite.favorite_things.any?{|t| @things.keys.include?(t.thing)}
+      - if !favorite.favorite_things.any?{|t| @things && @things.keys.include?(t.thing)}
         %dd
           - favorite.favorite_things.each do |thing|
             - thing == favorite.favorite_things.last ? sep = '' : sep = '  ☆ '

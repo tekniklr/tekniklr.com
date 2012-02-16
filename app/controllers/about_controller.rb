@@ -23,7 +23,14 @@ class AboutController < ApplicationController
   
   def build_favorites
     @favorites = Favorite.all
-    @things    = Rails.cache.fetch('things_amazon') { get_things_amazon }
+    
+    @things_fetched = Rails.cache.read('things_fetched')
+    @things         = Rails.cache.read('things_amazon')
+    if !@things_fetched && @things.nil?
+      @things_fetched = Rails.cache.write('things_fetched', true)
+      # TODO - run this in background
+      get_things_amazon
+    end
   end
   
   def get_things_amazon
@@ -52,7 +59,7 @@ class AboutController < ApplicationController
         end
       end
     end
-    things
+    Rails.cache.write('things_amazon', things)
   end
   
 end

@@ -79,6 +79,13 @@ class MainController < ApplicationController
               :image_url  => amazon[:image_url],
               :amazon_url => amazon[:amazon_url]
             }
+          else
+            logger.debug "Amazon product not found"
+            parsed_items << {
+              :title      => item.title,
+              :url        => item.url,
+              :published  => item.published
+            }
           end
         end
       end
