@@ -17,9 +17,18 @@
     - @favorites.each do |favorite|
       %dt #{favorite.favorite_type}
       %dd
-        - favorite.favorite_things.each do |thing|
-          - thing == favorite.favorite_things.last ? sep = '' : sep = '  ☆ '
-          = (!thing.link.blank? ? link_to(thing.thing.chomp, thing.link) : thing.thing.chomp) + sep
+        - if favorite.favorite_things.select{|t| !@things[t.id].nil?}.count == 0
+          - favorite.favorite_things.each do |thing|
+            - thing == favorite.favorite_things.last ? sep = '' : sep = '  ☆ '
+            = (!thing.link.blank? ? link_to(thing.thing.chomp, thing.link) : thing.thing.chomp) + sep
+        - else
+          %ul
+            - favorite.favorite_things.each do |thing|
+              %li{:class => (thing == favorite.favorite_things.last) ? '' : 'separated'}
+                = (!thing.link.blank? ? link_to(thing.thing.chomp, thing.link) : thing.thing.chomp)
+                - if @things[thing.id]
+                  %br
+                  = link_to(image_tag(@things[thing.id][:image_url], :alt => thing.thing, :title => thing.thing), @things[thing.id][:amazon_url])
         
   %h1 Contact
   %dl.contact
