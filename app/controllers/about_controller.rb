@@ -4,6 +4,7 @@ class AboutController < ApplicationController
   
   def index
     collect_facets
+    build_favorites
   end
   
   private
@@ -18,7 +19,40 @@ class AboutController < ApplicationController
     @tech        ||= Facet.find_by_slug('tech')
     @interests   ||= Facet.find_by_slug('interests')
     @about_links ||= Link.get_visible
-    @favorites   ||= Favorite.all
+  end
+  
+  def build_favorites
+    @favorites = Favorite.all
+    @things    = Rails.cache.fetch('things_amazon', :expires_in => 3.hours) { get_things_amazon }
+  end
+  
+  def get_things_amazon
+    things = []
+    @favorites.each do |favorite|
+      case favorite.favorite_type
+      when "Movies" || "TV" || "Anime"
+        amazon_type = 'DVD'
+      when "Literature"
+        amazon_type = 'Books'
+      when "Video Games"
+        amazon_type = 'VideoGames'
+      when "Music"
+        amazon_type = 'Music'
+      end
+      if amazon_type
+        favorite.favorite_things.each do |thing|
+          amazon_data = get_amazon(thing.thing, amazon_type)
+          if amazon_data
+            logger.debug "Amazon product found!"
+            things[thing.id] = {
+              :image_url  => amazon_data[:image_url],
+              :amazon_url => amazon_data[:amazon_url]
+            }
+          end
+        end
+      end
+    end
+    things
   end
   
 end
