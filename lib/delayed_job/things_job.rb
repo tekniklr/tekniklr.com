@@ -1,6 +1,6 @@
-class ThingsJob < Struct.new(:favorites)
+class DelayedJob::ThingsJob < Struct.new(:favorites)
   require 'delayed_job/amazon_job'
-  include AmazonJob
+  include DelayedJob::AmazonJob
   
   def perform
     things = {}

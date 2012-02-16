@@ -1,4 +1,4 @@
-module AmazonJob
+module DelayedJob::AmazonJob
     
   def get_amazon(item_title, item_type)
     Rails.logger.debug "Searching amazon for a/n #{item_type} called #{item_title}"
