@@ -9,7 +9,8 @@ body, select, input, textarea {
 img,
 embed,
 object,
-video {
+video,
+.entry-content iframe {
   max-width: 100%;
 }
 
