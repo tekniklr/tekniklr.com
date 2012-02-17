@@ -6,17 +6,25 @@ class MainController < ApplicationController
   def index
     @tweets      = Tweet.limit(50).reject{|t| !t.tw_reply_username.blank?}.first(3)
     
-    @post        = Rails.cache.fetch('blog_post', :expires_in => 10.minutes) { get_blog_post }
+    @post        = Rails.cache.fetch('blog_post', :expires_in => 15.minutes) { get_blog_post }
     
     @getglue_expiry   = Rails.cache.read('getglue_expiry')
     @getglue          = Rails.cache.read('getglue')
     if @getglue_expiry.nil? || Time.now > @getglue_expiry
-      @getglue_expiry = Rails.cache.write('getglue_expiry', (Time.now + 1.hours))
+      @getglue_expiry = Rails.cache.write('getglue_expiry', (Time.now + 101.minutes))
       require 'delayed_job/getglue_job'
       Delayed::Job.enqueue(DelayedJob::GetglueJob.new)
     end
     
-    @bookmarks   = Rails.cache.fetch('delicious', :expires_in => 2.hours) { get_delicious }
+    @bookmarks   = Rails.cache.fetch('delicious', :expires_in => 42.minutes) { get_delicious }
+    
+    @lastfm_expiry   = Rails.cache.read('lastfm_expiry')
+    @lastfm          = Rails.cache.read('lastfm')
+    if @lastfm_expiry.nil? || Time.now > @lastfm_expiry
+      @lastfm_expiry = Rails.cache.write('lastfm_expiry', (Time.now + 12.minutes))
+      require 'delayed_job/lastfm_job'
+      Delayed::Job.enqueue(DelayedJob::LastfmJob.new)
+    end
   end
 
   def acknowledgments
