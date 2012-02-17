@@ -56,8 +56,9 @@ namespace :deploy do
     run "cd #{release_path} && bundle install"
   end
   
-  desc "Precompile assets"
-  task :precompile_assets do
+  desc "Rebuild assets"
+  task :rebuild_assets do
+    run "cd #{release_path}; RAILS_ENV=production rake assets:clean"
     run "cd #{release_path}; RAILS_ENV=production rake assets:precompile"
   end
   
@@ -80,7 +81,7 @@ namespace :delayed_job do
   end
 end
 
-before "deploy:symlink", "deploy:link_database", "deploy:link_omniauth", "deploy:link_secret_token", "deploy:link_amazon", "deploy:link_wpblog", "deploy:link_legacy", "deploy:wptheme", "deploy:bundle_install", "deploy:precompile_assets"
+before "deploy:symlink", "deploy:link_database", "deploy:link_omniauth", "deploy:link_secret_token", "deploy:link_amazon", "deploy:link_wpblog", "deploy:link_legacy", "deploy:wptheme", "deploy:bundle_install", "deploy:rebuild_assets"
 after "deploy:start", "delayed_job:start"
 after "deploy:stop", "delayed_job:stop"
 after "deploy:restart", "deploy:cleanup", "delayed_job:restart"
