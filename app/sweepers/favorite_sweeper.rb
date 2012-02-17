@@ -17,7 +17,7 @@ class FavoriteSweeper < ActionController::Caching::Sweeper
   
   def expire_cache_for(favorite)
     expire_action :controller => 'about', :action => 'index'
-    Rails.cache.delete('things_amazon')
+    Rails.cache.delete('things_fetched')
   end
   
 end
