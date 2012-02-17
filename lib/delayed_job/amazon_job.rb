@@ -1,7 +1,7 @@
 module DelayedJob::AmazonJob
     
   def get_amazon(item_title, item_type)
-    Rails.logger.debug "Searching amazon for a/n #{item_type} called #{item_title}"
+    Rails.logger.debug "Searching amazon for #{item_type}(s) called #{item_title}"
     require 'amazon/aws/search'
     begin
       resp = Amazon::AWS.item_search(

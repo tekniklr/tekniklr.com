@@ -12,6 +12,6 @@ module TekniklrCom
     config.encoding = "utf-8"
     config.filter_parameters += [:password]
     config.assets.enabled = true
-    config.assets.version = '1.1'
+    config.assets.version = '1.1.1'
   end
 end

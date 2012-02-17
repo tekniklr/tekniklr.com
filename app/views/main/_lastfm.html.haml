@@ -1,0 +1,4 @@
+%li
+  = link_to image_tag(song[:image_url], :alt => song[:title], :title => song[:title]), song[:amazon_url]
+  %br
+  = time_ago_in_words(song[:published])+' ago'

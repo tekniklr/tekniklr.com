@@ -52,7 +52,7 @@ ul#delicious {
   }
 }
 
-ul#getglue {
+ul#getglue, ul#lastfm {
   width: 96%;
   margin: 0 auto 0 auto;
   padding: 0;
@@ -73,6 +73,13 @@ ul#getglue {
       max-width: 5.5em;
       height: 6.5em;
       overflow: hidden;
+    }
+  }
+}
+ul#lastfm {
+  li {
+    img {
+      height: 5.5em;
     }
   }
 }
