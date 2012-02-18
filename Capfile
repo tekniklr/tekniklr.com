@@ -59,7 +59,7 @@ namespace :deploy do
   
 end
 
-before "deploy:symlink", "deploy:link_database", "deploy:link_omniauth", "deploy:link_secret_token", "deploy:link_amazon", "deploy:link_wpblog", "deploy:link_legacy", "deploy:wptheme"
+before "deploy:assets:precompile", "deploy:link_database", "deploy:link_omniauth", "deploy:link_secret_token", "deploy:link_amazon", "deploy:link_wpblog", "deploy:link_legacy", "deploy:wptheme"
 
 before "deploy:restart", "delayed_job:stop"
 after  "deploy:restart", "delayed_job:start"
