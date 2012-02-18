@@ -11,7 +11,7 @@ class MainController < ApplicationController
     @getglue_expiry   = Rails.cache.read('getglue_expiry')
     @getglue          = Rails.cache.read('getglue')
     if @getglue_expiry.nil? || Time.now > @getglue_expiry
-      @getglue_expiry = Rails.cache.write('getglue_expiry', (Time.now + 101.minutes))
+      @getglue_expiry = Rails.cache.write('getglue_expiry', (Time.now + 3.hours))
       require 'delayed_job/getglue_job'
       Delayed::Job.enqueue(DelayedJob::GetglueJob.new)
     end
@@ -21,7 +21,7 @@ class MainController < ApplicationController
     @lastfm_expiry   = Rails.cache.read('lastfm_expiry')
     @lastfm          = Rails.cache.read('lastfm')
     if @lastfm_expiry.nil? || Time.now > @lastfm_expiry
-      @lastfm_expiry = Rails.cache.write('lastfm_expiry', (Time.now + 12.minutes))
+      @lastfm_expiry = Rails.cache.write('lastfm_expiry', (Time.now + 36.minutes))
       require 'delayed_job/lastfm_job'
       Delayed::Job.enqueue(DelayedJob::LastfmJob.new)
     end
