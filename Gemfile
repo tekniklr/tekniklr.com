@@ -3,6 +3,9 @@ source 'http://rubygems.org'
 gem 'rails', '3.2.1'
 gem 'mysql2'
 
+gem 'paperclip'
+gem 'validates_timeliness'
+
 # better html
 gem 'haml'
 
@@ -14,9 +17,6 @@ gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem 'json'
-
-gem 'paperclip'
-gem 'validates_timeliness'
 
 # rss fetcher/parser that actually works
 gem 'feedzirra'
