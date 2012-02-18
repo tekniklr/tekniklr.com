@@ -1,7 +1,8 @@
 load 'deploy' if respond_to?(:namespace) # cap2 differentiator
 Dir['vendor/gems/*/recipes/*.rb','vendor/plugins/*/recipes/*.rb'].each { |plugin| load(plugin) }
 
-load 'config/deploy' # remove this line to skip loading any of the default tasks
+load 'config/deploy'
+load 'deploy/assets'
 
 namespace :deploy do
 
@@ -56,32 +57,13 @@ namespace :deploy do
     run "cd #{release_path} && bundle install"
   end
   
-  desc "Rebuild assets"
-  task :rebuild_assets do
-    run "cd #{release_path}; RAILS_ENV=production rake assets:clean"
-    run "cd #{release_path}; RAILS_ENV=production rake assets:precompile"
-  end
-  
 end
 
-namespace :delayed_job do
-  desc "Start delayed_job process"
-  task :start, :roles => :app do
-    run "cd #{current_path}; RAILS_ENV=production script/delayed_job start #{rails_env}"
-  end
-  
-  desc "Stop delayed_job process"
-  task :stop, :roles => :app do
-    run "cd #{current_path}; RAILS_ENV=production script/delayed_job stop #{rails_env}"
-  end
+before "deploy:symlink", "deploy:link_database", "deploy:link_omniauth", "deploy:link_secret_token", "deploy:link_amazon", "deploy:link_wpblog", "deploy:link_legacy", "deploy:wptheme"
 
-  desc "Restart delayed_job process"
-  task :restart, :roles => :app do
-    run "cd #{current_path}; RAILS_ENV=production script/delayed_job restart #{rails_env}"
-  end
-end
-
-before "deploy:symlink", "deploy:link_database", "deploy:link_omniauth", "deploy:link_secret_token", "deploy:link_amazon", "deploy:link_wpblog", "deploy:link_legacy", "deploy:wptheme", "deploy:bundle_install", "deploy:rebuild_assets"
+before "deploy:restart", "delayed_job:stop"
+after  "deploy:restart", "delayed_job:start"
+after "deploy:stop",  "delayed_job:stop"
 after "deploy:start", "delayed_job:start"
-after "deploy:stop", "delayed_job:stop"
-after "deploy:restart", "deploy:cleanup", "delayed_job:restart"
+
+after "deploy:restart", "deploy:cleanup"
