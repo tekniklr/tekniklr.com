@@ -1,3 +1,6 @@
+require "bundler/capistrano"
+require "delayed/recipes"
+
 set :user, 'tekniklr'                 # Your dreamhost account's username
 set :domain, 'ps14010.dreamhost.com'  # Dreamhost servername where your account is located 
 set :project, 'tekniklr.com'          # Your application as its called in the repository
