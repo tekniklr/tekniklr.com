@@ -19,7 +19,7 @@ gem 'paperclip'
 gem 'validates_timeliness'
 
 # rss fetcher/parser that actually works
-gem 'feedzirra', :git => "https://github.com/pauldix/feedzirra.git"
+gem 'feedzirra'
 
 # for amazon web services; not to be confused with ruby-aws
 gem 'ruby-aaws'
