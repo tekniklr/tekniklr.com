@@ -11,7 +11,6 @@ class AboutController < ApplicationController
   
   def collect_facets
     @gravatar_id ||= Digest::MD5::hexdigest(EMAIL).downcase
-    @twitter     ||= Facet.find_by_slug('twitter')
     @who         ||= Facet.find_by_slug('who')
     @messaging   ||= Facet.find_by_slug('messaging')
     @definition  ||= Facet.find_by_slug('definition')
