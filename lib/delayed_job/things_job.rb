@@ -19,7 +19,6 @@ class DelayedJob::ThingsJob < Struct.new(:favorites)
         favorite.favorite_things.each do |thing|
           amazon_data = get_amazon(thing.thing, amazon_type)
           if amazon_data
-            Rails.logger.debug "Amazon product found!"
             things[thing.thing] = {
               :image_url  => amazon_data[:image_url],
               :amazon_url => amazon_data[:amazon_url]

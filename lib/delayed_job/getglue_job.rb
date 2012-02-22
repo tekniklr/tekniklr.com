@@ -27,7 +27,6 @@ class DelayedJob::GetglueJob
       if type
         amazon = get_amazon(item.title, type)
         if amazon
-          Rails.logger.debug "Amazon product found!"
           parsed_items << {
             :title      => item.title,
             :url        => item.url,
@@ -36,7 +35,6 @@ class DelayedJob::GetglueJob
             :amazon_url => amazon[:amazon_url]
           }
         else
-          Rails.logger.debug "Amazon product not found"
           parsed_items << {
             :title      => item.title,
             :url        => item.url,

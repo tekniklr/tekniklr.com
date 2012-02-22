@@ -15,12 +15,17 @@ class DelayedJob::LastfmJob
       artist = item.title.gsub(/ – .+/, '') 
       amazon = get_amazon(artist, 'Music')
       if amazon
-        Rails.logger.debug "Amazon product found!"
         parsed_items << {
           :title      => item.title,
           :published  => item.published,
           :image_url  => amazon[:image_url],
           :amazon_url => amazon[:amazon_url]
+        }
+      else
+        parsed_items << {
+          :title      => item.title,
+          :published  => item.published,
+          :lastfm_url => item.url
         }
       end
     end
