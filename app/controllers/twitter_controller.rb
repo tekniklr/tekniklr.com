@@ -1,6 +1,7 @@
 class TwitterController < ApplicationController
   before_filter   :is_admin?
   before_filter   { |c| c.page_title 'tweet management' }
+  cache_sweeper   :tweet_sweeper, :only => :destroy
   
   # GET /twitter
   def index
