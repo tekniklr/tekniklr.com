@@ -20,7 +20,7 @@ class Tweet < ActiveRecord::Base
     # hashtags
     tweet.gsub!(/#([\w]+)/, '<a href="http://twitter.com/search?q=%23\1">#\1</a>')
     
-    tweet << "<footer class='tweet-footer'>"
+    tweet << "\n<footer class='tweet-footer'>"
     
     # in reply to?
     if !self.tw_reply_username.blank? && !self.tw_reply_tweet.blank?
