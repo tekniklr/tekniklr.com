@@ -9,8 +9,7 @@ class Tweet < ActiveRecord::Base
   
   # will linkify @s and #s and links
   def tweet
-    # convert charset to utf-8
-    tweet = Iconv.new('LATIN1', 'utf-8').iconv(tw_text)
+    tweet = self.tw_text.clone # copies tw_text; otherwise we modify the original
     
     # links
     tweet.gsub!(/((http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:\/~\+#]*[\w\-\@?^=%&amp;\/~\+#])?)/, '<a href="\1">\1</a>')
@@ -21,7 +20,7 @@ class Tweet < ActiveRecord::Base
     # hashtags
     tweet.gsub!(/#([\w]+)/, '<a href="http://twitter.com/search?q=%23\1">#\1</a>')
     
-    tweet << "\n<footer class='tweet-footer'>"
+    tweet << "<footer class='tweet-footer'>"
     
     # in reply to?
     if !self.tw_reply_username.blank? && !self.tw_reply_tweet.blank?
