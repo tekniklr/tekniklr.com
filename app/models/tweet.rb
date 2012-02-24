@@ -9,7 +9,9 @@ class Tweet < ActiveRecord::Base
   
   # will linkify @s and #s and links
   def tweet
-    tweet = self.tw_text.clone # copies tw_text; otherwise we modify the original
+    # ruby 1.8 way of ensuring proper charset; will need to change this to
+    # .encoding in 1.9
+    tweet = Iconv.new('LATIN1//IGNORE//TRANSLIT', 'UTF-8//IGNORE').iconv(tw_text)
     
     # links
     tweet.gsub!(/((http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:\/~\+#]*[\w\-\@?^=%&amp;\/~\+#])?)/, '<a href="\1">\1</a>')
