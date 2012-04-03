@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.1'
+gem 'rails', '3.2.3'
 gem 'mysql2'
 
 gem 'paperclip'
@@ -40,7 +40,8 @@ end
 
 group :test do
   gem 'turn', :require => false
-  gem 'factory_girl_rails', :require => false
+  gem 'factory_girl', '<3.0.0', :require => false
+  gem 'factory_girl_rails', '<3.0.0', :require => false
   gem 'minitest', :require => false
   gem 'shoulda', :require => false
 end
