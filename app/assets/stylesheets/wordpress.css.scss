@@ -159,6 +159,14 @@ article.post {
     margin: .5em 0 .5em 0;
     padding: 0;
   }
+  img,
+  embed,
+  object,
+  video,
+  iframe {
+    display: block;
+    margin: 0 auto 0 auto;
+  }
 }
 .entry-utility {
   clear: both;
