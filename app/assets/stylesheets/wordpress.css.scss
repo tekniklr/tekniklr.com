@@ -167,6 +167,10 @@ article.post {
     display: block;
     margin: 0 auto 0 auto;
   }
+  .lg_image img {
+    display: inline;
+    margin: .5em;
+  }
 }
 .entry-utility {
   clear: both;
