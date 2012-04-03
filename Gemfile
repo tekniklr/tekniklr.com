@@ -3,7 +3,7 @@ source 'http://rubygems.org'
 gem 'rails', '3.2.3'
 gem 'mysql2'
 
-gem 'paperclip'
+gem 'paperclip', '~> 2.7.0'
 gem 'validates_timeliness'
 
 # better html
