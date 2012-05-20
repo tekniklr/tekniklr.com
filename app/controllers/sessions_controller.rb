@@ -2,6 +2,14 @@ class SessionsController < ApplicationController
   
   def login
     page_title 'login', true
+    if Rails.env.development?
+      # just log in as the first user
+      user = User.first
+      user or raise UserNotAuthorized
+      session[:user_id] = user.id
+      flash[:notice] = 'Signed in!'
+      redirect_to root_url
+    end
   end
   
   def failure
