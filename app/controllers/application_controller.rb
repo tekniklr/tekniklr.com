@@ -40,8 +40,14 @@ class ApplicationController < ActionController::Base
   private
   
   def get_links
-    @links        = Rails.cache.fetch('links_all')    { Link.all }
-    @social_media = Rails.cache.fetch('links_social') { Link.get_social }
+    # config.cache_classes = false was causing this to barf in dev
+    if Rails.env.development?
+      @links        = Link.all
+      @social_media = Link.get_social
+    else
+      @links        = Rails.cache.fetch('links_all')    { Link.all }
+      @social_media = Rails.cache.fetch('links_social') { Link.get_social }
+    end
   end
   
   def user_not_authorized
