@@ -15,10 +15,10 @@
     = f.fields_for :favorite_things do |ft|
       %div
         = ft.label :thing
-        = ft.text_field :thing, :size => 24
+        = ft.text_field :thing, :size => 20
         = ft.label :link
-        = ft.text_field :link, :size => 36
-        = ft.hidden_field :sort
+        = ft.text_field :link, :size => 30
+        = ft.number_field :sort
         - unless ft.object.new_record?
           = ft.label '_destroy', 'Remove'
           = ft.check_box '_destroy'
