@@ -1,6 +1,6 @@
 TekniklrCom::Application.configure do
 
-  config.cache_classes = false
+  config.cache_classes = true
 
   config.active_record.mass_assignment_sanitizer = :strict
 

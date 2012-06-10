@@ -187,7 +187,7 @@ a:hover { color: $hover_color; }
     max-width: $navigation_width;
     li {
       background-color: $subnav_bg;
-      width: $max_page_width/5;
+      width: $max_page_width/4;
     }
     a:link, a:active, a:visited {
       color: $subnav_font_color;

@@ -1,7 +1,7 @@
 #wp_search {
   input {
     @include rounded(1px, #666666, 1em, .2em, solid);
-    width: 8em;
+    width: 7em;
     background-color: $the_color;
     background-image: url(/assets/search.png);
     background-repeat: no-repeat;

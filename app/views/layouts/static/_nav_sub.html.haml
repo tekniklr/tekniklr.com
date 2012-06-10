@@ -1,12 +1,9 @@
 %ul.subnav
   %li
-    = link_to 'rss', '/wpblog/feed/'
+    = link_to 'tags', '/wpblog/tag-cloud/'
   %li
     = link_to 'categories', '/wpblog/categories/'
   %li
-    = link_to 'tags', '/wpblog/tag-cloud/'
-  %li
     = link_to 'archive', '/wpblog/archives/'
   %li
-    = form_tag '/wpblog', :method => 'get', :id => 'wp_search', :role => 'search' do
-      = text_field_tag :s
+    = link_to 'rss', '/wpblog/feed/'
