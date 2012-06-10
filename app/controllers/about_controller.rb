@@ -13,7 +13,6 @@ class AboutController < ApplicationController
     @gravatar_id ||= Digest::MD5::hexdigest(EMAIL).downcase
     @who         ||= Facet.find_by_slug('who')
     @messaging   ||= Facet.find_by_slug('messaging')
-    @definition  ||= Facet.find_by_slug('definition')
     @location    ||= Facet.find_by_slug('location')
     @tech        ||= Facet.find_by_slug('tech')
     @interests   ||= Facet.find_by_slug('interests')
