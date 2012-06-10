@@ -8,8 +8,14 @@
   %dl.info
     = facet_print @who
     = facet_print @location, 'adr'
-    = facet_print @tech
     = facet_print @interests
+    = facet_print @twitter
+    = facet_print @messaging
+    %dt Also available on
+    %dd
+      - @about_links.each do |link|
+        - link == @about_links.last ? sep = '' : sep = ', '
+        = link_to(link.name.chomp, link.url) + sep
   
   %h1 Stuff I like
   %dl.favorites
@@ -29,17 +35,6 @@
                 - if @things[thing.thing]
                   %br
                   = link_to(image_tag(@things[thing.thing][:image_url], :alt => thing.thing.chomp, :title => thing.thing.chomp), @things[thing.thing][:amazon_url])
-        
-  %h1 Contact
-  %dl.contact
-
-    = facet_print @messaging
-
-    %dt Other sites
-    %dd
-      - @about_links.each do |link|
-        - link == @about_links.last ? sep = '' : sep = ', '
-        = link_to(link.name.chomp, link.url) + sep
     
 #footnote
   %p
