@@ -12,10 +12,10 @@ class AboutController < ApplicationController
   def collect_facets
     @gravatar_id ||= Digest::MD5::hexdigest(EMAIL).downcase
     @who         ||= Facet.find_by_slug('who')
-    @messaging   ||= Facet.find_by_slug('messaging')
     @location    ||= Facet.find_by_slug('location')
-    @tech        ||= Facet.find_by_slug('tech')
     @interests   ||= Facet.find_by_slug('interests')
+    @twitter     ||= Facet.find_by_slug('twitter')
+    @messaging   ||= Facet.find_by_slug('messaging')
     @about_links ||= Link.get_visible
   end
   
