@@ -3,4 +3,4 @@
 
 %p.center
   = link_to 'Edit', edit_facet_path(facet), :remote => true
-  = link_to('Delete', facet, :confirm => "Are you sure you want to delete #{facet.name}?", :method => :delete, :remote => true)
+  = link_to('Delete', facet, :data => { :confirm => "Are you sure you want to delete #{facet.name}?" }, :method => :delete, :remote => true)
