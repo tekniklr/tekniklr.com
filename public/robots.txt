@@ -1,6 +1,5 @@
 User-agent: *
 Crawl-delay: 10
-#Disallow: /
 Disallow: /login
 Disallow: /auth/
 Disallow: /wpblog/tag/
