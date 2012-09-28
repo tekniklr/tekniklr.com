@@ -1,9 +1,9 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.7'
+gem 'rails', '3.2.8'
 gem 'mysql2'
 
-gem 'paperclip', '~> 2.7.0'
+gem 'paperclip', '~> 2.7.0' # requires ruby 1.9.2 to go higher
 gem 'validates_timeliness'
 
 # better html
@@ -33,15 +33,15 @@ gem 'daemons'
 gem 'capistrano'
 
 group :assets do
-  gem 'sass-rails', '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
-  gem 'uglifier', '~> 1.0.4'
+  gem 'sass-rails'
+  gem 'coffee-rails'
+  gem 'uglifier'
 end
 
 group :test do
   gem 'turn', :require => false
-  gem 'factory_girl', '<3.0.0', :require => false
-  gem 'factory_girl_rails', '<3.0.0', :require => false
+  gem 'factory_girl', '<3.0.0', :require => false # requires ruby 1.9.2 to go higher
+  gem 'factory_girl_rails', '<3.0.0', :require => false # requires ruby 1.9.2 to go higher
   gem 'minitest', :require => false
   gem 'shoulda', :require => false
 end
