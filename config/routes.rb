@@ -40,8 +40,6 @@ TekniklrCom::Application.routes.draw do
   
   resources :facets, :except => [:new]
   
-  resources :twitter, :only => [:index, :destroy]
-  
   resources :favorites do
     put 'sort_favorites', :on => :collection
     put 'sort_things',    :on => :collection

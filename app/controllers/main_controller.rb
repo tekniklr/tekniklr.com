@@ -4,8 +4,6 @@ class MainController < ApplicationController
   caches_action   :routing_error,   :layout => false
 
   def index
-    @tweets      = Rails.cache.fetch('tweets', :expires_in => 12.minutes) { Tweet.limit(50).reject{|t| !t.tw_reply_username.blank?}.first(3) }
-    
     @post        = Rails.cache.fetch('blog_post', :expires_in => 12.minutes) { get_blog_post }
     
     @getglue_expiry   = Rails.cache.read('getglue_expiry')

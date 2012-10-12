@@ -4,14 +4,6 @@
     %h1
       = link_to 'Blogs', '/wpblog'
     = render 'blog_post', :post => @post
-
-  %h1
-    = link_to 'Tweets', 'http://twitter.com/tekniklr'
-  - @tweets.each do |tweet|
-    = render 'tweet', :tweet => tweet
-  .right
-    = link_to 'Follow @tekniklr', 'http://twitter.com/tekniklr', :class => 'twitter-follow-button', 'data-align' => 'right'
-
         
   - unless @getglue.blank?
     %h1
