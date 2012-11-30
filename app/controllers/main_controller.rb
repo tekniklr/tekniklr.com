@@ -6,6 +6,14 @@ class MainController < ApplicationController
   def index
     @post        = Rails.cache.fetch('blog_post', :expires_in => 12.minutes) { get_blog_post }
     
+    @gaming_expiry   = Rails.cache.read('gaming_expiry')
+    @gaming          = Rails.cache.read('gaming')
+    if @gaming_expiry.nil? || Time.now > @gaming_expiry
+      @gaming_expiry = Rails.cache.write('gaming_expiry', (Time.now + 3.hours))
+      require 'delayed_job/gaming_job'
+      Delayed::Job.enqueue(DelayedJob::GamingJob.new)
+    end
+
     @getglue_expiry   = Rails.cache.read('getglue_expiry')
     @getglue          = Rails.cache.read('getglue')
     if @getglue_expiry.nil? || Time.now > @getglue_expiry

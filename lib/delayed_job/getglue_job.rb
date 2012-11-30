@@ -7,7 +7,7 @@ class DelayedJob::GetglueJob
     parsed_items = []
     begin
       feed = Feedzirra::Feed.fetch_and_parse('http://feeds.getglue.com/checkins/0%22jFMxg4Rtl')
-      items = feed.entries.uniq_by{|i| i.title}[0..7]
+      items = feed.entries.uniq_by{|i| i.title}
     rescue
       items = []
     end
@@ -19,8 +19,6 @@ class DelayedJob::GetglueJob
         type = 'DVD'
       when "reading"
         type = 'Books'
-      when "playing"
-        type = 'VideoGames'
       when "listening"
         type = 'Music'
       end
