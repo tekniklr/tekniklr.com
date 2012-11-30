@@ -29,7 +29,7 @@
 
   - unless @lastfm.blank?
     %h1
-      = link_to 'Scrobbles', 'http://www.last.fm/user/tekniklr'
+      = link_to 'Grooves', 'http://www.last.fm/user/tekniklr'
     %ul#lastfm
       - @lastfm.each do |song|
         = render 'lastfm', :song => song
