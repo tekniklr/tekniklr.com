@@ -18,13 +18,6 @@
       - @gaming.each do |item|
         = render 'gaming', :item => item
 
-  - unless @getglue.blank?
-    %h1
-      = link_to 'Reads / Watches / Listens', 'http://getglue.com/tekniklr'
-    %ul#getglue
-      - @getglue.each do |item|
-        = render 'getglue', :item => item
-
   - unless @bookmarks.blank?
     - fade_bookmarks = 0
     %h1
