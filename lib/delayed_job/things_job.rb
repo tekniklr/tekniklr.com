@@ -8,7 +8,7 @@ class DelayedJob::ThingsJob < Struct.new(:favorites)
       case favorite.favorite_type
       when "Movies", "TV", "Anime"
         amazon_type = 'DVD'
-      when "Literature"
+      when "Books"
         amazon_type = 'Books'
       when "Video Games"
         amazon_type = 'VideoGames'
