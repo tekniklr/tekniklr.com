@@ -52,11 +52,6 @@ namespace :deploy do
     system "rsync -vr --exclude='.DS_store' --exclude='.git' public/wpblog/wp-content/themes/tekniklr.com/ #{user}@#{application}:#{shared_path}/wpblog/wp-content/themes/tekniklr.com/"
   end
   
-  desc "Update gems"
-  task :bundle_install, :roles => :app do
-    run "cd #{release_path} && bundle install"
-  end
-  
 end
 
 before "deploy:assets:precompile", "deploy:link_database", "deploy:link_omniauth", "deploy:link_secret_token", "deploy:link_amazon", "deploy:link_wpblog", "deploy:link_legacy", "deploy:wptheme"
