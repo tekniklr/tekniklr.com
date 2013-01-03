@@ -48,6 +48,7 @@ end
 
 group :production do
   gem 'exception_notification'
+  gem 'libv8' # therubyracer needs this and it wasn't installling in the proper order
   gem 'therubyracer'  # dreamhost doesn't provide a js  runtime but OSX does
 end
 
