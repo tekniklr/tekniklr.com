@@ -1,3 +1,6 @@
+set :rvm_ruby_string, '1.8.7@tekniklr.com'
+require "rvm/capistrano"
+
 require "bundler/capistrano"
 require "delayed/recipes"
 
