@@ -6,6 +6,8 @@ gem 'mysql2'
 gem 'paperclip', '~> 2.7.0' # requires ruby 1.9.2 to go higher
 gem 'validates_timeliness'
 
+gem 'system_timer'
+
 # better html
 gem 'haml'
 
