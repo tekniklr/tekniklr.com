@@ -1,4 +1,4 @@
-set :rvm_ruby_string, 'ruby-1.8.7-p334@tekniklr.com'
+set :rvm_ruby_string, '1.8.7@tekniklr.com'
 require "rvm/capistrano"
 
 require "bundler/capistrano"
