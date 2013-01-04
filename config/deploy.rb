@@ -33,4 +33,4 @@ set :deploy_to, applicationdir
 default_run_options[:pty] = false
 ssh_options[:forward_agent] = true
 set :use_sudo, false
-set :keep_releases, 3
+set :keep_releases, 7
