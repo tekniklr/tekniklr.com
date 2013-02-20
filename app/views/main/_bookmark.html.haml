@@ -1,5 +1,8 @@
 %li{:class => "fade#{fade}"}
   = link_to bookmark.title, bookmark.url
+  - if !bookmark.categories.blank?
+    = 'tagged: '
+    = bookmark.categories.collect{|t| link_to(t, "http://delicious.com/tekniklr/#{t}")}.to_sentence.html_safe
   = time_ago_in_words(bookmark.published)+' ago'
   - if !bookmark.summary.blank?
-    .summary #{bookmark.summary}
+    .summary #{bookmark.summary.gsub('&quot;', '"')}
