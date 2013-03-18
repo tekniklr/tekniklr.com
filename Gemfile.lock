@@ -34,7 +34,7 @@ GEM
     bourne (1.1.2)
       mocha (= 0.10.5)
     builder (3.0.4)
-    capistrano (2.14.2)
+    capistrano (2.13.5)
       highline
       net-scp (>= 1.0.0)
       net-sftp (>= 2.0.0)
@@ -214,7 +214,7 @@ PLATFORMS
 
 DEPENDENCIES
   awesome_print
-  capistrano
+  capistrano (< 2.14.0)
   coffee-rails
   daemons
   delayed_job
