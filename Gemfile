@@ -32,7 +32,7 @@ gem 'delayed_job_active_record'
 gem 'daemons'
 
 # Deploy with Capistrano
-gem 'capistrano'
+gem 'capistrano', '<2.14.0'
 gem 'rvm-capistrano'
 
 group :assets do
