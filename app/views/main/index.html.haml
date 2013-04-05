@@ -1,9 +1,9 @@
 #front_page
 
-  - unless @post.blank?
+  - unless @tumblr_posts.blank?
     %h1
       = link_to 'Blogs', '/wpblog'
-    = render 'blog_post', :post => @post
+    = render 'blog/post', :post => @tumblr_posts.first
       
   %h1
     = link_to 'Tweets', 'http://twitter.com/tekniklr'

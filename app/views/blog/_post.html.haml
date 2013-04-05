@@ -1,0 +1,8 @@
+%article.main
+  %h2.entry-title
+    = link_to post.title, post.entry_id
+  .entry-meta
+    %span.meta-prep
+      Posted #{time_ago_in_words(post.published)} ago
+  .entry-content
+    = raw post.summary
