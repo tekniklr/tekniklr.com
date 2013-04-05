@@ -18,13 +18,13 @@
       - @gaming.each do |item|
         = render 'gaming', :item => item
 
-  - unless @bookmarks.blank?
+  - unless @delicious.blank?
     - fade_bookmarks = 0
     %h1
       = link_to 'Bookmarks', 'http://www.delicious.com/tekniklr'
     %ul#delicious
-      - @bookmarks.each do |bookmark|
-        = render 'bookmark', :bookmark => bookmark, :fade => fade_level(@bookmarks.count, fade_bookmarks)
+      - @delicious.each do |bookmark|
+        = render 'bookmark', :bookmark => bookmark, :fade => fade_level(@delicious.count, fade_bookmarks)
         - fade_bookmarks += 1
 
   - unless @lastfm.blank?

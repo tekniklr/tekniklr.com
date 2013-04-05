@@ -20,7 +20,13 @@ class MainController < ApplicationController
       Delayed::Job.enqueue(DelayedJob::GamingJob.new)
     end
     
-    @bookmarks   = Rails.cache.fetch('delicious', :expires_in => 42.minutes) { get_delicious }
+    @delicious_expiry   = Rails.cache.read('delicious_expiry')
+    @delicious          = Rails.cache.read('delicious')
+    if @delicious_expiry.nil? || Time.now > @delicious_expiry
+      @delicious_expiry = Rails.cache.write('delicious_expiry', (Time.now + 3.hours))
+      require 'delayed_job/delicious_job'
+      Delayed::Job.enqueue(DelayedJob::DeliciousJob.new)
+    end
     
     @lastfm_expiry   = Rails.cache.read('lastfm_expiry')
     @lastfm          = Rails.cache.read('lastfm')
