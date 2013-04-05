@@ -4,7 +4,13 @@ class MainController < ApplicationController
   caches_action   :routing_error,   :layout => false
 
   def index
-    @post        = Rails.cache.fetch('blog_post', :expires_in => 12.minutes) { get_blog_post }
+    @tumblr_expiry   = Rails.cache.read('tumblr_expiry')
+    @tumblr_posts    = Rails.cache.read('tumblr_posts')
+    if @tumblr_expiry.nil? || Time.now > @tumblr_expiry
+      @tumblr_expiry = Rails.cache.write('tumblr_expiry', (Time.now + 2.hours))
+      require 'delayed_job/tumblr_job'
+      Delayed::Job.enqueue(DelayedJob::TumblrJob.new)
+    end
     
     @gaming_expiry   = Rails.cache.read('gaming_expiry')
     @gaming          = Rails.cache.read('gaming')
@@ -34,16 +40,6 @@ class MainController < ApplicationController
   end
 
   private
-  
-  def get_blog_post
-    logger.debug "Fetching blog post from RSS..."
-    begin
-      feed = Feedzirra::Feed.fetch_and_parse('http://tekniklr.com/wpblog/feed/')
-      feed.entries.reject{|e| e.title =~ /^Transmissions from/}.first
-    rescue
-      ''
-    end
-  end
 
   def get_delicious
     logger.debug "Fetching delicious bookmarks from RSS..."
