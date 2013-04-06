@@ -1,0 +1,14 @@
+#flickr
+
+  - unless @flickr_photos.blank?
+    %ul
+      - @flickr_photos.each do |image|
+        = render 'image', :image => image
+  - else
+    .center
+      Couldn't get photos from flickr :,(
+    .center
+      (╯°□°)╯︵ ┻━┻
+
+  %h1.link_only
+    =link_to "See more on flickr...", "http://www.flickr.com/photos/tekniklr/"

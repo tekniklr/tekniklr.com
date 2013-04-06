@@ -1,0 +1,34 @@
+#flickr {
+  margin: 7em 0 0 0;
+  ul {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    text-align: center;
+    font-size: 80%;
+    li {
+      display: inline;
+      float: left;
+      margin: .5em;
+      width: 14em;
+      height: 14em;
+      text-align: center;
+      padding: 0;
+      overflow: hidden;
+      img {
+        margin: 0;
+        padding: 0;
+        max-width:  12em;
+        max-height: 9em;
+        overflow: hidden;
+        @include rounded(1px, $med_border_color, .75em, .3em, solid);
+      }
+      img:hover {
+        max-width:  13em;
+        max-height: 10em;
+        @include rounded(2px, $border_color, .75em, .3em, solid);
+      }
+    }
+  }
+}
