@@ -42,8 +42,13 @@ module DelayedJob::AmazonJob
           :image_url  => image_url.url.__val__,
           :amazon_url => amazon_url.url.__val__
         }
+      elsif !Rails.application.assets.find_asset("products/#{item_title.downcase}.jpg").nil?
+        Rails.logger.debug "Amazon product not found; using preselected image"
+        cached_amazon_items[item_key] = {
+          :image_url  => "/assets/products/#{item_title.downcase}.jpg"
+        }
       else
-        Rails.logger.debug "Amazon product not found"
+        Rails.logger.debug "Amazon product not found; no image left to use"
         cached_amazon_items[item_key] = false
       end
       Rails.cache.write('amazon_items', cached_amazon_items)

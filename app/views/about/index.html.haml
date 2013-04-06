@@ -34,7 +34,10 @@
                 = (!thing.link.blank? ? link_to(thing.thing.chomp, thing.link) : thing.thing.chomp)
                 - if @things[thing.thing]
                   %br
-                  = link_to(image_tag(@things[thing.thing][:image_url], :alt => thing.thing.chomp, :title => thing.thing.chomp), @things[thing.thing][:amazon_url])
+                  - if @things[thing.thing][:amazon_url]
+                    = link_to(image_tag(@things[thing.thing][:image_url], :alt => thing.thing.chomp, :title => thing.thing.chomp), @things[thing.thing][:amazon_url])
+                  - else
+                    = image_tag(@things[thing.thing][:image_url], :alt => thing.thing.chomp, :title => thing.thing.chomp)
     
 #footnote
   %div
