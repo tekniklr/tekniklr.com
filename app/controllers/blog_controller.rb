@@ -1,7 +1,8 @@
 class BlogController < ApplicationController
+  before_filter   { |c| c.page_title 'tumblog', false }
 
   def index
-    @wpblog = true
+    @tumblog = true
     @tumblr_expiry   = Rails.cache.read('tumblr_expiry')
     @tumblr_posts    = Rails.cache.read('tumblr_posts')
     if @tumblr_expiry.nil? || Time.now > @tumblr_expiry
