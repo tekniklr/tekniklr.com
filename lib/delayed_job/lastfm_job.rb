@@ -1,5 +1,4 @@
 class DelayedJob::LastfmJob
-  require 'delayed_job/lastfm_job'
   include DelayedJob::AmazonJob
   
   def perform
