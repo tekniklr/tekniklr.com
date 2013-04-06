@@ -3,6 +3,11 @@
   - unless @tumblr_posts.blank?
     - @tumblr_posts.each do |post|
       = render 'blog/post', :post => post
+  - else
+    .center
+      Couldn't get posts from tumblr :,(
+    .center
+      (╯°□°)╯︵ ┻━┻
 
   %h1.link_only
     =link_to "See more on tumblr...", "http://tekniklr.tumblr.com"
