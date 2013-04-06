@@ -1,11 +1,3 @@
-/*
- * h1s and such work differently on the front page than they do typically
- */
-#front_page {
-  margin-top: -2em;
-  max-width: 100%;
-}
-
 /* 
  * can be applied to say, a list item to make progressive items more faint
  */
@@ -120,7 +112,6 @@ ul#lastfm {
 }
 
 #ack {
-  margin: 5em 0 0 0;
   ul.main {
     margin: 0;
     padding: 0;

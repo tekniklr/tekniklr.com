@@ -32,17 +32,16 @@
           - @experiences.each do |experience|
             %li{:class => 'experience vevent'}
               .left
-                %p
-                  %strong.summary #{experience.title}
-                %p
-                  %em.location
-                    = experience.affiliation_link ? link_to(experience.affiliation, experience.affiliation_link): experience.affiliation
+                %strong.summary #{experience.title}
+                %br
+                %em.location
+                  = experience.affiliation_link ? link_to(experience.affiliation, experience.affiliation_link): experience.affiliation
               .right
-                %p
-                  %span.dtstart{:title => experience.start_date.strftime("%F")} #{experience.start_date.strftime("%Y/%m")}
-                  \~
-                  %span.dtend{:title => experience.end_date ? experience.end_date.strftime("%F") : ''} #{experience.end_date ? experience.end_date.strftime("%Y/%m") : "present"}
-                %p #{experience.location}
+                %span.dtstart{:title => experience.start_date.strftime("%F")} #{experience.start_date.strftime("%Y/%m")}
+                \~
+                %span.dtend{:title => experience.end_date ? experience.end_date.strftime("%F") : ''} #{experience.end_date ? experience.end_date.strftime("%Y/%m") : "present"}
+                %br
+                #{experience.location}
               .clear
               - if !experience.tasks.blank?
                 %ul

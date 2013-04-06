@@ -2,7 +2,7 @@
 #flash, .flash, #error_explanation {
   clear: both;
   width: 80%;
-  margin: 5em auto 2em auto;
+  margin: auto;
   text-align: center;
   font-family: monospace;
   @include rounded(1px, $border_color, .5em, 1em, dotted);
