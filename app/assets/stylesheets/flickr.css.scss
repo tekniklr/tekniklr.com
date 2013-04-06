@@ -13,6 +13,18 @@
       margin: .5em;
       width: 14em;
       height: 14em;
+      // switch to mobile sizes @ given size
+      @media screen and (min-width: 500px) {
+        /* regular layout */
+        width: 14em;
+        height: 14em;
+      }
+      @media screen and (max-width: 500px) {
+        /* mobile layout */
+        min-width: 75%;
+        max-width: 100%;
+        height: 100%;
+      }
       text-align: center;
       padding: 0;
       overflow: hidden;
@@ -21,13 +33,38 @@
         padding: 0;
         max-width:  12em;
         max-height: 9em;
+        // switch to mobile sizes @ given size
+        @media screen and (min-width: 500px) {
+          /* regular layout */
+          max-width:  12em;
+          max-height: 9em;
+        }
+        @media screen and (max-width: 500px) {
+          /* mobile layout */
+          min-width: 75%;
+          max-width: 100%;
+          max-height: 100%;
+        }
         overflow: hidden;
         @include rounded(1px, $med_border_color, .75em, .3em, solid);
       }
       img:hover {
         max-width:  13em;
         max-height: 10em;
-        @include rounded(2px, $border_color, .75em, .3em, solid);
+        // switch to mobile sizes @ given size
+        @media screen and (min-width: 500px) {
+          /* regular layout */
+          max-width:  13em;
+          max-height: 10em;
+        }
+        @media screen and (max-width: 500px) {
+          /* mobile layout */
+          min-width: 75%;
+          max-width: 100%;
+          max-height: 100%;
+        }
+        overflow: hidden;
+        @include rounded(1px, $border_color, .75em, .3em, solid);
       }
     }
   }

@@ -3,7 +3,21 @@
   h2.entry-title {
     margin-top: 5em;
   }
-  .entry-content {
-    margin: 0 5em 0 5em;
+  // switch to mobile sizes @ given size
+  @media screen and (min-width: 500px) {
+    /* regular layout */
+    .entry-content {
+      margin: 0 5em 0 5em;
+    }
+  }
+  @media screen and (max-width: 500px) {
+    /* mobile layout */
+    .entry-content {
+      margin: 0 .25em 0 .25em;
+      max-width: 100%;
+    }
+    blockquote {
+      margin-left: .5em;
+    }
   }
 }
