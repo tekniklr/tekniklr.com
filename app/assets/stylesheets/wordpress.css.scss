@@ -1,3 +1,7 @@
+#wordpress {
+  margin: 7em 0 0 0;
+}
+
 #wp_search {
   input {
     @include rounded(1px, #888888, 1em, .1em, solid);
