@@ -5,6 +5,6 @@
         = link_to 'navigation', navigation_url
   .regular
     = render :partial => 'layouts/static/nav_main'
-    - if @wpblog
+    - if @wpblog || @tumblog
       = render :partial => 'layouts/static/nav_wp'
     .break
