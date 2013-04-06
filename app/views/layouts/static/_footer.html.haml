@@ -6,13 +6,6 @@
   %div
     = link_to "other content © other people, other times", acknowledgments_url
     
-#contact
-  .shortmail-compose-widget
-  = javascript_include_tag 'http://shortmail.com/widgets/compose-widget.js?v=1'
-  :javascript
-    Shortmail.ComposeWidget({
-      screenName: 'tekniklr'
-    });
 #social
   %ul
     - for social_medium in @social_media do
