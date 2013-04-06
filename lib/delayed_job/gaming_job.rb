@@ -1,5 +1,4 @@
 class DelayedJob::GamingJob
-  require 'delayed_job/amazon_job'
   include DelayedJob::AmazonJob
   
   def perform
