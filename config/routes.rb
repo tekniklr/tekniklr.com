@@ -14,6 +14,9 @@ TekniklrCom::Application.routes.draw do
   # tumblr syndication
   match '/blog'  => 'blog#index'
   
+# tumblr syndication
+  match '/flickr'  => 'flickr#index'
+
   # ack
   match '/acknowledgments'    => 'main#acknowledgments'
 
