@@ -10,6 +10,9 @@ TekniklrCom::Application.routes.draw do
   
   # about page
   match '/about'  => 'about#index'
+
+  # tumblr syndication
+  match '/blog'  => 'blog#index'
   
   # ack
   match '/acknowledgments'    => 'main#acknowledgments'

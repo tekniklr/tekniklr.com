@@ -2,7 +2,7 @@
 
   - unless @tumblr_posts.blank?
     %h1
-      = link_to 'Blogs', '/wpblog'
+      = link_to 'Blogs', blog_url
     = render 'blog/post', :post => @tumblr_posts.first
       
   %h1
