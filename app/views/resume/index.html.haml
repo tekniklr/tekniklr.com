@@ -1,7 +1,8 @@
-= render :partial => 'resume'
+#resume
+  = render :partial => 'resume'
 
 #footnote
-  %p
+  %div
     provided in the #{link_to 'hresume', 'http://microformats.org/wiki/hresume'} #{link_to 'microformat', 'http://microformats.org/'}
-  %p
+  %div
     = link_to 'view outside layout', resume_clean_url
