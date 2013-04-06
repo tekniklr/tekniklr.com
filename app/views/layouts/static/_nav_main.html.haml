@@ -6,7 +6,4 @@
   %li
     = link_to 'programs', 'http://github.com/tekniklr'
   %li
-    = link_to 'blog', '/wpblog'
-  %li
-    = form_tag '/wpblog', :method => 'get', :id => 'wp_search', :role => 'search' do
-      = text_field_tag :s
+    = link_to 'blog', blog_url
