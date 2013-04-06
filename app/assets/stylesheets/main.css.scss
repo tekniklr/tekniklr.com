@@ -3,6 +3,7 @@
  */
 #front_page {
   margin-top: -2em;
+  max-width: 100%;
 }
 
 /* 
@@ -20,9 +21,31 @@
 .fade90 {@include transparent(0.15);}
 .fade100 {@include transparent(0.05);}
 
+/* wrap around blog post to keep it to size */
+#single_post {
+  max-width: 100%;
+  overflow: hidden;
+  @media screen and (min-width: 500px) {
+    /* regular layout */
+    .entry-content {
+      margin: 0 5em 0 5em;
+    }
+  }
+  @media screen and (max-width: 500px) {
+    /* mobile layout */
+    .entry-content {
+      margin: 0 .25em 0 .25em;
+      max-width: 100%;
+    }
+    blockquote {
+      margin-left: .5em;
+    }
+  }
+}
+
 /* twitter widget container */
 #twitter-widget {
-  width: 520px;
+  width: 520px !important;
   max-width: 100%;
   margin: auto;
   padding: 0;
@@ -30,6 +53,7 @@
 
 ul#delicious {
   width: 96%;
+  max-width: 100%;
   margin: auto;
   padding: 0;
   list-style-type: none;
@@ -52,6 +76,7 @@ ul#delicious {
 
 ul#gaming, ul#lastfm {
   width: 96%;
+  max-width: 100%;
   margin: 0;
   padding: 0;
   list-style-type: none;
