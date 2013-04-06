@@ -325,8 +325,12 @@ h2 {
 #main {
   clear: both;
   background-color: $content_bg;
-  margin: -3em 0 0 0;
-  padding: 0 1em 1em 1em;
+  margin: 0;
+  padding: 1em;
+  max-width: 100%;
+  h1:first-child {
+    margin-top: 1em;
+  }
   #footnote {
     clear: both;
     text-align: center;
