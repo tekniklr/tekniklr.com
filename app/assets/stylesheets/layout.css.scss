@@ -3,6 +3,7 @@ body, select, input, textarea {
   color: $base_font_color;
   font-size: $base_font_size;
   font-family: $content_font_family;
+  line-height: 150%;
 }
 
 /* for a fluid layout; this will make this scale down to fit */
@@ -21,10 +22,14 @@ body {
 p {
   margin: .5em 0em .5em 0em;
   padding: 0;
+  width: 28em;
+  min-width: 25em;
+  max-width: 33em;
 }
 
 address {
   font-style: normal;
+  line-height: 1.125em;
 }
 
 // other link stuff defined in the boilerplate, but I think it's good to
@@ -70,6 +75,7 @@ a:hover { color: $hover_color; }
   clear: both;
   font-size: 80%;
   padding-bottom: .25em;
+  line-height: 1.125em;
   a:link, a:active, a:visited, a:hover {
     text-decoration: none;
   }
@@ -104,6 +110,7 @@ a:hover { color: $hover_color; }
     padding-left: 0;
     @include transparent(0.8);
     display: inline;
+    line-height: 1.125em;
   }
 }
 
@@ -136,6 +143,7 @@ a:hover { color: $hover_color; }
   }
   max-width: $navigation_width;
   color: $navigation_font_color;
+  font-family: $navigation_font_family;
   background-color: $navigation_bg;
   border-top: 2px solid $navigation_border_color;
   border-bottom: 2px solid $navigation_border_color;
@@ -161,12 +169,12 @@ a:hover { color: $hover_color; }
   }
   a:link, a:active, a:visited {
     text-decoration: none;
-    font-size: 130%;
+    font-size: 125%;
     color: $navigation_font_color;
   }
   a:hover {
     font-weight: bold;
-    font-size: 130%;
+    font-size: 125%;
     color: $hover_color;
   }
   .break {
@@ -204,6 +212,7 @@ html.ie8 #navigation .mobile {display: none;}
 #single_column_navigation {
   width: $max_page_width/5;
   color: $navigation_font_color;
+  font-family: $navigation_font_family;
   background-color: $navigation_bg;
   margin: auto;
   padding: 0;
@@ -218,12 +227,12 @@ html.ie8 #navigation .mobile {display: none;}
     width: 100%;
     list-style-type: none;
     padding: 0;
-    margin: 0 0 2em 0;
+    margin: auto;
     overflow: hidden;
     li {
-      width: $max_page_width/5; // 20% of full page - will be a static number, not a percentage (as it should be)
+      width: 100%;
       text-align: center;
-      margin: 0em 0 .25em 0;
+      margin: auto;
       padding: 0.75em 0em 0.75em 0em;
       border-bottom: 2px solid $navigation_border_color;
     }
@@ -292,12 +301,32 @@ html.ie8 #navigation .mobile {display: none;}
 
 h1 {
   font-weight: bold;
-  font-size: 160%;
+  font-size: 200%;
+  font-family: $heading_font_family;
   text-transform: lowercase;
-  margin: 1em 0em 1.5em 0;
+  margin: 3em 0em 1.5em 0;
   padding: 0.25em 0 0.25em 0;
-  text-align: center;
-  border-bottom: 1px solid $base_font_color;
+  text-align: right;
+  border-bottom: 1px solid $heading_border_color;
+  clear: both;
+  a:link, a:visited, a:active {
+    color: $base_font_color;
+    text-decoration: none;
+  }
+  a:hover {
+    color: $hover_color;
+  }
+}
+
+h2 {
+  font-weight: bold;
+  font-size: 150%;
+  font-family: $heading_font_family;
+  text-transform: lowercase;
+  margin: 2em 0em 1.5em 0;
+  padding: 0.25em 0 0.25em 0;
+  text-align: left;
+  border-bottom: 1px dashed $heading_border_color;
   a:link, a:visited, a:active {
     color: $base_font_color;
     text-decoration: none;
@@ -310,12 +339,13 @@ h1 {
 #main {
   clear: both;
   background-color: $content_bg;
-  margin: 0;
-  padding: 1em;
+  margin: -3em 0 0 0;
+  padding: 0 1em 1em 1em;
   #footnote {
     clear: both;
     text-align: center;
     font-size: 80%;
+    line-height: 1.125em;
     margin: 3em 0 0 0;
     padding: 0;
     a:link {
@@ -333,13 +363,14 @@ h1 {
   padding: .5em 0 .5em 0;
   margin-top: 3em;
   margin: auto;
+  line-height: 1.125em;
   a:link, a:active, a:visited, a:hover {
     text-decoration: none;
   }
   a:hover {
     color: $hover_color;
   }
-  p {
+  div {
     margin: 0;
   }
 }

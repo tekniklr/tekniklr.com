@@ -1,9 +1,8 @@
 /* flash notices / errors */
 #flash, .flash, #error_explanation {
+  clear: both;
   width: 80%;
-  margin: auto;
-  margin-top: 1em;
-  margin-bottom: 2em;
+  margin: 5em auto 2em auto;
   text-align: center;
   font-family: monospace;
   @include rounded(1px, $border_color, .5em, 1em, dotted);
