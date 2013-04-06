@@ -1,4 +1,0 @@
-%li
-  = link_to (item[:image_url] ? image_tag(item[:image_url], :alt => item[:title], :title => item[:title]) : item[:title]), (item[:amazon_url] ? item[:amazon_url] : item[:url])
-  %br
-  = time_ago_in_words(item[:published])+' ago'
