@@ -1,5 +1,4 @@
 class DelayedJob::DeliciousJob
-  require 'delayed_job/delicious_job'
   
   def perform
     Rails.logger.debug "Fetching delicious bookmarks from RSS..."

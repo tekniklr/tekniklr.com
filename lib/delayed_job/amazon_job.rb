@@ -1,5 +1,5 @@
 module DelayedJob::AmazonJob
-    
+
   def get_amazon(item_title, item_type)
     
     # see if this item has been looked up before, only search for it
