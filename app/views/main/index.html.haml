@@ -1,9 +1,10 @@
 #front_page
 
-  - unless @tumblr_posts.blank?
-    %h1
-      = link_to 'Blogs', blog_url
-    = render 'blog/post', :post => @tumblr_posts.first
+  #single_post
+    - unless @tumblr_posts.blank?
+      %h1
+        = link_to 'Blogs', blog_url
+      = render 'blog/post', :post => @tumblr_posts.first
       
   %h1
     = link_to 'Tweets', 'http://twitter.com/tekniklr'
