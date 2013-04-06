@@ -7,8 +7,6 @@
       = render :partial => 'layouts/static/header'
       = render :partial => 'layouts/static/navigation'
       #main{:role => 'main'}
-        - unless @page_title.blank? || !@title_display
-          %h1 #{@page_title}
         - if flash[:error]
           #flash.error
             %h2 Error
@@ -17,6 +15,8 @@
           #flash.notice
             %h2 Notice
             = flash[:notice]
+        - unless @page_title.blank? || !@title_display
+          %h1 #{@page_title}
         = yield
       = render :partial => 'layouts/static/footer'
     = render :partial => 'layouts/static/pageend'
