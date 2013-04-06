@@ -1,44 +1,42 @@
-#front_page
-
+- unless @tumblr_posts.blank?
   #single_post
-    - unless @tumblr_posts.blank?
-      %h1
-        = link_to 'Blogs', blog_url
-      = render 'blog/post', :post => @tumblr_posts.first
-      
-  %h1
-    = link_to 'Tweets', 'http://twitter.com/tekniklr'
-  #twitter-widget
-    <a class="twitter-timeline" data-dnt=true href="https://twitter.com/tekniklr" data-widget-id="256680555926654976">Tweets by @tekniklr</a>
-    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-
-  - unless @gaming.blank?
     %h1
-      = link_to 'Plays', 'http://raptr.com/tekniklr'
-    %ul#gaming
-      - @gaming.each do |item|
-        = render 'gaming', :item => item
-
-  - unless @delicious.blank?
-    - fade_bookmarks = 0
-    %h1
-      = link_to 'Bookmarks', 'http://www.delicious.com/tekniklr'
-    %ul#delicious
-      - @delicious.each do |bookmark|
-        = render 'bookmark', :bookmark => bookmark, :fade => fade_level(@delicious.count, fade_bookmarks)
-        - fade_bookmarks += 1
-
-  - unless @lastfm.blank?
-    %h1
-      = link_to 'Grooves', 'http://www.last.fm/user/tekniklr'
-    %ul#lastfm
-      - @lastfm.each do |song|
-        = render 'lastfm', :song => song
-
-  #footnote
+      = link_to 'Blogs', blog_url
+    = render 'blog/post', :post => @tumblr_posts.first
     
-  - content_for :header do
-    %link{:rel => "dns-prefetch", :href => "http://twitter.com"}/
+%h1
+  = link_to 'Tweets', 'http://twitter.com/tekniklr'
+#twitter-widget
+  <a class="twitter-timeline" data-dnt=true href="https://twitter.com/tekniklr" data-widget-id="256680555926654976">Tweets by @tekniklr</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 
-  - content_for :javascript do    
-    %script{:type => 'text/javascript', :src => 'http://platform.twitter.com/widgets.js'}
+- unless @gaming.blank?
+  %h1
+    = link_to 'Plays', 'http://raptr.com/tekniklr'
+  %ul#gaming
+    - @gaming.each do |item|
+      = render 'gaming', :item => item
+
+- unless @delicious.blank?
+  - fade_bookmarks = 0
+  %h1
+    = link_to 'Bookmarks', 'http://www.delicious.com/tekniklr'
+  %ul#delicious
+    - @delicious.each do |bookmark|
+      = render 'bookmark', :bookmark => bookmark, :fade => fade_level(@delicious.count, fade_bookmarks)
+      - fade_bookmarks += 1
+
+- unless @lastfm.blank?
+  %h1
+    = link_to 'Grooves', 'http://www.last.fm/user/tekniklr'
+  %ul#lastfm
+    - @lastfm.each do |song|
+      = render 'lastfm', :song => song
+
+#footnote
+  
+- content_for :header do
+  %link{:rel => "dns-prefetch", :href => "http://twitter.com"}/
+
+- content_for :javascript do    
+  %script{:type => 'text/javascript', :src => 'http://platform.twitter.com/widgets.js'}
