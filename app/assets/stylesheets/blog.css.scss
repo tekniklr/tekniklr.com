@@ -23,6 +23,11 @@
     }
     blockquote {
       margin-left: .5em;
+      max-width: 100%;
+    }
+    p {
+      min-width: 18em;
+      max-width: 100%;
     }
   }
 }
