@@ -1,4 +1,6 @@
 #blog {
+  max-width: 100%;
+  overflow: hidden;
   h2.entry-title:first-child {
     margin-top: 2em;
   }
@@ -17,6 +19,7 @@
     .entry-content {
       margin: 0 .25em 0 .25em;
       max-width: 100%;
+      overflow: hidden;
     }
     blockquote {
       margin-left: .5em;
