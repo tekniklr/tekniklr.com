@@ -57,10 +57,6 @@ end
 
 # prevent console errors
 group :development do
-  gem "wirble", :require => false
-  gem "hirb", :require => false
-  gem "awesome_print", :require => false
-  gem "looksee", :require => false
+  gem "awesome_print"
   gem "pry-rails"
-  # gem 'ruby-debug19', :require => 'ruby-debug'
 end
