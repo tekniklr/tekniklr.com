@@ -17,6 +17,10 @@
 #single_post {
   max-width: 100%;
   overflow: hidden;
+  p {
+    min-width: 25em;
+    max-width: 50em;
+  }
   @media screen and (min-width: 500px) {
     /* regular layout */
     .entry-content {
@@ -31,10 +35,6 @@
     }
     blockquote {
       margin-left: .5em;
-      max-width: 100%;
-    }
-    p {
-      min-width: 18em;
       max-width: 100%;
     }
   }

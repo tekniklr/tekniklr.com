@@ -7,6 +7,10 @@
   h2.entry-title {
     margin-top: 5em;
   }
+  p {
+    min-width: 25em;
+    max-width: 50em;
+  }
   // switch to mobile sizes @ given size
   @media screen and (min-width: 500px) {
     /* regular layout */
@@ -23,10 +27,6 @@
     }
     blockquote {
       margin-left: .5em;
-      max-width: 100%;
-    }
-    p {
-      min-width: 18em;
       max-width: 100%;
     }
   }
