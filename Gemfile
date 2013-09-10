@@ -52,7 +52,7 @@ group :test do
 end
 
 group :production do
-  gem 'exception_notification'
+  gem 'exception_notification', '~>3.0.1' # wasn't installing on dreamhost
   gem 'libv8' # therubyracer needs this and it wasn't installling in the proper order
   gem 'therubyracer', '0.10.2', :platforms => :ruby  # dreamhost doesn't provide a js  runtime but OSX does
 end
