@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.13'
+gem 'rails', '3.2.14'
 gem 'mysql2'
 
 gem 'paperclip', '~> 2.7.0' # requires ruby 1.9.2 to go higher
@@ -46,7 +46,9 @@ group :test do
   gem 'factory_girl', '<3.0.0', :require => false # requires ruby 1.9.2 to go higher
   gem 'factory_girl_rails', '<3.0.0', :require => false # requires ruby 1.9.2 to go higher
   gem 'minitest', :require => false
-  gem 'shoulda', :require => false
+  gem 'shoulda', '3.4.0', :require => false  # requires ruby 1.9.2 to go higher
+  gem 'shoulda-context', '1.1.0', :require => false  # get rid of this after upgrading shoulda
+  gem 'shoulda-matchers', '1.5.6', :require => false  # get rid of this after upgrading shoulda
 end
 
 group :production do
