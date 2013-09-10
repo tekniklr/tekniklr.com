@@ -12,7 +12,7 @@ gem 'system_timer'
 gem 'haml'
 
 # javascript funtimes
-gem 'jquery-rails'
+gem 'jquery-ui-rails'
 
 # needed for authentication
 gem 'omniauth'
