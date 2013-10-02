@@ -12,14 +12,6 @@ class MainController < ApplicationController
       Delayed::Job.enqueue(DelayedJob::TumblrJob.new)
     end
     
-    @gaming_expiry   = Rails.cache.read('gaming_expiry')
-    @gaming          = Rails.cache.read('gaming')
-    if @gaming_expiry.nil? || Time.now > @gaming_expiry
-      @gaming_expiry = Rails.cache.write('gaming_expiry', (Time.now + 3.hours))
-      require 'delayed_job/gaming_job'
-      Delayed::Job.enqueue(DelayedJob::GamingJob.new)
-    end
-    
     @delicious_expiry   = Rails.cache.read('delicious_expiry')
     @delicious          = Rails.cache.read('delicious')
     if @delicious_expiry.nil? || Time.now > @delicious_expiry
