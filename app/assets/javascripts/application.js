@@ -3,6 +3,7 @@
 //= require jquery.ui.all
 //= require plugins
 //= require jquery-setup
+//= require navigation
 //= require scaffold
 //= require favorites
 //= require prettify

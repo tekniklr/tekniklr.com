@@ -11,10 +11,5 @@ class MainControllerTest < ActionController::TestCase
     get :acknowledgments
     assert_response :success
   end
-
-  should "get navigation" do
-    get :navigation
-    assert_response :success
-  end
   
 end
