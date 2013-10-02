@@ -117,7 +117,7 @@ a:hover { color: $hover_color; }
 
 #navigation {
   // navigation will switch to mobile @ given size
-  @media screen and (min-width: 500px) {
+  @media screen and (min-width: $mobile_threshhold) {
     /* regular layout */
     .mobile {
       display: none;
@@ -129,13 +129,13 @@ a:hover { color: $hover_color; }
       }
     }
   }
-  @media screen and (max-width: 500px) {
+  @media screen and (max-width: $mobile_threshhold) {
     /* mobile layout */
     .mobile {
       display: block;
       margin: auto;
       ul {
-        width: $max_page_width/3;
+        width: $navigation_item_width;
       }
     }
     .regular {
@@ -160,7 +160,7 @@ a:hover { color: $hover_color; }
     overflow: hidden;
     li {
       display: inline;
-      width: $max_page_width/3; // 33.3% of full page - will be a static number, not a percentage (as it should be)
+      width: $navigation_item_width;
       text-align: center;
       margin: 0;
       float: left;
@@ -205,50 +205,21 @@ a:hover { color: $hover_color; }
       color: $hover_color;
     }
   }
+  .mobile {
+    #single_column_navigation {
+      display: none;
+      .nav_heading {
+        font-weight: bold;
+        font-size: 125%;
+        text-decoration: underline;
+      }
+    }
+  }
 }
 // fix for ie being stupid and not listening to media/size restrictions
 html.ie6 #navigation .mobile {display: none;}
 html.ie7 #navigation .mobile {display: none;}
 html.ie8 #navigation .mobile {display: none;}
-#single_column_navigation {
-  width: 80%;
-  color: $navigation_font_color;
-  font-family: $navigation_font_family;
-  background-color: $navigation_bg;
-  margin: auto;
-  padding: 0;
-  overflow: hidden;
-  h1 {
-    margin: 1em 0 .25em 0;
-    padding: 0.75em 0em 0.75em 0em;
-    border-top: none;
-    border-bottom: 2px solid $navigation_border_color;
-  }
-  ul {
-    width: 100%;
-    list-style-type: none;
-    padding: 0;
-    margin: auto;
-    overflow: hidden;
-    li {
-      width: 100%;
-      text-align: center;
-      margin: auto;
-      padding: 0.75em 0em 0.75em 0em;
-      border-bottom: 2px solid $navigation_border_color;
-    }
-  }
-  a:link, a:active, a:visited {
-    text-decoration: none;
-    font-size: 120%;
-    color: $navigation_font_color;
-  }
-  a:hover {
-    font-weight: bold;
-    font-size: 120%;
-    color: $hover_color;
-  }
-}
 
 #social {
   width: $social_media_width;

@@ -2,9 +2,14 @@
   .mobile
     %ul
       %li
-        = link_to 'navigation', navigation_url
-  .regular
-    = render :partial => 'layouts/static/nav_main'
-    - if @wpblog || @tumblog
+        %a#toggle_navigation{:href => '#'} navigation
+    %ul#single_column_navigation
+      = render :partial => 'layouts/static/nav_main'
       = render :partial => 'layouts/static/nav_wp'
+  .regular
+    %ul
+      = render :partial => 'layouts/static/nav_main'
+    - if @wpblog || @tumblog
+      %ul.subnav
+        = render :partial => 'layouts/static/nav_wp'
     .break

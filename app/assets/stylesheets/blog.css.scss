@@ -11,13 +11,13 @@
     max-width: 50em;
   }
   // switch to mobile sizes @ given size
-  @media screen and (min-width: 500px) {
+  @media screen and (min-width: $mobile_threshhold) {
     /* regular layout */
     .entry-content {
       margin: 0 5em 0 5em;
     }
   }
-  @media screen and (max-width: 500px) {
+  @media screen and (max-width: $mobile_threshhold) {
     /* mobile layout */
     .entry-content {
       margin: 0 .25em 0 .25em;
