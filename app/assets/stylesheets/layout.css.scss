@@ -135,7 +135,7 @@ a:hover { color: $hover_color; }
       display: block;
       margin: auto;
       ul {
-        width: $max_page_width/4;
+        width: $max_page_width/3;
       }
     }
     .regular {
@@ -160,7 +160,7 @@ a:hover { color: $hover_color; }
     overflow: hidden;
     li {
       display: inline;
-      width: $max_page_width/4; // 25% of full page - will be a static number, not a percentage (as it should be)
+      width: $max_page_width/3; // 33.3% of full page - will be a static number, not a percentage (as it should be)
       text-align: center;
       margin: 0;
       float: left;
