@@ -8,12 +8,12 @@
     text-align: center;
     font-size: 80%;
     // switch to mobile sizes @ given size
-    @media screen and (min-width: 500px) {
+    @media screen and (min-width: $mobile_threshhold) {
       /* regular layout */
       width: 100%;
       margin: 0;
     }
-    @media screen and (max-width: 500px) {
+    @media screen and (max-width: $mobile_threshhold) {
       /* mobile layout */
       width: 90%;
       margin: 0 auto;
@@ -25,7 +25,7 @@
       width: 14em;
       height: 14em;
       // switch to mobile sizes @ given size
-      @media screen and (min-width: 500px) {
+      @media screen and (min-width: $mobile_threshhold) {
         /* regular layout */
         display: inline;
         float: left;
@@ -33,7 +33,7 @@
         width: 14em;
         height: 14em;
       }
-      @media screen and (max-width: 500px) {
+      @media screen and (max-width: $mobile_threshhold) {
         /* mobile layout */
         overflow: visible;
         display: block;
@@ -50,12 +50,12 @@
         max-width:  12em;
         max-height: 9em;
         // switch to mobile sizes @ given size
-        @media screen and (min-width: 500px) {
+        @media screen and (min-width: $mobile_threshhold) {
           /* regular layout */
           max-width:  12em;
           max-height: 9em;
         }
-        @media screen and (max-width: 500px) {
+        @media screen and (max-width: $mobile_threshhold) {
           /* mobile layout */
           min-width: 75%;
           max-width: 100%;
@@ -67,12 +67,12 @@
         max-width:  13em;
         max-height: 10em;
         // switch to mobile sizes @ given size
-        @media screen and (min-width: 500px) {
+        @media screen and (min-width: $mobile_threshhold) {
           /* regular layout */
           max-width:  13em;
           max-height: 10em;
         }
-        @media screen and (max-width: 500px) {
+        @media screen and (max-width: $mobile_threshhold) {
           /* mobile layout */
           min-width: 75%;
           max-width: 100%;
