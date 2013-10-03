@@ -125,7 +125,15 @@ a:hover { color: $hover_color; }
     .regular {
       display: block;
       ul {
-        width: 100%;
+        width: $navigation_width;
+        li {
+          width: $navigation_width/3;
+        }
+      }
+      .subnav {
+        li {
+          width: $navigation_width/4;
+        }
       }
     }
   }
@@ -135,7 +143,10 @@ a:hover { color: $hover_color; }
       display: block;
       margin: auto;
       ul {
-        width: $navigation_item_width;
+        width: $max_page_width/3;
+        li {
+          width: $max_page_width/3;
+        }
       }
     }
     .regular {
@@ -160,7 +171,6 @@ a:hover { color: $hover_color; }
     overflow: hidden;
     li {
       display: inline;
-      width: $navigation_item_width;
       text-align: center;
       margin: 0;
       float: left;
@@ -185,7 +195,7 @@ a:hover { color: $hover_color; }
     */ 
     clear: both;
     background-color: $navigation_bg;
-    width: 100%;
+    width: $navigation_width;
     height: 1px;
   }
   .subnav {
@@ -196,7 +206,6 @@ a:hover { color: $hover_color; }
     max-width: $navigation_width;
     li {
       background-color: $subnav_bg;
-      width: $max_page_width/4;
     }
     a:link, a:active, a:visited {
       color: $subnav_font_color;
