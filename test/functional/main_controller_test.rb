@@ -7,8 +7,8 @@ class MainControllerTest < ActionController::TestCase
     assert_response :success
   end
   
-  should "get acknowledgments" do
-    get :acknowledgments
+  should "get colophon" do
+    get :colophon
     assert_response :success
   end
   

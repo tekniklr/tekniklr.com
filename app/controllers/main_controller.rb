@@ -1,5 +1,5 @@
 class MainController < ApplicationController
-  caches_action   :acknowledgments, :layout => false
+  caches_action   :colophon, :layout => false
   caches_action   :routing_error,   :layout => false
 
   def index
@@ -28,8 +28,8 @@ class MainController < ApplicationController
     end
   end
 
-  def acknowledgments
-    page_title 'acknowledgments'
+  def colophon
+    page_title 'colophon'
   end
 
   private

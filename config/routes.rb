@@ -18,7 +18,7 @@ TekniklrCom::Application.routes.draw do
   match '/flickr'  => 'flickr#index'
 
   # ack
-  match '/acknowledgments'    => 'main#acknowledgments'
+  match '/colophon'    => 'main#colophon'
 
   # résumé
   match '/resume'       => 'resume#index'
