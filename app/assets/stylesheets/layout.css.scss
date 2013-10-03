@@ -246,8 +246,10 @@ html.ie8 #navigation .mobile {display: none;}
       text-align: center;
       margin: 0 .1em 0 .1em;
       padding: 0;
-      background-color: $page_bg;
-      @include transparent(0.7);
+      img {
+        background-color: $page_bg;
+        @include transparent(0.7);
+      }
     }
   }
 }
