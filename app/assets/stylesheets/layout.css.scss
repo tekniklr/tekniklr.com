@@ -241,13 +241,13 @@ html.ie8 #navigation .mobile {display: none;}
     margin: 0;
     list-style-type: none;
     overflow: hidden;
-    background-color: $page_bg;
-    @include transparent(0.7);
     li {
       display: inline;
       text-align: center;
-      margin: 0;
-      padding: 0 .1em 0 .1em;
+      margin: 0 .1em 0 .1em;
+      padding: 0;
+      background-color: $page_bg;
+      @include transparent(0.7);
     }
   }
 }
