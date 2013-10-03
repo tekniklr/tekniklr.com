@@ -12,7 +12,7 @@ an .htaccess with the following in the WordPress root directory:
   PassengerEnabled off
 I don't know of any way to do this other than with Passenger.
 
-== Acknowledgements
+== Colophon
 
 Anyway, things I used while implementing this include:
 * TDD
