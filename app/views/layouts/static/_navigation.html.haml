@@ -9,7 +9,7 @@
   .regular
     %ul
       = render :partial => 'layouts/static/nav_main'
-    - if @wpblog || @tumblog
+    - if @wpblog
       %ul.subnav
         = render :partial => 'layouts/static/nav_wp'
     .break
