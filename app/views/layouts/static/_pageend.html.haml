@@ -3,7 +3,7 @@
 = yield :javascript
 
 / # asynchronous google analytics: mathiasbynens.be/notes/async-analytics-snippet 
-- if Rails.env.production? || @wpblog
+- if Rails.env.production?
   :javascript
     var _gaq = [['_setAccount', 'UA-6580125-1'], ['_trackPageview']];
     (function(d, t) {
@@ -15,5 +15,7 @@
 
 - if @wpblog
   :javascript
-    var loading_img = new Image();
-    loading_img.src = '/wpblog/wp-content/plugins/infinite-scroll/img/ajax-loader.gif';
+    $(document).ready(function(e) {
+      var loading_img = new Image();
+      loading_img.src = '/wpblog/wp-content/plugins/infinite-scroll/img/ajax-loader.gif';
+    });
