@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.14'
+gem 'rails', '3.2.16'
 gem 'mysql2'
 
 gem 'paperclip', '~> 2.7.0' # requires ruby 1.9.2 to go higher
@@ -35,6 +35,10 @@ gem 'daemons'
 # Deploy with Capistrano
 gem 'capistrano', '<2.14.0'
 gem 'rvm-capistrano'
+
+# gems that shouldn't need to be specified, but since dreamhost is fucking 
+# bollocks and stuck on ruby 1.9, we have to request an old version
+gem 'nokogiri', '~> 1.4.4'
 
 group :assets do
   gem 'sass-rails'
