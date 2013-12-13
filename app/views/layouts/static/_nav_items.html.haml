@@ -1,9 +1,9 @@
 %li
   = link_to 'about', about_url
 %li
-  = link_to 'archive', '/wpblog/archives/'
+  = link_to 'blog', '/wpblog/'
 %li
-  = link_to 'categories', '/wpblog/categories/'
+  = link_to 'archive', '/wpblog/archives/'
 %li
   = form_tag '/wpblog', :method => 'get', :id => 'wp_search', :role => 'search' do
     = text_field_tag :s
