@@ -49,7 +49,7 @@ namespace :deploy do
   
   desc "Update wordpress theme"
   task :wptheme do
-    execute "cd '#{shared_path}/wpblog/wp-content/themes/tekniklr.com/'; git pull"
+    run "cd '#{shared_path}/wpblog/wp-content/themes/tekniklr.com/'; git pull"
   end
 
   # http://stackoverflow.com/questions/7406734/bundler-rvm-passenger-capistrano-deployment-missing-gems
