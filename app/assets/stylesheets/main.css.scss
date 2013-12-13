@@ -70,7 +70,7 @@ ul#delicious {
   }
 }
 
-ul#lastfm {
+ul#flickr {
   width: 96%;
   max-width: 100%;
   margin: 0;
@@ -78,30 +78,32 @@ ul#lastfm {
   list-style-type: none;
   text-align: center;
   overflow: hidden;
-  height: 9.3em;
+  height: 12em;
   font-size: 80%;
   line-height: 1.125em;
   li {
     display: inline-block;
     margin: 0 auto;
-    width: 8em;
-    height: 9.3em;
+    width: 13em;
+    height: 12em;
     text-align: center;
     padding: 0 1em 1em 1em;
     float: none;
     overflow: hidden;
     img {
-      max-width: 5.5em;
-      height: 6.5em;
+      margin: 0;
+      padding: 0;
+      max-width:  12em;
+      max-height: 9em;
       overflow: hidden;
+      @include rounded(1px, $med_border_color, .75em, .3em, solid);
     }
-  }
-}
-ul#lastfm {
-  li {
-    img {
-      height: 5.5em;
+    img:hover {
+      max-width:  13em;
+      max-height: 10em;
+      // switch to mobile sizes @ given size
       overflow: hidden;
+      @include rounded(1px, $border_color, .75em, .3em, solid);
     }
   }
 }
