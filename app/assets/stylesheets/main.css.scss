@@ -78,28 +78,28 @@ ul#flickr {
   list-style-type: none;
   text-align: center;
   overflow: hidden;
-  height: 12em;
+  height: 11em;
   font-size: 80%;
   line-height: 1.125em;
   li {
     display: inline-block;
     margin: 0 auto;
-    width: 13em;
+    width: 12em;
     height: 12em;
     text-align: center;
-    padding: 0 1em 1em 1em;
+    padding: 0 1em 0 1em;
     float: none;
     overflow: hidden;
     img {
       margin: 0;
       padding: 0;
-      max-width:  12em;
+      max-width:  11em;
       max-height: 9em;
       overflow: hidden;
       @include rounded(1px, $med_border_color, .75em, .3em, solid);
     }
     img:hover {
-      max-width:  13em;
+      max-width:  12em;
       max-height: 10em;
       // switch to mobile sizes @ given size
       overflow: hidden;
