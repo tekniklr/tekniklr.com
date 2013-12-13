@@ -10,9 +10,6 @@ TekniklrCom::Application.routes.draw do
   
   # about page
   match '/about'  => 'about#index'
-  
-# tumblr syndication
-  match '/flickr'  => 'flickr#index'
 
   # ack
   match '/colophon'    => 'main#colophon'

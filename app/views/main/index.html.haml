@@ -23,8 +23,8 @@
   %h1
     = link_to 'Pictures', 'http://www.flickr.com/photos/tekniklr/'
   %ul#flickr
-    - @flickr_photos.each do |image|
-      = render 'flickr/image', :image => image
+    - @flickr_photos.each do |photo|
+      = render 'photo', :photo => photo
 
 #footnote
   
