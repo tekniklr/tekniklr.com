@@ -47,9 +47,9 @@ namespace :deploy do
     run "touch #{current_path}/tmp/restart.txt"
   end
   
-  desc "Sync wordpress theme"
+  desc "Update wordpress theme"
   task :wptheme do
-    system "rsync -vr --exclude='.DS_store' --exclude='.git' public/wpblog/wp-content/themes/tekniklr.com/ #{user}@#{application}:#{shared_path}/wpblog/wp-content/themes/tekniklr.com/"
+    execute "cd '#{shared_path}/wpblog/wp-content/themes/tekniklr.com/'; git pull"
   end
 
   # http://stackoverflow.com/questions/7406734/bundler-rvm-passenger-capistrano-deployment-missing-gems
