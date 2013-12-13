@@ -127,12 +127,7 @@ a:hover { color: $hover_color; }
       ul {
         width: $navigation_width;
         li {
-          width: $navigation_width/3;
-        }
-      }
-      .subnav {
-        li {
-          width: $navigation_width/4;
+          width: $navigation_width/$nav_items;
         }
       }
     }
@@ -143,9 +138,9 @@ a:hover { color: $hover_color; }
       display: block;
       margin: auto;
       ul {
-        width: $max_page_width/3;
+        width: $max_page_width/$nav_items;
         li {
-          width: $max_page_width/3;
+          width: $max_page_width/$nav_items;
         }
       }
     }
@@ -191,28 +186,12 @@ a:hover { color: $hover_color; }
   .break {
     /*
       the nav was doing stupid things when fluidly resized.
-      this fixes it. the 1px also makes subnavs look better.
+      this fixes it.
     */ 
     clear: both;
     background-color: $navigation_bg;
     width: $navigation_width;
     height: 1px;
-  }
-  .subnav {
-    margin: 0;
-    padding: 0;
-    border-top: 1px solid $navigation_border_color;
-    background-color: $subnav_bg;
-    max-width: $navigation_width;
-    li {
-      background-color: $subnav_bg;
-    }
-    a:link, a:active, a:visited {
-      color: $subnav_font_color;
-    }
-    a:hover {
-      color: $hover_color;
-    }
   }
   .mobile {
     #single_column_navigation {
