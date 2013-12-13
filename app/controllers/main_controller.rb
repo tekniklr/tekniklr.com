@@ -19,29 +19,17 @@ class MainController < ApplicationController
       Delayed::Job.enqueue(DelayedJob::DeliciousJob.new)
     end
     
-    @lastfm_expiry   = Rails.cache.read('lastfm_expiry')
-    @lastfm          = Rails.cache.read('lastfm')
-    if @lastfm_expiry.nil? || Time.now > @lastfm_expiry
-      @lastfm_expiry = Rails.cache.write('lastfm_expiry', (Time.now + 36.minutes))
-      require 'delayed_job/lastfm_job'
-      Delayed::Job.enqueue(DelayedJob::LastfmJob.new)
+    @flickr_expiry   = Rails.cache.read('flickr_expiry')
+    @flickr_photos   = Rails.cache.read('flickr_photos')
+    if @flickr_expiry.nil? || Time.now > @flickr_expiry || @flickr_photos.blank?
+      @flickr_expiry = Rails.cache.write('flickr_expiry', (Time.now + 3.hours))
+      require 'delayed_job/flickr_job'
+      Delayed::Job.enqueue(DelayedJob::FlickrJob.new)
     end
   end
 
   def colophon
     page_title 'colophon'
-  end
-
-  private
-
-  def get_delicious
-    logger.debug "Fetching delicious bookmarks from RSS..."
-    begin
-      feed = Feedzirra::Feed.fetch_and_parse('http://feeds.delicious.com/v2/rss/tekniklr?count=4')
-      feed.entries[0..4]
-    rescue
-      ''
-    end
   end
 
 end
