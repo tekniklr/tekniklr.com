@@ -84,8 +84,8 @@ ul#flickr {
   li {
     display: inline-block;
     margin: 0 auto;
-    width: 12em;
-    height: 12em;
+    width: 11.5em;
+    height: 11.5em;
     text-align: center;
     padding: 0 1em 0 1em;
     float: none;
@@ -99,8 +99,8 @@ ul#flickr {
       @include rounded(1px, $med_border_color, .75em, .3em, solid);
     }
     img:hover {
-      max-width:  12em;
-      max-height: 10em;
+      max-width:  11.5em;
+      max-height: 9.5em;
       // switch to mobile sizes @ given size
       overflow: hidden;
       @include rounded(1px, $border_color, .75em, .3em, solid);
