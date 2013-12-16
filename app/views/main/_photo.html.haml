@@ -1,3 +1,8 @@
 - unless photo[:src].blank?
   %li
-    = link_to image_tag(photo[:src], :alt => photo[:title], :title => photo[:title]), photo[:url]
+    = link_to image_tag(photo[:src], :alt => photo[:title], :title => strip_tags(photo[:summary]).sub(/tekniklr posted a photo:/, '').strip), photo[:url]
+    - if !photo[:title].blank?
+      %p.caption
+        = photo[:title]
+    %p{:class => "when fade#{fade}"}
+      = time_ago_in_words(photo[:published])+' ago'

@@ -78,18 +78,25 @@ ul#flickr {
   list-style-type: none;
   text-align: center;
   overflow: hidden;
-  height: 11em;
+  height: 15em;
   font-size: 80%;
   line-height: 1.125em;
+  .when {
+    font-size: 90%
+  }
   li {
     display: inline-block;
     margin: 0 auto;
     width: 11.5em;
-    height: 11.5em;
+    height: 15em;
     text-align: center;
+    vertical-align: top;
     padding: 0 1em 0 1em;
     float: none;
     overflow: hidden;
+    .caption {
+      font-weight: normal;
+    }
     img {
       margin: 0;
       padding: 0;
@@ -98,10 +105,25 @@ ul#flickr {
       overflow: hidden;
       @include rounded(1px, $med_border_color, .75em, .3em, solid);
     }
-    img:hover {
+  }
+  li:hover {
+    display: inline-block;
+    margin: 0 auto;
+    width: 11.5em;
+    height: 15em;
+    text-align: center;
+    vertical-align: top;
+    padding: 0 1em 0 1em;
+    float: none;
+    overflow: hidden;
+    .caption {
+      font-weight: bold;
+    }
+    img {
+      margin: 0;
+      padding: 0;
       max-width:  11.5em;
       max-height: 9.5em;
-      // switch to mobile sizes @ given size
       overflow: hidden;
       @include rounded(1px, $border_color, .75em, .3em, solid);
     }

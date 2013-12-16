@@ -4,7 +4,7 @@ class DelayedJob::FlickrJob
     Rails.logger.debug "Fetching flickr photos from RSS..."
     begin
       feed   = Feedzirra::Feed.fetch_and_parse('http://api.flickr.com/services/feeds/photos_public.gne?id=7686648@N06&lang=en-us&format=rss_200')
-      photos = feed.entries
+      photos = feed.entries[0..5]
     rescue
       photos = []
     end
@@ -14,6 +14,7 @@ class DelayedJob::FlickrJob
       if $1
         found_photos << {
           :title     => photo.title,
+          :summary   => photo.summary,
           :src       => $1,
           :url       => photo.url,
           :published => photo.published
