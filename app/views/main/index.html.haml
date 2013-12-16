@@ -20,11 +20,13 @@
       - fade_bookmarks += 1
 
 - unless @flickr_photos.blank?
+  - fade_photos = 0
   %h1
     = link_to 'Pictures', 'http://www.flickr.com/photos/tekniklr/'
   %ul#flickr
     - @flickr_photos.each do |photo|
-      = render 'photo', :photo => photo
+      = render 'photo', :photo => photo, :fade => fade_level(@flickr_photos.count, fade_photos)
+      - fade_photos += 1
 
 #footnote
   
