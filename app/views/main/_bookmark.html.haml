@@ -5,4 +5,4 @@
     = bookmark.categories.collect{|t| link_to(t, "http://delicious.com/tekniklr/#{t}")}.to_sentence.html_safe
   = time_ago_in_words(bookmark.published)+' ago'
   - if !bookmark.summary.blank?
-    .summary #{bookmark.summary.gsub('&quot;', '"')}
+    .summary #{sanitize bookmark.summary.gsub('&quot;', '"')}
