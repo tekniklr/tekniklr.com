@@ -27,6 +27,8 @@ gem 'feedzirra'
 # for amazon web services; not to be confused with ruby-aws
 gem 'ruby-aaws'
 
+gem 'htmlentities'
+
 # run processes in the background
 gem 'delayed_job'
 gem 'delayed_job_active_record'
