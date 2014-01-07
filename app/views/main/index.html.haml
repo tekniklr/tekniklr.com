@@ -21,7 +21,7 @@
 
 - unless @delicious.blank?
   - fade_bookmarks = 0
-  %h1
+  %h1.less_space
     = link_to 'Bookmarks', 'http://www.delicious.com/tekniklr'
   %ul#delicious
     - @delicious.each do |bookmark|
