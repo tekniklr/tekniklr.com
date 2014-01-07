@@ -265,6 +265,9 @@ h1 {
     color: $hover_color;
   }
 }
+h1.less_space {
+  margin: 2em 0em 1.5em 0;
+}
 h1.link_only {
   border: none;
 }
