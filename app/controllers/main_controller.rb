@@ -26,6 +26,15 @@ class MainController < ApplicationController
       require 'delayed_job/flickr_job'
       Delayed::Job.enqueue(DelayedJob::FlickrJob.new)
     end
+
+    @lastfm_expiry   = Rails.cache.read('lastfm_expiry')
+    @lastfm          = Rails.cache.read('lastfm')
+    if @lastfm_expiry.nil? || Time.now > @lastfm_expiry
+      @lastfm_expiry = Rails.cache.write('lastfm_expiry', (Time.now + 36.minutes))
+      require 'delayed_job/lastfm_job'
+      Delayed::Job.enqueue(DelayedJob::LastfmJob.new)
+    end
+
   end
 
   def colophon
