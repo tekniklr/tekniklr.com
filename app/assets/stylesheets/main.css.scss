@@ -107,13 +107,14 @@ ul#lastfm {
   }
 }
 ul#flickr {
-  height: 16em;
+  $flickr_height: 15.5em;
+  height: $flickr_height;
   .when {
     font-size: 90%
   }
   li {
     width: 11.5em;
-    height: 16em;
+    height: $flickr_height;
     .caption {
       font-weight: normal;
     }
@@ -127,15 +128,15 @@ ul#flickr {
   }
   li:hover {
     width: 11.5em;
-    height: 16em;
+    height: $flickr_height;
     .caption {
       font-weight: bold;
     }
     img {
       margin: 0;
       padding: 0;
-      max-width:  11.5em;
-      max-height: 9.5em;
+      max-width:  11em;
+      max-height: 9em;
       @include rounded(1px, $border_color, .75em, .3em, solid);
     }
   }
