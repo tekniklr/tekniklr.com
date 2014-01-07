@@ -10,7 +10,9 @@ namespace :tekniklr do
       'flickr_expiry',
       'flickr_photos',
       'lastfm_expiry',
-      'lastfm'
+      'lastfm',
+      'gaming_expiry',
+      'gaming'
     ]
     cached_items.each do |item|
       puts "Trying to remove #{item} from cache..."
