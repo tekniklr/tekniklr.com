@@ -35,13 +35,13 @@ class MainController < ApplicationController
       Delayed::Job.enqueue(DelayedJob::LastfmJob.new)
     end
 
-    @gaming_expiry   = Rails.cache.read('gaming_expiry')
-    @gaming          = Rails.cache.read('gaming')
-    if @gaming_expiry.nil? || Time.now > @gaming_expiry
-      @gaming_expiry = Rails.cache.write('gaming_expiry', (Time.now + 3.hours))
-      require 'delayed_job/gaming_job'
-      Delayed::Job.enqueue(DelayedJob::GamingJob.new)
-    end
+    # @gaming_expiry   = Rails.cache.read('gaming_expiry')
+    # @gaming          = Rails.cache.read('gaming')
+    # if @gaming_expiry.nil? || Time.now > @gaming_expiry
+    #   @gaming_expiry = Rails.cache.write('gaming_expiry', (Time.now + 3.hours))
+    #   require 'delayed_job/gaming_job'
+    #   Delayed::Job.enqueue(DelayedJob::GamingJob.new)
+    # end
 
   end
 
