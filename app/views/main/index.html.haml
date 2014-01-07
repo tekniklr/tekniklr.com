@@ -19,6 +19,13 @@
       = render 'bookmark', :bookmark => bookmark, :fade => fade_level(@delicious.count, fade_bookmarks)
       - fade_bookmarks += 1
 
+- unless @gaming.blank?
+  %h1
+    = link_to 'Games', 'http://raptr.com/tekniklr'
+  %ul#gaming
+    - @gaming.each do |item|
+      = render 'gaming', :item => item
+
 - unless @lastfm.blank?
   %h1
     = link_to 'Sounds', 'http://www.last.fm/user/tekniklr'
