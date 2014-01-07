@@ -29,18 +29,22 @@
       - fade_bookmarks += 1
 
 - unless @gaming.blank?
+  - fade_games = 0
   %h1
     = link_to 'Games', 'http://raptr.com/tekniklr'
   %ul#gaming
     - @gaming.each do |item|
-      = render 'gaming', :item => item
+      = render 'gaming', :item => item, :fade => fade_level(@gaming.count, fade_games)
+      - fade_games += 1
 
 - unless @lastfm.blank?
+  - fade_songs = 0
   %h1
     = link_to 'Music', 'http://www.last.fm/user/tekniklr'
   %ul#lastfm
     - @lastfm.each do |song|
-      = render 'lastfm', :song => song
+      = render 'lastfm', :song => song, :fade => fade_level(@lastfm.count, fade_songs)
+      - fade_songs += 1
 
 #footnote
   

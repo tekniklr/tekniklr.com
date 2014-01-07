@@ -3,5 +3,5 @@
     = link_to image_tag(song[:image_url], :alt => song[:title], :title => song[:title]), song[:amazon_url]
   - else
     = link_to song[:title], song[:lastfm_url]
-  %br
-  = time_ago_in_words(song[:published])+' ago'
+  %p{:class => "when fade#{fade}"}
+    = time_ago_in_words(song[:published])+' ago'
