@@ -28,6 +28,10 @@ Factory.define :link do |l|
   l.visible 1
 end
 
+Factory.define :tabletop_game do |t|
+  t.sequence(:name) {|n| "Tabletop game #{n}"}
+end
+
 Factory.define :user do |u|
   u.sequence(:name) {|n| "User: #{n}"}
   u.provider 'twitter'

@@ -1,0 +1,31 @@
+%h1 TableTop games
+
+%p
+  If you got the link to this page, it means I would like to play board games with you, and have offered my stash for your consideration. Yay! The games should link to Amazon, if you want to know more about them. I've also listed the expansions I have, where applicable.
+
+%p
+  And if you like, or think you may like, TableTop games and would like to know more- Go #{link_to 'here', 'http://tabletop.geekandsundry.com'}. Do not pas Go. Do not collect $200. 
+
+%ul#tabletop_list
+  - @tabletop_games.each do |tabletop_game|
+    %li.tabletop_game
+      .game_basic
+        - if @tabletop_amazon[tabletop_game.name]
+          .game_image
+            - if @tabletop_amazon[tabletop_game.name][:amazon_url]
+              = link_to(image_tag(@tabletop_amazon[tabletop_game.name][:image_url], :alt => tabletop_game.name.chomp, :title => tabletop_game.name.chomp), @tabletop_amazon[tabletop_game.name][:amazon_url])
+            - else
+              = image_tag(@tabletop_amazon[tabletop_game.name][:image_url], :alt => tabletop_game.name.chomp, :title => tabletop_game.name.chomp)
+        .game_name
+          = tabletop_game.name
+      .game_detail
+        - if !tabletop_game.other_info.blank?
+          .game_info
+            = simple_format tabletop_game.other_info
+        - if !tabletop_game.expansions.blank?
+          .game_expansions
+            %strong Expansions:
+            - expansions = tabletop_game.expansions.split( /\r?\n/ )
+            %ul
+              - expansions.each do |expansion|
+                %li #{expansion}

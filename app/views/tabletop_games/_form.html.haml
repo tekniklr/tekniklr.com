@@ -1,0 +1,31 @@
+= form_for(@tabletop_game) do |f|
+  - if @tabletop_game.errors.any?
+    #error_explanation
+      %h2 #{pluralize(@tabletop_game.errors.count, "error")} prohibited this game from being saved:
+      %ul
+        - @tabletop_game.errors.full_messages.each do |msg|
+          %li #{msg}
+
+  .row
+    .left
+      = f.label :name
+    .right
+      = f.text_field :name, :size => 48
+    .clear
+
+  .row
+    .left
+      = f.label :expansions
+    .right
+      = f.text_area :expansions, :rows => 5
+    .clear
+
+  .row
+    .left
+      = f.label :other_info
+    .right
+      = f.text_area :other_info, :rows => 5
+    .clear
+
+  .center
+    = f.submit
