@@ -1,6 +1,6 @@
 class AboutController < ApplicationController
   before_filter   { |c| c.page_title 'about Teri', false }
-  caches_action   :index, :layout => false, :expires_in => 15.minutes
+  caches_action   :index, :layout => false
   
   def index
     collect_facets
