@@ -1,5 +1,4 @@
 TekniklrCom::Application.routes.draw do
-
   root :to => 'main#index'
   
   # omniauth authentication
@@ -42,6 +41,10 @@ TekniklrCom::Application.routes.draw do
     put 'sort_things',    :on => :collection
   end
   
+  resources :tabletop_games, :except => [:show] do
+    get 'manage',         :on => :collection
+  end
+
   # https://github.com/rails/rails/issues/671
   # http://techoctave.com/c7/posts/36-rails-3-0-rescue-from-routing-error-solution
   match '*a', :to => "application#routing_error"

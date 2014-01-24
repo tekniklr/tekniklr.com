@@ -1,0 +1,31 @@
+%h1 
+  Manage
+  = link_to 'TableTop games', tabletop_games_path
+
+%table#manage_tabletop
+  %tr
+    %th Name
+    %th Expansions
+    %th Other info
+    %th
+    %th
+
+  - @tabletop_games.each do |tabletop_game|
+    %tr
+      %td
+        = tabletop_game.name
+      %td
+        - if !tabletop_game.expansions.blank?
+          - expansions = tabletop_game.expansions.split( /\r?\n/ )
+          %ul
+            - expansions.each do |expansion|
+              %li #{expansion}
+      %td
+        = simple_format tabletop_game.other_info
+      %td.center
+        = link_to 'Edit', edit_tabletop_game_path(tabletop_game)
+      %td.center
+        = link_to 'Destroy', tabletop_game, :method => :delete, :data => { :confirm => "Are you sure you want to remove #{tabletop_game.name}?" }
+
+.center
+  = link_to 'New TableTop game', new_tabletop_game_path

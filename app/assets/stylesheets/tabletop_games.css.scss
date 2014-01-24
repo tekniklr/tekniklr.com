@@ -1,0 +1,53 @@
+// Place all the styles related to the tabletop_games controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+table#manage_tabletop {
+  width: 90%;
+  margin: 0 auto 2em auto;
+  th {
+    font-size: 110%;
+    font-weight: bold;
+  }
+  td {
+    padding: .5em;
+    border: 1px solid $navigation_border_color;
+  }
+}
+
+ul#tabletop_list {
+  width: 90%;
+  max-width: 100%;
+  margin: 0 auto 0 auto;
+  padding: 0;
+  list-style-type: none;
+  li.tabletop_game {
+    min-height: 9em;
+    clear: both;
+    display: block;
+    margin: 3em 0 3em 0;
+    @include rounded(1px, $med_border_color, 2em, 1.5em, dashed);
+    .game_basic {
+      width: 50%;
+      float: left;
+      text-align: center;
+      .game_image {
+        img {
+          height: 6em;
+        }
+      }
+      .game_name {
+        font-weight: bold;
+        font-size: 110%;
+        padding: .5em;
+      }
+    }
+    .game_detail {
+      width: 50%;
+      float: none;
+      overflow: scroll;
+      .game_expansions {}
+      .game_info {}
+    }
+  }
+}
