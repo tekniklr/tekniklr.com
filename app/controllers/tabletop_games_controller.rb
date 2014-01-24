@@ -2,7 +2,7 @@ class TabletopGamesController < ApplicationController
   before_filter   :is_admin?, :except => :index
   before_filter   { |c| c.page_title 'tabletop games' }
   cache_sweeper   :tabletop_game_sweeper, :only => [:create, :update, :destroy]
-  caches_action   :index, :layout => false
+  caches_action   :index, :layout => false, :expires_in => 15.minutes
 
   # GET /tabletop_games
   def index
