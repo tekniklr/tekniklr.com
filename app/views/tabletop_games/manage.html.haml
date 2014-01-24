@@ -5,8 +5,9 @@
 %table#manage_tabletop
   %tr
     %th Name
+    %th Players
+    %th Info
     %th Expansions
-    %th Other info
     %th
     %th
 
@@ -15,13 +16,15 @@
       %td
         = tabletop_game.name
       %td
+        = tabletop_game.players
+      %td
+        = simple_format tabletop_game.other_info
+      %td
         - if !tabletop_game.expansions.blank?
           - expansions = tabletop_game.expansions.split( /\r?\n/ )
           %ul
             - expansions.each do |expansion|
               %li #{expansion}
-      %td
-        = simple_format tabletop_game.other_info
       %td.center
         = link_to 'Edit', edit_tabletop_game_path(tabletop_game)
       %td.center
