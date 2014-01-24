@@ -1,5 +1,5 @@
 class TabletopGame < ActiveRecord::Base
-  attr_accessible :expansions, :name, :other_info
+  attr_accessible :expansions, :name, :other_info, :players
 
   validates_presence_of :name
 
