@@ -12,7 +12,11 @@ namespace :tekniklr do
       'lastfm_expiry',
       'lastfm',
       'gaming_expiry',
-      'gaming'
+      'gaming',
+      'things_fetched',
+      'things_amazon',
+      'tabletop_fetched',
+      'tabletop_amazon'
     ]
     cached_items.each do |item|
       puts "Trying to remove #{item} from cache..."
