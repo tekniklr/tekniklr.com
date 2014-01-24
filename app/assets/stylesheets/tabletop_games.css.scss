@@ -22,7 +22,7 @@ ul#tabletop_list {
   padding: 0;
   list-style-type: none;
   li.tabletop_game {
-    min-height: 9em;
+    min-height: 10em;
     clear: both;
     display: block;
     margin: 3em 0 3em 0;
@@ -40,6 +40,10 @@ ul#tabletop_list {
         font-weight: bold;
         font-size: 110%;
         padding: .5em;
+      }
+      .game_players {
+        font-style: italic;
+        font-size: 90%;
       }
     }
     .game_detail {
