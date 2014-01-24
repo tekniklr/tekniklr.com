@@ -13,5 +13,6 @@ module TekniklrCom
     config.filter_parameters += [:password]
     config.assets.enabled = true
     config.assets.version = '1.2'
+    config.i18n.enforce_available_locales = false
   end
 end
