@@ -10,7 +10,7 @@
   - @tabletop_games.each do |tabletop_game|
     %li.tabletop_game
       .game_basic
-        - if @tabletop_amazon[tabletop_game.name]
+        - if @tabletop_amazon && @tabletop_amazon[tabletop_game.name]
           .game_image
             - if @tabletop_amazon[tabletop_game.name][:amazon_url]
               = link_to(image_tag(@tabletop_amazon[tabletop_game.name][:image_url], :alt => tabletop_game.name.chomp, :title => tabletop_game.name.chomp), @tabletop_amazon[tabletop_game.name][:amazon_url])
