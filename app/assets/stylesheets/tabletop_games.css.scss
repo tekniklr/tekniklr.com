@@ -22,28 +22,32 @@ ul#tabletop_list {
   padding: 0;
   list-style-type: none;
   li.tabletop_game {
-    min-height: 10em;
+    min-height: 12em;
     clear: both;
     display: block;
     margin: 3em 0 3em 0;
     @include rounded(1px, $med_border_color, 2em, 1.5em, dashed);
     .game_basic {
+      min-height: 11em;
       width: 50%;
       float: left;
       text-align: center;
       .game_image {
         img {
           height: 6em;
+          margin: 0 1em 0 1em;
         }
       }
       .game_name {
         font-weight: bold;
         font-size: 110%;
         padding: .5em;
+        margin: 0 1em 0 1em;
       }
       .game_players {
         font-style: italic;
         font-size: 90%;
+        margin: 0 1em 0 1em;
       }
     }
     .game_detail {
