@@ -28,13 +28,13 @@ ul#tabletop_list {
     margin: 3em 0 3em 0;
     @include rounded(1px, $med_border_color, 2em, 1.5em, dashed);
     .game_basic {
-      width: 30%;
+      width: 50%;
       float: left;
       text-align: center;
       overflow: auto;
-      padding-right: 1em;
       .game_image {
         height: 6em;
+        margin-right: 1em;
         img {
           max-height: 6em;
           max-width: 100%;
@@ -45,10 +45,12 @@ ul#tabletop_list {
         font-size: 110%;
         padding: .5em;
         margin-top: .5em;
+        margin-right: 1em;
       }
       .game_players {
         font-style: italic;
         font-size: 90%;
+        margin-right: 1em;
       }
     }
     .game_detail {
