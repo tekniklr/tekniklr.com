@@ -32,3 +32,6 @@
             %ul
               - expansions.each do |expansion|
                 %li #{expansion}
+        - if !tabletop_game.bgg_url.blank?
+          .game_bgg
+            = link_to 'See on BoardGameGeek', tabletop_game.bgg_url
