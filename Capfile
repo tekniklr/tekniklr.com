@@ -66,6 +66,6 @@ before "deploy:assets:precompile", "deploy:link_database", "deploy:link_omniauth
 before "deploy:restart", "delayed_job:stop"
 after  "deploy:restart", "delayed_job:start"
 after "deploy:stop",  "delayed_job:stop"
-after "deploy:start", "delayed_job:start"
+after "deploy:finalize_update", "delayed_job:start"
 
 after "deploy:restart", "deploy:cleanup"
