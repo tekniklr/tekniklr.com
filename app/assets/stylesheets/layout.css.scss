@@ -221,12 +221,12 @@ html.ie8 #navigation .mobile {display: none;}
   }
   @media screen and (max-width: $social_media_threshhold) {
     /* mobile layout */
-    width: 75%;
+    width: 90%;
     text-align: center;
     position: fixed;
     bottom: 0;
     left: 50%;
-    margin: 0 0 0 -37.5%;
+    margin: 0 0 0 -45%;
   }
   ul {
     padding: 0;
