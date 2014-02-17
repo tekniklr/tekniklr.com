@@ -27,6 +27,14 @@ class MainController < ApplicationController
       Delayed::Job.enqueue(DelayedJob::FlickrJob.new)
     end
 
+    @goodreads_expiry   = Rails.cache.read('goodreads_expiry')
+    @goodreads          = Rails.cache.read('goodreads')
+    if @goodreads_expiry.nil? || Time.now > @goodreads_expiry
+      @goodreads_expiry = Rails.cache.write('goodreads_expiry', (Time.now + 6.hours))
+      require 'delayed_job/goodreads_job'
+      Delayed::Job.enqueue(DelayedJob::GoodreadsJob.new)
+    end
+
     @lastfm_expiry   = Rails.cache.read('lastfm_expiry')
     @lastfm          = Rails.cache.read('lastfm')
     if @lastfm_expiry.nil? || Time.now > @lastfm_expiry

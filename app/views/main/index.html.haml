@@ -37,6 +37,15 @@
       = render 'gaming', :item => item, :fade => fade_level(@gaming.count, fade_games)
       - fade_games += 1
 
+- unless @goodreads.blank?
+  - fade_books = 0
+  %h1
+    = link_to 'Books', 'https://www.goodreads.com/user/show/10905654-teri-solow'
+  %ul#goodreads
+    - @goodreads.each do |book|
+      = render 'goodreads', :book => book, :fade => fade_level(@goodreads.count, fade_books)
+      - fade_books += 1
+
 - unless @lastfm.blank?
   - fade_songs = 0
   %h1
