@@ -9,6 +9,8 @@ namespace :tekniklr do
       'delicious',
       'flickr_expiry',
       'flickr_photos',
+      'goodreads_expiry',
+      'goodreads',
       'lastfm_expiry',
       'lastfm',
       'gaming_expiry',
