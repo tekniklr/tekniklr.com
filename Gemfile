@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.16'
+gem 'rails', '3.2.17'
 gem 'mysql2'
 
 gem 'paperclip', '~> 2.7.0' # requires ruby 1.9.2 to go higher
