@@ -38,4 +38,6 @@ TekniklrCom::Application.configure do
     :sender_address => %{tsolow@tekniklr.com},
     :exception_recipients => %w{tsolow@tekniklr.com}
 
+  Rails.application.routes.default_url_options[:host] = 'tekniklr.com'
+
 end
