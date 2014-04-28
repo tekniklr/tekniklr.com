@@ -43,7 +43,7 @@ gem 'rvm-capistrano'
 gem 'nokogiri', '~> 1.4.4'
 
 group :assets do
-  gem 'sass-rails'
+  gem 'sass-rails', '~> 3.2.0' # going higher triggers a ruby 1.8.7 bug re: gc_sweep
   gem 'coffee-rails'
   gem 'uglifier'
 end
