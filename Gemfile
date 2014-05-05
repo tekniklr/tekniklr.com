@@ -39,7 +39,7 @@ gem 'capistrano', '<2.14.0'
 gem 'rvm-capistrano'
 
 # gems that shouldn't need to be specified, but since dreamhost is fucking 
-# bollocks and stuck on ruby 1.9, we have to request an old version
+# bollocks and stuck on ruby 1.8, we have to request an old version
 gem 'nokogiri', '~> 1.4.4'
 
 group :assets do
@@ -61,11 +61,10 @@ end
 
 group :production do
   gem 'exception_notification', '~>3.0.1' # wasn't installing on dreamhost
-  gem 'therubyracer', :platforms => :ruby  # dreamhost doesn't provide a js  runtime but OSX does
 end
 
 # prevent console errors
 group :development do
-  gem "awesome_print"
-  gem "pry-rails"
+  gem "awesome_print", :require => false
+  gem "pry-rails", :require => false
 end
