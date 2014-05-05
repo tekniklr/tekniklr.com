@@ -22,7 +22,7 @@ gem 'omniauth-facebook'
 gem 'json'
 
 # rss fetcher/parser that actually works
-gem 'feedzirra'
+gem 'feedzirra', '<0.8' # higher versions come with a name switch and a nokogiri dependency that needs a newer ruby
 
 # for amazon web services; not to be confused with ruby-aws
 gem 'ruby-aaws'
@@ -44,6 +44,7 @@ gem 'nokogiri', '~> 1.4.4'
 
 group :assets do
   gem 'sass-rails'
+  gem 'sass', '< 3.3' # going higher triggers a ruby 1.8.7 bug re: gc_sweep, get rid of this gem requirement (it is implied by sass-rails) when ruby gets upgraded
   gem 'coffee-rails'
   gem 'uglifier'
 end
@@ -60,8 +61,7 @@ end
 
 group :production do
   gem 'exception_notification', '~>3.0.1' # wasn't installing on dreamhost
-  gem 'libv8' # therubyracer needs this and it wasn't installling in the proper order
-  gem 'therubyracer', '0.10.2', :platforms => :ruby  # dreamhost doesn't provide a js  runtime but OSX does
+  gem 'therubyracer', :platforms => :ruby  # dreamhost doesn't provide a js  runtime but OSX does
 end
 
 # prevent console errors
