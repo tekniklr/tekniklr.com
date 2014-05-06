@@ -3,8 +3,8 @@ require 'test_helper'
 class FacetsControllerTest < ActionController::TestCase
   
   setup do
-    @facet = Factory.create(:facet)
-    @user = Factory.create(:user)
+    @facet = FactoryGirl.create(:facet)
+    @user = FactoryGirl.create(:user)
   end
 
   should "not work without login" do

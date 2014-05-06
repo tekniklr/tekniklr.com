@@ -3,7 +3,7 @@ require 'test_helper'
 class TabletopGameTest < ActiveSupport::TestCase
 
   def setup
-    @tabletop_game = Factory.create(:tabletop_game)
+    @tabletop_game = FactoryGirl.create(:tabletop_game)
   end
 
   should "validate presence of name" do
