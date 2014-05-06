@@ -5,7 +5,7 @@ class DelayedJob::LastfmJob
     Rails.logger.debug "Fetching last.fm scrobbles from RSS..."
     parsed_items = []
     begin
-      feed = Feedzirra::Feed.fetch_and_parse('http://ws.audioscrobbler.com/1.0/user/tekniklr/recenttracks.rss')
+      feed  = Feedjira::Feed.fetch_and_parse('http://ws.audioscrobbler.com/1.0/user/tekniklr/recenttracks.rss')
       items = feed.entries.uniq_by{|i| i.title}[0..10]
     rescue
       items = []
