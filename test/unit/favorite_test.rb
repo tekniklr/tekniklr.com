@@ -3,7 +3,7 @@ require 'test_helper'
 class FavoriteTest < ActiveSupport::TestCase
 
   def setup
-    @favorite = Factory.create(:favorite)
+    @favorite = FactoryGirl.create(:favorite)
   end
 
   should "validate presence of type" do

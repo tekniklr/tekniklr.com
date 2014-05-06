@@ -5,7 +5,7 @@ class DelayedJob::GamingJob
     Rails.logger.debug "Fetching Raptr checkins from RSS..."
     parsed_items = []
     begin
-      feed = Feedzirra::Feed.fetch_and_parse('http://raptr.com/tekniklr/rss')
+      feed  = Feedjira::Feed.fetch_and_parse('http://raptr.com/tekniklr/rss')
       items = feed.entries.uniq_by{|i| i.title}
     rescue
       items = []

@@ -3,8 +3,8 @@ require 'test_helper'
 class LinksControllerTest < ActionController::TestCase
   
   setup do
-    @link = Factory.create(:link)
-    @user = Factory.create(:user)
+    @link = FactoryGirl.create(:link)
+    @user = FactoryGirl.create(:user)
   end
 
   should "not work without login" do
@@ -35,7 +35,7 @@ class LinksControllerTest < ActionController::TestCase
   end
 
   should "update links" do
-    @link2 = Factory.create(:link)
+    @link2 = FactoryGirl.create(:link)
     put(:update_all, {:links => {@link.to_param => @link.attributes, @link2.to_param => @link2.attributes}}, {'user_id' => @user.id})
     assert_redirected_to links_path
   end
