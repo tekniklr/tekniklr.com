@@ -9,7 +9,8 @@ set :project, 'tekniklr.com'          # Your application as its called in the re
 set :application, 'tekniklr.com'  # Your app's location (domain or sub-domain name as setup in panel)
 set :applicationdir, "/home/#{user}/rails.tekniklr.com"
 set :rails_env, 'production'
-set :rvm_ruby_string, :local
+
+set :rvm_ruby_string, '2.1.1'
 
 # version control config
 set :scm, :git
