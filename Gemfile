@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.17'
+gem 'rails', '3.2.18'
 gem 'mysql2'
 
 gem 'paperclip', '~> 2.7.0' # requires ruby 1.9.2 to go higher
@@ -61,7 +61,8 @@ end
 
 group :production do
   gem 'exception_notification', '~>3.0.1' # wasn't installing on dreamhost
-  gem 'therubyracer', :platforms => :ruby  # dreamhost doesn't provide a js  runtime but OSX does
+  gem 'therubyracer', '0.10.2' # dreamhost doesn't provide a js runtime but OSX does; also, newer versions not compiling on mavericks
+  gem 'libv8', '3.3.10.4' # pin older version so this compiles on mavericks
 end
 
 # prevent console errors
