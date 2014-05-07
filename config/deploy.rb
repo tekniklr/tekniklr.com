@@ -10,8 +10,6 @@ set :application, 'tekniklr.com'  # Your app's location (domain or sub-domain na
 set :applicationdir, "/home/#{user}/rails.tekniklr.com"
 set :rails_env, 'production'
 
-set :rvm_ruby_string, '2.1.1'
-
 # version control config
 set :scm, :git
 set :repository,  "git@github.com:tekniklr/tekniklr.com.git"
