@@ -37,7 +37,6 @@ gem 'daemons'
 
 # Deploy with Capistrano
 gem 'capistrano'
-gem 'rvm-capistrano'
 
 group :assets do
   gem 'sass-rails'
