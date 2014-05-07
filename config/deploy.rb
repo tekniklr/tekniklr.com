@@ -1,33 +1,24 @@
-require "bundler/capistrano"
-require "delayed/recipes"
+# config valid only for Capistrano 3.1
+lock '3.2.1'
 
-set :user, 'tekniklr'                 # Your dreamhost account's username
-set :domain, 'tekniklr.com'  # Dreamhost servername where your account is located 
-set :project, 'tekniklr.com'          # Your application as its called in the repository
-set :application, 'tekniklr.com'  # Your app's location (domain or sub-domain name as setup in panel)
-set :applicationdir, "/home/#{user}/rails.tekniklr.com"
-set :rails_env, 'production'
+namespace :deploy do
 
-# version control config
-set :scm, :git
-set :repository,  "git@github.com:tekniklr/tekniklr.com.git"
-set :deploy_via, :remote_cache
-set :git_enable_submodules, 1 # if you have vendored rails
-set :branch, 'master'
-set :git_shallow_clone, 1
-set :scm_verbose, true
-set :deploy_via, :remote_cache
-set :copy_compression, :bz2
+  after :publishing, :tekniklr_com do
+    invoke "tekniklr_com:wptheme"
+  end
 
-role :web, domain
-role :app, domain
-role :db,  domain, :primary => true   # Where migrations will run
+  task :restart do
+    on roles(:app), in: :sequence, wait: 5 do
+      execute :touch, release_path.join('tmp/restart.txt')
+    end
+  end
 
-# deploy config
-set :deploy_to, applicationdir
+  after :finished, :restart
 
-# additional settings
-default_run_options[:pty] = false
-ssh_options[:forward_agent] = true
-set :use_sudo, false
-set :keep_releases, 7
+  after :restart, :delayed_job do
+    invoke 'delayed_job:restart'
+  end
+
+  after :finishing, :cleanup
+
+end
