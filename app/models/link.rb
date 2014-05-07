@@ -2,7 +2,9 @@ class Link < ActiveRecord::Base
   attr_accessible :name, :url, :visible, :social_icon, :icon, :icon_file_name, :icon_content_type, :icon_file_size, :icon_updated_at
   
   has_attached_file     :icon,
-                        :styles => { :default => ["32x32#", :png] }
+                        :styles => { :default => ["32x32#", :png] },
+                        :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
+                        :url => "/system/:attachment/:id/:style/:filename"
   validates_attachment_content_type :icon, :content_type => [ 'image/png', 'image/jpg', 'image/gif']
   
   validates_presence_of :name
