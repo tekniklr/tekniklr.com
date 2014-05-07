@@ -51,15 +51,10 @@ namespace :deploy do
   task :wptheme do
     run "cd '#{shared_path}/wpblog/wp-content/themes/tekniklr.com/'; git pull"
   end
-
-  # http://stackoverflow.com/questions/7406734/bundler-rvm-passenger-capistrano-deployment-missing-gems
-  task :set_current_release, :roles => :app do
-    set :current_release, latest_release
-  end
   
 end
 
-before 'deploy:finalize_update', 'deploy:set_current_release'
+before 'deploy:finalize_update'
 
 before "deploy:assets:precompile", "deploy:link_database", "deploy:link_omniauth", "deploy:link_secret_token", "deploy:link_amazon", "deploy:link_wpblog", "deploy:link_legacy", "deploy:wptheme"
 
