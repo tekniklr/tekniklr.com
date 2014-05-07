@@ -33,10 +33,12 @@ TekniklrCom::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  TekniklrCom::Application.config.middleware.use ExceptionNotifier,
+  TekniklrCom::Application.config.middleware.use ExceptionNotification::Rack,
+  :email => {
     :email_prefix => "[tekniklr.com] ",
     :sender_address => %{tsolow@tekniklr.com},
     :exception_recipients => %w{tsolow@tekniklr.com}
+  }
 
   Rails.application.routes.default_url_options[:host] = 'tekniklr.com'
 
