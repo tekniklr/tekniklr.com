@@ -35,9 +35,6 @@ gem 'delayed_job'
 gem 'delayed_job_active_record'
 gem 'daemons'
 
-# Deploy with Capistrano
-gem 'capistrano'
-
 group :assets do
   gem 'sass-rails'
   gem 'sass', '< 3.3' # going higher triggers a sprockets bug, get rid of this gem requirement (it is implied by sass-rails) later ( https://github.com/nex3/sass/issues/1162 )
@@ -62,4 +59,7 @@ end
 group :development do
   gem "awesome_print"
   gem "pry-rails"
+  gem 'capistrano-rvm'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rails'
 end
