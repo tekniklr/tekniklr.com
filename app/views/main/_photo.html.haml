@@ -5,4 +5,5 @@
       %p.caption
         = photo[:title]
     %p{:class => "when fade#{fade}"}
-      = time_ago_in_words(photo[:published])+' ago'
+      - if photo[:published]
+        = time_ago_in_words(photo[:published])+' ago'

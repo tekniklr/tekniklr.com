@@ -2,4 +2,5 @@
   - if book[:image_url] && book[:amazon_url]
     = link_to image_tag(book[:image_url], :alt => book[:title], :title => book[:title]), book[:amazon_url]
   %p{:class => "when fade#{fade}"}
-    = time_ago_in_words(book[:published])+' ago'
+    - if book[:published]
+      = time_ago_in_words(book[:published])+' ago'
