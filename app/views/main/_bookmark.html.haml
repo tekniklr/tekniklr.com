@@ -4,6 +4,7 @@
     = 'tagged: '
     = bookmark.categories.collect{|t| link_to(t, "http://delicious.com/tekniklr/#{t}")}.to_sentence.html_safe
   %span{:class => "fade#{fade}"}
-    = time_ago_in_words(bookmark.published)+' ago'
+    - if bookmark.published
+      = time_ago_in_words(bookmark.published)+' ago'
   - if !bookmark.summary.blank?
     .summary #{sanitize bookmark.summary.gsub('&quot;', '"')}
