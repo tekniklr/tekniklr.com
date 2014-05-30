@@ -4,4 +4,5 @@
   - else
     = link_to song[:title], song[:lastfm_url]
   %p{:class => "when fade#{fade}"}
-    = time_ago_in_words(song[:published])+' ago'
+    - if song[:published]
+      = time_ago_in_words(song[:published])+' ago'
