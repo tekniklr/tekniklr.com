@@ -5,7 +5,10 @@ namespace :deploy do
 
   after :publishing, :tekniklr_com do
     invoke "tekniklr_com:wptheme"
+    invoke "delayed_job:kill"
   end
+
+  after :finished, :restart
 
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
@@ -13,10 +16,8 @@ namespace :deploy do
     end
   end
 
-  after :finished, :restart
-
   after :restart, :delayed_job do
-    invoke 'delayed_job:restart'
+    invoke 'delayed_job:start'
   end
 
   after :finishing, :cleanup

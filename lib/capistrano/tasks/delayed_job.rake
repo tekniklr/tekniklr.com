@@ -43,4 +43,14 @@ namespace :delayed_job do
     end
   end
 
+  desc 'Kill any orphaned delayed_job processes'
+  task :kill do
+    on roles(:app) do
+      within shared_path do
+        execute "pkill -u tekniklr -f delayed_job"
+        execute "sleep 10"
+      end
+    end
+  end
+
 end
