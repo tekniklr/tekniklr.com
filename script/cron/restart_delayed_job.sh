@@ -14,7 +14,7 @@ source ${home}/.bash_profile > /dev/null 2>&1
 restart_delayed_job () {
   # sanity check- sometimes we get multiple delayed_job processes- kill any others
   echo "Killing any orphaned delayed_job processes..."
-  pkill -u tekniklr -f delayed_job
+  pkill -u tekniklr -f delayed_job; true
   sleep 10
 
   # now start a new one
