@@ -47,7 +47,7 @@ namespace :delayed_job do
   task :kill do
     on roles(:app) do
       within shared_path do
-        execute "pkill -u tekniklr -f delayed_job"
+        execute "pkill -u tekniklr -f delayed_job; true"
         execute "sleep 10"
       end
     end
