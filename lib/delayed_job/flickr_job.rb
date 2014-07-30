@@ -11,6 +11,7 @@ class DelayedJob::FlickrJob
     found_photos = []
     photos.each do |photo|
       photo.summary =~ /img src=\"([0-9a-z\/:._]+)\"/
+      photo.title = (photo.title == 'upload') ? nil : photo.title
       if $1
         found_photos << {
           :title     => photo.title,
