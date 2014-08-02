@@ -13,7 +13,7 @@ source ${home}/.bash_profile > /dev/null 2>&1
 # sometimes we get multiple delayed_job processes- kill any
 kill_orphaned_delayed_jobs () {
   echo "Checking for orphaned delayed_job processes..."
-  if pgrep -u tekniklr -f delayed_job; then
+  if pgrep -u tekniklr -f delayed_job > /dev/null 2>&1; then
     echo "Orphaned jobs found! Killing..."
     pkill -u tekniklr -f delayed_job > /dev/null 2>&1
   else
