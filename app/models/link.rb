@@ -3,7 +3,7 @@ class Link < ActiveRecord::Base
   
   has_attached_file     :icon,
                         :styles => { :default => ["32x32#", :png] },
-                        :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
+                        :path => ":rails_root/public/icons/:attachment/:id/:style/:filename",
                         :url => "/icons/:attachment/:id/:style/:filename"
   validates_attachment_content_type :icon, :content_type => [ 'image/png', 'image/jpg', 'image/gif']
   
