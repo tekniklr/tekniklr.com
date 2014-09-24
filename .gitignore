@@ -9,6 +9,7 @@ tmp/
 doc/api
 doc/app
 public/static/
+public/icons/
 public/system/
 public/wpblog/
 config/database.yml
