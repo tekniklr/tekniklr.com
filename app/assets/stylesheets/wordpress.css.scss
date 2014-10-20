@@ -196,28 +196,24 @@ article.main {
  * custom classes I've been known to use inside of posts
  */
 blockquote, .quote {
-  margin: .5em 2em .5em 2em;
-  padding: .5em;
+  margin: 1em 0 1em 1em;
+  padding: 0 0 0 .5em;
   border-left: 1px dotted $base_font_color;
   text-align: justify;
 }
 @media screen and (min-width: 550px) {
   /* regular layout */
   blockquote, .quote {
-    margin: .5em 2em .5em 2em;
-    padding: .5em;
-    border-left: 1px dotted $base_font_color;
-    text-align: justify;
+    margin: 1em 0 1em 1em;
+    padding: 0 0 0 .5em;
   }
 }
 @media screen and (max-width: 550px) {
   /* mobile layout */
   blockquote, .quote {
-    margin: .5em 0 1em .25em;
+    margin: .5em 0 1em .5em;
     padding: 0 0 0 .25em;
     max-width: 100%;
-    border-left: 1px dotted $base_font_color;
-    text-align: justify;
   }
 }
 code {
