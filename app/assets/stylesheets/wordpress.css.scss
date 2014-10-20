@@ -184,7 +184,6 @@ h2.entry-title {
     color: $hover_color;
   }
 }
-
 article.main {
   margin: 0;
   padding: 0;
@@ -201,6 +200,25 @@ blockquote, .quote {
   padding: .5em;
   border-left: 1px dotted $base_font_color;
   text-align: justify;
+}
+@media screen and (min-width: 550px) {
+  /* regular layout */
+  blockquote, .quote {
+    margin: .5em 2em .5em 2em;
+    padding: .5em;
+    border-left: 1px dotted $base_font_color;
+    text-align: justify;
+  }
+}
+@media screen and (max-width: 550px) {
+  /* mobile layout */
+  blockquote, .quote {
+    margin: .5em 0 1em .25em;
+    padding: 0 0 0 .25em;
+    max-width: 100%;
+    border-left: 1px dotted $base_font_color;
+    text-align: justify;
+  }
 }
 code {
   margin: 0 .5em 0 .5em;
