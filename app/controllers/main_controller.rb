@@ -43,13 +43,16 @@ class MainController < ApplicationController
       Delayed::Job.enqueue(DelayedJob::LastfmJob.new)
     end
 
-    @gaming_expiry   = Rails.cache.read('gaming_expiry')
-    @gaming          = Rails.cache.read('gaming')
-    if @gaming_expiry.nil? || Time.now > @gaming_expiry
-      @gaming_expiry = Rails.cache.write('gaming_expiry', (Time.now + 3.hours))
-      require 'delayed_job/gaming_job'
-      Delayed::Job.enqueue(DelayedJob::GamingJob.new)
-    end
+    # raptr is hella borked- my RSS feed is always empty and it's not updating 
+    # PSN. stop checking it for now so it doesn't suprise me by suddenly 
+    # "working" differently one day
+    # @gaming_expiry   = Rails.cache.read('gaming_expiry')
+    # @gaming          = Rails.cache.read('gaming')
+    # if @gaming_expiry.nil? || Time.now > @gaming_expiry
+    #   @gaming_expiry = Rails.cache.write('gaming_expiry', (Time.now + 3.hours))
+    #   require 'delayed_job/gaming_job'
+    #   Delayed::Job.enqueue(DelayedJob::GamingJob.new)
+    # end
 
   end
 
