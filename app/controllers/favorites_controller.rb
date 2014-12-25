@@ -39,7 +39,7 @@ class FavoritesController < ApplicationController
 
   # POST /favorites
   def create
-    @favorite = Favorite.new(params[:favorite])
+    @favorite = Favorite.new(favorite_params)
     respond_to do |format|
       if @favorite.save
         format.html { redirect_to @favorite, :notice => 'Favorite was successfully created.' }
@@ -75,7 +75,7 @@ class FavoritesController < ApplicationController
   def update
     @favorite = Favorite.find(params[:id])
     respond_to do |format|
-      if @favorite.update_attributes(params[:favorite])
+      if @favorite.update_attributes(favorite_params)
         format.html { redirect_to @favorite, :notice => 'Favorite was successfully updated.' }
       else
         format.html { render :action => "edit" }
