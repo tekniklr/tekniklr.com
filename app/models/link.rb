@@ -1,6 +1,4 @@
 class Link < ActiveRecord::Base
-  attr_accessible :name, :url, :visible, :social_icon, :icon, :icon_file_name, :icon_content_type, :icon_file_size, :icon_updated_at
-  
   has_attached_file     :icon,
                         :styles => { :default => ["32x32#", :png] },
                         :path => ":rails_root/public/icons/:attachment/:id/:style/:filename",
@@ -16,7 +14,7 @@ class Link < ActiveRecord::Base
 
   validates_inclusion_of :visible, :in => [true, false], :allow_nil => true
 
-  default_scope :order => 'name asc'
+  default_scope { order('name asc') }
 
   # will only return links where visible is set to true
   scope :get_visible, where('visible = ?', true)

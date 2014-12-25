@@ -1,6 +1,4 @@
 class FavoriteThing < ActiveRecord::Base
-  attr_accessible :thing, :link, :sort
-  
   belongs_to  :favorite
   
   validates_presence_of :thing
@@ -12,6 +10,6 @@ class FavoriteThing < ActiveRecord::Base
   validates_presence_of     :sort
   validates_numericality_of :sort
   
-  default_scope :order => "sort asc, thing asc"
+  default_scope { order('sort asc, thing asc') }
   
 end

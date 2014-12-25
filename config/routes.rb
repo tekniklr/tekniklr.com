@@ -2,50 +2,50 @@ TekniklrCom::Application.routes.draw do
   root :to => 'main#index'
   
   # omniauth authentication
-  match '/login'                   => 'sessions#login', :as => :login
-  match "/auth/:provider/callback" => 'sessions#validate'
-  match '/logout'                  => 'sessions#logout', :as => :logout
-  match '/auth/failure'            => 'sessions#failure'
+  get '/login',                   to: 'sessions#login', :as => :login
+  get "/auth/:provider/callback", to: 'sessions#validate'
+  get '/logout',                  to: 'sessions#logout', :as => :logout
+  get '/auth/failure',            to: 'sessions#failure'
   
   # about page
-  match '/about'  => 'about#index'
+  get '/about',        to: 'about#index'
 
   # ack
-  match '/colophon'    => 'main#colophon'
+  get '/colophon',     to: 'main#colophon'
 
   # résumé
-  match '/resume'       => 'resume#index'
-  match '/resume/clean' => 'resume#clean'
+  get '/resume',       to: 'resume#index'
+  get '/resume/clean', to: 'resume#clean'
   
   # make sure only the html format works for various things
   constraints :format => "html" do
     # these are so that wordpress will use the layout generated
     # by rails
-    match '/static/headincmeta' => 'static#headincmeta_partial'
-    match '/static/header'      => 'static#header_partial'
-    match '/static/navigation'  => 'static#navigation_partial'
-    match '/static/footer'      => 'static#footer_partial'
-    match '/static/pageend'     => 'static#pageend_partial'
+    get '/static/headincmeta', to: 'static#headincmeta_partial'
+    get '/static/header',      to: 'static#header_partial'
+    get '/static/navigation',  to: 'static#navigation_partial'
+    get '/static/footer',      to: 'static#footer_partial'
+    get '/static/pageend',     to: 'static#pageend_partial'
   end
   
   resources :links, :only => [:index, :create, :destroy] do
-    put 'update_all', :on => :collection
+    patch 'update_all', :on => :collection
   end
   
   resources :experiences, :except => [:new]
   
-  resources :facets, :except => [:new]
+  resources :facets,      :except => [:new]
   
   resources :favorites do
-    put 'sort_favorites', :on => :collection
-    put 'sort_things',    :on => :collection
+    patch 'sort_favorites', :on => :collection
+    patch 'sort_things',    :on => :collection
   end
   
   resources :tabletop_games, :except => [:show] do
-    get 'manage',         :on => :collection
+    get 'manage',            :on => :collection
   end
 
   # https://github.com/rails/rails/issues/671
   # http://techoctave.com/c7/posts/36-rails-3-0-rescue-from-routing-error-solution
-  match '*a', :to => "application#routing_error"
+  match '*a', :to => "application#routing_error", :via => :get
 end
