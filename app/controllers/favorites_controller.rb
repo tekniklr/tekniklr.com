@@ -52,7 +52,7 @@ class FavoritesController < ApplicationController
   # PUT /favorites/sort
   def sort_favorites
     params[:favorite].each_with_index do |id, index|  
-      Favorite.update_all(['sort=?', index+1], ['id=?', id])
+      Favorite.update(id, sort: index+1)
     end
     respond_to do |format|
       format.html { redirect_to favorites_url, :notice => 'Favorites re-ordered.' }
@@ -63,7 +63,7 @@ class FavoritesController < ApplicationController
   # PUT /favorites/sort
   def sort_things
     params[:favorite_thing].each_with_index do |id, index|  
-      FavoriteThing.update_all(['sort=?', index+1], ['id=?', id])
+      FavoriteThing.update(id, sort: index+1)
     end
     respond_to do |format|
       format.html { redirect_to favorites_url, :notice => 'Favorite things re-ordered.' }
