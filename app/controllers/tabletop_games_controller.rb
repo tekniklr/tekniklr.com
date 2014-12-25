@@ -40,7 +40,7 @@ class TabletopGamesController < ApplicationController
 
   # POST /tabletop_games
   def create
-    @tabletop_game = TabletopGame.new(params[:tabletop_game])
+    @tabletop_game = TabletopGame.new(tabletop_game_params)
     respond_to do |format|
       if @tabletop_game.save
         format.html { redirect_to manage_tabletop_games_url, :notice => 'TableTop game was successfully created.' }
@@ -54,7 +54,7 @@ class TabletopGamesController < ApplicationController
   def update
     @tabletop_game = TabletopGame.find(params[:id])
     respond_to do |format|
-      if @tabletop_game.update_attributes(params[:tabletop_game])
+      if @tabletop_game.update_attributes(tabletop_game_params)
         format.html { redirect_to manage_tabletop_games_url, :notice => 'TableTop game was successfully updated.' }
       else
         format.html { render :action => "edit" }

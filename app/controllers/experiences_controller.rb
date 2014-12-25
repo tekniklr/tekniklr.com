@@ -31,7 +31,7 @@ class ExperiencesController < ApplicationController
 
   # POST /experience
   def create
-    @experience = Experience.new(params[:experience])
+    @experience = Experience.new(experience_params)
     respond_to do |format|
       if @experience.save
         flash[:notice] = 'Experience added.'
@@ -50,7 +50,7 @@ class ExperiencesController < ApplicationController
     @experience = Experience.find(params[:id])
 
     respond_to do |format|
-      if @experience.update_attributes(params[:experience])
+      if @experience.update_attributes(experience_params)
         flash[:notice] = 'Experience was successfully updated.'
         format.html { redirect_to experiences_url }
         format.js
