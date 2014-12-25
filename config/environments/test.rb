@@ -3,6 +3,8 @@ TekniklrCom::Application.configure do
 
   config.active_support.test_order = :random
 
+  config.active_record.raise_in_transactional_callbacks = true
+
   config.eager_load = false
 
   # The test environment is used exclusively to run your application's
