@@ -10,34 +10,34 @@
 */
 
 // colors / sizes / etc. used everywhere.
-@import "config.css.scss";
+@import "config.scss";
 
 // boilerplate begin
-@import "html5bpnormalization.css.scss";
+@import "html5bpnormalization.scss";
 
 // layout used in many places
-@import "layout.css.scss";
-@import "scaffolds.css.scss";
-@import "forms.css.scss";
+@import "layout.scss";
+@import "scaffolds.scss";
+@import "forms.scss";
 
 // wordpress crap
-@import "wordpress.css.scss";
+@import "wordpress.scss";
 // lazyest gallery is kinda dumb. using the lazyest stylesheet plugin.
-//@import "wordpress-lazyest_gallery.css.scss";
+//@import "wordpress-lazyest_gallery.scss";
 
 // controller specific styles
-@import "main.css.scss";
-@import "about.css.scss";
-@import "links.css.scss";
-@import "experiences.css.scss";
-@import "favorites.css.scss";
-@import "facets.css.scss";
-@import "resume.css.scss";
-@import "sessions.css.scss";
-@import "tabletop_games.css.scss";
+@import "main.scss";
+@import "about.scss";
+@import "links.scss";
+@import "experiences.scss";
+@import "favorites.scss";
+@import "facets.scss";
+@import "resume.scss";
+@import "sessions.scss";
+@import "tabletop_games.scss";
 
 // google's code prettifier
-@import "prettify.css.scss";
+@import "prettify.scss";
 
 // boilerplate end
-@import "html5bphelpers.css.scss";
+@import "html5bphelpers.scss";
