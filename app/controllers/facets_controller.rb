@@ -71,4 +71,11 @@ class FacetsController < ApplicationController
       format.js   
     end
   end
+
+  private
+
+  def facet_params
+    params.require(:facet).permit(:name, :slug, :value)
+  end
+  
 end

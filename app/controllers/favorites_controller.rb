@@ -93,4 +93,12 @@ class FavoritesController < ApplicationController
       format.js
     end
   end
+
+
+  private
+
+  def favorite_params
+    params.require(:favorite).permit(:favorite_type, :sort, favorite_things_attributes: [:thing, :link, :sort])
+  end
+  
 end

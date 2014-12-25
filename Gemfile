@@ -1,11 +1,15 @@
 source 'http://rubygems.org'
 ruby "2.0.0"
 
-gem 'rails', '~>3.2.0'
+gem 'rails', '~>4.2.0'
 gem 'mysql2'
 
 gem 'paperclip'
 gem 'validates_timeliness'
+
+# cache controller actions
+gem 'actionpack-action_caching'
+gem 'actionpack-page_caching'
 
 # better html
 gem 'haml'
@@ -35,12 +39,10 @@ gem 'delayed_job'
 gem 'delayed_job_active_record'
 gem 'daemons'
 
-group :assets do
-  gem 'sass-rails'
-  gem 'sass', '< 3.3' # going higher triggers a sprockets bug, get rid of this gem requirement (it is implied by sass-rails) later ( https://github.com/nex3/sass/issues/1162 )
-  gem 'coffee-rails'
-  gem 'uglifier'
-end
+# assets
+gem 'sass-rails'
+gem 'coffee-rails'
+gem 'uglifier'
 
 group :test do
   gem 'turn', :require => false

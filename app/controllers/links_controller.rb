@@ -48,4 +48,11 @@ class LinksController < ApplicationController
       format.js   
     end
   end
+
+  private
+
+  def link_params
+    params.require(:link).permit(:name, :url, :visible, :social_icon, :icon, :icon_file_name, :icon_content_type, :icon_file_size, :icon_updated_at)
+  end
+  
 end

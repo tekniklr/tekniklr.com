@@ -72,4 +72,11 @@ class TabletopGamesController < ApplicationController
       format.html { redirect_to manage_tabletop_games_url, :notice => 'TableTop game was successfully baleeted.' }
     end
   end
+
+  private
+
+  def tabletop_game_params
+    params.require(:tabletop_game).permit(:expansions, :name, :other_info, :players, :bgg_url)
+  end
+
 end
