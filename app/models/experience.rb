@@ -1,6 +1,4 @@
 class Experience < ActiveRecord::Base
-  attr_accessible :start_date, :end_date, :title, :affiliation, :affiliation_link, :location, :tasks
-  
   validates_presence_of :title
   validates_length_of   :title, :maximum => 60
   
@@ -17,5 +15,5 @@ class Experience < ActiveRecord::Base
   
   validates_date        :end_date, :allow_nil => true, :allow_blank => true
   
-  default_scope :order => 'start_date desc'
+  default_scope { order('start_date desc') }
 end
