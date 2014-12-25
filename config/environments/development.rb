@@ -4,6 +4,8 @@ TekniklrCom::Application.configure do
 
   config.cache_classes = false
 
+  config.active_record.raise_in_transactional_callbacks = true
+
   config.whiny_nils = true
 
   config.consider_all_requests_local       = true

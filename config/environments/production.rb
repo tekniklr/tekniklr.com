@@ -4,6 +4,8 @@ TekniklrCom::Application.configure do
 
   config.log_level = :info
 
+  config.active_record.raise_in_transactional_callbacks = true
+
   # Code is not reloaded between requests
   config.cache_classes = true
 
