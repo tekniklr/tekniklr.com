@@ -1,7 +1,5 @@
 class ResumeController < ApplicationController
   before_filter  { |c| c.page_title 'resume' }
-  caches_action   :index, :layout => false
-  caches_action   :clean
 
   def index
     collect_facets

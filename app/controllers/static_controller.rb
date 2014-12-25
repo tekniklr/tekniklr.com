@@ -1,7 +1,6 @@
 # this is so that wordpress can load its layout from rails
 class StaticController < ApplicationController
   before_filter :set_wpblog_variables
-  caches_page :index, :headincmeta_partial, :header_partial, :navigation_partial, :footer_partial, :pageend_partial
   
   def headincmeta_partial
     render :partial => 'layouts/static/headincmeta'

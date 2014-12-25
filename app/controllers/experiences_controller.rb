@@ -1,7 +1,6 @@
 class ExperiencesController < ApplicationController
   before_filter   :is_admin?
   before_filter   { |c| c.page_title 'experience management' }
-  cache_sweeper   :experience_sweeper, :only => [:create, :update, :destroy]
   
   # GET /experiences
   def index

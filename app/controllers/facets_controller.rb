@@ -1,7 +1,6 @@
 class FacetsController < ApplicationController
   before_filter   :is_admin?
   before_filter   { |c| c.page_title 'Facet management' }
-  cache_sweeper   :facet_sweeper, :only => [:create, :update, :destroy]
   
   # GET /facets
   def index
