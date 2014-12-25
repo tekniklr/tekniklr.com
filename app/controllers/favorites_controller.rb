@@ -1,7 +1,6 @@
 class FavoritesController < ApplicationController
   before_filter   :is_admin?
   before_filter   { |c| c.page_title 'favorite management' }
-  cache_sweeper   :favorite_sweeper, :only => [:create, :update, :destroy, :sort_favorites, :sort_things]
    
   # GET /favorites
   def index

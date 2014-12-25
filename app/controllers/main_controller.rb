@@ -1,6 +1,4 @@
 class MainController < ApplicationController
-  caches_action   :colophon, :layout => false
-  caches_action   :routing_error,   :layout => false
 
   def index
     @tumblr_expiry   = Rails.cache.read('tumblr_expiry')
