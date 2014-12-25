@@ -7,10 +7,6 @@ gem 'mysql2'
 gem 'paperclip'
 gem 'validates_timeliness'
 
-# cache controller actions
-gem 'actionpack-action_caching'
-gem 'actionpack-page_caching'
-
 # better html
 gem 'haml'
 
