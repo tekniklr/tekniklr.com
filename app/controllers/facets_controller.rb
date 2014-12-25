@@ -31,7 +31,7 @@ class FacetsController < ApplicationController
 
   # POST /facet
   def create
-    @facet = Facet.new(params[:facet])
+    @facet = Facet.new(facet_params)
     respond_to do |format|
       if @facet.save
         flash[:notice] = 'Facet added.'
@@ -49,7 +49,7 @@ class FacetsController < ApplicationController
   def update
     @facet = Facet.find(params[:id])
     respond_to do |format|
-      if @facet.update_attributes(params[:facet])
+      if @facet.update_attributes(facet_params)
         flash[:notice] = 'Facet was successfully updated.'
         format.html { redirect_to facets_url }
         format.js

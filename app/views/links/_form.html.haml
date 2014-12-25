@@ -1,4 +1,6 @@
 .edit_link
+  = hidden_field_tag :authenticity_token, form_authenticity_token
+
   - if link.errors.any?
     #error_explanation
       %h2 #{pluralize(link.errors.count, "error")} prohibited this link from being saved:

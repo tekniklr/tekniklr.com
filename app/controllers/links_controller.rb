@@ -24,7 +24,7 @@ class LinksController < ApplicationController
 
   # POST /link
   def create
-    @link = Link.new(params[:link])
+    @link = Link.new(link_params)
     respond_to do |format|
       if @link.save
         flash[:notice] = 'Link added.'
