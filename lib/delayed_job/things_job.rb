@@ -3,7 +3,7 @@ class DelayedJob::ThingsJob < Struct.new(:favorites)
   
   def perform
     things = {}
-    favorites.each do |favorite|
+    Favorite.all.each do |favorite|
       # for valid amazon item categories, see http://docs.aws.amazon.com/AWSECommerceService/latest/DG/USSearchIndexParamForItemsearch.html
       case favorite.favorite_type
       when "Movies", "TV", "Anime"
