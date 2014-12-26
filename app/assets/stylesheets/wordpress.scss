@@ -3,7 +3,7 @@
     @include rounded(1px, #888888, 1em, .1em, solid);
     width: 8em;
     background-color: $the_color;
-    background-image: url(/assets/search.png);
+    background-image: image-url("search.png");
     background-repeat: no-repeat;
     background-position: center left;
     padding: 0 0 0 1.5em;
