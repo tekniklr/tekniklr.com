@@ -6,7 +6,7 @@ class DelayedJob::GamingJob
     parsed_items = []
     begin
       feed  = Feedjira::Feed.fetch_and_parse('http://raptr.com/tekniklr/rss')
-      items = feed.entries.uniq_by{|i| i.title}
+      items = feed.entries.uniq{|i| i.title}
     rescue
       items = []
     end

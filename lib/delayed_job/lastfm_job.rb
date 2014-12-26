@@ -6,7 +6,7 @@ class DelayedJob::LastfmJob
     parsed_items = []
     begin
       feed  = Feedjira::Feed.fetch_and_parse('http://ws.audioscrobbler.com/1.0/user/tekniklr/recenttracks.rss')
-      items = feed.entries.uniq_by{|i| i.title}[0..10]
+      items = feed.entries.uniq{|i| i.title}[0..10]
     rescue
       items = []
     end
