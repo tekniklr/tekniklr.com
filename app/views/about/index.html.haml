@@ -6,39 +6,46 @@
     = image_tag "http://gravatar.com/avatar/#{@gravatar_id}.png?s=150", :class => 'photo', :alt => 'Teri Solow'
 
   %dl.info
-    = facet_print @who
-    = facet_print @location, 'adr'
-    = facet_print @interests
-    = facet_print @twitter
-    = facet_print @messaging
+    - cache @who do
+      = facet_print @who
+    - cache @location do
+      = facet_print @location, 'adr'
+    - cache @interests do
+      = facet_print @interests
+    - cache @twitter do
+      = facet_print @twitter
+    - cache @messaging do
+      = facet_print @messaging
     %dt Also available on
     %dd
-      - @about_links.each do |link|
-        - link == @about_links.last ? sep = '' : sep = ', '
-        = link_to(link.name.chomp, link.url) + sep
+      - cache @about_links do
+        - @about_links.each do |link|
+          - link == @about_links.last ? sep = '' : sep = ', '
+          = link_to(link.name.chomp, link.url) + sep
   
   %h1 Stuff I like
   %dl.favorites
-    - @favorites.each do |favorite|
-      %dt #{favorite.favorite_type}
-      - if !favorite.favorite_things.any?{|t| @things && @things.keys.include?(t.thing)}
-        %dd
-          - favorite.favorite_things.each do |thing|
-            - thing == favorite.favorite_things.last ? sep = '' : sep = '  ☆ '
-            = (!thing.link.blank? ? link_to(thing.thing.chomp, thing.link) : thing.thing.chomp) + sep
-      - else
-        %dd.spacey
-          %ul
+    - cache @favorites do
+      - @favorites.each do |favorite|
+        %dt #{favorite.favorite_type}
+        - if !favorite.favorite_things.any?{|t| @things && @things.keys.include?(t.thing)}
+          %dd
             - favorite.favorite_things.each do |thing|
-              %li{:class => (thing == favorite.favorite_things.last) ? '' : 'separated'}
-                = (!thing.link.blank? ? link_to(thing.thing.chomp, thing.link) : thing.thing.chomp)
-                - if @things[thing.thing]
-                  %br
-                  - if @things[thing.thing][:amazon_url]
-                    = link_to(image_tag(@things[thing.thing][:image_url], :alt => thing.thing.chomp, :title => thing.thing.chomp), @things[thing.thing][:amazon_url])
-                  - else
-                    = image_tag(@things[thing.thing][:image_url], :alt => thing.thing.chomp, :title => thing.thing.chomp)
-    
+              - thing == favorite.favorite_things.last ? sep = '' : sep = '  ☆ '
+              = (!thing.link.blank? ? link_to(thing.thing.chomp, thing.link) : thing.thing.chomp) + sep
+        - else
+          %dd.spacey
+            %ul
+              - favorite.favorite_things.each do |thing|
+                %li{:class => (thing == favorite.favorite_things.last) ? '' : 'separated'}
+                  = (!thing.link.blank? ? link_to(thing.thing.chomp, thing.link) : thing.thing.chomp)
+                  - if @things[thing.thing]
+                    %br
+                    - if @things[thing.thing][:amazon_url]
+                      = link_to(image_tag(@things[thing.thing][:image_url], :alt => thing.thing.chomp, :title => thing.thing.chomp), @things[thing.thing][:amazon_url])
+                    - else
+                      = image_tag(@things[thing.thing][:image_url], :alt => thing.thing.chomp, :title => thing.thing.chomp)
+      
 #footnote
   %div
     provided in the #{link_to 'hcard', 'http://microformats.org/wiki/hcard'} #{link_to 'microformat', 'http://microformats.org/'}

@@ -10,31 +10,32 @@
   And if you like, or think you may like, TableTop games and would like to know more- Go #{link_to 'here', 'http://tabletop.geekandsundry.com'}. Do not pass Go. Do not collect $200. 
 
 %ul#tabletop_list
-  - @tabletop_games.each do |tabletop_game|
-    %li.tabletop_game
-      .game_basic
-        - if @tabletop_amazon && @tabletop_amazon[tabletop_game.name]
-          .game_image
-            - if @tabletop_amazon[tabletop_game.name][:amazon_url]
-              = link_to(image_tag(@tabletop_amazon[tabletop_game.name][:image_url], :alt => tabletop_game.name.chomp, :title => tabletop_game.name.chomp), @tabletop_amazon[tabletop_game.name][:amazon_url])
-            - else
-              = image_tag(@tabletop_amazon[tabletop_game.name][:image_url], :alt => tabletop_game.name.chomp, :title => tabletop_game.name.chomp)
-        .game_name
-          = tabletop_game.name
-        - if !tabletop_game.players.blank?
-          .game_players
-            #{tabletop_game.players} players
-      .game_detail
-        - if !tabletop_game.other_info.blank?
-          .game_info
-            = simple_format tabletop_game.other_info
-        - if !tabletop_game.expansions.blank?
-          .game_expansions
-            %strong Expansions:
-            - expansions = tabletop_game.expansions.split( /\r?\n/ )
-            %ul
-              - expansions.each do |expansion|
-                %li #{expansion}
-        - if !tabletop_game.bgg_url.blank?
-          .game_bgg
-            = link_to 'See on BoardGameGeek', tabletop_game.bgg_url
+  - cache @tabletop_games do
+    - @tabletop_games.each do |tabletop_game|
+      %li.tabletop_game
+        .game_basic
+          - if @tabletop_amazon && @tabletop_amazon[tabletop_game.name]
+            .game_image
+              - if @tabletop_amazon[tabletop_game.name][:amazon_url]
+                = link_to(image_tag(@tabletop_amazon[tabletop_game.name][:image_url], :alt => tabletop_game.name.chomp, :title => tabletop_game.name.chomp), @tabletop_amazon[tabletop_game.name][:amazon_url])
+              - else
+                = image_tag(@tabletop_amazon[tabletop_game.name][:image_url], :alt => tabletop_game.name.chomp, :title => tabletop_game.name.chomp)
+          .game_name
+            = tabletop_game.name
+          - if !tabletop_game.players.blank?
+            .game_players
+              #{tabletop_game.players} players
+        .game_detail
+          - if !tabletop_game.other_info.blank?
+            .game_info
+              = simple_format tabletop_game.other_info
+          - if !tabletop_game.expansions.blank?
+            .game_expansions
+              %strong Expansions:
+              - expansions = tabletop_game.expansions.split( /\r?\n/ )
+              %ul
+                - expansions.each do |expansion|
+                  %li #{expansion}
+          - if !tabletop_game.bgg_url.blank?
+            .game_bgg
+              = link_to 'See on BoardGameGeek', tabletop_game.bgg_url
