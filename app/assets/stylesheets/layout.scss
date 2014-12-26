@@ -86,7 +86,7 @@ a:hover { color: $hover_color; }
 }
 
 #pagehead {
-  background-image: url(/assets/tentacles.png);
+  background-image: image-url("tentacles.png");
   background-repeat: no-repeat;
   background-position: bottom right;
   height: 80px;
