@@ -3,7 +3,6 @@
 REVISION
 db/*.sqlite3
 log/*.log*
-bin/
 tmp/
 .DS_Store
 doc/api
