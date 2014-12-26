@@ -8,6 +8,7 @@
     
 #social
   %ul
-    - for social_medium in @social_media do
-      %li
-        = link_to image_tag(social_medium.icon.url(:default), :alt => social_medium.name, :title => social_medium.name), social_medium.url
+    - cache @social_media do
+      - for social_medium in @social_media do
+        %li
+          = link_to image_tag(social_medium.icon.url(:default), :alt => social_medium.name, :title => social_medium.name), social_medium.url
