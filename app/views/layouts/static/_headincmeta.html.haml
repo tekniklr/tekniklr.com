@@ -30,5 +30,6 @@
 
 = yield :header
 
-- for link in @links do
-  %link{:rel => 'me', :href => link.url}/
+- cache @links do
+  - for link in @links do
+    %link{:rel => 'me', :href => link.url}/
