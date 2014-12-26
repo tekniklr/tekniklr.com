@@ -36,10 +36,10 @@ module DelayedJob::AmazonJob
       # keep results cached so each item is only looked up once; even
       # if it was not found
       cached_amazon_items ||= {}
-      if !Rails.application.assets.find_asset("products/#{item_title.downcase.gsub!(/[^A-Za-z0-9]/, '_')}.jpg").nil?
+      if !Rails.application.assets.find_asset("products/#{item_title.downcase.gsub(/[^a-z0-9]/i, '_')}.jpg").nil?
         Rails.logger.debug "Preselected image found"
         cached_amazon_items[item_key] = {
-          :image_url  => "/assets/products/#{item_title.downcase.gsub!(/[^A-Za-z0-9]/, '_')}.jpg"
+          :image_url  => "/assets/products/#{item_title.downcase.gsub(/[^a-z0-9]/i, '_')}.jpg")
         }
       elsif image_url && amazon_url
         Rails.logger.debug "Amazon product found"
