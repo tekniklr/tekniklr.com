@@ -3,7 +3,7 @@ class DelayedJob::TabletopJob < Struct.new(:tabletop_games)
   
   def perform
     things = {}
-    tabletop_games.each do |game|
+    TabletopGame.all.each do |game|
       amazon_data = get_amazon(game.name, 'Toys')
       if amazon_data
         things[game.name] = {
