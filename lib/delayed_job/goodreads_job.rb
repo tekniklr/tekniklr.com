@@ -6,7 +6,7 @@ class DelayedJob::GoodreadsJob
     parsed_items = []
     begin
       feed  = Feedjira::Feed.fetch_and_parse('http://www.goodreads.com/user/updates_rss/10905654?key=80323864cb4de1c67549229f456b630a729c213a')
-      items = feed.entries.uniq_by{|i| i.title}
+      items = feed.entries.uniq{|i| i.title}
     rescue
       items = []
     end
