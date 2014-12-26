@@ -10,7 +10,7 @@ class TabletopGamesController < ApplicationController
     if !@tabletop_fetched
       @tabletop_fetched = Rails.cache.write('tabletop_fetched', true)
       require 'delayed_job/tabletop_job'
-      Delayed::Job.enqueue(DelayedJob::TabletopJob.new(@tabletop_games))
+      Delayed::Job.enqueue(DelayedJob::TabletopJob.new)
     end
     respond_to do |format|
       format.html # index.html.erb
