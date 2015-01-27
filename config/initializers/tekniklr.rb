@@ -1,3 +1,3 @@
 EMAIL = 'tsolow@tekniklr.com'
-TAGLINE = 'cyborg, programmer, gamer, social justice warrior, cyclist, miscreant'
+TAGLINE = 'cyborg, programmer, gamer, miscreant'
 NUM_FAVS = 6
