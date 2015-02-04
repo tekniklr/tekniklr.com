@@ -1,6 +1,6 @@
 # This file is used by Rack-based servers to start the application.
-ENV['MY_RUBY_HOME']="/home/tekniklr/.rvm/rubies/ruby-2.0.0-p451"
-ENV['GEM_HOME']="/home/tekniklr/.rvm/gems/ruby-2.0.0-p451"
+ENV['MY_RUBY_HOME']="/home/tekniklr/.rvm/rubies/ruby-2.1.1"
+ENV['GEM_HOME']="/home/tekniklr/.rvm/gems/ruby-2.1.1"
 ENV['GEM_PATH']="#{ENV['GEM_HOME']}"
 require 'rubygems'
 
