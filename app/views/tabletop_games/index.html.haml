@@ -10,7 +10,7 @@
   And if you like, or think you may like, TableTop games and would like to know more- Go #{link_to 'here', 'http://tabletop.geekandsundry.com'}. Do not pass Go. Do not collect $200. 
 
 %ul#tabletop_list
-  - cache [@tabletop_games, @tabletop_amazon], :skip_digest => true do
+  - cache [@tabletop_games, @tabletop_amazon] do
     - @tabletop_games.each do |tabletop_game|
       %li.tabletop_game
         .game_basic
