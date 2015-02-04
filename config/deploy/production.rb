@@ -15,7 +15,7 @@ set :linked_dirs, %w{public/wpblog public/images public/icons}
 server 'tekniklr.com', user: 'tekniklr', roles: [:web, :app]
 
 set :rvm_type, :user
-set :rvm_ruby_version, '2.1.1'
+set :rvm_ruby_version, '2.1.5'
 
 set :ssh_options, {
   :forward_agent => true
