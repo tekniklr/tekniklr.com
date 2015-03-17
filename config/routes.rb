@@ -29,7 +29,7 @@ TekniklrCom::Application.routes.draw do
   end
   
   resources :links, :only => [:index, :create, :destroy] do
-    patch 'update_all', :on => :collection
+    put 'update_all', :on => :collection
   end
   
   resources :experiences, :except => [:new]
