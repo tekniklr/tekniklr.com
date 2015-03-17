@@ -1,6 +1,6 @@
 - if @links && @links.count > 0
   %h1 Current links
-  = form_tag update_all_links_path, multipart: true, method: :patch do
+  = form_tag update_all_links_path, method: :patch do
     #links
       - @links.each do |link|
         = render 'link', :link => link
