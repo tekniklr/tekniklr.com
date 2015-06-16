@@ -20,10 +20,10 @@ class AboutController < ApplicationController
   
   def build_favorites
     @favorites = Favorite.all
-    @things_expiry = Rails.cache.read('things_expiry')
+    @things_fetched = Rails.cache.read('things_fetched')
     @things         = Rails.cache.read('things_amazon')
-    if @things_expiry.nil? || Time.now > @things_expiry
-      @things_expiry = Rails.cache.write('things_expiry', (Time.now + 6.hours))
+    if !@things_fetched
+      @things_fetched = Rails.cache.write('things_fetched', true)
       require 'delayed_job/things_job'
       Delayed::Job.enqueue(DelayedJob::ThingsJob.new)
     end
