@@ -4,11 +4,11 @@ class TabletopGamesController < ApplicationController
 
   # GET /tabletop_games
   def index
-    @tabletop_games  = TabletopGame.all
-    @tabletop_expiry = Rails.cache.read('tabletop_expiry')
-    @tabletop_amazon = Rails.cache.read('tabletop_amazon')
-    if @tabletop_expiry.nil? || Time.now > @tabletop_expiry
-      @tabletop_expiry = Rails.cache.write('tabletop_expiry', (Time.now + 6.hours))
+    @tabletop_games   = TabletopGame.all
+    @tabletop_fetched = Rails.cache.read('tabletop_fetched')
+    @tabletop_amazon  = Rails.cache.read('tabletop_amazon')
+    if !@tabletop_fetched
+      @tabletop_fetched = Rails.cache.write('tabletop_fetched', true)
       require 'delayed_job/tabletop_job'
       Delayed::Job.enqueue(DelayedJob::TabletopJob.new)
     end
