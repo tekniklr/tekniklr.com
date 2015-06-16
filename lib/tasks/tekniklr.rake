@@ -15,7 +15,7 @@ namespace :tekniklr do
       'lastfm',
       'gaming_expiry',
       'gaming',
-      'things_expiry',
+      'things_fetched',
       'things_amazon',
       'tabletop_expiry',
       'tabletop_amazon'
