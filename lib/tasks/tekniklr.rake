@@ -17,7 +17,7 @@ namespace :tekniklr do
       'gaming',
       'things_fetched',
       'things_amazon',
-      'tabletop_expiry',
+      'tabletop_fetched',
       'tabletop_amazon'
     ]
     cached_items.each do |item|
