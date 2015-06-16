@@ -42,7 +42,7 @@ class FavoritesController < ApplicationController
     @favorite = Favorite.new(favorite_params)
     respond_to do |format|
       if @favorite.save
-        Rails.cache.delete('things_expiry')
+        Rails.cache.delete('things_fetched')
         format.html { redirect_to @favorite, :notice => 'Favorite was successfully created.' }
       else
         format.html { render :action => "new" }
@@ -77,7 +77,7 @@ class FavoritesController < ApplicationController
     @favorite = Favorite.find(params[:id])
     respond_to do |format|
       if @favorite.update_attributes(favorite_params)
-        Rails.cache.delete('things_expiry')
+        Rails.cache.delete('things_fetched')
         format.html { redirect_to @favorite, :notice => 'Favorite was successfully updated.' }
       else
         format.html { render :action => "edit" }
