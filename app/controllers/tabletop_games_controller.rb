@@ -43,7 +43,7 @@ class TabletopGamesController < ApplicationController
     @tabletop_game = TabletopGame.new(tabletop_game_params)
     respond_to do |format|
       if @tabletop_game.save
-        Rails.cache.delete('tabletop_expiry')
+        Rails.cache.delete('tabletop_fetched')
         format.html { redirect_to manage_tabletop_games_url, :notice => 'TableTop game was successfully created.' }
       else
         format.html { render :action => "new" }
@@ -56,7 +56,7 @@ class TabletopGamesController < ApplicationController
     @tabletop_game = TabletopGame.find(params[:id])
     respond_to do |format|
       if @tabletop_game.update_attributes(tabletop_game_params)
-        Rails.cache.delete('tabletop_expiry')
+        Rails.cache.delete('tabletop_fetched')
         format.html { redirect_to manage_tabletop_games_url, :notice => 'TableTop game was successfully updated.' }
       else
         format.html { render :action => "edit" }
