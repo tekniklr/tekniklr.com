@@ -1,6 +1,8 @@
 %li
-  - if item[:image_url] && item[:amazon_url] && (item[:title].similar(item[:amazon_title]) >= SIMILAR_THRESHOLD)
+  - if item[:image_url] && item[:amazon_url] && (item[:similarity] >= SIMILAR_THRESHOLD)
     = link_to image_tag(item[:image_url], :alt => item[:title], :title => item[:title]), item[:amazon_url]
+  - elsif item[:image_url] && item[:amazon_title].blank?
+    = link_to image_tag(item[:image_url], :alt => item[:title], :title => item[:title]), item[:url]
   - else
     = link_to item[:title], item[:url]
   %p{:class => "when fade#{fade}"}
