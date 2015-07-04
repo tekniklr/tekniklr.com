@@ -15,7 +15,10 @@ module DelayedJob::AmazonJob
       # actually perform amazon search
       require 'amazon/aws/search'
       begin
-        resp = Amazon::AWS.item_search( item_type, { 'Keywords' => item_title } )
+        resp = Amazon::AWS.item_search( item_type, { 
+          'Keywords' => item_title,
+          'IncludeReviewsSummary' => false
+        } )
         item = resp.item_search_response.items.item.first
         image_url = item.small_image
         amazon_url = item.item_links.first.item_link.first
