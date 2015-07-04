@@ -7,6 +7,9 @@ TekniklrCom::Application.routes.draw do
   get '/logout',                  to: 'sessions#logout', :as => :logout
   get '/auth/failure',            to: 'sessions#failure'
   
+  # clean cache items
+  get '/clean_cache',             to: 'application#clean_cache', as: :clean_cache
+
   # about page
   get '/about',        to: 'about#index'
 
