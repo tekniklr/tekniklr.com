@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/tekniklr/ruby-aaws.git
+  revision: 01d6036c7066eca9f3b2f1a74a452053ea31554e
+  specs:
+    ruby-aaws (0.9.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -188,7 +194,6 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rake (10.4.2)
     ref (1.0.5)
-    ruby-aaws (0.7.0)
     sass (3.4.15)
     sass-rails (5.0.3)
       railties (>= 4.0.0, < 5.0)
@@ -262,7 +267,7 @@ DEPENDENCIES
   paperclip
   pry-rails
   rails (~> 4.2.0)
-  ruby-aaws
+  ruby-aaws!
   sass-rails
   shoulda
   similar_text

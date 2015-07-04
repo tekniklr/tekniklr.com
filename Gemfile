@@ -28,7 +28,7 @@ gem 'similar_text'
 gem 'iconv'
 
 # for amazon web services; not to be confused with ruby-aws
-gem 'ruby-aaws'
+gem 'ruby-aaws', :git => 'https://github.com/tekniklr/ruby-aaws.git'
 
 gem 'htmlentities'
 
