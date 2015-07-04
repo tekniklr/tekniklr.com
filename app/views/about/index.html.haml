@@ -21,7 +21,7 @@
       - cache @about_links do
         - @about_links.each do |link|
           - link == @about_links.last ? sep = '' : sep = ', '
-          = link_to(link.name.chomp, link.url) + sep
+          = link_to(link.name, link.url) + sep
   
   %h1 Stuff I like
   %dl.favorites
@@ -32,19 +32,19 @@
           %dd
             - favorite.favorite_things.each do |thing|
               - thing == favorite.favorite_things.last ? sep = '' : sep = '  ☆ '
-              = (!thing.link.blank? ? link_to(thing.thing.chomp, thing.link) : thing.thing.chomp) + sep
+              = (!thing.link.blank? ? link_to(thing.thing, thing.link) : thing.thing) + sep
         - else
           %dd.spacey
             %ul
               - favorite.favorite_things.each do |thing|
                 %li{:class => (thing == favorite.favorite_things.last) ? '' : 'separated'}
-                  = (!thing.link.blank? ? link_to(thing.thing.chomp, thing.link) : thing.thing.chomp)
+                  = (!thing.link.blank? ? link_to(thing.thing, thing.link) : thing.thing)
                   - if @things[thing.thing]
                     %br
                     - if @things[thing.thing][:amazon_url]
-                      = link_to(image_tag(@things[thing.thing][:image_url], :alt => thing.thing.chomp, :title => thing.thing.chomp), @things[thing.thing][:amazon_url])
+                      = link_to(image_tag(@things[thing.thing][:image_url], :alt => thing.thing, :title => thing.thing), @things[thing.thing][:amazon_url])
                     - else
-                      = image_tag(@things[thing.thing][:image_url], :alt => thing.thing.chomp, :title => thing.thing.chomp)
+                      = image_tag(@things[thing.thing][:image_url], :alt => thing.thing, :title => thing.thing)
       
 #footnote
   %div
