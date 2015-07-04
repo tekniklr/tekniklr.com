@@ -25,7 +25,8 @@ class DelayedJob::GoodreadsJob
           :published    => item.published,
           :image_url    => amazon[:image_url],
           :amazon_url   => amazon[:amazon_url],
-          :amazon_title => amazon[:amazon_title]
+          :amazon_title => amazon[:amazon_title],
+          :similarity   => amazon[:similarity]
         }
       else
         parsed_items << {

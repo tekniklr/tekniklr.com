@@ -41,7 +41,7 @@
                   = (!thing.link.blank? ? link_to(thing.thing, thing.link) : thing.thing)
                   - if @things[thing.thing]
                     %br
-                    - if @things[thing.thing][:amazon_url] && (thing.thing.similar(@things[thing.thing][:amazon_title]) >= SIMILAR_THRESHOLD)
+                    - if @things[thing.thing][:amazon_url] && (@things[thing.thing][:similarity] >= SIMILAR_THRESHOLD)
                       = link_to(image_tag(@things[thing.thing][:image_url], :alt => thing.thing, :title => thing.thing), @things[thing.thing][:amazon_url])
                     - elsif @things[thing.thing][:amazon_title].blank?
                       = image_tag(@things[thing.thing][:image_url], :alt => thing.thing, :title => thing.thing)

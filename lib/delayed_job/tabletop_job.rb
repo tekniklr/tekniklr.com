@@ -4,12 +4,13 @@ class DelayedJob::TabletopJob < Struct.new(:tabletop_games)
   def perform
     things = {}
     TabletopGame.all.each do |game|
-      amazon_data = get_amazon(game.name, 'Toys')
-      if amazon_data
+      amazon = get_amazon(game.name, 'Toys')
+      if amazon
         things[game.name] = {
-          :image_url    => amazon_data[:image_url],
-          :amazon_url   => amazon_data[:amazon_url],
-          :amazon_title => amazon_data[:amazon_title]
+          :image_url    => amazon[:image_url],
+          :amazon_url   => amazon[:amazon_url],
+          :amazon_title => amazon[:amazon_title],
+          :similarity   => amazon[:similarity]
         }
       end
     end
