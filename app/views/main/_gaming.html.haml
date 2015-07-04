@@ -1,5 +1,8 @@
 %li
-  = link_to (item[:image_url] ? image_tag(item[:image_url], :alt => item[:title], :title => item[:title]) : item[:title]), (item[:amazon_url] ? item[:amazon_url] : item[:url])
+  - if item[:image_url] && (item[:title].similar(item[:amazon_title]) >= SIMILAR_THRESHOLD)
+    = link_to image_tag(item[:image_url], :alt => item[:title], :title => item[:title]), item[:amazon_url]
+  - else
+    = link_to item[:title], item[:url]
   %p{:class => "when fade#{fade}"}
     - if item[:published]
       = time_ago_in_words(item[:published])+' ago'
