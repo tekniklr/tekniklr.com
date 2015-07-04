@@ -1,7 +1,7 @@
 EMAIL = 'tsolow@tekniklr.com'
 TAGLINE = 'cyborg, programmer, gamer, miscreant, INTJ'
 NUM_FAVS = 6
-SIMILAR_THRESHOLD = 80
+SIMILAR_THRESHOLD = 75
 CACHED_ITEMS = [
                   'tumblr_expiry',
                   'tumblr_posts',
