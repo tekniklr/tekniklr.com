@@ -3,6 +3,8 @@
     #admin
       Logged in as #{current_user.name}
       ☣
+      = link_to 'cache', clean_cache_path
+      ☣
       = link_to 'links', links_path
       ☣
       = link_to 'tabletop', manage_tabletop_games_path
