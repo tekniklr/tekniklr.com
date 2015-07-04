@@ -21,11 +21,12 @@ class DelayedJob::GamingJob
       amazon = get_amazon(title, 'VideoGames')
       if amazon
         parsed_items << {
-          :title      => title,
-          :url        => item.url,
-          :published  => item.published,
-          :image_url  => amazon[:image_url],
-          :amazon_url => amazon[:amazon_url]
+          :title        => title,
+          :url          => item.url,
+          :published    => item.published,
+          :image_url    => amazon[:image_url],
+          :amazon_url   => amazon[:amazon_url],
+          :amazon_title => amazon[:amazon_title]
         }
       else
         parsed_items << {

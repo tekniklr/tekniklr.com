@@ -24,8 +24,9 @@ class DelayedJob::ThingsJob < Struct.new(:favorites)
           amazon_data = get_amazon(thing.thing, amazon_type)
           if amazon_data
             things[thing.thing] = {
-              :image_url  => amazon_data[:image_url],
-              :amazon_url => amazon_data[:amazon_url]
+              :image_url    => amazon_data[:image_url],
+              :amazon_url   => amazon_data[:amazon_url],
+              :amazon_title => amazon_data[:amazon_title]
             }
           end
         end
