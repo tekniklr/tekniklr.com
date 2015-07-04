@@ -23,6 +23,8 @@ gem 'json'
 # rss fetcher/parser that actually works
 gem 'feedjira'
 
+gem 'similar_text'
+
 gem 'iconv'
 
 # for amazon web services; not to be confused with ruby-aws
