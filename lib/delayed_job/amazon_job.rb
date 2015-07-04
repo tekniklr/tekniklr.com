@@ -45,9 +45,10 @@ module DelayedJob::AmazonJob
       elsif image_url && amazon_url
         Rails.logger.debug "Amazon product found"
         cached_amazon_items[item_key] = {
-          :image_url  => image_url.url.__val__,
-          :amazon_url => amazon_url.url.__val__,
-          :amazon_title => amazon_title.__val__
+          :image_url    => image_url.url.__val__,
+          :amazon_url   => amazon_url.url.__val__,
+          :amazon_title => amazon_title.__val__,
+          :similarity   => similarity(item_title, amazon_title.__val__)
         }
       else
         Rails.logger.debug "No image or Amazon product found; no image left to use"
@@ -59,4 +60,19 @@ module DelayedJob::AmazonJob
     end
   end
   
+  # sometimes searching for an item would return the correct thing but it
+  # would get a low similarity score for stupid subtitle reasons.
+  # example:
+  #   'lords of waterdeep' != 'lords of waterdeep: a dungeons and dragons game'
+  # (and I'm not entering that whole stupid fucking title)
+  def similarity(thing1, thing2)
+    beginnings_thing1 = thing1.sub(/[-:(].*/, '')
+    beginnings_thing2 = thing2.sub(/[-:(].*/, '')
+    beginnings = beginnings_thing1.similar(beginnings_thing2)
+    endings_thing1 = thing1.sub(/.*[-:)]/, '')
+    endings_thing2 = thing2.sub(/.*[-:)]/, '')
+    endings = endings_thing1.similar(endings_thing2)
+    [beginnings, endings].max
+  end
+
 end
