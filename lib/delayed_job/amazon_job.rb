@@ -48,7 +48,7 @@ module DelayedJob::AmazonJob
           :image_url    => image_url.url.__val__,
           :amazon_url   => amazon_url.url.__val__,
           :amazon_title => amazon_title.__val__,
-          :similarity   => similarity(item_title, amazon_title.__val__)
+          :similarity   => similarity(item_type, item_title, amazon_title.__val__)
         }
       else
         Rails.logger.debug "No image or Amazon product found; no image left to use"
@@ -65,7 +65,8 @@ module DelayedJob::AmazonJob
   # example:
   #   'lords of waterdeep' != 'lords of waterdeep: a dungeons and dragons game'
   # (and I'm not entering that whole stupid fucking title)
-  def similarity(thing1, thing2)
+  def similarity(item_type, thing1, thing2)
+    (item_type == 'Music') and return 100
     beginnings_thing1 = thing1.sub(/[-:(].*/, '')
     beginnings_thing2 = thing2.sub(/[-:(].*/, '')
     beginnings = beginnings_thing1.similar(beginnings_thing2)
