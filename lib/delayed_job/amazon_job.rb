@@ -26,6 +26,7 @@ module DelayedJob::AmazonJob
         item = resp.item_search_response.items.item.first
         image_url = item.small_image
         amazon_url = item.item_links.first.item_link.first
+        amazon_title = item.item_attributes.title
       rescue
         # could set amazon_values to false here so it gets cached, but
         # i'm assuming this will mostly occur for temporary network problems
@@ -45,7 +46,8 @@ module DelayedJob::AmazonJob
         Rails.logger.debug "Amazon product found"
         cached_amazon_items[item_key] = {
           :image_url  => image_url.url.__val__,
-          :amazon_url => amazon_url.url.__val__
+          :amazon_url => amazon_url.url.__val__,
+          :amazon_title => amazon_title.__val__
         }
       else
         Rails.logger.debug "No image or Amazon product found; no image left to use"

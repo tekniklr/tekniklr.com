@@ -15,10 +15,11 @@ class DelayedJob::LastfmJob
       amazon = get_amazon(artist, 'Music')
       if amazon
         parsed_items << {
-          :title      => item.title,
-          :published  => item.published,
-          :image_url  => amazon[:image_url],
-          :amazon_url => amazon[:amazon_url]
+          :title        => item.title,
+          :published    => item.published,
+          :image_url    => amazon[:image_url],
+          :amazon_url   => amazon[:amazon_url],
+          :amazon_title => amazon[:amazon_title]
         }
       else
         parsed_items << {
