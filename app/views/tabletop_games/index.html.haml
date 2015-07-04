@@ -17,9 +17,9 @@
           - if @tabletop_amazon && @tabletop_amazon[tabletop_game.name]
             .game_image
               - if @tabletop_amazon[tabletop_game.name][:amazon_url]
-                = link_to(image_tag(@tabletop_amazon[tabletop_game.name][:image_url], :alt => tabletop_game.name.chomp, :title => tabletop_game.name.chomp), @tabletop_amazon[tabletop_game.name][:amazon_url])
+                = link_to(image_tag(@tabletop_amazon[tabletop_game.name][:image_url], :alt => tabletop_game.name, :title => tabletop_game.name), @tabletop_amazon[tabletop_game.name][:amazon_url])
               - else
-                = image_tag(@tabletop_amazon[tabletop_game.name][:image_url], :alt => tabletop_game.name.chomp, :title => tabletop_game.name.chomp)
+                = image_tag(@tabletop_amazon[tabletop_game.name][:image_url], :alt => tabletop_game.name, :title => tabletop_game.name)
           .game_name
             = tabletop_game.name
           - if !tabletop_game.players.blank?
