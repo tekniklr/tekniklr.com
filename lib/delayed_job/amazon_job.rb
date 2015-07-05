@@ -74,8 +74,8 @@ module DelayedJob::AmazonJob
   # (and I'm not entering that whole stupid fucking title)
   def similarity(thing1, thing2)
     Rails.logger.debug "Checking similarity between \"#{thing1}\" and \"#{thing2}\"..."
-    beginnings_thing1 = thing1.downcase.sub(/[-:(].*/, '')
-    beginnings_thing2 = thing2.downcase.sub(/[-:(].*/, '')
+    beginnings_thing1 = thing1.downcase.sub(/[-:(0-9].*/, '')
+    beginnings_thing2 = thing2.downcase.sub(/[-:(0-9].*/, '')
     beginnings = !(beginnings_thing1.empty? && beginnings_thing2.empty?) ? beginnings_thing1.similar(beginnings_thing2) : 0
     endings_thing1 = thing1.downcase.sub(/.*[-:)]/, '')
     endings_thing2 = thing2.downcase.sub(/.*[-:)]/, '')
