@@ -10,60 +10,65 @@ module DelayedJob::AmazonJob
       Rails.logger.debug "Cached amazon #{item_type}(s) called #{item_title} found"
       return cached_amazon_items[item_key]
     else
-      Rails.logger.debug "Cached item not found; searching amazon for #{item_type}(s) called #{item_title}"
-      
-      # actually perform amazon search
-      require 'amazon/aws/search'
-      begin
-        resp = Amazon::AWS.item_search( item_type, { 
-          'Keywords' => item_title,
-          'IncludeReviewsSummary' => false
-        } )
-        item = resp.item_search_response.items.item.first
-        returned_type = item.item_attributes.product_type_name.__val__
-        image_url = item.small_image.url.__val__
-        amazon_url = item.item_links.first.item_link.first.url.__val__
-        # different item types return different parameters. see:
-        #   https://docs.aws.amazon.com/AWSECommerceService/latest/DG/LocaleUS.html
-        amazon_title  = case returned_type
-                        when "DOWNLOADABLE_TV_EPISODE"
-                          # unfortunately, amazon results will return the title of the first episode of the series, but not the name of the series. trust amazon returned the correct series. ಠ_ಠ
-                          item_title
-                        when "ABIS_MUSIC"
-                          "#{item.item_attributes.artist.__val__} - #{item.item_attributes.title.__val__}"
-                        else
-                          item.item_attributes.title.__val__
-                        end
-      rescue
-        # could set amazon_values to false here so it gets cached, but
-        # i'm assuming this will mostly occur for temporary network problems
-        # so it makes sense to try again later
-        return false
-      end
-      
+      Rails.logger.debug "Cached item not found"
+
       # keep results cached so each item is only looked up once; even
       # if it was not found
       cached_amazon_items ||= {}
+
       image_override_name = "products/#{item_title.downcase.gsub(/[^a-z0-9]+/, '_')}.jpg"
       if !Rails.application.assets.find_asset(image_override_name).nil?
-        Rails.logger.debug "Preselected image found"
+        Rails.logger.debug "Override image found"
         cached_amazon_items[item_key] = {
           :image_url  => ActionController::Base.helpers.image_path(image_override_name)
         }
-      elsif image_url && amazon_url
-        Rails.logger.debug "Amazon product found"
-        cached_amazon_items[item_key] = {
-          :image_url    => image_url,
-          :amazon_url   => amazon_url,
-          :amazon_title => amazon_title,
-          :similarity   => similarity(item_title, amazon_title)
-        }
       else
-        Rails.logger.debug "No image or Amazon product found; no image left to use"
-        cached_amazon_items[item_key] = false
+        Rails.logger.debug "Searching amazon for #{item_type}(s) called #{item_title}"
+        
+        # actually perform amazon search
+        require 'amazon/aws/search'
+        begin
+          resp = Amazon::AWS.item_search( item_type, { 
+            'Keywords' => item_title,
+            'IncludeReviewsSummary' => false
+          } )
+          item = resp.item_search_response.items.item.first
+          returned_type = item.item_attributes.product_type_name.__val__
+          image_url = item.small_image.url.__val__
+          amazon_url = item.item_links.first.item_link.first.url.__val__
+          # different item types return different parameters. see:
+          #   https://docs.aws.amazon.com/AWSECommerceService/latest/DG/LocaleUS.html
+          amazon_title  = case returned_type
+                          when "DOWNLOADABLE_TV_EPISODE"
+                            # unfortunately, amazon results will return the title of the first episode of the series, but not the name of the series. trust amazon returned the correct series. ಠ_ಠ
+                            item_title
+                          when "ABIS_MUSIC"
+                            "#{item.item_attributes.artist.__val__} - #{item.item_attributes.title.__val__}"
+                          else
+                            item.item_attributes.title.__val__
+                          end
+        rescue
+          # could set amazon_values to false here so it gets cached, but
+          # i'm assuming this will mostly occur for temporary network problems
+          # so it makes sense to try again later
+          return false
+        end
+        
+        if image_url && amazon_url
+          Rails.logger.debug "Amazon product found"
+          cached_amazon_items[item_key] = {
+            :image_url    => image_url,
+            :amazon_url   => amazon_url,
+            :amazon_title => amazon_title,
+            :similarity   => similarity(item_title, amazon_title)
+          }
+        else
+          Rails.logger.debug "No image or Amazon product found; no image left to use"
+          cached_amazon_items[item_key] = false
+        end
       end
+
       Rails.cache.write('amazon_items', cached_amazon_items)
-      
       return cached_amazon_items[item_key]
     end
   end
