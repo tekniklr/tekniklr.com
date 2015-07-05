@@ -20,9 +20,20 @@ module DelayedJob::AmazonJob
           'IncludeReviewsSummary' => false
         } )
         item = resp.item_search_response.items.item.first
-        image_url = item.small_image
-        amazon_url = item.item_links.first.item_link.first
-        amazon_title = item.item_attributes.title
+        returned_type = item.item_attributes.product_type_name.__val__
+        image_url = item.small_image.url.__val__
+        amazon_url = item.item_links.first.item_link.first.url.__val__
+        # different item types return different parameters. see:
+        #   https://docs.aws.amazon.com/AWSECommerceService/latest/DG/LocaleUS.html
+        amazon_title  = case returned_type
+                        when "DOWNLOADABLE_TV_EPISODE"
+                          # unfortunately, amazon results will return the title of the first episode of the series, but not the name of the series. trust amazon returned the correct series. ಠ_ಠ
+                          item_title
+                        when "ABIS_MUSIC"
+                          "#{item.item_attributes.artist.__val__} - #{item.item_attributes.title.__val__}"
+                        else
+                          item.item_attributes.title.__val__
+                        end
       rescue
         # could set amazon_values to false here so it gets cached, but
         # i'm assuming this will mostly occur for temporary network problems
@@ -41,10 +52,10 @@ module DelayedJob::AmazonJob
       elsif image_url && amazon_url
         Rails.logger.debug "Amazon product found"
         cached_amazon_items[item_key] = {
-          :image_url    => image_url.url.__val__,
-          :amazon_url   => amazon_url.url.__val__,
-          :amazon_title => amazon_title.__val__,
-          :similarity   => similarity(item_type, item_title, amazon_title.__val__)
+          :image_url    => image_url,
+          :amazon_url   => amazon_url,
+          :amazon_title => amazon_title,
+          :similarity   => similarity(item_title, amazon_title)
         }
       else
         Rails.logger.debug "No image or Amazon product found; no image left to use"
@@ -61,8 +72,7 @@ module DelayedJob::AmazonJob
   # example:
   #   'lords of waterdeep' != 'lords of waterdeep: a dungeons and dragons game'
   # (and I'm not entering that whole stupid fucking title)
-  def similarity(item_type, thing1, thing2)
-    (item_type == 'Music') and return 100
+  def similarity(thing1, thing2)
     Rails.logger.debug "Checking similarity between \"#{thing1}\" and \"#{thing2}\"..."
     beginnings_thing1 = thing1.downcase.sub(/[-:(].*/, '')
     beginnings_thing2 = thing2.downcase.sub(/[-:(].*/, '')
