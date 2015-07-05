@@ -64,11 +64,11 @@ module DelayedJob::AmazonJob
   def similarity(item_type, thing1, thing2)
     (item_type == 'Music') and return 100
     Rails.logger.debug "Checking similarity between \"#{thing1}\" and \"#{thing2}\"..."
-    beginnings_thing1 = thing1.sub(/[-:(].*/, '')
-    beginnings_thing2 = thing2.sub(/[-:(].*/, '')
+    beginnings_thing1 = thing1.downcase.sub(/[-:(].*/, '')
+    beginnings_thing2 = thing2.downcase.sub(/[-:(].*/, '')
     beginnings = !(beginnings_thing1.empty? && beginnings_thing2.empty?) ? beginnings_thing1.similar(beginnings_thing2) : 0
-    endings_thing1 = thing1.sub(/.*[-:)]/, '')
-    endings_thing2 = thing2.sub(/.*[-:)]/, '')
+    endings_thing1 = thing1.downcase.sub(/.*[-:)]/, '')
+    endings_thing2 = thing2.downcase.sub(/.*[-:)]/, '')
     endings = !(endings_thing1.empty? && endings_thing2.empty?) ? endings_thing1.similar(endings_thing2) : 0
     [beginnings, endings].max
   end
