@@ -31,7 +31,7 @@
 - unless @gaming.blank?
   - fade_games = 0
   %h1
-    = link_to 'Games', 'http://raptr.com/tekniklr'
+    Games
   %ul#gaming
     - @gaming.each do |item|
       = render 'gaming', :item => item, :fade => fade_level(@gaming.count, fade_games)
