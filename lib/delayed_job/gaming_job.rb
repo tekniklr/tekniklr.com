@@ -2,22 +2,15 @@ class DelayedJob::GamingJob
   include DelayedJob::AmazonJob
   
   def perform
-    Rails.logger.debug "Fetching Raptr checkins from RSS..."
+    psn_items = get_psn
+    xbox_items = get_xbox
+    steam_items = get_steam
+    all_items = (psn_items + xbox_items + steam_items).sort_by{|i| i.published ? i.published : Time.now-1000.years}.reverse
     parsed_items = []
-    begin
-      feed  = Feedjira::Feed.fetch_and_parse('http://raptr.com/tekniklr/rss')
-      items = feed.entries.uniq{|i| i.title}
-    rescue
-      items = []
-    end
-    previous_titles = []
-    items.each do |item|
-      !(item.url =~ /game-activity $/) and next # only care about game activity
+    all_items.each do |item|
       Rails.logger.debug "Parsing #{item.title}..."
-      item.title.gsub(/(playing|session of|played [0-9]+ hour(s)? of|played a game of|played){1} (.+) \((PS3|360|PSN|XBLA)\)/, '')
-      title = $3
-      (title.blank? || ((previous_titles.count < 7) && previous_titles.include?(title))) and next # be more interesting, but try to show at least 7 things, still
-      previous_titles << title
+      item.title.gsub(/tekniklr won the .* (trophy|achievement) in (.*)\z/, '')
+      title = $2
       amazon = get_amazon(title, 'VideoGames')
       if amazon
         parsed_items << {
@@ -32,7 +25,7 @@ class DelayedJob::GamingJob
       else
         parsed_items << {
           :title      => title,
-          :url        => item.url.gsub(/\A \/tekniklr/, 'http://raptr.com/tekniklr'),
+          :url        => item.url,
           :published  => item.published
         }
       end
@@ -40,4 +33,39 @@ class DelayedJob::GamingJob
     Rails.cache.write('gaming', parsed_items)
   end
   
+  private
+
+  # using truetrophies which seems to be one of the only reliable ways to turn 
+  # PSN trophies into an RSS feed...
+  def get_psn
+    Rails.logger.debug "Fetching PSN trophies from truetrophies..."
+    begin
+      feed  = Feedjira::Feed.fetch_and_parse('http://www.truetrophies.com/friendfeedrss.aspx?gamerid=26130')
+      items = feed.entries
+    rescue
+      items = []
+    end
+    return items
+  end
+
+  # using trueachievements which works in the exact same way as truetrophies
+  # even though I don't really play xbox anymore...
+  def get_xbox
+    Rails.logger.debug "Fetching xbox achievements from trueachievements..."
+    begin
+      feed  = Feedjira::Feed.fetch_and_parse('http://www.trueachievements.com/friendfeedrss.aspx?gamerid=294291')
+      items = feed.entries
+    rescue
+      items = []
+    end
+    return items
+  end
+
+  # placeholder for one day when I know how to get steam achievements
+  def get_steam
+    Rails.logger.debug "Fetching steam achievements from ???..."
+    items = []
+    return items
+  end
+
 end
