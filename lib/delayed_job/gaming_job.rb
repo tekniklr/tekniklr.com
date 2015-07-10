@@ -10,7 +10,7 @@ class DelayedJob::GamingJob
     all_items.each do |item|
       Rails.logger.debug "Parsing #{item.title}..."
       item.title.gsub(/tekniklr won the .* (trophy|achievement) in (.*)\z/, '')
-      title = $2
+      title = $2.gsub(/ Trophies/, '')
       amazon = get_amazon(title, 'VideoGames')
       if amazon
         parsed_items << {
