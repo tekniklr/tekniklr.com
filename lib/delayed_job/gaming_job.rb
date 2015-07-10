@@ -9,12 +9,14 @@ class DelayedJob::GamingJob
     parsed_items = []
     all_items.each do |item|
       Rails.logger.debug "Parsing #{item.title}..."
-      item.title.gsub(/tekniklr won the .* (trophy|achievement) in (.*)\z/, '')
-      title = $2.gsub(/ Trophies/, '')
+      item.title.gsub(/tekniklr won the (.*) (trophy|achievement) in (.*)\z/, '')
+      achievement = $1
+      title = $3.gsub(/ Trophies/, '')
       amazon = get_amazon(title, 'VideoGames')
       if amazon
         parsed_items << {
           :title        => title,
+          :achievement  => achievement,
           :url          => item.url,
           :published    => item.published,
           :image_url    => amazon[:image_url],
@@ -24,9 +26,10 @@ class DelayedJob::GamingJob
         }
       else
         parsed_items << {
-          :title      => title,
-          :url        => item.url,
-          :published  => item.published
+          :title        => title,
+          :achievement  => achievement,
+          :url          => item.url,
+          :published    => item.published
         }
       end
     end

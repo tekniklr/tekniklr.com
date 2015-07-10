@@ -1,10 +1,11 @@
 %li
+  - hover_text = "#{item[:title]}: \n#{item[:achievement]}"
   - if item[:image_url] && item[:amazon_url] && (item[:similarity] >= SIMILAR_THRESHOLD)
-    = link_to image_tag(item[:image_url], :alt => item[:title], :title => item[:title]), item[:amazon_url]
+    = link_to image_tag(item[:image_url], :alt => hover_text, :title => hover_text), item[:amazon_url]
   - elsif item[:image_url] && item[:amazon_title].blank?
-    = link_to image_tag(item[:image_url], :alt => item[:title], :title => item[:title]), item[:url]
+    = link_to image_tag(item[:image_url], :alt => hover_text, :title => hover_text), item[:url]
   - else
-    = link_to item[:title], item[:url]
+    = link_to hover_text, item[:url]
   %p{:class => "when fade#{fade}"}
     - if item[:published]
       = time_ago_in_words(item[:published])+' ago'
