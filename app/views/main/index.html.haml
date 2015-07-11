@@ -12,48 +12,53 @@
 
 - unless @flickr_photos.blank?
   - fade_photos = 0
-  %h1
-    = link_to 'Pictures', 'http://www.flickr.com/photos/tekniklr/'
-  %ul#flickr
-    - @flickr_photos.each do |photo|
-      = render 'photo', :photo => photo, :fade => fade_level(@flickr_photos.count, fade_photos)
-      - fade_photos += 1
+  .photos_block
+    %h1
+      = link_to 'Pictures', 'http://www.flickr.com/photos/tekniklr/'
+    %ul#flickr
+      - @flickr_photos.each do |photo|
+        = render 'photo', :photo => photo, :fade => fade_level(@flickr_photos.count, fade_photos)
+        - fade_photos += 1
 
 - unless @delicious.blank?
   - fade_bookmarks = 0
-  %h1.less_space
-    = link_to 'Bookmarks', 'http://www.delicious.com/tekniklr'
-  %ul#delicious
-    - @delicious.each do |bookmark|
-      = render 'bookmark', :bookmark => bookmark, :fade => fade_level(@delicious.count, fade_bookmarks)
-      - fade_bookmarks += 1
+  .bookmarks_block
+    %h1.less_space
+      = link_to 'Bookmarks', 'http://www.delicious.com/tekniklr'
+    %ul#delicious
+      - @delicious.each do |bookmark|
+        = render 'bookmark', :bookmark => bookmark, :fade => fade_level(@delicious.count, fade_bookmarks)
+        - fade_bookmarks += 1
 
 - unless @gaming.blank?
   - fade_games = 0
-  %h1
-    Games
-  %ul#gaming
-    - @gaming.each do |item|
-      = render 'gaming', :item => item, :fade => fade_level(@gaming.count, fade_games)
-      - fade_games += 1
+  .games_block
+    %h1
+      Games
+    %ul#gaming
+      - @gaming.each do |item|
+        = render 'gaming', :item => item, :fade => fade_level(@gaming.count, fade_games)
+        - fade_games += 1
 
 - unless @goodreads.blank?
   - fade_books = 0
-  %h1
-    = link_to 'Books', 'https://www.goodreads.com/user/show/10905654-teri-solow'
-  %ul#goodreads
-    - @goodreads.each do |book|
-      = render 'goodreads', :book => book, :fade => fade_level(@goodreads.count, fade_books)
-      - fade_books += 1
+  .books_block
+    %h1
+      = link_to 'Books', 'https://www.goodreads.com/user/show/10905654-teri-solow'
+    %ul#goodreads
+      - @goodreads.each do |book|
+        = render 'goodreads', :book => book, :fade => fade_level(@goodreads.count, fade_books)
+        - fade_books += 1
 
 - unless @lastfm.blank?
   - fade_songs = 0
-  %h1
-    = link_to 'Music', 'http://www.last.fm/user/tekniklr'
-  %ul#lastfm
-    - @lastfm.each do |song|
-      = render 'lastfm', :song => song, :fade => fade_level(@lastfm.count, fade_songs)
-      - fade_songs += 1
+  .music_block
+    %h1
+      = link_to 'Music', 'http://www.last.fm/user/tekniklr'
+    %ul#lastfm
+      - @lastfm.each do |song|
+        = render 'lastfm', :song => song, :fade => fade_level(@lastfm.count, fade_songs)
+        - fade_songs += 1
 
 #footnote
   

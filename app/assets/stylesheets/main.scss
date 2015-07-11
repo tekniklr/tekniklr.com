@@ -172,5 +172,21 @@ ul#flickr {
       padding: .5em 0 .5em 0;
     }
   }
-  
+}
+
+/*
+  hide certain elements entirely on mobile layout
+  gaming block is only interesting with alt/title text/mouseovers and the content isn't important enough to take up space on mobile by writing everything out
+*/
+@media screen and (min-width: $mobile_threshhold) {
+  /* regular layout */
+  .games_block {
+    display: block;
+  }
+}
+@media screen and (max-width: $mobile_threshhold) {
+  /* mobile layout */
+  .games_block{
+    display: none;
+  }
 }
