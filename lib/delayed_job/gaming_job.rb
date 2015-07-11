@@ -7,7 +7,7 @@ class DelayedJob::GamingJob
     steam_items = get_steam
     all_items = (psn_items + xbox_items + steam_items).sort_by{|i| i.published ? i.published : Time.now-1000.years}.reverse
     parsed_items = []
-    all_items.each do |item|
+    all_items.first(12).each do |item|
       Rails.logger.debug "Parsing #{item.title}..."
       item.title.gsub(/tekniklr won the (.*) (trophy|achievement) in (.*)\z/, '')
       achievement = $1
