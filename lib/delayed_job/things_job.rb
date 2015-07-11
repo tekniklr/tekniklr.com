@@ -5,23 +5,21 @@ class DelayedJob::ThingsJob < Struct.new(:favorites)
     things = {}
     Favorite.all.each do |favorite|
       amazon_type = 'All'
-      additional_keywords = ''
       # for valid amazon item categories, see https://docs.aws.amazon.com/AWSECommerceService/latest/DG/LocaleUS.html
       case favorite.favorite_type
       when "Movies", "TV", "Anime"
         amazon_type = 'DVD'
       when "Books"
         amazon_type = 'Books'
-      when "Video Games"
+      when "Video Games", "Games"
         amazon_type = 'VideoGames'
-        additional_keywords = 'ps4'
       when "Board Games"
         amazon_type = 'Toys'
       when "Music"
         amazon_type = 'Music'
       end
       favorite.favorite_things.each do |thing|
-        amazon = get_amazon(thing.thing, amazon_type, additional_keywords)
+        amazon = get_amazon(thing.thing, amazon_type)
         if amazon
           things[thing.thing] = {
             :image_url    => amazon[:image_url],
