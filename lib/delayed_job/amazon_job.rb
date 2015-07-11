@@ -1,6 +1,6 @@
 module DelayedJob::AmazonJob
 
-  def get_amazon(item_title, item_type)
+  def get_amazon(item_title, item_type, additional_keywords = '')
     
     # see if this item has been looked up before, only search for it
     # if it hasn't
@@ -25,34 +25,36 @@ module DelayedJob::AmazonJob
       else
         Rails.logger.debug "Searching amazon for #{item_type}(s) called #{item_title}"
         
-        # actually perform amazon search
-        require 'amazon/aws/search'
         begin
-          resp = Amazon::AWS.item_search( item_type, { 
-            'Keywords' => item_title,
-            'IncludeReviewsSummary' => false
-          } )
-          item = resp.item_search_response.items.item.first
-          returned_type = item.item_attributes.product_type_name.__val__
-          image_url = item.small_image.url.__val__
-          amazon_url = item.item_links.first.item_link.first.url.__val__
-          # different item types return different parameters. see:
-          #   https://docs.aws.amazon.com/AWSECommerceService/latest/DG/LocaleUS.html
-          amazon_title  = case returned_type
-                          when "DOWNLOADABLE_TV_EPISODE"
-                            # unfortunately, amazon results will return the title of the first episode of the series, but not the name of the series. trust amazon returned the correct series. ಠ_ಠ
-                            item_title
-                          when "ABIS_MUSIC"
-                            "#{item.item_attributes.artist.__val__} - #{item.item_attributes.title.__val__}"
-                          else
-                            item.item_attributes.title.__val__
-                          end
+          resp = amazon_search(item_title, item_type, additional_keywords)
+        rescue Amazon::AWS::Error::NoExactMatches
+          # if we searched with addiional keywords and got no results, try
+          # one more time without those keywords
+          if additional_keywords.blank?
+            return false
+          else
+            resp = amazon_search(item_title, item_type)
+          end
         rescue
-          # could set amazon_values to false here so it gets cached, but
-          # i'm assuming this will mostly occur for temporary network problems
-          # so it makes sense to try again later
           return false
         end
+        resp or return false
+
+        item = resp.item_search_response.items.item.first
+        returned_type = item.item_attributes.product_type_name.__val__
+        image_url = item.small_image.url.__val__
+        amazon_url = item.item_links.first.item_link.first.url.__val__
+        # different item types return different parameters. see:
+        #   https://docs.aws.amazon.com/AWSECommerceService/latest/DG/LocaleUS.html
+        amazon_title  = case returned_type
+                        when "DOWNLOADABLE_TV_EPISODE"
+                          # unfortunately, amazon results will return the title of the first episode of the series, but not the name of the series. trust amazon returned the correct series. ಠ_ಠ
+                          item_title
+                        when "ABIS_MUSIC"
+                          "#{item.item_attributes.artist.__val__} - #{item.item_attributes.title.__val__}"
+                        else
+                          item.item_attributes.title.__val__
+                        end
         
         if image_url && amazon_url
           Rails.logger.debug "Amazon product found"
@@ -73,6 +75,17 @@ module DelayedJob::AmazonJob
     end
   end
   
+  private
+
+  # actually perform amazon search
+  def amazon_search(item_title, item_type, additional_keywords = '')
+    require 'amazon/aws/search'
+    Amazon::AWS.item_search( item_type, { 
+      'Keywords' => "#{item_title}#{additional_keywords.blank? ? '' : ', '+additional_keywords}",
+      'IncludeReviewsSummary' => false
+    } )
+  end
+
   # sometimes searching for an item would return the correct thing but it
   # would get a low similarity score for stupid subtitle reasons.
   # example:
