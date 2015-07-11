@@ -40,21 +40,25 @@ module DelayedJob::AmazonJob
         end
         resp or return false
 
-        item = resp.item_search_response.items.item.first
-        returned_type = item.item_attributes.product_type_name.__val__
-        image_url = item.small_image.url.__val__
-        amazon_url = item.item_links.first.item_link.first.url.__val__
-        # different item types return different parameters. see:
-        #   https://docs.aws.amazon.com/AWSECommerceService/latest/DG/LocaleUS.html
-        amazon_title  = case returned_type
-                        when "DOWNLOADABLE_TV_EPISODE"
-                          # unfortunately, amazon results will return the title of the first episode of the series, but not the name of the series. trust amazon returned the correct series. ಠ_ಠ
-                          item_title
-                        when "ABIS_MUSIC"
-                          "#{item.item_attributes.artist.__val__} - #{item.item_attributes.title.__val__}"
-                        else
-                          item.item_attributes.title.__val__
-                        end
+        begin
+          item = resp.item_search_response.items.item.first
+          returned_type = item.item_attributes.product_type_name.__val__
+          image_url = item.small_image.url.__val__
+          amazon_url = item.item_links.first.item_link.first.url.__val__
+          # different item types return different parameters. see:
+          #   https://docs.aws.amazon.com/AWSECommerceService/latest/DG/LocaleUS.html
+          amazon_title  = case returned_type
+                          when "DOWNLOADABLE_TV_EPISODE"
+                            # unfortunately, amazon results will return the title of the first episode of the series, but not the name of the series. trust amazon returned the correct series. ಠ_ಠ
+                            item_title
+                          when "ABIS_MUSIC"
+                            "#{item.item_attributes.artist ? item.item_attributes.artist.__val__ : item_title} - #{item.item_attributes.title.__val__}"
+                          else
+                            item.item_attributes.title.__val__
+                          end
+        rescue
+          return false
+        end
         
         if image_url && amazon_url
           Rails.logger.debug "Amazon product found"
