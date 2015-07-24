@@ -3,7 +3,7 @@ class Link < ActiveRecord::Base
                         :styles => { :default => ["32x32#", :png] },
                         :path => ":rails_root/public/icons/:attachment/:id/:style/:filename",
                         :url => "/icons/:attachment/:id/:style/:filename"
-  validates_attachment_content_type :icon, :content_type => [ 'image/png', 'image/jpg', 'image/gif']
+  validates_attachment_content_type :icon, :content_type => [ 'image/png', 'image/jpg', 'image/jpeg', 'image/gif']
   
   validates_presence_of :name
   validates_length_of   :name, :maximum => 36
