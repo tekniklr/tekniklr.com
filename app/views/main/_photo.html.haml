@@ -3,7 +3,7 @@
     = link_to image_tag(photo[:src], :alt => photo[:title], :title => HTMLEntities.new.decode(strip_tags(photo[:summary]).sub(/tekniklr posted a photo:/, '').strip)), photo[:url]
     - if !photo[:title].blank?
       %p.caption
-        = photo[:title]
+        = truncate photo[:title], length: 60
     %p{:class => "when fade#{fade}"}
       - if photo[:published]
         = time_ago_in_words(photo[:published])+' ago'
