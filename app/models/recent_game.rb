@@ -3,7 +3,7 @@ class RecentGame < ActiveRecord::Base
                         :styles => { :default => ["60x75>", :png] },
                         :path => ":rails_root/public/recent_games/:attachment/:id/:style/:filename",
                         :url => "/recent_games/:attachment/:id/:style/:filename"
-  validates_attachment_content_type :image, :content_type => [ 'image/png', 'image/jpg', 'image/gif']
+  validates_attachment_content_type :image, :content_type => [ 'image/png', 'image/jpg', 'image/jpeg', 'image/gif']
   
   validates_presence_of :name
   validates_length_of   :name, maximum: 72
