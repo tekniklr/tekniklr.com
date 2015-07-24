@@ -1,6 +1,6 @@
 module ApplicationHelper
   
-  # haml ie/css hacks: https://github.com/sporkd/compass-html5-boilerplate/
+  # ie/css hacks: http://www.paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/
   def ie_tag(name=:body, attrs={}, &block)
     attrs.symbolize_keys!
     haml_concat("<!--[if lt IE 7]> #{ tag(name, add_class('ie6', attrs), true) } <![endif]-->".html_safe)
