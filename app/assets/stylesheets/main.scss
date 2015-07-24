@@ -1,5 +1,5 @@
 /* 
- * can be applied to say, a list item to make progressive items more faint
+ * can be applied to say, list items, to make progressive items more faint
  */
 .fade0 {}
 .fade10 {@include transparent(0.90);}
@@ -46,6 +46,10 @@
   max-width: 100%;
   margin: auto;
   padding: 0;
+}
+
+.when {
+  font-size: 90%
 }
 
 ul#delicious {
@@ -110,9 +114,6 @@ ul#lastfm {
 ul#flickr {
   $flickr_height: 15.5em;
   height: $flickr_height;
-  .when {
-    font-size: 90%
-  }
   li {
     width: 10em;
     height: $flickr_height;
