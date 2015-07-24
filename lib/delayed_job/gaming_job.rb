@@ -27,8 +27,10 @@ class DelayedJob::GamingJob
         case $2
         when 'trophy'
           additional_keywords = 'PS4'
+          platform = 'Playstation'
         when 'achievement'
           additional_keywords = 'Xbox 360'
+          platform = 'Xbox'
         end
         title = $3.gsub(/ Trophies/, '')
       end
@@ -58,6 +60,7 @@ class DelayedJob::GamingJob
       else
         parsed_items << {
           :title        => title,
+          :platform     => platform,
           :achievement  => achievement,
           :url          => item.url,
           :published    => item.published
