@@ -10,7 +10,7 @@ set :tmp_dir, "/home/tekniklr/tmp"
 
 # symlinks to create
 set :linked_files, %w{config/database.yml config/initializers/omniauth.rb config/initializers/secret_token.rb config/.amazonrc}
-set :linked_dirs, %w{public/wpblog public/images public/icons}
+set :linked_dirs, %w{public/wpblog public/images public/icons public/recent_games}
 
 server 'tekniklr.com', user: 'tekniklr', roles: [:web, :app]
 
