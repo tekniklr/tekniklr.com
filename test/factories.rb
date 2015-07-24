@@ -34,6 +34,13 @@ FactoryGirl.define do
     t.sequence(:name) {|n| "Tabletop game #{n}"}
   end
 
+  factory :recent_game do |g|
+    g.sequence(:name) {|n| "Game #{n}"}
+    g.platform 'Wii U'
+    g.url 'http://google.com'
+    g.started_playing Date.yesterday
+  end
+
   factory :user do |u|
     u.sequence(:name) {|n| "User: #{n}"}
     u.provider 'twitter'

@@ -1,0 +1,77 @@
+:ruby
+  possible_platforms = [
+    '3DS',
+    'Wii U',
+    'Steam',
+    'PS4',
+    'PS3',
+    'Xbox 360',
+    'Xbox Live'
+  ]
+
+%h1 Add a recent game
+
+= form_for(@recent_game) do |f|
+  - if @recent_game.errors.any?
+    #error_explanation
+      %h2 #{pluralize(@recent_game.errors.count, "error")} prohibited this game from being saved:
+      %ul
+        - @recent_game.errors.full_messages.each do |msg|
+          %li #{msg}
+
+  .row
+    .left
+      = f.label :name
+    .right
+      = f.text_field :name, :size => 48
+    .clear
+
+  .row
+    .left
+      = f.label :platform
+    .right
+      = f.select :platform, possible_platforms, include_blank: true
+    .clear
+
+  .row
+    .left
+      = f.label :started_playing
+    .right
+      = f.date_select :started_playing, default: Date.today
+    .clear
+
+  .row
+    .left
+      = f.label :url
+    .right
+      = f.text_field :url, :size => 48
+    .clear
+
+  .row
+    .left
+      = f.label :image
+    .right
+      = f.file_field :image
+    .clear
+
+  .center
+    = f.submit "Add game"
+
+%h1 Recent game history
+
+- if @recent_games
+  %ul#recent_games
+    - @recent_games.each do |game|
+      %li
+        .left
+          - if game.image?
+            = image_tag game.image.url(:default), alt: game.name, align: 'left', hspace: 10
+          #{game.started_playing.to_s}:
+          %br
+          #{game.name}
+          %br
+          %em #{game.platform}
+        .right
+          = link_to 'remove', game, :method => :delete, :data => { :confirm => "Are you sure you want to remove #{game.name}?" }
+- else
+  %p There haven't been any recent games added yet.

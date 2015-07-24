@@ -1,0 +1,14 @@
+ul#recent_games {
+  width: 90%;
+  max-width: 100%;
+  margin: 0 auto 0 auto;
+  padding: 0;
+  list-style-type: none;
+  li {
+    overflow: auto;
+    clear: both;
+    display: block;
+    margin: 3em 0 3em 0;
+    @include rounded(1px, $med_border_color, 2em, 1.5em, dashed);
+  }
+}

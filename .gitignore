@@ -9,6 +9,7 @@ doc/api
 doc/app
 public/static/
 public/icons/
+public/recent_games/
 public/system/
 public/wpblog/
 config/database.yml

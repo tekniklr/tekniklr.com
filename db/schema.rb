@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140217090806) do
+ActiveRecord::Schema.define(version: 20150723222207) do
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   limit: 4,     default: 0
@@ -74,10 +74,10 @@ ActiveRecord::Schema.define(version: 20140217090806) do
   create_table "links", force: :cascade do |t|
     t.string   "name",              limit: 255
     t.string   "url",               limit: 255
-    t.boolean  "visible",           limit: 1
+    t.boolean  "visible"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "social_icon",       limit: 1
+    t.boolean  "social_icon"
     t.string   "icon_file_name",    limit: 255
     t.string   "icon_content_type", limit: 255
     t.integer  "icon_file_size",    limit: 4
@@ -86,6 +86,19 @@ ActiveRecord::Schema.define(version: 20140217090806) do
 
   add_index "links", ["social_icon"], name: "index_links_on_social_icon", using: :btree
   add_index "links", ["visible"], name: "index_links_on_visible", using: :btree
+
+  create_table "recent_games", force: :cascade do |t|
+    t.string   "name",               limit: 255
+    t.string   "platform",           limit: 255
+    t.datetime "started_playing"
+    t.string   "url",                limit: 255
+    t.string   "image_file_name",    limit: 255
+    t.string   "image_content_type", limit: 255
+    t.integer  "image_file_size",    limit: 4
+    t.datetime "image_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "tabletop_games", force: :cascade do |t|
     t.string   "name",       limit: 255
