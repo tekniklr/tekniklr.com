@@ -31,7 +31,7 @@
     .left
       = f.label :name
     .right
-      = f.text_field :name, :size => 48
+      = f.text_field :name, :size => 36
     .clear
 
   .row
@@ -43,7 +43,7 @@
 
   .row
     .left
-      = f.label :started_playing
+      = f.label :started_playing, 'Started'
     .right
       = f.date_select :started_playing, default: Date.today
     .clear
@@ -52,7 +52,7 @@
     .left
       = f.label :url
     .right
-      = f.text_field :url, :size => 48
+      = f.text_field :url, :size => 36
     .clear
 
   .row
