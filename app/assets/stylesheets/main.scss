@@ -106,7 +106,7 @@ ul#lastfm {
   height: 8em;
   li {
     img {
-      height: 6em;
+      max-height: 6em;
       overflow: hidden;
     }
   }
