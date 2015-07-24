@@ -9,25 +9,32 @@ class DelayedJob::GamingJob
     all_items = (manual_items + psn_items + xbox_items + steam_items).sort_by{|i| i.published ? i.published : Time.now-1000.years}.reverse
     parsed_items = []
     all_items.each do |item|
+      skip_amazon = false
+      additional_keywords = nil
       if item.respond_to?('has_key?') && item.has_key?(:parsed)
         title = item.title
         platform = item.platform
-        additional_keywords = platform
+        case platform
+        when '3DS', 'Wii U', 'PS4', 'PS3', 'Xbox One', 'Xbox 360', 'Mac', 'PC'
+          additional_keywords = platform
+        else
+          skip_amazon = true
+        end
       else
         Rails.logger.debug "Parsing #{item.title}..."
         item.title.gsub(/tekniklr won the (.*) (trophy|achievement) in (.*)\z/, '')
         achievement = $1
-        additional_keywords = case $2
-          when 'trophy'
-            'PS4'
-          when 'achievement'
-            'Xbox 360'
-          else
-            ''
-          end
+        case $2
+        when 'trophy'
+          additional_keywords = 'PS4'
+        when 'achievement'
+          additional_keywords = 'Xbox 360'
+        end
         title = $3.gsub(/ Trophies/, '')
       end
-      amazon = get_amazon(title, 'VideoGames', additional_keywords)
+      unless skip_amazon
+        amazon = get_amazon(title, 'VideoGames', additional_keywords)
+      end
       if amazon
         parsed_items << {
           :title        => title,
