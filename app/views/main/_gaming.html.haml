@@ -27,13 +27,13 @@
         $( '#dialog_game_#{item_id}' ).dialog( "open" );
       });
     });
-  %div{id: "dialog_game_#{item_id}", title: hover_text}
+  %div{id: "dialog_game_#{item_id}", title: item[:title]}
     %p.center
       - if item[:image_url] && item[:amazon_url] && (item[:similarity] >= SIMILAR_THRESHOLD)
         = link_to image_tag(item[:image_url]), item[:amazon_url]
       - elsif item[:image_url] && item[:amazon_title].blank?
         = link_to image_tag(item[:image_url]), item[:url]
-    %p.center
+    %p
       - if item[:achievement]
         Earned #{link_to item[:achievement], item[:url], target: '_blank'} in 
       - else
@@ -41,5 +41,5 @@
       #{link_to item[:title], ((item[:amazon_url] && (item[:similarity] >= SIMILAR_THRESHOLD)) ? item[:amazon_url] : item[:url]), target: '_blank' }
       -if item[:platform]
         for #{item[:platform]}
-    %p.center
+    %p.clear.center
       = time_ago_in_words(item[:published])+' ago'
