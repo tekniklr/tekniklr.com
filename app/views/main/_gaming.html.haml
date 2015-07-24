@@ -1,12 +1,22 @@
 %li
-  - item_id = item[:achievement].downcase.gsub(/[^a-z]/, '_')
-  - hover_text = "#{item[:title]}: \n#{item[:achievement]}"
+  :ruby
+    item_id = item[:achievement] ? item[:achievement].downcase.gsub(/[^a-z]/, '_') : "#{item[:title]} #{item.published}".downcase.gsub(/[^a-z]/, '_')
+    hover_text = "#{item[:title]}"
+    if item[:platform]
+      hover_text << "\n(#{item[:platform]})"
+    end
+    if item[:achievement]
+      hover_text << "\n\n#{item[:achievement]}"
+    end
   - if item[:image_url] && item[:amazon_url] && (item[:similarity] >= SIMILAR_THRESHOLD)
     = link_to image_tag(item[:image_url], :alt => hover_text, :title => hover_text), item[:amazon_url], id: "opener_#{item_id}"
   - elsif item[:image_url] && item[:amazon_title].blank?
     = link_to image_tag(item[:image_url], :alt => hover_text, :title => hover_text), item[:url], id: "opener_#{item_id}"
   - else
     = link_to hover_text, item[:url], id: "opener_#{item_id}"
+  %p{:class => "when fade#{fade}"}
+    - if item[:published]
+      = time_ago_in_words(item[:published])+' ago'
   :javascript
     $(function() {
       $( '#dialog_game_#{item_id}' ).dialog({
@@ -24,9 +34,12 @@
       - elsif item[:image_url] && item[:amazon_title].blank?
         = link_to image_tag(item[:image_url]), item[:url]
     %p.center
-      Earned #{link_to item[:achievement], item[:url], target: '_blank'} in #{link_to item[:title], ((item[:amazon_url] && (item[:similarity] >= SIMILAR_THRESHOLD)) ? item[:amazon_url] : item[:url]), target: '_blank' }
+      - if item[:achievement]
+        Earned #{link_to item[:achievement], item[:url], target: '_blank'} in 
+      - else
+        Started playing 
+      #{link_to item[:title], ((item[:amazon_url] && (item[:similarity] >= SIMILAR_THRESHOLD)) ? item[:amazon_url] : item[:url]), target: '_blank' }
+      -if item[:platform]
+        for #{item[:platform]}
     %p.center
-      = time_ago_in_words(item[:published])+' ago'
-  %p{:class => "when fade#{fade}"}
-    - if item[:published]
       = time_ago_in_words(item[:published])+' ago'
