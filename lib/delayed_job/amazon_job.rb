@@ -25,18 +25,11 @@ module DelayedJob::AmazonJob
       else
         Rails.logger.debug "Searching amazon for #{item_type}(s) called #{item_title}"
         
-        begin
-          resp = amazon_search(item_title, item_type, additional_keywords)
-        rescue Amazon::AWS::Error::NoExactMatches
+        resp = amazon_search(item_title, item_type, additional_keywords)
+        if !resp && !additional_keywords.blank? 
           # if we searched with addiional keywords and got no results, try
           # one more time without those keywords
-          if additional_keywords.blank?
-            return false
-          else
-            resp = amazon_search(item_title, item_type)
-          end
-        rescue
-          return false
+          resp = amazon_search(item_title, item_type)
         end
         resp or return false
 
@@ -84,10 +77,16 @@ module DelayedJob::AmazonJob
   # actually perform amazon search
   def amazon_search(item_title, item_type, additional_keywords = '')
     require 'amazon/aws/search'
-    Amazon::AWS.item_search( item_type, { 
-      'Keywords' => "#{item_title}#{additional_keywords.blank? ? '' : ', '+additional_keywords}",
-      'IncludeReviewsSummary' => false
-    } )
+    result = false
+    begin
+      result = Amazon::AWS.item_search( item_type, { 
+        'Keywords' => "#{item_title}#{additional_keywords.blank? ? '' : ', '+additional_keywords}",
+        'IncludeReviewsSummary' => false
+      } )
+    rescue Amazon::AWS::Error::NoExactMatches
+      result = false
+    end
+    return result
   end
 
   # sometimes searching for an item would return the correct thing but it
