@@ -123,7 +123,7 @@ ul#flickr {
       margin: 0;
       padding: 0;
       max-width:  11em;
-      max-height: 9em;
+      max-height: 7em;
       @include rounded(1px, $med_border_color, .75em, .3em, solid);
     }
   }
