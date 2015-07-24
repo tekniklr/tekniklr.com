@@ -10,7 +10,7 @@
   <a class="twitter-timeline" data-dnt=true href="https://twitter.com/tekniklr" data-widget-id="256680555926654976">Tweets by @tekniklr</a>
   <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 
-- unless @flickr_photos.blank?
+- if !@flickr_photos.blank? && @flickr_photos.count > 1
   - fade_photos = 0
   .photos_block
     %h1
@@ -20,7 +20,7 @@
         = render 'photo', :photo => photo, :fade => fade_level(@flickr_photos.count, fade_photos)
         - fade_photos += 1
 
-- unless @delicious.blank?
+- if !@delicious.blank? && @delicious.count > 1
   - fade_bookmarks = 0
   .bookmarks_block
     %h1.less_space
@@ -30,7 +30,7 @@
         = render 'bookmark', :bookmark => bookmark, :fade => fade_level(@delicious.count, fade_bookmarks)
         - fade_bookmarks += 1
 
-- unless @gaming.blank?
+- if !@gaming.blank? && @gaming.count > 1
   - fade_games = 0
   .games_block
     %h1
@@ -40,7 +40,7 @@
         = render 'gaming', :item => item, :fade => fade_level(@gaming.count, fade_games)
         - fade_games += 1
 
-- unless @goodreads.blank?
+- if !@goodreads.blank? && @goodreads.count > 1
   - fade_books = 0
   .books_block
     %h1
@@ -50,7 +50,7 @@
         = render 'goodreads', :book => book, :fade => fade_level(@goodreads.count, fade_books)
         - fade_books += 1
 
-- unless @lastfm.blank?
+- if !@lastfm.blank? && @lastfm.count > 1
   - fade_songs = 0
   .music_block
     %h1
