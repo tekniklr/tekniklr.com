@@ -41,5 +41,5 @@
       #{link_to item[:title], ((item[:amazon_url] && (item[:similarity] >= SIMILAR_THRESHOLD)) ? item[:amazon_url] : item[:url]) }
       -if item[:platform]
         for #{item[:platform]}
-    %p.clear.center
+    %p.clear.center.when.fade60
       = time_ago_in_words(item[:published])+' ago'
