@@ -13,8 +13,9 @@
 // colors / sizes / etc. used everywhere.
 @import "config.scss";
 
-// boilerplate begin
-@import "html5bpnormalization.scss";
+// HTML5 boilerplate
+@import "html5bp-normalize.css";
+@import "html5bp-main.css";
 
 // layout used in many places
 @import "layout.scss";
@@ -38,6 +39,3 @@
 
 // google's code prettifier
 @import "prettify.scss";
-
-// boilerplate end
-@import "html5bphelpers.scss";
