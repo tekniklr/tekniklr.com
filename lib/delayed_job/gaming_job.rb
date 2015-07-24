@@ -8,7 +8,7 @@ class DelayedJob::GamingJob
     steam_items = get_steam
     all_items = (manual_items + psn_items + xbox_items + steam_items).sort_by{|i| i.published ? i.published : Time.now-1000.years}.reverse
     parsed_items = []
-    all_items.first(10).each do |item|
+    all_items.each do |item|
       if item.respond_to?('has_key?') && item.has_key?(:parsed)
         title = item.title
         platform = item.platform
@@ -57,7 +57,7 @@ class DelayedJob::GamingJob
         }
       end
     end
-    Rails.cache.write('gaming', parsed_items)
+    Rails.cache.write('gaming', parsed_items.uniq{ |i| i.title }[0..6])
   end
   
   private
