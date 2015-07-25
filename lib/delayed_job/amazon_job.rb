@@ -5,7 +5,7 @@ module DelayedJob::AmazonJob
     # see if this item has been looked up before, only search for it
     # if it hasn't
     cached_amazon_items = Rails.cache.read('amazon_items')
-    item_key = "#{item_type}|#{item_title}"
+    item_key = "#{item_type}|#{item_title}|#{additional_keywords}"
     if cached_amazon_items && cached_amazon_items.has_key?(item_key)
       Rails.logger.debug "Cached amazon #{item_type}(s) called #{item_title} found"
       return cached_amazon_items[item_key]
