@@ -67,7 +67,7 @@ class DelayedJob::GamingJob
         }
       end
     end
-    Rails.cache.write('gaming', parsed_items.uniq{ |i| i.title }[0..6])
+    Rails.cache.write('gaming', parsed_items.uniq{ |i| [i.title, i.platform] }[0..6])
   end
   
   private
