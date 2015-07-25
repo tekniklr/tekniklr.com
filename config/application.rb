@@ -14,5 +14,8 @@ module TekniklrCom
     config.assets.enabled = true
     config.assets.version = '1.2'
     config.i18n.enforce_available_locales = false
+    config.time_zone = 'Pacific Time (US & Canada)'
+    config.active_record.default_timezone = :local
+    config.active_record.time_zone_aware_attributes = false
   end
 end
