@@ -27,20 +27,17 @@
     .left
       = f.label :url
     .right
-      - if @recent_game.image?
-        = link_to @recent_game.url
-      - else
-        \-
+      = f.text_field :url, :size => 36
     .clear
 
   .row
     .left
       = f.label :image
     .right
+      = f.file_field :image
+      %br
       - if @recent_game.image?
-        = image_tag @recent_game.image.url(:default), alt: @recent_game.name, align: 'left', hspace: 10
-      - else
-        \-
+        = image_tag @recent_game.image.url(:default), alt: @recent_game.name
     .clear
 
   .center
