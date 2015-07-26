@@ -7,4 +7,4 @@
     = link_to book[:title], book[:url]
   %p{:class => "when fade#{fade}"}
     - if book[:published]
-      = time_ago_in_words(book[:published])+' ago'
+      = how_long_ago(book[:published])
