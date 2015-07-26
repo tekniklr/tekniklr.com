@@ -13,6 +13,12 @@ class RecentGamesControllerTest < ActionController::TestCase
     post :create, :recent_game => @recent_game.attributes
     assert_redirected_to root_url
     
+    get :edit, :id => @recent_game
+    assert_redirected_to root_url
+    
+    put :update, :id => @recent_game, :recent_game => @recent_game.attributes
+    assert_redirected_to root_url
+
     delete :destroy, :id => @recent_game.to_param
     assert_redirected_to root_url
   end
@@ -26,6 +32,16 @@ class RecentGamesControllerTest < ActionController::TestCase
     assert_difference('RecentGame.count') do
       post(:create, {:recent_game => @recent_game.attributes}, {'user_id' => @user.id})
     end
+    assert_redirected_to new_recent_game_path
+  end
+
+  should "get edit" do
+    get(:edit, {:id => @recent_game}, {'user_id' => @user.id})
+    assert_response :success
+  end
+
+  should "update recent_game" do
+    put(:update, {:id => @recent_game, :recent_game => @recent_game.attributes}, {'user_id' => @user.id})
     assert_redirected_to new_recent_game_path
   end
 
