@@ -50,6 +50,15 @@ module ApplicationHelper
       ''
     end
   end
+
+  # wrapper for time_ago_in_words that won't go into minutia
+  def how_long_ago(date)
+    if date.to_date == Date.today
+      return 'today'
+    else
+      return  time_ago_in_words(date)+' ago'
+    end
+  end
   
   private
 
