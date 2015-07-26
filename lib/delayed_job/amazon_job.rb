@@ -16,7 +16,7 @@ module DelayedJob::AmazonJob
       # if it was not found
       cached_amazon_items ||= {}
 
-      image_override_name = "products/#{item_title.downcase.gsub(/[^a-z0-9]+/, '_')}.jpg"
+      image_override_name = "products/#{item_title.downcase.gsub(/[^a-z0-9]+/, '_')}"
       if !Rails.application.assets.find_asset(image_override_name).nil?
         Rails.logger.debug "Override image found"
         cached_amazon_items[item_key] = {
