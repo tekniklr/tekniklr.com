@@ -16,7 +16,7 @@
     = link_to hover_text, item[:url], id: "opener_#{item_id}"
   %p{:class => "when fade#{fade}"}
     - if item[:published]
-      = time_ago_in_words(item[:published])+' ago'
+      = how_long_ago(item[:published])
   :javascript
     $(function() {
       $( '#dialog_game_#{item_id}' ).dialog({
@@ -44,4 +44,4 @@
           on #{item[:platform]}
       %p.clear.center.when.fade60
         - if item[:published]
-          = time_ago_in_words(item[:published])+' ago'
+          = how_long_ago(item[:published])
