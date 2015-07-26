@@ -11,6 +11,15 @@ class RecentGamesController < ApplicationController
     end
   end
 
+  # GET /recent_games/1/edit
+  def edit
+    @recent_game = RecentGame.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
   # POST /recent_games
   def create
     @recent_games = RecentGame.all
@@ -21,6 +30,23 @@ class RecentGamesController < ApplicationController
         format.html { redirect_to new_recent_game_url, :notice => 'Recent game was successfully added.' }
       else
         format.html { render :action => "new" }
+      end
+    end
+  end
+
+  # PUT /recent_games/1
+  def update
+    @recent_game = RecentGame.find(params[:id])
+
+    respond_to do |format|
+      if @recent_game.update_attributes(recent_game_params)
+        flash[:notice] = 'Recent game was successfully updated.'
+        format.html { redirect_to new_recent_game_url }
+        format.js
+      else
+        flash[:error] = 'Recent game not saved: '+@recent_game.errors.full_messages.join(', ')
+        format.html { render :action => "edit" }
+        format.js   { render :action => "update_error" }
       end
     end
   end

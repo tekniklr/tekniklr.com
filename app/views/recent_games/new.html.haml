@@ -71,6 +71,8 @@
   %ul#recent_games
     - @recent_games.each do |game|
       %li
+        .right
+          = link_to 'edit', edit_recent_game_path(game)
         .left
           - if game.image?
             = image_tag game.image.url(:default), alt: game.name, align: 'left', hspace: 10
@@ -80,6 +82,7 @@
           %br
           %em #{game.platform}
         .right
-          = link_to 'remove', game, :method => :delete, :data => { :confirm => "Are you sure you want to remove #{game.name}?" }
+          %p
+            = link_to 'remove', game, :method => :delete, :data => { :confirm => "Are you sure you want to remove #{game.name}?" }
 - else
   %p There haven't been any recent games added yet.
