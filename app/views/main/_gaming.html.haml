@@ -43,4 +43,5 @@
         -if item[:platform]
           on #{item[:platform]}
       %p.clear.center.when.fade60
-        = time_ago_in_words(item[:published])+' ago'
+        - if item[:published]
+          = time_ago_in_words(item[:published])+' ago'
