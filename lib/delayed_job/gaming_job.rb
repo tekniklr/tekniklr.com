@@ -39,35 +39,38 @@ class DelayedJob::GamingJob
       end
       if amazon
         parsed_items << {
-          :title        => title,
-          :achievement  => achievement,
-          :platform     => platform,
-          :url          => item.url,
-          :published    => item.published,
-          :image_url    => amazon[:image_url],
-          :amazon_url   => amazon[:amazon_url],
-          :amazon_title => amazon[:amazon_title],
-          :similarity   => amazon[:similarity]
+          title:               title,
+          additional_keywords: additional_keywords,
+          achievement:         achievement,
+          platform:            platform,
+          url:                 item.url,
+          published:           item.published,
+          image_url:           amazon[:image_url],
+          amazon_url:          amazon[:amazon_url],
+          amazon_title:        amazon[:amazon_title],
+          similarity:          amazon[:similarity]
         }
       elsif item.image
         parsed_items << {
-          :title        => item.title,
-          :platform     => platform,
-          :url          => item.url,
-          :published    => item.published,
-          :image_url    => item.image.url(:default)
+          title:               item.title,
+          additional_keywords: additional_keywords,
+          platform:            platform,
+          url:                 item.url,
+          published:           item.published,
+          image_url:           item.image.url(:default)
         }
       else
         parsed_items << {
-          :title        => title,
-          :platform     => platform,
-          :achievement  => achievement,
-          :url          => item.url,
-          :published    => item.published
+          title:               title,
+          additional_keywords: additional_keywords,
+          platform:            platform,
+          achievement:         achievement,
+          url:                 item.url,
+          published:           item.published
         }
       end
     end
-    Rails.cache.write('gaming', parsed_items.uniq{ |i| [i.title, i.platform] }[0..6])
+    Rails.cache.write('gaming', parsed_items.uniq{ |i| [i.title.downcase, i.additional_keywords] }[0..6])
   end
   
   private
