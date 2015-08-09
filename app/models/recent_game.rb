@@ -19,4 +19,9 @@ class RecentGame < ActiveRecord::Base
 
   default_scope { order('started_playing desc, created_at desc') }
   
+  scope :by_name_with_image, lambda { |name|
+    where("name like ?", "%#{name}%").
+    where('image_file_name is not null')
+  }
+
 end
