@@ -38,7 +38,7 @@
         - if item[:achievement]
           Earned #{link_to item[:achievement], item[:url]} in 
         - else
-          Started playing 
+          Played 
         #{link_to item[:title], ((item[:amazon_url] && (item[:similarity] >= SIMILAR_THRESHOLD)) ? item[:amazon_url] : item[:url]) }
         -if item[:platform]
           on #{item[:platform]}
