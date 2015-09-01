@@ -1,5 +1,5 @@
 EMAIL = 'tsolow@tekniklr.com'
-TAGLINE = 'cyborg, programmer, gamer, cyclist, miscreant'
+TAGLINE = 'I code, game, bike, and do other stuff. Aspiring cyborg.'
 NUM_FAVS = 6
 SIMILAR_THRESHOLD = 50
 CACHED_ITEMS = [
