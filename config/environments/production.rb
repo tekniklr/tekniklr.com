@@ -56,6 +56,6 @@ TekniklrCom::Application.configure do
     :exception_recipients => %w{tsolow@tekniklr.com}
   }
 
-  Rails.application.routes.default_url_options[:host] = 'tekniklr.pizza'
+  Rails.application.routes.default_url_options[:host] = 'tekniklr.com'
 
 end
