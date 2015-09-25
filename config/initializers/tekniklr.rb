@@ -1,5 +1,6 @@
 EMAIL = 'tsolow@tekniklr.com'
 DOMAIN = 'tekniklr.pizza'
+WPDOMAIN = 'tekniklr.com'
 TAGLINE = 'Aspiring cyborg. I write code, play games, ride bikes, and verb other nouns.'
 NUM_FAVS = 6
 SIMILAR_THRESHOLD = 50
