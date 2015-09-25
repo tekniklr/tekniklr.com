@@ -45,10 +45,10 @@
           Earned #{link_to item[:achievement], item[:url]} in 
         - else
           Played 
-          - if !url.blank?
-            #{link_to item[:title], url }
-          - else
-            #{item[:title]}
+        - if !url.blank?
+          #{link_to item[:title], url }
+        - else
+          #{item[:title]}
         -if item[:platform]
           on #{item[:platform]}
       %p.clear.center.when.fade60
