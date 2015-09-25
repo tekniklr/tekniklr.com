@@ -8,12 +8,17 @@
     if item[:achievement]
       hover_text << "\n\n#{item[:achievement]}"
     end
-  - if item[:image_url] && item[:amazon_url] && (item[:similarity] >= SIMILAR_THRESHOLD)
-    = link_to image_tag(item[:image_url], :alt => hover_text, :title => hover_text), item[:amazon_url], id: "opener_#{item_id}"
-  - elsif item[:image_url] && item[:amazon_title].blank?
-    = link_to image_tag(item[:image_url], :alt => hover_text, :title => hover_text), item[:url], id: "opener_#{item_id}"
+    if item[:amazon_url] || item[:url]
+      amazon_url = (item[:amazon_url] && (item[:similarity] >= SIMILAR_THRESHOLD)) ? item[:amazon_url] : nil
+      url = !amazon_url.blank? ? amazon_url : item[:url]
+    end
+  - if !item[:image_url].blank?
+    - if !amazon_url.blank?
+      = link_to image_tag(item[:image_url], :alt => hover_text, :title => hover_text), amazon_url, id: "opener_#{item_id}"
+    - else
+      = link_to image_tag(item[:image_url], :alt => hover_text, :title => hover_text), url, id: "opener_#{item_id}"
   - else
-    = link_to hover_text, item[:url], id: "opener_#{item_id}"
+    = link_to hover_text, url, id: "opener_#{item_id}"
   %p{:class => "when fade#{fade}"}
     - if item[:published]
       = how_long_ago(item[:published])
@@ -29,17 +34,21 @@
     });
   %div{style: 'display:none;'}
     %div{id: "dialog_game_#{item_id}", title: item[:title]}
-      %p.center
-        - if item[:image_url] && item[:amazon_url] && (item[:similarity] >= SIMILAR_THRESHOLD)
-          = link_to image_tag(item[:image_url]), item[:amazon_url]
-        - elsif item[:image_url] && item[:amazon_title].blank?
-          = link_to image_tag(item[:image_url]), item[:url]
+      - if item[:image_url]
+        %p.center
+          - if !url.blank?
+            = link_to image_tag(item[:image_url]), url
+          - else
+            = image_tag item[:image_url]
       %p
         - if item[:achievement]
           Earned #{link_to item[:achievement], item[:url]} in 
         - else
           Played 
-        #{link_to item[:title], ((item[:amazon_url] && (item[:similarity] >= SIMILAR_THRESHOLD)) ? item[:amazon_url] : item[:url]) }
+          - if !url.blank?
+            #{link_to item[:title], url }
+          - else
+            #{item[:title]}
         -if item[:platform]
           on #{item[:platform]}
       %p.clear.center.when.fade60
