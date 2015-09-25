@@ -50,7 +50,7 @@ class DelayedJob::GamingJob
           amazon_title:        amazon[:amazon_title],
           similarity:          amazon[:similarity]
         }
-      elsif item.image
+      elsif !item.image.blank?
         parsed_items << {
           title:               item.title,
           additional_keywords: additional_keywords,
