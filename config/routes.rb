@@ -53,4 +53,10 @@ TekniklrCom::Application.routes.draw do
   # https://github.com/rails/rails/issues/671
   # http://techoctave.com/c7/posts/36-rails-3-0-rescue-from-routing-error-solution
   match '*a', :to => "application#routing_error", :via => :get
+
+  # https://stackoverflow.com/questions/10918529/how-can-i-use-rails-routes-to-redirect-from-one-domain-to-another
+  constraints(:host => /tekniklr\.com/) do
+    match "/(*path)" => redirect {|params, req| "http://tekniklr.pizza/#{params[:path]}"},  via: [:get, :post]
+  end
+
 end
