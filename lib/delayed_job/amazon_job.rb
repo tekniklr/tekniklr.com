@@ -100,15 +100,17 @@ module DelayedJob::AmazonJob
   # example:
   #   'lords of waterdeep' != 'lords of waterdeep: a dungeons and dragons game'
   # (and I'm not entering that whole stupid fucking title)
+  # going to assume that whatever I enter is the terser version, so only 
+  # cleaning up what we get from amazon, here...
   def similarity(thing1, thing2)
     Rails.logger.debug "Checking similarity between \"#{thing1}\" and \"#{thing2}\"..."
-    beginnings_thing1 = thing1.downcase.sub(/[-:(0-9].*/, '')
     beginnings_thing2 = thing2.downcase.sub(/[-:(0-9].*/, '')
-    beginnings = !(beginnings_thing1.empty? && beginnings_thing2.empty?) ? beginnings_thing1.similar(beginnings_thing2) : 0
-    endings_thing1 = thing1.downcase.sub(/.*[-:)]/, '')
+    beginnings = !beginnings_thing2.empty? ? thing1.similar(beginnings_thing2) : 0
     endings_thing2 = thing2.downcase.sub(/.*[-:)]/, '')
-    endings = !(endings_thing1.empty? && endings_thing2.empty?) ? endings_thing1.similar(endings_thing2) : 0
-    [beginnings, endings].max
+    endings = !endings_thing2.empty? ? thing1.similar(endings_thing2) : 0
+    middles_thing2 = thing2 =~ /[-:(0-9](.*)[-:)]/ ? $1 : ''
+    middles = !middles_thing2.empty? ? thing1.similar(middles_thing2) : 0
+    [beginnings, endings, middles].max
   end
 
 end
