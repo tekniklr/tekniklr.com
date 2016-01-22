@@ -18,21 +18,13 @@ module DelayedJob::AmazonJob
 
       image_override_name = "products/#{item_title.downcase.gsub(/[^a-z0-9]+/, '_')}.jpg"
 
-      # sometimes we want to link to amazon even if we know in advance the 
-      # amazon fetching won't work in the traditional way
-      override_links = {
-          'Pandemic' => 'http://www.amazon.com/gp/product/B00A2HD40E/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B00A2HD40E&linkCode=as2&tag=tekniklrcom-20&linkId=Z3D6CSCEU52FWYB7',
-          'Supernatural' => 'http://www.amazon.com/gp/product/B0040FTKNY/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B0040FTKNY&linkCode=as2&tag=tekniklrcom-20&linkId=QP4U4EOWRGUSHFSR',
-          'Trigun' => 'http://www.amazon.com/gp/product/B00AUJH32E/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B00AUJH32E&linkCode=as2&tag=tekniklrcom-20&linkId=BCHVKZZHXGNHT4BQ',
-          'Yggdrasil' => 'http://www.amazon.com/gp/product/B004QF0UN2/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B004QF0UN2&linkCode=as2&tag=tekniklrcom-20&linkId=BWKCCJPC7GDA5WS5'
-        }
-
+      favorite_things = FavoriteThing.by_thing_with_image(item_title)
       recent_games = RecentGame.by_name_with_image(item_title)
-      if !Rails.application.assets.find_asset(image_override_name).nil?
-        Rails.logger.debug "Override image found"
+      if !favorite_things.empty?
+        Rails.logger.debug "Favorite thing with uploaded image found"
         cached_amazon_items[item_key] = {
-          :image_url  => ActionController::Base.helpers.image_path(image_override_name),
-          :amazon_url => override_links.keys.include?(item_title) ? override_links[item_title] : nil,
+          :image_url  => favorite_things.first.image.url,
+          :amazon_url => favorite_things.first.amazon_url,
           :similarity => 100
         }
       elsif !recent_games.empty?
@@ -40,6 +32,21 @@ module DelayedJob::AmazonJob
         cached_amazon_items[item_key] = {
           :image_url  => recent_games.first.image.url,
           :amazon_url => recent_games.first.amazon_url,
+          :similarity => 100
+        }
+      elsif !Rails.application.assets.find_asset(image_override_name).nil?
+        Rails.logger.debug "Override image found"
+        # sometimes we want to link to amazon even if we know in advance the 
+        # amazon fetching won't work in the traditional way
+        override_links = {
+            'Pandemic' => 'http://www.amazon.com/gp/product/B00A2HD40E/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B00A2HD40E&linkCode=as2&tag=tekniklrcom-20&linkId=Z3D6CSCEU52FWYB7',
+            'Supernatural' => 'http://www.amazon.com/gp/product/B0040FTKNY/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B0040FTKNY&linkCode=as2&tag=tekniklrcom-20&linkId=QP4U4EOWRGUSHFSR',
+            'Trigun' => 'http://www.amazon.com/gp/product/B00AUJH32E/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B00AUJH32E&linkCode=as2&tag=tekniklrcom-20&linkId=BCHVKZZHXGNHT4BQ',
+            'Yggdrasil' => 'http://www.amazon.com/gp/product/B004QF0UN2/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B004QF0UN2&linkCode=as2&tag=tekniklrcom-20&linkId=BWKCCJPC7GDA5WS5'
+          }
+        cached_amazon_items[item_key] = {
+          :image_url  => ActionController::Base.helpers.image_path(image_override_name),
+          :amazon_url => override_links.keys.include?(item_title) ? override_links[item_title] : nil,
           :similarity => 100
         }
       else
