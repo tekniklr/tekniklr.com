@@ -39,7 +39,7 @@ module DelayedJob::AmazonJob
         Rails.logger.debug "Recent Game with uploaded image found"
         cached_amazon_items[item_key] = {
           :image_url  => recent_games.first.image.url,
-          :amazon_url => override_links.keys.include?(item_title) ? override_links[item_title] : nil,
+          :amazon_url => recent_games.first.amazon_url,
           :similarity => 100
         }
       else
