@@ -13,7 +13,6 @@ module TekniklrCom
     config.filter_parameters += [:password]
     config.assets.enabled = true
     config.assets.version = '1.2'
-    config.assets.precompile += %w( products/* )
     config.i18n.enforce_available_locales = false
     config.time_zone = 'Pacific Time (US & Canada)'
     config.active_record.default_timezone = :local
