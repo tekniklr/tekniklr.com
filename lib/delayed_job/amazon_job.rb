@@ -39,9 +39,6 @@ module DelayedJob::AmazonJob
         # sometimes we want to link to amazon even if we know in advance the 
         # amazon fetching won't work in the traditional way
         override_links = {
-            'Pandemic' => 'http://www.amazon.com/gp/product/B00A2HD40E/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B00A2HD40E&linkCode=as2&tag=tekniklrcom-20&linkId=Z3D6CSCEU52FWYB7',
-            'Supernatural' => 'http://www.amazon.com/gp/product/B0040FTKNY/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B0040FTKNY&linkCode=as2&tag=tekniklrcom-20&linkId=QP4U4EOWRGUSHFSR',
-            'Trigun' => 'http://www.amazon.com/gp/product/B00AUJH32E/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B00AUJH32E&linkCode=as2&tag=tekniklrcom-20&linkId=BCHVKZZHXGNHT4BQ',
             'Yggdrasil' => 'http://www.amazon.com/gp/product/B004QF0UN2/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B004QF0UN2&linkCode=as2&tag=tekniklrcom-20&linkId=BWKCCJPC7GDA5WS5'
           }
         cached_amazon_items[item_key] = {
