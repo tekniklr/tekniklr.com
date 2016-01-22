@@ -42,7 +42,7 @@ module DelayedJob::AmazonJob
         begin
           item = resp.item_search_response.items.item.first
           returned_type = item.item_attributes.product_type_name.__val__
-          image_url = item.small_image.url.__val__
+          image_url = item.small_image.blank? ? item.image_sets.first.image_set.small_image.url.__val__ : item.small_image.url.__val__
           amazon_url = item.item_links.first.item_link.first.url.__val__
           # different item types return different parameters. see:
           #   https://docs.aws.amazon.com/AWSECommerceService/latest/DG/LocaleUS.html
