@@ -13,15 +13,38 @@
 
   .things_edit
     = f.fields_for :favorite_things do |ft|
-      %div
-        = ft.label :thing
-        = ft.text_field :thing, :size => 20
-        = ft.label :link
-        = ft.text_field :link, :size => 30
-        = ft.number_field :sort
-        - unless ft.object.new_record?
-          = ft.label '_destroy', 'Remove'
-          = ft.check_box '_destroy'
+      .thing_form
+        .thing_image
+          - if ft.object.image?
+            = image_tag ft.object.image.url(:default), alt: ft.object.thing
+
+        .thing_fields
+          = ft.label :thing, 'Thing name'
+          = ft.text_field :thing, :size => 20
+
+          = ft.label :sort, 'Sort order'
+          = ft.number_field :sort
+
+          %br
+
+          = ft.label :link
+          = ft.text_field :link, :size => 30
+
+          %br
+
+          = ft.label :amazon_url
+          = ft.text_field :amazon_url, :size => 36
+
+          %br
+
+          = ft.label :image
+          = ft.file_field :image
+
+        .thing_destroy
+          - unless ft.object.new_record?
+            = ft.label '_destroy', 'Remove'
+            = ft.check_box '_destroy'
+
           
   .center
     = f.submit
