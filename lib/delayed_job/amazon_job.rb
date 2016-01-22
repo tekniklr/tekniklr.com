@@ -104,13 +104,21 @@ module DelayedJob::AmazonJob
   # cleaning up what we get from amazon, here...
   def similarity(thing1, thing2)
     Rails.logger.debug "Checking similarity between \"#{thing1}\" and \"#{thing2}\"..."
-    beginnings_thing2 = thing2.downcase.sub(/[-:(0-9].*/, '')
-    beginnings = !beginnings_thing2.empty? ? thing1.similar(beginnings_thing2) : 0
-    endings_thing2 = thing2.downcase.sub(/.*[-:)]/, '')
-    endings = !endings_thing2.empty? ? thing1.similar(endings_thing2) : 0
-    middles_thing2 = thing2 =~ /[-:(0-9](.*)[-:)]/ ? $1 : ''
-    middles = !middles_thing2.empty? ? thing1.similar(middles_thing2) : 0
-    [beginnings, endings, middles].max
+    whitelisty_things = [
+                          'catan',
+                          'skyrim'
+                        ]
+    if whitelisty_things.select{|t| thing2.downcase =~ /#{t}/}.count > 0
+      return 100
+    else
+      beginnings_thing2 = thing2.downcase.sub(/[-:(0-9].*/, '')
+      beginnings = !beginnings_thing2.empty? ? thing1.similar(beginnings_thing2) : 0
+      endings_thing2 = thing2.downcase.sub(/.*[-:)]/, '')
+      endings = !endings_thing2.empty? ? thing1.similar(endings_thing2) : 0
+      middles_thing2 = thing2 =~ /[-:(0-9](.*)[-:)]/ ? $1 : ''
+      middles = !middles_thing2.empty? ? thing1.similar(middles_thing2) : 0
+      return [beginnings, endings, middles].max
+    end
   end
 
 end
