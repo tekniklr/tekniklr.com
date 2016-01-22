@@ -10,6 +10,7 @@ doc/app
 public/static/
 public/icons/
 public/recent_games/
+public/favorite_things/
 public/system/
 public/wpblog/
 config/database.yml
