@@ -1,5 +1,11 @@
 class FavoriteThing < ActiveRecord::Base
   belongs_to  :favorite
+
+  has_attached_file     :image,
+                        :styles => { :default => ["60x75>", :png] },
+                        :path => ":rails_root/public/favorite_things/:attachment/:id/:style/:filename",
+                        :url => "/favorite_things/:attachment/:id/:style/:filename"
+  validates_attachment_content_type :image, :content_type => [ 'image/png', 'image/jpg', 'image/jpeg', 'image/gif']
   
   validates_presence_of :thing
   validates_length_of   :thing, :maximum => 60
@@ -12,4 +18,9 @@ class FavoriteThing < ActiveRecord::Base
   
   default_scope { order('sort asc, thing asc') }
   
+  scope :by_thing_with_image, lambda { |thing|
+    where("thing like ?", "%#{thing}%").
+    where('image_file_name is not null')
+  }
+
 end

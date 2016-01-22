@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160122044244) do
+ActiveRecord::Schema.define(version: 20160122050654) do
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   limit: 4,     default: 0
@@ -54,12 +54,17 @@ ActiveRecord::Schema.define(version: 20160122044244) do
   add_index "facets", ["slug"], name: "index_facets_on_slug", using: :btree
 
   create_table "favorite_things", force: :cascade do |t|
-    t.integer  "favorite_id", limit: 4
-    t.string   "thing",       limit: 255
-    t.string   "link",        limit: 255
-    t.integer  "sort",        limit: 4
+    t.integer  "favorite_id",        limit: 4
+    t.string   "thing",              limit: 255
+    t.string   "link",               limit: 255
+    t.integer  "sort",               limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "amazon_url",         limit: 255
+    t.string   "image_file_name",    limit: 255
+    t.string   "image_content_type", limit: 255
+    t.integer  "image_file_size",    limit: 4
+    t.datetime "image_updated_at"
   end
 
   add_index "favorite_things", ["favorite_id"], name: "index_favorite_things_on_favorite_id", using: :btree

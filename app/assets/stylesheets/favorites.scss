@@ -9,6 +9,38 @@
   border-left: 1px solid #999999;
 }
 
+.thing_form {
+  clear: both;
+  margin: 1em 0 1em 0;
+  padding: 1em 0 1em 0;
+  border-bottom: 1px dashed #aaaaaa;
+  .thing_image {
+    padding: 0 .5em 0 .5em;
+    display: inline-block;
+    width: 7em;
+    vertical-align: top;
+    img {
+      margin-top: .5em;
+      max-width: 5em;
+      max-height: 8em;
+    }
+  }
+  .thing_fields {
+    display: inline-block;
+    width: 35em;
+    label {
+      display: inline-block;
+      width: 6em;
+    }
+  }
+  .thing_destroy {
+    display: inline-block;
+    padding: 0 0 0 .5em;
+    width: 9em;
+    vertical-align: top;
+  }
+}
+
 #sort_favorites {
   width: 50%;
   margin: auto;
