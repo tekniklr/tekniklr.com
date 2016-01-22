@@ -57,6 +57,13 @@
 
   .row
     .left
+      = f.label :amazon_url
+    .right
+      = f.text_field :amazon_url, :size => 36
+    .clear
+
+  .row
+    .left
       = f.label :image
     .right
       = f.file_field :image
