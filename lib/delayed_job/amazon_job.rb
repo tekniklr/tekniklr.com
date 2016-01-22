@@ -17,16 +17,30 @@ module DelayedJob::AmazonJob
       cached_amazon_items ||= {}
 
       image_override_name = "products/#{item_title.downcase.gsub(/[^a-z0-9]+/, '_')}.jpg"
+
+      # sometimes we want to link to amazon even if we know in advance the 
+      # amazon fetching won't work in the traditional way
+      override_links = {
+          'Pandemic' => 'http://www.amazon.com/gp/product/B00A2HD40E/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B00A2HD40E&linkCode=as2&tag=tekniklrcom-20&linkId=Z3D6CSCEU52FWYB7',
+          'Supernatural' => 'http://www.amazon.com/gp/product/B0040FTKNY/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B0040FTKNY&linkCode=as2&tag=tekniklrcom-20&linkId=QP4U4EOWRGUSHFSR',
+          'Trigun' => 'http://www.amazon.com/gp/product/B00AUJH32E/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B00AUJH32E&linkCode=as2&tag=tekniklrcom-20&linkId=BCHVKZZHXGNHT4BQ',
+          'Yggdrasil' => 'http://www.amazon.com/gp/product/B004QF0UN2/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B004QF0UN2&linkCode=as2&tag=tekniklrcom-20&linkId=BWKCCJPC7GDA5WS5'
+        }
+
       recent_games = RecentGame.by_name_with_image(item_title)
       if !Rails.application.assets.find_asset(image_override_name).nil?
         Rails.logger.debug "Override image found"
         cached_amazon_items[item_key] = {
-          :image_url  => ActionController::Base.helpers.image_path(image_override_name)
+          :image_url  => ActionController::Base.helpers.image_path(image_override_name),
+          :amazon_url => override_links.keys.include?(item_title) ? override_links[item_title] : nil,
+          :similarity => 100
         }
       elsif !recent_games.empty?
         Rails.logger.debug "Recent Game with uploaded image found"
         cached_amazon_items[item_key] = {
-          :image_url  => recent_games.first.image.url
+          :image_url  => recent_games.first.image.url,
+          :amazon_url => override_links.keys.include?(item_title) ? override_links[item_title] : nil,
+          :similarity => 100
         }
       else
         Rails.logger.debug "Searching amazon for #{item_type}(s) called #{item_title}"
