@@ -1,7 +1,6 @@
 source 'http://rubygems.org'
-ruby "2.1.5"
 
-gem 'rails', '~>4.2.0'
+gem 'rails', '<5'
 gem 'mysql2'
 
 gem 'paperclip'
