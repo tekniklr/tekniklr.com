@@ -4,7 +4,7 @@ class DelayedJob::DeliciousJob
     Rails.logger.debug "Fetching delicious bookmarks from RSS..."
     begin
       feed      = Feedjira::Feed.fetch_and_parse('http://feeds.delicious.com/v2/rss/tekniklr')
-      bookmarks = feed.entries[0..3]
+      bookmarks = feed.entries.reject{|e| e.author != 'tekniklr'}[0..3]
     rescue
       bookmarks = []
     end
