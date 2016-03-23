@@ -10,21 +10,23 @@ class DelayedJob::DeliciousJob
     # the wonky CDN.
     local_rss_file = "#{Rails.root}/tmp/delicious.rss"
     if File.exists? local_rss_file
-      Rails.logger.debug "Parsing local delicious bookmarks file..."
+      Rails.logger.debug "Using local delicious bookmarks file..."
       opened_rss_file = File.open local_rss_file
       xml = opened_rss_file.read
-      feed = Feedjira::Feed.parse xml
       opened_rss_file.close
     else
       Rails.logger.debug "Fetching delicious bookmarks from RSS..."
-      begin
-        feed = Feedjira::Feed.fetch_and_parse('http://feeds.delicious.com/v2/rss/tekniklr')
-      rescue => exception
-        Rails.logger.warn "Error fetching delicious feed! (#{exception.class})"
-      end
+      xml = Net::HTTP.get(URI.parse('http://feeds.delicious.com/v2/rss/tekniklr'))
     end
 
+    # ADDITIONALLY, the delicious rss feed has been sending invalid RSS which
+    # feedjira is unable to parse, so remove any of that
+    Rails.logger.debug "Removing broken items from RSS..."
+    xml = xml.gsub('&amp;', '[replaced_amp]').gsub('&', '&amp;').gsub('[replaced_amp]', '&amp;')
+
     begin
+      Rails.logger.debug "Parsing RSS..."
+      feed = Feedjira::Feed.parse xml
       bookmarks = feed.entries.reject{|e| e.author != 'tekniklr'}[0..3]
     rescue
       bookmarks = []
