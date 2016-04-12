@@ -241,6 +241,8 @@ html.ie8 #navigation .mobile {display: none;}
         background-color: $page_bg;
         @include rounded(0px, $page_bg, .75em, 0, none);
         @include transparent(0.8);
+        max-width: 32px;
+        max-height: 32px;
       }
     }
   }
