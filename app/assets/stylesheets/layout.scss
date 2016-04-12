@@ -89,7 +89,6 @@ a:hover { color: $hover_color; }
   background-image: image-url("tentacles.png");
   background-repeat: no-repeat;
   background-position: bottom right;
-  height: 80px;
   overflow: hidden;
   max-width: $head_width;
   padding: 0 0 .25em .25em;
@@ -108,10 +107,10 @@ a:hover { color: $hover_color; }
     margin: .2em 0 .2em 0;
     background-color: $page_bg;
     @include rounded(1px, transparent, .75em, .3em, none);
-    padding-left: 0;
+    padding: .2em .3em .3em 0;
     @include transparent(0.8);
     display: inline;
-    line-height: 1.125em;
+    line-height: 1.5em;
   }
 }
 
