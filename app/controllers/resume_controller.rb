@@ -1,4 +1,5 @@
 class ResumeController < ApplicationController
+  before_filter   :is_admin?
   before_filter  { |c| c.page_title 'resume' }
 
   def index
