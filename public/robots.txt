@@ -3,4 +3,5 @@ Crawl-delay: 10
 Disallow: /login
 Disallow: /auth/
 Disallow: /wpblog/tag/
+Disallow: /resume
 
