@@ -1,6 +1,6 @@
 %li
-  - if song[:image_url] && song[:amazon_url]
-    = link_to image_tag(song[:image_url], :alt => song[:title], :title => song[:title]), song[:amazon_url]
+  - if song[:image_url]
+    = link_to image_tag(song[:image_url], alt: song[:title], title: song[:title]), (song[:amazon_url] ? song[:amazon_url] : song[:lastfm_url])
   - else
     = link_to song[:title], song[:lastfm_url]
   %p{:class => "when fade#{fade}"}
