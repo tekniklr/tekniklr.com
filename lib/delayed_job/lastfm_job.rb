@@ -21,19 +21,21 @@ class DelayedJob::LastfmJob
       amazon = get_amazon("#{artist} #{album}", 'Music')
       if amazon
         parsed_items << {
-          :title        => item.name,
-          :published    => played_on,
-          :image_url    => amazon[:image_url],
-          :amazon_url   => amazon[:amazon_url],
-          :amazon_title => amazon[:amazon_title],
-          :similarity   => amazon[:similarity]
+          title:        item.name,
+          artist:       artist,
+          published:    played_on,
+          image_url:    amazon[:image_url],
+          amazon_url:   amazon[:amazon_url],
+          amazon_title: amazon[:amazon_title],
+          similarity:   amazon[:similarity]
         }
       else
         parsed_items << {
-          :title      => item.name,
-          :published  => played_on,
-          :lastfm_url => item.url,
-          :image_url  => image_url,
+          title:      item.name,
+          artist:     artist,
+          published:  played_on,
+          lastfm_url: item.url,
+          image_url:  image_url,
         }
       end
     end

@@ -1,8 +1,9 @@
 %li
+  - description = song[:artist] + ' - ' + song[:title]
   - if song[:image_url]
-    = link_to image_tag(song[:image_url], alt: song[:title], title: song[:title]), (song[:amazon_url] ? song[:amazon_url] : song[:lastfm_url])
+    = link_to image_tag(song[:image_url], alt: description, title: description), (song[:amazon_url] ? song[:amazon_url] : song[:lastfm_url])
   - else
-    = link_to song[:title], song[:lastfm_url]
+    = link_to description, song[:lastfm_url]
   %p{:class => "when fade#{fade}"}
     - if song[:published]
       = time_ago_in_words(song[:published])+' ago'
