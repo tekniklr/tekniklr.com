@@ -78,7 +78,7 @@ ul#delicious {
 ul#gaming, ul#goodreads, ul#lastfm, ul#flickr {
   width: 96%;
   max-width: 100%;
-  margin: 0;
+  margin: 0 auto 0 auto;
   padding: 0;
   list-style-type: none;
   text-align: center;
@@ -104,10 +104,12 @@ ul#gaming, ul#goodreads, ul#lastfm, ul#flickr {
   }
 }
 ul#lastfm {
-  height: 9em;
   li {
+    height: 7em;
+    width: 6em;
+    padding: .25em .5em 3em .5em;
     img {
-      max-height: 6em;
+      max-height: 4em;
       overflow: hidden;
     }
   }
