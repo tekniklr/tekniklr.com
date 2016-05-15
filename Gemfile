@@ -60,7 +60,7 @@ end
 group :development do
   gem "awesome_print"
   gem "pry-rails"
-  gem 'capistrano-rvm'
+  gem 'capistrano-rbenv'
   gem 'capistrano-bundler'
   gem 'capistrano-rails'
 end
