@@ -16,7 +16,7 @@ class DelayedJob::DeliciousJob
       opened_rss_file.close
     else
       Rails.logger.debug "Fetching delicious bookmarks from RSS..."
-      xml = Net::HTTP.get(URI.parse('http://feeds.delicious.com/v2/rss/tekniklr'))
+      xml = Net::HTTP.get(URI.parse('http://feeds.del.icio.us/v2/rss/tekniklr'))
     end
 
     # ADDITIONALLY, the delicious rss feed has been sending invalid RSS which
