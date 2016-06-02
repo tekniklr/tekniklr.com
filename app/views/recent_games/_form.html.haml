@@ -1,0 +1,74 @@
+:ruby
+  possible_platforms = [
+    'iOS',
+    '3DS',
+    'Wii U',
+    'Steam',
+    'GoG',
+    'PS4',
+    'PS3',
+    'Xbox One',
+    'Xbox 360',
+    'Xbox Live',
+    'Mac',
+    'PC',
+    'SNES',
+    'GBA',
+    'NES'
+  ]
+
+= form_for(@recent_game) do |f|
+  - if @recent_game.errors.any?
+    #error_explanation
+      %h2 #{pluralize(@recent_game.errors.count, "error")} prohibited this game from being saved:
+      %ul
+        - @recent_game.errors.full_messages.each do |msg|
+          %li #{msg}
+
+  .row
+    .left
+      = f.label :name
+    .right
+      = f.text_field :name, :size => 36
+    .clear
+
+  .row
+    .left
+      = f.label :platform
+    .right
+      = f.select :platform, possible_platforms, include_blank: true
+    .clear
+
+  .row
+    .left
+      = f.label :started_playing, 'Started'
+    .right
+      = f.date_select :started_playing, default: Date.today
+    .clear
+
+  .row
+    .left
+      = f.label :url
+    .right
+      = f.text_field :url, :size => 36
+    .clear
+
+  .row
+    .left
+      = f.label :amazon_url
+    .right
+      = f.text_field :amazon_url, :size => 36
+    .clear
+
+  .row
+    .left
+      = f.label :image
+    .right
+      = f.file_field :image
+      %br
+      - if @recent_game.image?
+        = image_tag @recent_game.image.url(:default), alt: @recent_game.name
+    .clear
+
+  .center
+    = f.submit submit_label
