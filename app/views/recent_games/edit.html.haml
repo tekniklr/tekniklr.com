@@ -1,53 +1,6 @@
 %h1 Update a recent game
 
-= form_for(@recent_game) do |f|
-
-  .row
-    .left
-      = f.label :name
-    .right
-      = @recent_game.name
-    .clear
-
-  .row
-    .left
-      = f.label :platform
-    .right
-      = @recent_game.platform
-    .clear
-
-  .row
-    .left
-      = f.label :started_playing, 'Started'
-    .right
-      = f.date_select :started_playing
-    .clear
-
-  .row
-    .left
-      = f.label :url
-    .right
-      = f.text_field :url, :size => 36
-    .clear
-
-  .row
-    .left
-      = f.label :amazon_url
-    .right
-      = f.text_field :amazon_url, :size => 36
-
-  .row
-    .left
-      = f.label :image
-    .right
-      = f.file_field :image
-      %br
-      - if @recent_game.image?
-        = image_tag @recent_game.image.url(:default), alt: @recent_game.name
-    .clear
-
-  .center
-    = f.submit "Update game"
+= render 'form', submit_label: "Update game"
 
 .right
   = link_to 'remove this game', @recent_game, :method => :delete, :data => { :confirm => "Are you sure you want to remove #{@recent_game.name}?" }
