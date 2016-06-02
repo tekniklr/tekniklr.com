@@ -70,7 +70,7 @@ class DelayedJob::GamingJob
         }
       end
     end
-    Rails.cache.write('gaming', parsed_items.uniq{ |i| [i.title.downcase, i.additional_keywords] }[0..6])
+    Rails.cache.write('gaming', parsed_items.uniq{ |i| [i.title.downcase.gsub(/\s+/, ' ').gsub(/[^\w\s]/, ''), i.additional_keywords] }[0..6])
   end
   
   private
