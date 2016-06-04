@@ -1,4 +1,4 @@
-EMAIL = 'tsolow@tekniklr.com'
+EMAIL = 'tekniklr@tekniklr.com'
 DOMAIN = 'tekniklr.pizza'
 WPDOMAIN = 'tekniklr.com'
 TAGLINE = 'Code writing, game playing, bike riding, noun verbing cyborg'
