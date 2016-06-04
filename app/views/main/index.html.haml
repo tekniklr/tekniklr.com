@@ -44,7 +44,7 @@
   - fade_books = 0
   .books_block
     %h1
-      = link_to 'Books', 'https://www.goodreads.com/user/show/10905654-teri-solow'
+      = link_to 'Books', 'https://www.goodreads.com/user/show/10905654-tekniklr'
     %ul#goodreads
       - @goodreads.each do |book|
         = render 'goodreads', :book => book, :fade => fade_level(@goodreads.count, fade_books)
