@@ -25,4 +25,10 @@ class FacetTest < ActiveSupport::TestCase
     @facet.slug = '012345678901234567890'
     assert_equal(false, @facet.save)
   end
+
+  should "use the value when outputing facet as a string" do
+    @facet.value = "shemp!"
+    assert_equal "shemp!", @facet.to_s
+  end
+
 end
