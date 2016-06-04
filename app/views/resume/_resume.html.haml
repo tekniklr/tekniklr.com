@@ -1,6 +1,6 @@
 #hresume
   %address.vcard
-    .fn Teri Solow
+    .fn #{@resume_name.value}
     %div
       = mail_to EMAIL, EMAIL, :class => :email
       &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
@@ -11,7 +11,7 @@
         %span.region
           oregon
       &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-      = link_to 'http://terisolow.com', 'http://terisolow.com', :class => :url
+      = link_to @resume_url.value, @resume_url.value, :class => :url
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
   %dl
