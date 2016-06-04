@@ -2,7 +2,7 @@
   %address.vcard
     .fn #{@resume_name}
     %div
-      = mail_to @resume_email, @resume_email, :class => :email
+      = mail_to @resume_email.to_s, @resume_email, :class => :email
       &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
       %span.adr
         %span.locality
