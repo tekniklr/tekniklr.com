@@ -52,8 +52,8 @@ TekniklrCom::Application.configure do
   :ignore_exceptions => ['ActionController::BadRequest','ActionController::InvalidCrossOriginRequest'] + ExceptionNotifier.ignored_exceptions,
   :email => {
     :email_prefix => "[tekniklr.com] ",
-    :sender_address => %{tsolow@tekniklr.com},
-    :exception_recipients => %w{tsolow@tekniklr.com}
+    :sender_address => %{rails@tekniklr.com},
+    :exception_recipients => %w{rails@tekniklr.com}
   }
 
 end
