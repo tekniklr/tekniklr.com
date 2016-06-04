@@ -14,6 +14,8 @@ class ResumeController < ApplicationController
   private
   
   def collect_facets
+    @resume_name  ||= Facet.find_by_slug('resume_name')
+    @resume_url   ||= Facet.find_by_slug('resume_url')
     @experiences  ||= Experience.limit(4)
     @tech         ||= Facet.find_by_slug('tech')
     @fun_dev      ||= Facet.find_by_slug('fun_dev')
