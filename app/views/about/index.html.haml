@@ -46,7 +46,4 @@
                       = link_to(image_tag(@things[thing.thing][:image_url], :alt => thing.thing, :title => thing.thing), @things[thing.thing][:amazon_url])
                     - elsif !@things[thing.thing][:image_url].blank?
                       = image_tag(@things[thing.thing][:image_url], :alt => thing.thing, :title => thing.thing)
-      
-#footnote
-  %div
-    provided in the #{link_to 'hcard', 'http://microformats.org/wiki/hcard'} #{link_to 'microformat', 'http://microformats.org/'}
+                      
