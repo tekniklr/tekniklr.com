@@ -50,5 +50,13 @@ class RecentGameTest < ActiveSupport::TestCase
     @game.url = 'google.com'
     assert_equal(false, @game.save)
   end
+
+  should "set started_playing time on save" do
+    @game.started_playing = Date.today
+    assert_not_equal Date.today.end_of_day.to_time.to_i, @game.started_playing.to_time.to_i
+    @game.save
+    @game.reload
+    assert_equal Date.today.end_of_day.to_time.to_i, @game.started_playing.to_time.to_i
+  end
   
 end

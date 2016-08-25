@@ -5,6 +5,8 @@ class RecentGame < ActiveRecord::Base
                         :url => "/recent_games/:attachment/:id/:style/:filename"
   validates_attachment_content_type :image, :content_type => [ 'image/png', 'image/jpg', 'image/jpeg', 'image/gif']
   
+  before_save :set_started_playing_time
+
   validates_presence_of :name
   validates_length_of   :name, maximum: 72
 
@@ -23,5 +25,11 @@ class RecentGame < ActiveRecord::Base
     where("name like ?", "%#{name}%").
     where('image_file_name is not null')
   }
+
+  private
+
+  def set_started_playing_time
+    (!self.started_playing.blank? && self.started_playing.respond_to?(:end_of_day)) and self.started_playing = self.started_playing.end_of_day
+  end
 
 end
