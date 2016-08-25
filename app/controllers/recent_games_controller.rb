@@ -37,7 +37,6 @@ class RecentGamesController < ApplicationController
   # PUT /recent_games/1
   def update
     @recent_game = RecentGame.find(params[:id])
-
     respond_to do |format|
       if @recent_game.update_attributes(recent_game_params)
         flash[:notice] = 'Recent game was successfully updated.'
