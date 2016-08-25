@@ -53,4 +53,5 @@
           on #{item[:platform]}
       %p.clear.center.when.fade60
         - if item[:published]
-          = how_long_ago(item[:published])
+          - the_time = (item[:published].to_time.to_i == item[:published].beginning_of_day.to_time.to_i) ? item[:published].end_of_day : item[:published]
+          = how_long_ago(the_time)
