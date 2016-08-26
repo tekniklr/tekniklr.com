@@ -19,5 +19,6 @@ module TekniklrCom
     config.active_record.time_zone_aware_attributes = false
     config.active_record.belongs_to_required_by_default = true
     config.action_controller.forgery_protection_origin_check = true
+    config.active_job.queue_adapter = :delayed_job
   end
 end

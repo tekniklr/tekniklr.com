@@ -1,5 +1,4 @@
-class DelayedJob::LastfmJob
-  include DelayedJob::AmazonJob
+class LastfmJob < ApplicationJob
   
   def perform
     Rails.logger.debug "Fetching last.fm scrobbles from RSS..."

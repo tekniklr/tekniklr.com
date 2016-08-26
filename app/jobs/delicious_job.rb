@@ -1,4 +1,4 @@
-class DelayedJob::DeliciousJob
+class DeliciousJob < ApplicationJob
   
   def perform
     # wtf/explanation:

@@ -1,5 +1,4 @@
-class DelayedJob::TabletopJob < Struct.new(:tabletop_games)
-  include DelayedJob::AmazonJob
+class TabletopJob < ApplicationJob
   
   def perform
     things = {}

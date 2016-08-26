@@ -1,4 +1,4 @@
-class DelayedJob::TumblrJob
+class TumblrJob < ApplicationJob
   
   def perform
     Rails.logger.debug "Fetching tumblr from RSS..."

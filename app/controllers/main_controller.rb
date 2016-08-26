@@ -5,48 +5,42 @@ class MainController < ApplicationController
     @tumblr_posts    = Rails.cache.read('tumblr_posts')
     if @tumblr_expiry.nil? || Time.now > @tumblr_expiry
       @tumblr_expiry = Rails.cache.write('tumblr_expiry', (Time.now + 2.hours))
-      require 'delayed_job/tumblr_job'
-      Delayed::Job.enqueue(DelayedJob::TumblrJob.new)
+      Delayed::Job.enqueue(TumblrJob.new)
     end
     
     @delicious_expiry   = Rails.cache.read('delicious_expiry')
     @delicious          = Rails.cache.read('delicious')
     if @delicious_expiry.nil? || Time.now > @delicious_expiry
       @delicious_expiry = Rails.cache.write('delicious_expiry', (Time.now + 3.hours))
-      require 'delayed_job/delicious_job'
-      Delayed::Job.enqueue(DelayedJob::DeliciousJob.new)
+      Delayed::Job.enqueue(DeliciousJob.new)
     end
     
     @flickr_expiry   = Rails.cache.read('flickr_expiry')
     @flickr_photos   = Rails.cache.read('flickr_photos')
     if @flickr_expiry.nil? || Time.now > @flickr_expiry
       @flickr_expiry = Rails.cache.write('flickr_expiry', (Time.now + 3.hours))
-      require 'delayed_job/flickr_job'
-      Delayed::Job.enqueue(DelayedJob::FlickrJob.new)
+      Delayed::Job.enqueue(FlickrJob.new)
     end
 
     @goodreads_expiry   = Rails.cache.read('goodreads_expiry')
     @goodreads          = Rails.cache.read('goodreads')
     if @goodreads_expiry.nil? || Time.now > @goodreads_expiry
       @goodreads_expiry = Rails.cache.write('goodreads_expiry', (Time.now + 6.hours))
-      require 'delayed_job/goodreads_job'
-      Delayed::Job.enqueue(DelayedJob::GoodreadsJob.new)
+      Delayed::Job.enqueue(GoodreadsJob.new)
     end
 
     @lastfm_expiry   = Rails.cache.read('lastfm_expiry')
     @lastfm          = Rails.cache.read('lastfm')
     if @lastfm_expiry.nil? || Time.now > @lastfm_expiry
       @lastfm_expiry = Rails.cache.write('lastfm_expiry', (Time.now + 12.minutes))
-      require 'delayed_job/lastfm_job'
-      Delayed::Job.enqueue(DelayedJob::LastfmJob.new)
+      Delayed::Job.enqueue(LastfmJob.new)
     end
 
     @gaming_expiry   = Rails.cache.read('gaming_expiry')
     @gaming          = Rails.cache.read('gaming')
     if @gaming_expiry.nil? || Time.now > @gaming_expiry
       @gaming_expiry = Rails.cache.write('gaming_expiry', (Time.now + 6.hours))
-      require 'delayed_job/gaming_job'
-      Delayed::Job.enqueue(DelayedJob::GamingJob.new)
+      Delayed::Job.enqueue(GamingJob.new)
     end
 
   end
