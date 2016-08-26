@@ -1,4 +1,4 @@
-module DelayedJob::AmazonJob
+class ApplicationJob < ActiveJob::Base
 
   def get_amazon(item_title, item_type, additional_keywords = '')
     
@@ -107,7 +107,7 @@ module DelayedJob::AmazonJob
         'Keywords' => "#{item_title}#{additional_keywords.blank? ? '' : ', '+additional_keywords}",
         'IncludeReviewsSummary' => false
       } )
-    rescue Amazon::AWS::Error::NoExactMatches
+    rescue
       result = false
     end
     return result

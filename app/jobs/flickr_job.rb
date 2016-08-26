@@ -1,4 +1,4 @@
-class DelayedJob::FlickrJob
+class FlickrJob < ApplicationJob
   
   def perform
     Rails.logger.debug "Fetching flickr photos from RSS..."

@@ -1,5 +1,4 @@
-class DelayedJob::GamingJob
-  include DelayedJob::AmazonJob
+class GamingJob < ApplicationJob
   
   def perform
     manual_items = get_recent_games

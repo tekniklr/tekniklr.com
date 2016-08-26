@@ -1,5 +1,4 @@
-class DelayedJob::ThingsJob < Struct.new(:favorites)
-  include DelayedJob::AmazonJob
+class ThingsJob < ApplicationJob
   
   def perform
     things = {}
