@@ -1,6 +1,6 @@
 class LinksController < ApplicationController
-  before_filter   :is_admin?
-  before_filter   { |c| c.page_title 'link management' }
+  before_action   :is_admin?
+  before_action   { |c| c.page_title 'link management' }
   
   # GET /links
   def index
@@ -53,5 +53,5 @@ class LinksController < ApplicationController
   def link_params
     params.require(:link).permit(:name, :url, :visible, :social_icon, :icon, :icon_file_name, :icon_content_type, :icon_file_size, :icon_updated_at)
   end
-  
+
 end

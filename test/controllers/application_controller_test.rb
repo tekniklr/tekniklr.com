@@ -12,7 +12,7 @@ class ApplicationControllerTest < ActionController::TestCase
   end
 
   should "clean cache if logged in" do
-    get(:clean_cache, nil, {'user_id' => @user.id})
+    get :clean_cache, params: {}, session: {user_id: @user.id}
     assert_match /Baleeted/, flash[:notice]
   end
 

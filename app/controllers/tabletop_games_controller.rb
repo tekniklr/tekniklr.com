@@ -1,6 +1,6 @@
 class TabletopGamesController < ApplicationController
-  before_filter   :is_admin?, :except => :index
-  before_filter   { |c| c.page_title 'tabletop games' }
+  before_action   :is_admin?, :except => :index
+  before_action   { |c| c.page_title 'tabletop games' }
 
   # GET /tabletop_games
   def index

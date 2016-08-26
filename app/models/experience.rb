@@ -1,4 +1,4 @@
-class Experience < ActiveRecord::Base
+class Experience < ApplicationRecord
   validates_presence_of :title
   validates_length_of   :title, :maximum => 60
   

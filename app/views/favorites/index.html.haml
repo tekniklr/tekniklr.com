@@ -2,7 +2,7 @@
 
 %ol#sort_favorites
   - @favorites.each do |favorite|
-    = content_tag_for :li, favorite do
+    %li
       %span.drag ≡
       %strong #{favorite.favorite_type}
       %ol

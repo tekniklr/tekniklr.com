@@ -11,53 +11,53 @@ class ExperiencesControllerTest < ActionController::TestCase
     get :index
     assert_redirected_to root_url
 
-    get :show, :id => @experience
+    get :show, params: {id: @experience}
     assert_redirected_to root_url
 
-    post :create, :experience => @experience.attributes
+    post :create, params: {experience: @experience.attributes}
     assert_redirected_to root_url
     
-    get :edit, :id => @experience
+    get :edit, params: {id: @experience}
     assert_redirected_to root_url
     
-    put :update, :id => @experience, :experience => @experience.attributes
+    put :update, params: {id: @experience, experience: @experience.attributes}
     assert_redirected_to root_url
 
-    delete :destroy, :id => @experience
+    delete :destroy, params: {id: @experience}
     assert_redirected_to root_url
   end
 
   should "get index" do
-    get(:index, nil, {'user_id' => @user.id})
+    get :index, params: {}, session: {user_id: @user.id}
     assert_response :success
     assert_not_nil assigns(:experiences)
   end
 
   should "create experience" do
     assert_difference('Experience.count') do
-      post(:create, {:experience => @experience.attributes}, {'user_id' => @user.id})
+      post :create, params: {experience: @experience.attributes}, session: {user_id: @user.id}
     end
     assert_redirected_to experiences_path
   end
 
   should "show experience" do
-    get(:show, {:id => @experience}, {'user_id' => @user.id})
+    get :show, params: {id: @experience}, session: {user_id: @user.id}
     assert_response :success
   end
   
   should "get edit" do
-    get(:edit, {:id => @experience}, {'user_id' => @user.id})
+    get :edit, params: {id: @experience}, session: {user_id: @user.id}
     assert_response :success
   end
 
   should "update experience" do
-    put(:update, {:id => @experience, :experience => @experience.attributes}, {'user_id' => @user.id})
+    put :update, params: {id: @experience, experience: @experience.attributes}, session: {user_id: @user.id}
     assert_redirected_to experiences_path
   end
 
   should "destroy experience" do
     assert_difference('Experience.count', -1) do
-      delete(:destroy, {:id => @experience}, {'user_id' => @user.id})
+      delete :destroy, params: {id: @experience}, session: {user_id: @user.id}
     end
     assert_redirected_to experiences_path
   end

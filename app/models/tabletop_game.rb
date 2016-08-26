@@ -1,4 +1,4 @@
-class TabletopGame < ActiveRecord::Base
+class TabletopGame < ApplicationRecord
   validates_presence_of :name
   default_scope { order('name asc') }
 end

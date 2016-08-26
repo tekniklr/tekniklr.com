@@ -1,6 +1,6 @@
 class ResumeController < ApplicationController
-  before_filter   :is_admin?
-  before_filter  { |c| c.page_title 'resume' }
+  before_action   :is_admin?
+  before_action  { |c| c.page_title 'resume' }
 
   def index
     collect_facets

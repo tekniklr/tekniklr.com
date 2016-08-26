@@ -1,4 +1,4 @@
-class RecentGame < ActiveRecord::Base
+class RecentGame < ApplicationRecord
   has_attached_file     :image,
                         :styles => { :default => ["60x75>", :png] },
                         :path => ":rails_root/public/recent_games/:attachment/:id/:style/:filename",

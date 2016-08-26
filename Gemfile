@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '4.2.7.1'
+gem 'rails', '5.0.0.1'
 gem 'mysql2'
 
 gem 'paperclip'
@@ -27,7 +27,7 @@ gem 'similar_text'
 gem 'iconv'
 
 # for amazon web services; not to be confused with ruby-aws
-gem 'ruby-aaws', :git => 'https://github.com/tekniklr/ruby-aaws.git'
+gem 'ruby-aaws', git: 'https://github.com/tekniklr/ruby-aaws.git'
 
 gem 'lastfm'
 
@@ -44,11 +44,12 @@ gem 'coffee-rails'
 gem 'uglifier'
 
 group :test do
-  gem 'turn', :require => false
-  gem 'factory_girl', :require => false
-  gem 'factory_girl_rails', :require => false
-  gem 'minitest', :require => false
-  gem 'shoulda', :require => false
+  gem 'turn', require: false
+  gem 'factory_girl', require: false
+  gem 'factory_girl_rails', require: false
+  gem 'minitest', require: false
+  gem 'shoulda', require: false
+  gem 'rails-controller-testing'
 end
 
 group :production do
@@ -58,9 +59,9 @@ end
 
 # prevent console errors
 group :development do
-  gem "awesome_print"
-  gem "pry-rails"
-  gem 'capistrano-rbenv'
-  gem 'capistrano-bundler'
-  gem 'capistrano-rails'
+  gem "awesome_print", require: false
+  gem "pry-rails", require: false
+  gem 'capistrano-rbenv', require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano-rails', require: false
 end

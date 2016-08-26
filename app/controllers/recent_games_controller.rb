@@ -1,6 +1,6 @@
 class RecentGamesController < ApplicationController
-  before_filter   :is_admin?
-  before_filter   { |c| c.page_title 'recent games' }
+  before_action   :is_admin?
+  before_action   { |c| c.page_title 'recent games' }
 
   # GET /recent_games/new
   def new

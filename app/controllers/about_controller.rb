@@ -1,5 +1,5 @@
 class AboutController < ApplicationController
-  before_filter   { |c| c.page_title 'about', false }
+  before_action   { |c| c.page_title 'about', false }
   
   def index
     collect_facets

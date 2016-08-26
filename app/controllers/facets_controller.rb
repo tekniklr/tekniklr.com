@@ -1,6 +1,6 @@
 class FacetsController < ApplicationController
-  before_filter   :is_admin?
-  before_filter   { |c| c.page_title 'Facet management' }
+  before_action   :is_admin?
+  before_action   { |c| c.page_title 'Facet management' }
   
   # GET /facets
   def index

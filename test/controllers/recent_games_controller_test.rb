@@ -10,44 +10,44 @@ class RecentGamesControllerTest < ActionController::TestCase
     get :new
     assert_redirected_to root_url
     
-    post :create, :recent_game => @recent_game.attributes
+    post :create, params: {recent_game: @recent_game.attributes}
     assert_redirected_to root_url
     
-    get :edit, :id => @recent_game
+    get :edit, params: {id: @recent_game}
     assert_redirected_to root_url
     
-    put :update, :id => @recent_game, :recent_game => @recent_game.attributes
+    put :update, params: {id: @recent_game, recent_game: @recent_game.attributes}
     assert_redirected_to root_url
 
-    delete :destroy, :id => @recent_game.to_param
+    delete :destroy, params: {id: @recent_game.to_param}
     assert_redirected_to root_url
   end
 
   should "get new" do
-    get(:new, nil, {'user_id' => @user.id})
+    get :new, params: {}, session: {user_id: @user.id}
     assert_response :success
   end
 
   should "create recent_game" do
     assert_difference('RecentGame.count') do
-      post(:create, {:recent_game => @recent_game.attributes}, {'user_id' => @user.id})
+      post :create, params: {recent_game: @recent_game.attributes}, session: {user_id: @user.id}
     end
     assert_redirected_to new_recent_game_path
   end
 
   should "get edit" do
-    get(:edit, {:id => @recent_game}, {'user_id' => @user.id})
+    get :edit, params: {id: @recent_game}, session: {user_id: @user.id}
     assert_response :success
   end
 
   should "update recent_game" do
-    put(:update, {:id => @recent_game, :recent_game => @recent_game.attributes}, {'user_id' => @user.id})
+    put :update, params: {id: @recent_game, recent_game: @recent_game.attributes}, session: {user_id: @user.id}
     assert_redirected_to new_recent_game_path
   end
 
   should "destroy recent_game" do
     assert_difference('RecentGame.count', -1) do
-      delete(:destroy, {:id => @recent_game.to_param}, {'user_id' => @user.id})
+      delete :destroy, params: {id: @recent_game.to_param}, session: {user_id: @user.id}
     end
     assert_redirected_to new_recent_game_path
   end

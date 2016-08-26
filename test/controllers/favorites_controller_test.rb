@@ -18,74 +18,74 @@ class FavoritesControllerTest < ActionController::TestCase
     get :new
     assert_redirected_to root_url
     
-    post :create, :favorite => @favorite.attributes
+    post :create, params: {favorite: @favorite.attributes}
     assert_redirected_to root_url
     
-    get :show, :id => @favorite.to_param
+    get :show, params: {id: @favorite.to_param}
     assert_redirected_to root_url
     
-    get :edit, :id => @favorite.to_param
+    get :edit, params: {id: @favorite.to_param}
     assert_redirected_to root_url
 
-    put :sort_favorites, :favorite => @favorite.to_param
+    put :sort_favorites, params: {favorite: @favorite.to_param}
     assert_redirected_to root_url
 
-    put :sort_things, :favorite_thing => @favorite_thing1.to_param
+    put :sort_things, params: {favorite_thing: @favorite_thing1.to_param}
     assert_redirected_to root_url
     
-    put :update, :id => @favorite.to_param, :favorite => @favorite.attributes
+    put :update, params: {id: @favorite.to_param, favorite: @favorite.attributes}
     assert_redirected_to root_url
     
-    delete :destroy, :id => @favorite.to_param
+    delete :destroy, params: {id: @favorite.to_param}
     assert_redirected_to root_url
   end
 
   should "get index" do
-    get(:index, nil, {'user_id' => @user.id})
+    get :index, params: {}, session: {user_id: @user.id}
     assert_response :success
     assert_not_nil assigns(:favorites)
   end
 
   should "get new" do
-    get(:new, nil, {'user_id' => @user.id})
+    get :new, params: {}, session: {user_id: @user.id}
     assert_response :success
   end
 
   should "create favorite" do
     assert_difference('Favorite.count') do
-      post(:create, {:favorite => @favorite.attributes}, {'user_id' => @user.id})
+      post :create, params: {favorite: @favorite.attributes}, session: {user_id: @user.id}
     end
     assert_redirected_to favorite_path(assigns(:favorite))
   end
 
   should "show favorite" do
-    get(:show, {:id => @favorite.id}, {'user_id' => @user.id})
+    get :show, params: {id: @favorite.id}, session: {user_id: @user.id}
     assert_response :success
   end
 
   should "get edit" do
-    get(:edit, {:id => @favorite.to_param}, {'user_id' => @user.id})
+    get :edit, params: {id: @favorite.to_param}, session: {user_id: @user.id}
     assert_response :success
   end
 
   should "re-order favorites" do
-    put(:sort_favorites, {:favorite => [@favorite.to_param, @favorite2.to_param]}, {'user_id' => @user.id})
+    put :sort_favorites, params: {favorite: [@favorite.to_param, @favorite2.to_param]}, session: {user_id: @user.id}
     assert_redirected_to favorites_path
   end
 
   should "re-order things" do
-    put(:sort_things, {:favorite_thing => [@favorite_thing1.to_param, @favorite_thing2.to_param]}, {'user_id' => @user.id})
+    put :sort_things, params: {favorite_thing: [@favorite_thing1.to_param, @favorite_thing2.to_param]}, session: {user_id: @user.id}
     assert_redirected_to favorites_path
   end
 
   should "update favorite" do
-    put(:update, {:id => @favorite.to_param, :favorite => @favorite.attributes}, {'user_id' => @user.id})
+    put :update, params: {id: @favorite.to_param, :favorite => @favorite.attributes}, session: {user_id: @user.id}
     assert_redirected_to favorite_path(assigns(:favorite))
   end
 
   should "destroy favorite" do
     assert_difference('Favorite.count', -1) do
-      delete(:destroy, {:id => @favorite.to_param}, {'user_id' => @user.id})
+      delete :destroy, params: {id: @favorite.to_param}, session: {user_id: @user.id}
     end
     assert_redirected_to favorites_path
   end
