@@ -2,7 +2,7 @@
 
 %ol#sort_favorites
   - @favorites.each do |favorite|
-    %li
+    %li{id: "favorite_#{favorite.id}"}
       %span.drag ≡
       %strong #{favorite.favorite_type}
       %ol
