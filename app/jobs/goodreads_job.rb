@@ -1,5 +1,4 @@
-class DelayedJob::GoodreadsJob
-  include DelayedJob::AmazonJob
+class GoodreadsJob < ApplicationJob
   
   def perform
     Rails.logger.debug "Fetching Goodreads checkins from RSS..."
