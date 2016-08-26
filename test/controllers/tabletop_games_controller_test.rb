@@ -16,56 +16,56 @@ class TabletopGamesControllerTest < ActionController::TestCase
     get :new
     assert_redirected_to root_url
     
-    post :create, :tabletop_game => @tabletop_game.attributes
+    post :create, params: {tabletop_game: @tabletop_game.attributes}
     assert_redirected_to root_url
     
-    get :edit, :id => @tabletop_game.to_param
+    get :edit, params: {id: @tabletop_game.to_param}
     assert_redirected_to root_url
     
-    put :update, :id => @tabletop_game.to_param, :tabletop_game => @tabletop_game.attributes
+    put :update, params: {id: @tabletop_game.to_param, tabletop_game: @tabletop_game.attributes}
     assert_redirected_to root_url
     
-    delete :destroy, :id => @tabletop_game.to_param
+    delete :destroy, params: {id: @tabletop_game.to_param}
     assert_redirected_to root_url
   end
 
   should "get index" do
-    get(:index, nil, {'user_id' => @user.id})
+    get :index, params: {}, session: {user_id: @user.id}
     assert_response :success
     assert_not_nil assigns(:tabletop_games)
   end
 
   should "get admin index" do
-    get(:manage, nil, {'user_id' => @user.id})
+    get :manage, params: {}, session: {user_id: @user.id}
     assert_response :success
     assert_not_nil assigns(:tabletop_games)
   end
 
   should "get new" do
-    get(:new, nil, {'user_id' => @user.id})
+    get :new, params: {}, session: {user_id: @user.id}
     assert_response :success
   end
 
   should "create tabletop_game" do
     assert_difference('TabletopGame.count') do
-      post(:create, {:tabletop_game => @tabletop_game.attributes}, {'user_id' => @user.id})
+      post :create, params: {tabletop_game: @tabletop_game.attributes}, session: {user_id: @user.id}
     end
     assert_redirected_to manage_tabletop_games_path
   end
 
   should "get edit" do
-    get(:edit, {:id => @tabletop_game.to_param}, {'user_id' => @user.id})
+    get :edit, params: {id: @tabletop_game.to_param}, session: {user_id: @user.id}
     assert_response :success
   end
 
   should "update tabletop_game" do
-    put(:update, {:id => @tabletop_game.to_param, :tabletop_game => @tabletop_game.attributes}, {'user_id' => @user.id})
+    put :update, params: {id: @tabletop_game.to_param, tabletop_game: @tabletop_game.attributes}, session: {user_id: @user.id}
     assert_redirected_to manage_tabletop_games_path
   end
 
   should "destroy tabletop_game" do
     assert_difference('TabletopGame.count', -1) do
-      delete(:destroy, {:id => @tabletop_game.to_param}, {'user_id' => @user.id})
+      delete :destroy, params: {id: @tabletop_game.to_param}, session: {user_id: @user.id}
     end
     assert_redirected_to manage_tabletop_games_path
   end

@@ -2,7 +2,7 @@
   Favorite Type #{@favorite.sort}: #{@favorite.favorite_type}
 %ol#sort_things
   - @favorite.favorite_things.each do |thing|
-    = content_tag_for :li, thing do
+    %li
       %span.drag ≡
       = thing.link ? link_to(thing.thing, thing.link) : thing.thing
 

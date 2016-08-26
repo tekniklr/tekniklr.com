@@ -12,7 +12,7 @@ class ResumeControllerTest < ActionController::TestCase
   end
 
   should "get index" do
-    get(:index, nil, {'user_id' => @user.id})
+    get :index, params: {}, session: {user_id: @user.id}
     assert_response :success
   end
 

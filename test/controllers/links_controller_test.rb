@@ -14,35 +14,35 @@ class LinksControllerTest < ActionController::TestCase
     post :update_all
     assert_redirected_to root_url
 
-    post :create, :link => @link.attributes
+    post :create, params: {link: @link.attributes}
     assert_redirected_to root_url
 
-    delete :destroy, :id => @link.to_param
+    delete :destroy, params: {id: @link.to_param}
     assert_redirected_to root_url
   end
 
   should "get index" do
-    get(:index, nil, {'user_id' => @user.id})
+    get :index, params: {}, session: {user_id: @user.id}
     assert_response :success
     assert_not_nil assigns(:links)
   end
 
   should "create link" do
     assert_difference('Link.count') do
-      post(:create, {:link => @link.attributes}, {'user_id' => @user.id})
+      post :create, params: {link: @link.attributes}, session: {user_id: @user.id}
     end
     assert_redirected_to links_path
   end
 
   should "update links" do
     @link2 = FactoryGirl.create(:link)
-    put(:update_all, {:links => {@link.to_param => @link.attributes, @link2.to_param => @link2.attributes}}, {'user_id' => @user.id})
+    put :update_all, params: {links: {@link.to_param => @link.attributes, @link2.to_param => @link2.attributes}}, session: {user_id: @user.id}
     assert_redirected_to links_path
   end
 
   should "destroy link" do
     assert_difference('Link.count', -1) do
-      delete(:destroy, {:id => @link.to_param}, {'user_id' => @user.id})
+      delete :destroy, params: {id: @link.to_param}, session: {user_id: @user.id}
     end
     assert_redirected_to links_path
   end

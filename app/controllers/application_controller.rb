@@ -8,8 +8,8 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
   helper_method :logged_in?
   
-  before_filter   :get_links
-  before_filter   :is_admin?, :only => :clean_cache
+  before_action   :get_links
+  before_action   :is_admin?, :only => :clean_cache
   
   # https://github.com/rails/rails/issues/671
   def routing_error

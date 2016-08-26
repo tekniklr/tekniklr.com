@@ -1,4 +1,4 @@
-class FavoriteThing < ActiveRecord::Base
+class FavoriteThing < ApplicationRecord
   belongs_to  :favorite
 
   has_attached_file     :image,

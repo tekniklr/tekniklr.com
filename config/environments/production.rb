@@ -4,8 +4,6 @@ TekniklrCom::Application.configure do
 
   config.log_level = :info
 
-  config.active_record.raise_in_transactional_callbacks = true
-
   # Code is not reloaded between requests
   config.cache_classes = true
 
@@ -15,7 +13,7 @@ TekniklrCom::Application.configure do
   config.action_view.cache_template_loading = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
-  config.serve_static_files = false
+  config.public_file_server.enabled = false
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
