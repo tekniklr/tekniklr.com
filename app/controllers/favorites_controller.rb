@@ -52,8 +52,11 @@ class FavoritesController < ApplicationController
 
   # PUT /favorites/sort
   def sort_favorites
-    params[:favorite].each_with_index do |id, index|  
-      Favorite.update(id, sort: index+1)
+    id_order = params[:favorite]
+    logger.debug "************ resorting favorites as #{id_order.pretty_inspect}..."
+    id_order.each_with_index do |id, index|
+      logger.debug "************ id #{id} to order #{index}..."
+      Favorite.update(id, sort: index)
     end
     respond_to do |format|
       format.html { redirect_to favorites_url, :notice => 'Favorites re-ordered.' }
@@ -63,8 +66,11 @@ class FavoritesController < ApplicationController
 
   # PUT /favorites/sort
   def sort_things
-    params[:favorite_thing].each_with_index do |id, index|  
-      FavoriteThing.update(id, sort: index+1)
+    id_order = params[:thing]
+    logger.debug "************ resorting things as #{id_order.pretty_inspect}..."
+    id_order.each_with_index do |id, index|
+      logger.debug "************ id #{id} to order #{index}..."
+      FavoriteThing.update(id, sort: index)
     end
     respond_to do |format|
       format.html { redirect_to favorites_url, :notice => 'Favorite things re-ordered.' }

@@ -2,7 +2,6 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require plugins
-//= require jquery-setup
 //= require navigation
 //= require scaffold
 //= require favorites
