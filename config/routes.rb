@@ -40,8 +40,8 @@ TekniklrCom::Application.routes.draw do
   resources :facets,      :except => [:new]
   
   resources :favorites do
-    patch 'sort_favorites', :on => :collection
-    patch 'sort_things',    :on => :collection
+    post 'sort_favorites', :on => :collection
+    post 'sort_things',    :on => :collection
   end
   
   resources :tabletop_games, :except => [:show] do
