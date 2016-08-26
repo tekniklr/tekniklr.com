@@ -28,6 +28,9 @@ FactoryGirl.define do
     l.sequence(:name) {|n| "Link #{n}"}
     l.url 'http://google.com'
     l.visible 1
+    l.icon_file_name    { 'icon.png' }
+    l.icon_content_type { 'image/png' }
+    l.icon_file_size    { 1024 }
   end
 
   factory :tabletop_game do |t|
