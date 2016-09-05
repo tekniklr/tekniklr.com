@@ -48,6 +48,7 @@ TekniklrCom::Application.configure do
 
   TekniklrCom::Application.config.middleware.use ExceptionNotification::Rack,
   :ignore_exceptions => ['ActionController::BadRequest','ActionController::InvalidCrossOriginRequest'] + ExceptionNotifier.ignored_exceptions,
+  :ignore_crawlers => %w{Uptimebot},
   :email => {
     :email_prefix => "[tekniklr.com] ",
     :sender_address => %{rails@tekniklr.com},
