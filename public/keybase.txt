@@ -1,0 +1,73 @@
+==================================================================
+https://keybase.io/tekniklr
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://tekniklr.pizza
+  * I am tekniklr (https://keybase.io/tekniklr) on keybase.
+  * I have a public key with fingerprint 8B64 E366 0B55 4271 ED4D  62CC
+    5469 0810 9F0A 701F
+
+To do so, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "eldest_kid":
+"0101f707d0d22a33a206b84cb98b4b827756932f522a907b47904e56ff77e65c19650a",
+            "fingerprint": "8b64e3660b554271ed4d62cc546908109f0a701f",
+            "host": "keybase.io",
+            "key_id": "546908109f0a701f",
+            "kid":
+"0101f707d0d22a33a206b84cb98b4b827756932f522a907b47904e56ff77e65c19650a",
+            "uid": "7e9ed050e172efc146db7137c0f32919",
+            "username": "tekniklr"
+        },
+        "service": {
+            "hostname": "tekniklr.pizza",
+            "protocol": "http:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1475181086,
+    "expire_in": 157680000,
+    "prev":
+"9c33e23aff07266382fff4500a4a6305b085f987c7d72b1a0fab183f2eb2bee4",
+    "seqno": 5,
+    "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: Keybase OpenPGP v2.0.58
+Comment: https://keybase.io/crypto
+
+yMIpAnicrVJbbAxRGN7dFlGXeqxWSEaKUs2Z2zkzi7hF9gmJbTVpxWTOzJnt2LWz
+dqZbLQ1F47KUxKIuQdybINqoPpBWEa1WREqIBKEIFdd4ULdwpuFFPDovf87/f9/3
+f/+f/9qINE+GNy9TVmpvnrnq7W6vL/cUv60au4rBll7J+FcxYTIQSEQntqOETZ3x
+M4AFrIEA0oHOcSrPqxyAWBI0LEtYwBKHkAhlnjNEWpUBwgKSgUBEaBgIEShqrAxF
+oDL5jGFGQyQei5tRh8pKGAqEhxBgURQ4xBJd0CGnaaIAZSCxQDaAimhnSiyzbJdB
+zWHVJgWmRXP0owzY+wf+P/suH5BDRCY6EAFhEUcMjRWgjhHLIw0YPCezsgu0STyq
+LicU7ZBw1AxH4kx1PkOzCVMj7mLdSf5CFMTMqiq3TSxuOZZmRWitzHFifpfqVMZc
+bAXBym8VBZtRnS6SEhIkbptWlPGzFKk5pivLCkhk6TYkmM+QlTEzThTTRYgISoA+
+tw1JUElZ43nC8aphAMRByEucYRiCCIAqqJAHIgaSaMgS0pCOOMyqwFAxK/EGRzCH
+CREYd64VUYvxi9SmGqKSthmKqk55nDDVVy4vSfd4MzyDB/ncA/NkDB315+w+pYb8
+tI/BkVPf1M8vqqmrPdjMJtdIi5LDH28+t//O+pi9I/K8tPj591ue2Vt2Tmt96j3X
+835Xo+dJKpZ1oH1mUibblwbuLxy3tiF0vflQn5l6P7pk3hi9fdgs3+IpOXO+9Lb2
+Hn7Rc9DqIG91pe7rhR8tk7LftJ248a3vVc2EQNPWmUvaLi1uqN1b0fX6ZHLY/NLs
+jTOChT/LKzsvTkzNIbklIV9H4bb6L2M2FY1ouLu0uju4ILDvYd/pO0fvneqdDHyR
+UdODgf60J8825K2O3NLHdmftJns+pgcTjUy4f3PNuiOlStfckc3LPnw++4693XQ8
+++XjFQ9yPna2ZCbOPyp6WsSPr5ubm/kLPtJC+g==
+=v+Jt
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/tekniklr
+
+==================================================================
+
