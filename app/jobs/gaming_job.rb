@@ -28,8 +28,13 @@ class GamingJob < ApplicationJob
           additional_keywords = 'PS4'
           platform = 'Playstation'
         when 'achievement'
-          additional_keywords = 'Xbox 360'
-          platform = 'Xbox'
+          if item.url =~ /truesteamachievements/
+            skip_amazon = true
+            platform = 'Steam'
+          else
+            additional_keywords = 'Xbox 360'
+            platform = 'Xbox'
+          end
         end
         title = $3.gsub(/ Trophies/, '')
       end
@@ -117,10 +122,16 @@ class GamingJob < ApplicationJob
     return items
   end
 
-  # placeholder for one day when I know how to get steam achievements
+  # using truesteamachievements which works in the exact same way as 
+  # truetrophies
   def get_steam
-    Rails.logger.debug "Fetching steam achievements from ???..."
-    items = []
+    Rails.logger.debug "Fetching steam achievements from truesteamachievements..."
+    begin
+      feed  = Feedjira::Feed.fetch_and_parse('http://www.truesteamachievements.com/friendfeedrss.aspx?gamerid=38607')
+      items = feed.entries
+    rescue
+      items = []
+    end
     return items
   end
 
