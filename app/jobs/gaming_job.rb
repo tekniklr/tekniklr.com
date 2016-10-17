@@ -22,8 +22,14 @@ class GamingJob < ApplicationJob
       else
         Rails.logger.debug "Parsing #{item.title}..."
         item.title.gsub(/tekniklr won the (.*) (trophy|achievement) in (.*)\z/, '')
+        if ($1.blank? || $2.blank? || $3.blank?)
+          puts "Couldn't parse an achievement, type, or game title from #{item.title}! Skipping."
+          next
+        end
         achievement = $1
-        case $2
+        type = $2
+        title = $3
+        case type
         when 'trophy'
           additional_keywords = 'PS4'
           platform = 'Playstation'
@@ -36,7 +42,7 @@ class GamingJob < ApplicationJob
             platform = 'Xbox'
           end
         end
-        title = $3.gsub(/ Trophies/, '')
+        title.gsub!(/ Trophies/, '')
       end
       unless skip_amazon
         amazon = get_amazon(title, 'VideoGames', additional_keywords)
