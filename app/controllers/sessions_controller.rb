@@ -9,6 +9,8 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       flash[:notice] = 'Signed in!'
       redirect_to root_url
+    else
+      return redirect_to redirect_to 'https://tekniklr.com/login' unless request.ssl?
     end
   end
   
