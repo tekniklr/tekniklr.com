@@ -3,12 +3,6 @@
 %p
   If you got the link to this page, it means I would like to play board games with you, and have offered my stash for your consideration. Yay! The games should link to Amazon, if you want to know more about them. I've also listed the expansions I have, where applicable.
 
-%p
-  You can also head over to #{link_to 'BoardGameGeek', 'http://boardgamegeek.com/collection/user/tekniklr'} to see my collection. It should be the same as here, but there are ratings and links to more info over there.
-
-%p
-  And if you like, or think you may like, TableTop games and would like to know more- Go #{link_to 'here', 'http://tabletop.geekandsundry.com'}. Do not pass Go. Do not collect $200. 
-
 %ul#tabletop_list
   - cache [@tabletop_games, @tabletop_amazon] do
     - @tabletop_games.each do |tabletop_game|
