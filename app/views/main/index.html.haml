@@ -24,7 +24,7 @@
   - fade_bookmarks = 0
   .bookmarks_block
     %h1.less_space
-      = link_to 'Bookmarks', 'http://www.delicious.com/tekniklr'
+      = link_to 'Bookmarks', 'https://del.icio.us/tekniklr'
     %ul#delicious
       - @delicious.each do |bookmark|
         = render 'bookmark', :bookmark => bookmark, :fade => fade_level(@delicious.count, fade_bookmarks)
