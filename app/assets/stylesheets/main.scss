@@ -76,7 +76,7 @@ ul#delicious {
 }
 
 ul#gaming, ul#goodreads, ul#lastfm, ul#flickr {
-  width: 96%;
+  width: 100%;
   max-width: 100%;
   margin: 0 auto 0 auto;
   padding: 0;
@@ -89,7 +89,7 @@ ul#gaming, ul#goodreads, ul#lastfm, ul#flickr {
   li {
     display: inline-block;
     margin: 0 auto;
-    width: 8em;
+    width: 6.5em;
     height: 9em;
     text-align: center;
     vertical-align: top;
@@ -106,7 +106,7 @@ ul#gaming, ul#goodreads, ul#lastfm, ul#flickr {
 ul#lastfm {
   li {
     height: 7em;
-    width: 6em;
+    width: 5em;
     padding: .25em .5em 3em .5em;
     img {
       max-height: 4em;
@@ -126,7 +126,7 @@ ul#flickr {
     img {
       margin: 0;
       padding: 0;
-      max-width:  11em;
+      max-width:  9em;
       max-height: 7em;
       @include rounded(1px, $med_border_color, .75em, .3em, solid);
     }
