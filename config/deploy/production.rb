@@ -2,7 +2,6 @@ set :application, 'tekniklr.com'  # Your app's location (domain or sub-domain na
 set :rails_env, 'production'
 
 # version control config
-set :scm, :git
 set :repo_url,  "git@github.com:tekniklr/tekniklr.com.git"
 set :deploy_to, "/home/tekniklr/rails.tekniklr.com"
 set :branch, 'master'
