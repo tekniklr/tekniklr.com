@@ -128,7 +128,7 @@ ul#flickr {
       padding: 0;
       max-width:  9em;
       max-height: 7em;
-      @include rounded(1px, $med_border_color, .75em, .3em, solid);
+      @include rounded(1px, $med_border_color, .75em, .3em, none);
     }
   }
   li:hover {
@@ -142,7 +142,7 @@ ul#flickr {
       padding: 0;
       max-width:  11.5em;
       max-height: 7.5em;
-      @include rounded(1px, $border_color, .75em, .3em, solid);
+      @include rounded(1px, $border_color, .75em, .3em, none);
     }
   }
 }
