@@ -3,7 +3,7 @@ class TumblrJob < ApplicationJob
   def perform
     Rails.logger.debug "Fetching tumblr from RSS..."
     begin
-      feed  = Feedjira::Feed.fetch_and_parse('http://tekniklr.tumblr.com/rss')
+      feed  = Feedjira::Feed.fetch_and_parse('https://tekniklr.tumblr.com/rss')
       posts = [feed.entries.first]
     rescue
       posts = []
