@@ -1,27 +1,21 @@
 - unless @wpblog
   - if logged_in? 
-    - separator = '✨'
     #admin
-      Logged in as #{current_user.name}
-      = separator
-      = link_to 'gaming', new_recent_game_path
-      = separator
-      = link_to 'links', links_path
-      = separator
-      = link_to 'tabletop', manage_tabletop_games_path
-      = separator
-      = link_to 'favorites', favorites_path
-      = separator
-      = link_to 'facets', facets_path
-      = separator
-      = link_to 'experiences', experiences_path
-      = separator
-      = link_to 'wpadmin', "http://#{WPDOMAIN}/wpblog/wp-admin/"
-      = separator
-      = link_to 'clean cache', clean_cache_path
-      = separator
-      = link_to 'logout', logout_path
-%header#pagehead{:role => 'banner'}
+      %nav#admin_navigation{role: 'navigation'}
+        .mobile
+          %ul
+            %li
+              Logged in as #{current_user.name}
+              %a#toggle_admin_navigation{href: '#'} ☰
+          %ul#single_column_admin_navigation
+            = render partial: 'layouts/static/admin_nav_items'
+        .regular
+          %ul
+            %li
+              Logged in as #{current_user.name}
+            = render partial: 'layouts/static/admin_nav_items'
+          .break
+%header#pagehead{role: 'banner'}
   #banner
-    = link_to image_tag("tekniklr.png", :alt => DOMAIN, :width => 242, :height => 35), root_url
+    = link_to image_tag("tekniklr.png", alt: DOMAIN, width: 242, height: 35), root_url
   #tagline #{TAGLINE}
