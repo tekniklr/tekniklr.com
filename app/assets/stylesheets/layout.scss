@@ -191,6 +191,14 @@ a:hover { color: $hover_color; }
     @include transparent(0.8);
     display: inline;
     line-height: 1.5em;
+    @media screen and (min-width: $mobile_threshhold) {
+      /* regular layout */
+      font-size: 75%;
+    }
+    @media screen and (max-width: $mobile_threshhold) {
+      /* mobile layout */
+      font-size: 70%;
+    }
   }
 }
 
