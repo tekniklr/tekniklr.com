@@ -12,8 +12,8 @@ class LastfmJob < ApplicationJob
       items = []
     end
     items.each do |item|
-      artist = item.artist.content
-      album = item.album.content
+      artist = item.artist.key?('content') ? item.artist.content : ''
+      album = item.album.key?('content') ? item.album.content : ''
       played_on = item.key?('date') ? DateTime.strptime(item.date.uts, '%s') : DateTime.now
       large_image = item.image.select{|i| i['size'] == 'large'}
       image_url = large_image.blank? ? '' : large_image.first['content']
