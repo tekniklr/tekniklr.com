@@ -1,11 +1,11 @@
 - unless @tumblr_posts.blank?
   #single_post
     %h1
-      = link_to 'Blogs', "http://#{WPDOMAIN}/wpblog/"
-    = render 'blog/post', :post => @tumblr_posts.first
+      = link_to 'Blogs', "https://#{WPDOMAIN}/wpblog/"
+    = render 'blog/post', post: @tumblr_posts.first
     
 %h1
-  = link_to 'Tweets', 'http://twitter.com/tekniklr'
+  = link_to 'Tweets', 'https://twitter.com/tekniklr'
 #twitter-widget
   <a class="twitter-timeline" data-chrome="noheader nofooter" data-dnt=true href="https://twitter.com/tekniklr" data-widget-id="256680555926654976">Tweets by @tekniklr</a>
   <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
@@ -14,10 +14,10 @@
   - fade_photos = 0
   .photos_block
     %h1
-      = link_to 'Pictures', 'http://www.flickr.com/photos/tekniklr/'
+      = link_to 'Pictures', 'https://www.flickr.com/photos/tekniklr/'
     %ul#flickr
       - @flickr_photos.each do |photo|
-        = render 'photo', :photo => photo, :fade => fade_level(@flickr_photos.count, fade_photos)
+        = render 'photo', photo: photo, fade: fade_level(@flickr_photos.count, fade_photos)
         - fade_photos += 1
 
 - if !@delicious.blank? && @delicious.count > 1
@@ -27,7 +27,7 @@
       = link_to 'Bookmarks', 'https://del.icio.us/tekniklr'
     %ul#delicious
       - @delicious.each do |bookmark|
-        = render 'bookmark', :bookmark => bookmark, :fade => fade_level(@delicious.count, fade_bookmarks)
+        = render 'bookmark', bookmark: bookmark, fade: fade_level(@delicious.count, fade_bookmarks)
         - fade_bookmarks += 1
 
 - if !@gaming.blank? && @gaming.count > 1
@@ -37,7 +37,7 @@
       Games
     %ul#gaming
       - @gaming.each do |item|
-        = render 'gaming', :item => item, :fade => fade_level(@gaming.count, fade_games)
+        = render 'gaming', item: item, fade: fade_level(@gaming.count, fade_games)
         - fade_games += 1
 
 - if !@goodreads.blank? && @goodreads.count > 1
@@ -47,23 +47,23 @@
       = link_to 'Books', 'https://www.goodreads.com/user/show/10905654-tekniklr'
     %ul#goodreads
       - @goodreads.each do |book|
-        = render 'goodreads', :book => book, :fade => fade_level(@goodreads.count, fade_books)
+        = render 'goodreads', book: book, fade: fade_level(@goodreads.count, fade_books)
         - fade_books += 1
 
 - if !@lastfm.blank? && @lastfm.count > 1
   - fade_songs = 0
   .music_block
     %h1
-      = link_to 'Music', 'http://www.last.fm/user/tekniklr'
+      = link_to 'Music', 'https://www.last.fm/user/tekniklr'
     %ul#lastfm
       - @lastfm.each do |song|
-        = render 'lastfm', :song => song, :fade => fade_level(@lastfm.count, fade_songs)
+        = render 'lastfm', song: song, fade: fade_level(@lastfm.count, fade_songs)
         - fade_songs += 1
 
 #footnote
   
 - content_for :header do
-  %link{:rel => "dns-prefetch", :href => "http://twitter.com"}/
+  %link{rel: "dns-prefetch", href: "https://twitter.com"}/
 
 - content_for :javascript do    
-  %script{:type => 'text/javascript', :src => 'http://platform.twitter.com/widgets.js'}
+  %script{type: 'text/javascript', src: 'https://platform.twitter.com/widgets.js'}
