@@ -1,17 +1,6 @@
 / # include all other javascript, which will be bundled
 = yield :javascript
 
-/ # asynchronous google analytics: mathiasbynens.be/notes/async-analytics-snippet 
-- if Rails.env.production?
-  :javascript
-    var _gaq = [['_setAccount', 'UA-6580125-1'], ['_trackPageview']];
-    (function(d, t) {
-      var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
-      g.async = true;
-      g.src = ('https:' == location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      s.parentNode.insertBefore(g, s);
-    })(document, 'script');
-
 - if @wpblog
   :javascript
     $(document).ready(function(e) {
