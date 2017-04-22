@@ -1,26 +1,23 @@
 %li
-  - tweet_text = tweet.text.dup
-  - tweet_user_name = @twitter_user.name
-  - tweet_user_handle = @twitter_user.screen_name
-  - tweet_user_avatar = @twitter_user.profile_image_url_https
+  - tweet_user_name = tweet.user.name
   - actual_tweet = tweet
 
   - if tweet.retweeted?
-    - tweet_user_name = tweet.user_mentions.first.name
-    - tweet_user_handle = tweet.user_mentions.first.screen_name
-    - tweet_user_avatar = @twitter_avatars.key?(tweet_user_handle) ? @twitter_avatars[tweet_user_handle].profile_image_url_https : ''
     - actual_tweet = tweet.retweeted_status
-
     .retweet
       ↺
       .twitter_name
-        = @twitter_user.name
+        = tweet_user_name
       retweeted
 
+  - tweet_user_name = actual_tweet.user.name
+  - tweet_user_handle = actual_tweet.user.screen_name
+  - tweet_user_avatar = actual_tweet.user.profile_image_url_https
   - tweet_user_link = "https://twitter.com/#{tweet_user_handle}"
   - tweet_id = actual_tweet.id.to_s
   - tweet_link = "#{tweet_user_link}/status/#{tweet_id}"
   - tweet_text = actual_tweet.text.dup
+  
   - if !actual_tweet.user_mentions.blank?
     - actual_tweet.user_mentions.each do |mention|
       - tweet_text.gsub!(/@#{mention.screen_name}/, "<a href='https://twitter.com/#{mention.screen_name}' target='_blank'>@#{mention.screen_name}</a>")
