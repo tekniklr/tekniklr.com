@@ -46,10 +46,18 @@
 
 .tweet_block {
   padding: 0;
-  margin: 0 0 3em 0;
+  margin: 0 auto 3em auto;
   height: 18em;
   max-width: 100%;
   overflow-y: scroll;
+  @media screen and (min-width: $mobile_threshhold) {
+    /* regular layout */
+    width: 80%;
+  }
+  @media screen and (max-width: $mobile_threshhold) {
+    /* mobile layout */
+    width: 100%;
+  }
 }
 
 ul#delicious, ul#twitter {
