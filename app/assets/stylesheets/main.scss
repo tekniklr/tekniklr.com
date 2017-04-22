@@ -40,19 +40,19 @@
   }
 }
 
-/* twitter widget container */
-#twitter-widget {
-  width: 520px !important;
-  max-width: 100%;
-  margin: auto;
-  padding: 0;
-}
-
 .when {
   font-size: 90%
 }
 
-ul#delicious {
+.tweet_block {
+  padding: 0;
+  margin: 0 0 3em 0;
+  height: 18em;
+  max-width: 100%;
+  overflow-y: scroll;
+}
+
+ul#delicious, ul#twitter {
   width: 96%;
   max-width: 100%;
   margin: auto;
@@ -71,6 +71,59 @@ ul#delicious {
     .summary {
       margin: 0;
       padding: 0 0 0 1em;
+    }
+  }
+}
+ul#twitter {
+  li {
+    margin: 0;
+    padding: 1em 0 1em 0;
+    border-bottom: 1px $med_border_color solid;
+    clear: both;
+    .metadata, .reach, .time_ago {
+      font-size: 75%;
+      @include transparent(0.35);
+    }
+    .twitter_name {
+      display: inline;
+      font-weight: bold;
+    }
+    .twitter_handle {
+      display: inline;
+      font-size: 80%;
+    }
+    .retweet {
+      margin: 0 0 .5em 0;
+    }
+    .user_pic {
+      width: 3em;
+      float: left;
+    }
+    .tweet {
+      width: -webkit-calc(100% - 4em);
+      width: -moz-calc(100% - 4em);
+      width: calc(100% - 4em);
+      float: right;
+      margin: 0;
+      padding: 0 .5em 0 .5em;
+      .user_name {
+      }
+      .tweet_content {
+        img {
+          display: block;
+          max-height: 10em;
+        }
+      }
+      .reach {
+        margin: .5em 0 0 0;
+        span {
+          margin-right: 1.5em;
+        }
+      }
+    }
+    .time_ago {
+      clear: both;
+      text-align: right;
     }
   }
 }

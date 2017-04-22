@@ -20,5 +20,9 @@ CACHED_ITEMS = [
                   'things_fetched',
                   'things_amazon',
                   'tabletop_fetched',
-                  'tabletop_amazon'
+                  'tabletop_amazon',
+                  'twitter_user',
+                  'tweets',
+                  'twitter_avatars',
+                  'tweet_expiry'
                 ]
