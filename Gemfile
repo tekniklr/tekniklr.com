@@ -31,6 +31,8 @@ gem 'ruby-aaws', git: 'https://github.com/tekniklr/ruby-aaws.git'
 
 gem 'lastfm'
 
+gem 'twitter'
+
 gem 'htmlentities'
 
 # run processes in the background

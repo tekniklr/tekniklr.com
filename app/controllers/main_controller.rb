@@ -1,6 +1,15 @@
 class MainController < ApplicationController
 
   def index
+    @tweet_expiry    = Rails.cache.read('tweet_expiry')
+    @twitter_user    = Rails.cache.read('twitter_user')
+    @tweets          = Rails.cache.read('tweets')
+    @twitter_avatars = Rails.cache.read('twitter_avatars')
+    if @tweet_expiry.nil? || Time.now > @tweet_expiry
+      @tweet_expiry  = Rails.cache.write('tweet_expiry', (Time.now + 12.minutes))
+      Delayed::Job.enqueue(TwitterJob.new)
+    end
+
     @tumblr_expiry   = Rails.cache.read('tumblr_expiry')
     @tumblr_posts    = Rails.cache.read('tumblr_posts')
     if @tumblr_expiry.nil? || Time.now > @tumblr_expiry
