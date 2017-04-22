@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
   end
   
   def logged_in?
-    if !current_user.blank? && !Rails.env.development? && !request.ssl?
+    if !current_user.blank? && !Rails.env.development? && !Rails.env.test? && !request.ssl?
       # ensure we are using SSL if already logged in
       return redirect_to "https://tekniklr.com#{request.fullpath}"
     end
