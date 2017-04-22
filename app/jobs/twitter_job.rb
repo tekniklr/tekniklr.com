@@ -10,7 +10,7 @@ class TwitterJob < ApplicationJob
         config.access_token        = ACCESS_TOKEN
         config.access_token_secret = ACCESS_TOKEN_SECRET
       end
-      tweets = twitter.user_timeline('tekniklr', {count: 42, exclude_replies: true, include_rts: true, trim_user: false} )
+      tweets = twitter.user_timeline('tekniklr', {count: 69, exclude_replies: true, include_rts: true, trim_user: false} )
     rescue
       twitter_user = {}
       tweets = []
