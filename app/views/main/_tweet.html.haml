@@ -16,7 +16,7 @@
   - tweet_user_link = "https://twitter.com/#{tweet_user_handle}"
   - tweet_id = actual_tweet.id.to_s
   - tweet_link = "#{tweet_user_link}/status/#{tweet_id}"
-  - tweet_text = actual_tweet.text.dup
+  - tweet_text = actual_tweet.to_hash.full_text.dup
   
   - if !actual_tweet.user_mentions.blank?
     - actual_tweet.user_mentions.each do |mention|
