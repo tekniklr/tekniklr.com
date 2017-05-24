@@ -1,7 +1,7 @@
 require 'exceptions'
 class ApplicationController < ActionController::Base
   include Exceptions
-  protect_from_forgery
+  protect_from_forgery with: :exception
   
   rescue_from Exceptions::UserNotAuthorized, :with => :user_not_authorized
   
