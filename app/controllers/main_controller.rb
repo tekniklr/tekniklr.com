@@ -15,13 +15,6 @@ class MainController < ApplicationController
       Delayed::Job.enqueue(TumblrJob.new)
     end
     
-    @delicious_expiry   = Rails.cache.read('delicious_expiry')
-    @delicious          = Rails.cache.read('delicious')
-    if @delicious_expiry.nil? || Time.now > @delicious_expiry
-      @delicious_expiry = Rails.cache.write('delicious_expiry', (Time.now + 2.hours))
-      Delayed::Job.enqueue(DeliciousJob.new)
-    end
-    
     @flickr_expiry   = Rails.cache.read('flickr_expiry')
     @flickr_photos   = Rails.cache.read('flickr_photos')
     if @flickr_expiry.nil? || Time.now > @flickr_expiry

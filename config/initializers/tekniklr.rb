@@ -7,8 +7,6 @@ SIMILAR_THRESHOLD = 50
 CACHED_ITEMS = [
                   'tumblr_expiry',
                   'tumblr_posts',
-                  'delicious_expiry',
-                  'delicious',
                   'flickr_expiry',
                   'flickr_photos',
                   'goodreads_expiry',
