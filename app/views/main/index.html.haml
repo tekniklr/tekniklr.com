@@ -25,16 +25,6 @@
         = render 'photo', photo: photo, fade: fade_level(@flickr_photos.count, fade_photos)
         - fade_photos += 1
 
-- if !@delicious.blank? && @delicious.count > 1
-  - fade_bookmarks = 0
-  .bookmarks_block
-    %h1.less_space
-      = link_to 'Bookmarks', 'https://del.icio.us/tekniklr'
-    %ul#delicious
-      - @delicious.each do |bookmark|
-        = render 'bookmark', bookmark: bookmark, fade: fade_level(@delicious.count, fade_bookmarks)
-        - fade_bookmarks += 1
-
 - if !@gaming.blank? && @gaming.count > 1
   - fade_games = 0
   .games_block
