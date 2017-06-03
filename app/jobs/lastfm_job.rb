@@ -1,7 +1,7 @@
 class LastfmJob < ApplicationJob
   
   def perform
-    Rails.logger.debug "Fetching last.fm scrobbles from RSS..."
+    Rails.logger.debug "Fetching last.fm scrobbles via API..."
     parsed_items = []
     begin
       require 'lastfm'
