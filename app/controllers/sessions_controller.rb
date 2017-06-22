@@ -21,7 +21,7 @@ class SessionsController < ApplicationController
   
   def validate  
     auth = request.env["omniauth.auth"]
-    user = User.find_by_provider_and_uid(auth["provider"], auth["uid"])
+    user = User.find_by_provider_and_uid_and_enabled(auth["provider"], auth["uid", true])
     user or raise UserNotAuthorized
     session[:user_id] = user.id
     flash[:notice] = 'Signed in!'
