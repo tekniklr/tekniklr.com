@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,118 +10,114 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160122050654) do
+ActiveRecord::Schema.define(version: 20170622054446) do
 
-  create_table "delayed_jobs", force: :cascade do |t|
-    t.integer  "priority",   limit: 4,     default: 0
-    t.integer  "attempts",   limit: 4,     default: 0
-    t.text     "handler",    limit: 65535
-    t.text     "last_error", limit: 65535
+  create_table "delayed_jobs", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "priority", default: 0
+    t.integer "attempts", default: 0
+    t.text "handler"
+    t.text "last_error"
     t.datetime "run_at"
     t.datetime "locked_at"
     t.datetime "failed_at"
-    t.string   "locked_by",  limit: 255
-    t.string   "queue",      limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string "locked_by"
+    t.string "queue"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
-  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
-
-  create_table "experiences", force: :cascade do |t|
-    t.date     "start_date"
-    t.date     "end_date"
-    t.string   "title",            limit: 255
-    t.string   "affiliation",      limit: 255
-    t.string   "location",         limit: 255
-    t.text     "tasks",            limit: 65535
+  create_table "experiences", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.date "start_date"
+    t.date "end_date"
+    t.string "title"
+    t.string "affiliation"
+    t.string "location"
+    t.text "tasks"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "affiliation_link", limit: 255
+    t.string "affiliation_link"
+    t.index ["affiliation_link"], name: "index_experiences_on_affiliation_link"
   end
 
-  add_index "experiences", ["affiliation_link"], name: "index_experiences_on_affiliation_link", using: :btree
-
-  create_table "facets", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.text     "value",      limit: 65535
+  create_table "facets", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.string "name"
+    t.text "value"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "slug",       limit: 255
+    t.string "slug"
+    t.index ["slug"], name: "index_facets_on_slug"
   end
 
-  add_index "facets", ["slug"], name: "index_facets_on_slug", using: :btree
-
-  create_table "favorite_things", force: :cascade do |t|
-    t.integer  "favorite_id",        limit: 4
-    t.string   "thing",              limit: 255
-    t.string   "link",               limit: 255
-    t.integer  "sort",               limit: 4
+  create_table "favorite_things", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.integer "favorite_id"
+    t.string "thing"
+    t.string "link"
+    t.integer "sort"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "amazon_url",         limit: 255
-    t.string   "image_file_name",    limit: 255
-    t.string   "image_content_type", limit: 255
-    t.integer  "image_file_size",    limit: 4
+    t.string "amazon_url"
+    t.string "image_file_name"
+    t.string "image_content_type"
+    t.integer "image_file_size"
     t.datetime "image_updated_at"
+    t.index ["favorite_id"], name: "index_favorite_things_on_favorite_id"
   end
 
-  add_index "favorite_things", ["favorite_id"], name: "index_favorite_things_on_favorite_id", using: :btree
-
-  create_table "favorites", force: :cascade do |t|
-    t.string   "favorite_type", limit: 255
-    t.integer  "sort",          limit: 4
+  create_table "favorites", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.string "favorite_type"
+    t.integer "sort"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "links", force: :cascade do |t|
-    t.string   "name",              limit: 255
-    t.string   "url",               limit: 255
-    t.boolean  "visible"
+  create_table "links", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.string "name"
+    t.string "url"
+    t.boolean "visible"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "social_icon"
-    t.string   "icon_file_name",    limit: 255
-    t.string   "icon_content_type", limit: 255
-    t.integer  "icon_file_size",    limit: 4
+    t.boolean "social_icon"
+    t.string "icon_file_name"
+    t.string "icon_content_type"
+    t.integer "icon_file_size"
     t.datetime "icon_updated_at"
+    t.index ["social_icon"], name: "index_links_on_social_icon"
+    t.index ["visible"], name: "index_links_on_visible"
   end
 
-  add_index "links", ["social_icon"], name: "index_links_on_social_icon", using: :btree
-  add_index "links", ["visible"], name: "index_links_on_visible", using: :btree
-
-  create_table "recent_games", force: :cascade do |t|
-    t.string   "name",               limit: 255
-    t.string   "platform",           limit: 255
+  create_table "recent_games", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.string "name"
+    t.string "platform"
     t.datetime "started_playing"
-    t.string   "url",                limit: 255
-    t.string   "image_file_name",    limit: 255
-    t.string   "image_content_type", limit: 255
-    t.integer  "image_file_size",    limit: 4
+    t.string "url"
+    t.string "image_file_name"
+    t.string "image_content_type"
+    t.integer "image_file_size"
     t.datetime "image_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "amazon_url",         limit: 255
+    t.string "amazon_url"
   end
 
-  create_table "tabletop_games", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.text     "expansions", limit: 65535
-    t.text     "other_info", limit: 65535
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "players",    limit: 255
-    t.string   "bgg_url",    limit: 255
+  create_table "tabletop_games", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.text "expansions"
+    t.text "other_info"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "players"
+    t.string "bgg_url"
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string   "provider",   limit: 255
-    t.string   "uid",        limit: 255
-    t.string   "handle",     limit: 255
-    t.string   "name",       limit: 255
+  create_table "users", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.string "provider"
+    t.string "uid"
+    t.string "handle"
+    t.string "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean "enabled", default: false
   end
 
 end
