@@ -3,7 +3,5 @@
 %li
   = link_to 'blog', "https://#{WPDOMAIN}/wpblog/"
 %li
-  = link_to 'archive', "https://#{WPDOMAIN}/wpblog/archives/"
-%li
   = form_tag '/wpblog', :method => 'get', :id => 'wp_search', :role => 'search' do
     = text_field_tag :s
