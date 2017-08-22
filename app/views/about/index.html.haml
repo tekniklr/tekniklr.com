@@ -3,7 +3,7 @@
   %h1 General Info
 
   .gravatar
-    = image_tag "http://gravatar.com/avatar/#{@gravatar_id}.png?s=150", :class => 'photo', :alt => 'tekniklr'
+    = image_tag "http://gravatar.com/avatar/#{@gravatar_id}.png?s=150", class: 'photo', alt: 'tekniklr'
 
   %dl.info
     - cache @who do
@@ -21,7 +21,7 @@
       - cache @about_links do
         - @about_links.each do |link|
           - link == @about_links.last ? sep = '' : sep = ', '
-          = link_to(link.name, link.url) + sep
+          = link_to(link.name, link.url, target: '_blank') + sep
   
   %h1 Stuff I like
   %dl.favorites
@@ -32,7 +32,7 @@
           %dd
             - favorite.favorite_things.each do |thing|
               - thing == favorite.favorite_things.last ? sep = '' : sep = '  ☆ '
-              = (!thing.link.blank? ? link_to(thing.thing, thing.link) : thing.thing) + sep
+              = (!thing.link.blank? ? link_to(thing.thing, thing.link, target: '_blank') : thing.thing) + sep
         - else
           %dd.spacey
             %ul
@@ -43,7 +43,7 @@
                     %br
                     - 
                     - if @things[thing.thing][:similarity] >= SIMILAR_THRESHOLD && !@things[thing.thing][:amazon_url].blank?
-                      = link_to(image_tag(@things[thing.thing][:image_url], :alt => thing.thing, :title => thing.thing), @things[thing.thing][:amazon_url])
+                      = link_to image_tag(@things[thing.thing][:image_url], alt: thing.thing, title: thing.thing), @things[thing.thing][:amazon_url], target: '_blank'
                     - elsif !@things[thing.thing][:image_url].blank?
-                      = image_tag(@things[thing.thing][:image_url], :alt => thing.thing, :title => thing.thing)
+                      = image_tag(@things[thing.thing][:image_url], alt: thing.thing, title: thing.thing)
                       

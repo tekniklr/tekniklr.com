@@ -14,9 +14,9 @@
     end
   - if !item[:image_url].blank?
     - if !amazon_url.blank?
-      = link_to image_tag(item[:image_url], :alt => hover_text, :title => hover_text), amazon_url, id: "opener_#{item_id}"
+      = link_to image_tag(item[:image_url], alt: hover_text, title: hover_text), amazon_url, id: "opener_#{item_id}"
     - else
-      = link_to image_tag(item[:image_url], :alt => hover_text, :title => hover_text), url, id: "opener_#{item_id}"
+      = link_to image_tag(item[:image_url], alt: hover_text, title: hover_text), url, id: "opener_#{item_id}"
   - else
     = link_to hover_text, url, id: "opener_#{item_id}"
   %p{:class => "when fade#{fade}"}
@@ -37,16 +37,16 @@
       - if item[:image_url]
         %p.center
           - if !url.blank?
-            = link_to image_tag(item[:image_url]), url
+            = link_to image_tag(item[:image_url]), url, target: '_blank'
           - else
             = image_tag item[:image_url]
       %p
         - if item[:achievement]
-          Earned #{link_to item[:achievement], item[:url]} in 
+          Earned #{link_to item[:achievement], item[:url], target: '_blank'} in 
         - else
           Played 
         - if !url.blank?
-          #{link_to item[:title], url }
+          #{link_to item[:title], url, target: '_blank'}
         - else
           #{item[:title]}
         -if item[:platform]
