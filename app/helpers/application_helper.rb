@@ -45,7 +45,7 @@ module ApplicationHelper
         csselclass and out = "<span class='#{csselclass}'>#{out}</span>"
         cssclass and out = "<span class='#{cssclass}'>#{out}</span>"
       end
-      sanitize out, :tags => %w(a strong em u br cite span ol ul li)
+      sanitize out, tags: %w(a strong em u br cite span ol ul li), attributes: %w(href target name title src alt class)
     else
       ''
     end
