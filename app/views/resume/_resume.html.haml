@@ -48,7 +48,7 @@
                   %ul
                     - experience.tasks.split("\n").each do |task|
                       %li
-                        = sanitize task, tags: %w(a strong em u)
+                        = sanitize task, tags: %w(a strong em u), attributes: %w(href target name title src alt class)
   
     - if @publications
       %dt.publications #{@publications.name}

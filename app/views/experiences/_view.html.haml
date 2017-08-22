@@ -14,7 +14,7 @@
     %ul
       - experience.tasks.split("\n").each do |task|
         %li
-          = sanitize task, :tags => %w(a strong em u)
+          = sanitize task, tags: %w(a strong em u), attributes: %w(href target name title src alt class)
 %p.center
   = link_to 'Edit', edit_experience_path(experience), :remote => true
   = link_to('Delete', experience, :data => { :confirm => "Are you sure you want to delete #{experience.title} @ #{experience.affiliation}?" }, :method => :delete, :remote => true)
