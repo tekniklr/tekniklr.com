@@ -30,7 +30,7 @@ module ApplicationHelper
   def facet_value(value, list = false, cssclass = false, csselclass = false)
     if value
       lines = value.split("\n")
-      if lines.count > 1
+      if lines.size > 1
         if list
           cssclass ? out = "<ul class='#{cssclass}'>\n" : out = "<ul>\n"
           lines.each do |line|
@@ -67,7 +67,7 @@ module ApplicationHelper
     classes.strip!
     classes = ' ' + classes if !classes.blank?
     classes = name + classes
-    attrs.merge(:class => classes)
+    attrs.merge(class: classes)
   end
     
 end
