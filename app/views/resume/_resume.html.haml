@@ -2,7 +2,7 @@
   %address.vcard
     .fn #{@resume_name}
     %div
-      = mail_to @resume_email.to_s, @resume_email, :class => :email
+      = mail_to @resume_email.to_s, @resume_email, class: :email, target: '_blank'
       &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
       %span.adr
         %span.locality
@@ -11,7 +11,7 @@
         %span.region
           oregon
       &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-      = link_to @resume_url, @resume_url, :class => :url
+      = link_to @resume_url, @resume_url, class: :url, target: '_blank'
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
   %dl
@@ -31,16 +31,16 @@
         %dd
           %ul.vcalendar#exp
             - @experiences.each do |experience|
-              %li{:class => 'experience vevent'}
+              %li{class: 'experience vevent'}
                 .left
                   %strong.summary #{experience.title}
                   %br
                   %em.location
-                    = experience.affiliation_link ? link_to(experience.affiliation, experience.affiliation_link): experience.affiliation
+                    = experience.affiliation_link ? link_to(experience.affiliation, experience.affiliation_link, target: '_blank'): experience.affiliation
                 .right
-                  %span.dtstart{:title => experience.start_date.to_s(:standard)} #{experience.start_date.to_s(:resume_date)}
+                  %span.dtstart{title: experience.start_date.to_s(:standard)} #{experience.start_date.to_s(:resume_date)}
                   \~
-                  %span.dtend{:title => experience.end_date ? experience.end_date.to_s(:standard) : ''} #{experience.end_date ? experience.end_date.to_s(:resume_date) : "present"}
+                  %span.dtend{title: experience.end_date ? experience.end_date.to_s(:standard) : ''} #{experience.end_date ? experience.end_date.to_s(:resume_date) : "present"}
                   %br
                   #{experience.location}
                 .clear
@@ -48,7 +48,7 @@
                   %ul
                     - experience.tasks.split("\n").each do |task|
                       %li
-                        = sanitize task, :tags => %w(a strong em u)
+                        = sanitize task, tags: %w(a strong em u)
   
     - if @publications
       %dt.publications #{@publications.name}
