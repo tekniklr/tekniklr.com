@@ -11,9 +11,9 @@
           - if @tabletop_amazon && @tabletop_amazon[tabletop_game.name]
             .game_image
               - if @tabletop_amazon[tabletop_game.name][:amazon_url] && (@tabletop_amazon[tabletop_game.name][:similarity] >= SIMILAR_THRESHOLD)
-                = link_to(image_tag(@tabletop_amazon[tabletop_game.name][:image_url], :alt => tabletop_game.name, :title => tabletop_game.name), @tabletop_amazon[tabletop_game.name][:amazon_url])
+                = link_to(image_tag(@tabletop_amazon[tabletop_game.name][:image_url], alt: tabletop_game.name, title: tabletop_game.name), @tabletop_amazon[tabletop_game.name][:amazon_url], target: '_blank')
               - elsif @tabletop_amazon[tabletop_game.name][:amazon_title].blank?
-                = image_tag(@tabletop_amazon[tabletop_game.name][:image_url], :alt => tabletop_game.name, :title => tabletop_game.name)
+                = image_tag(@tabletop_amazon[tabletop_game.name][:image_url], alt: tabletop_game.name, title: tabletop_game.name)
           .game_name
             = tabletop_game.name
           - if !tabletop_game.players.blank?
@@ -32,4 +32,4 @@
                   %li #{expansion}
           - if !tabletop_game.bgg_url.blank?
             .game_bgg
-              = link_to 'See on BoardGameGeek', tabletop_game.bgg_url
+              = link_to 'See on BoardGameGeek', tabletop_game.bgg_url, target: '_blank'
