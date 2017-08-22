@@ -43,9 +43,9 @@
 
     .reach
       %span{title: "#{tweet.retweet_count} boosts"}
-        = link_to "↺ #{tweet.retweet_count}", "https://twitter.com/intent/retweet?tweet_id=#{tweet_id}"
+        = link_to "↺ #{tweet.retweet_count}", "https://twitter.com/intent/retweet?tweet_id=#{tweet_id}", target: '_blank'
       %span{title: "#{tweet.favorite_count} florps"}
-        = link_to "☆ #{tweet.favorite_count}", "https://twitter.com/intent/like?tweet_id=#{tweet_id}"
+        = link_to "☆ #{tweet.favorite_count}", "https://twitter.com/intent/like?tweet_id=#{tweet_id}", target: '_blank'
 
   .time_ago
     = link_to time_ago_in_words(tweet.created_at.to_datetime)+' ago', tweet_link, target: '_blank'
