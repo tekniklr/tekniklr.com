@@ -33,7 +33,7 @@ $navigation_font_family: 'Maven Pro', Helvetica, "Helvetica Neue", Arial, sans-s
 $base_font_color: #607890; // from boilerplate
 $navigation_font_color: lighten($base_font_color, 10%);
 $hover_color: darken($the_color, 50%);
-$link_color: $hover_color - #666600;
+$link_color: adjust_color($hover_color, $red: -100, $green: -100);
 $visited_link_color: darken($hover_color, 15%);
 
 /* ******************************************************** */
