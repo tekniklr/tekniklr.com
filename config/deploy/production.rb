@@ -14,7 +14,7 @@ set :linked_dirs, %w{public/wpblog public/images public/icons public/recent_game
 server 'tekniklr.com', user: 'tekniklr', roles: [:web, :app]
 
 set :rbenv_type, :user
-set :rbenv_ruby, '2.4.1'
+set :rbenv_ruby, '2.4.2'
 
 set :ssh_options, {
   :forward_agent => true
