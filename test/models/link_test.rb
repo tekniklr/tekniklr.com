@@ -3,7 +3,7 @@ require 'test_helper'
 class LinkTest < ActiveSupport::TestCase
 
   def setup
-    @link = FactoryGirl.build(:link)
+    @link = FactoryBot.build(:link)
   end
 
   should "validate presence of name" do

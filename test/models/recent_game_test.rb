@@ -3,7 +3,7 @@ require 'test_helper'
 class RecentGameTest < ActiveSupport::TestCase
 
   def setup
-    @game = FactoryGirl.build(:recent_game)
+    @game = FactoryBot.build(:recent_game)
   end
 
   should "validate presence of name" do
