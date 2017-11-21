@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
 
   factory :experience do |e|
     e.sequence(:title) {|n| "Position title #{n}"}

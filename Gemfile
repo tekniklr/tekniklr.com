@@ -47,8 +47,7 @@ gem 'uglifier'
 
 group :test do
   gem 'turn', require: false
-  gem 'factory_girl', require: false
-  gem 'factory_girl_rails', require: false
+  gem 'factory_bot_rails', require: false
   gem 'minitest', require: false
   gem 'shoulda', require: false
   gem 'rails-controller-testing'

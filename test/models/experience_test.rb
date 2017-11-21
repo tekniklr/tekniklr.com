@@ -3,7 +3,7 @@ require 'test_helper'
 class ExperienceTest < ActiveSupport::TestCase
 
   def setup
-    @experience = FactoryGirl.build(:experience)
+    @experience = FactoryBot.build(:experience)
   end
 
   should "validate presence of title" do
