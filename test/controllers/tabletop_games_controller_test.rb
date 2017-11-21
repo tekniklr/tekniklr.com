@@ -2,8 +2,8 @@ require 'test_helper'
 
 class TabletopGamesControllerTest < ActionController::TestCase
   setup do
-    @tabletop_game = FactoryGirl.create(:tabletop_game)
-    @user = FactoryGirl.create(:user)
+    @tabletop_game = FactoryBot.create(:tabletop_game)
+    @user = FactoryBot.create(:user)
   end
 
   should "only allow limited access without login" do

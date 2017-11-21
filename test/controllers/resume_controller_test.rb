@@ -3,7 +3,7 @@ require 'test_helper'
 class ResumeControllerTest < ActionController::TestCase
 
   setup do
-    @user = FactoryGirl.create(:user)
+    @user = FactoryBot.create(:user)
   end
 
   should "not work without login" do

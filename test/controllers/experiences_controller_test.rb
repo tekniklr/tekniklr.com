@@ -3,8 +3,8 @@ require 'test_helper'
 class ExperiencesControllerTest < ActionController::TestCase
   
   setup do
-    @experience = FactoryGirl.create(:experience)
-    @user = FactoryGirl.create(:user)
+    @experience = FactoryBot.create(:experience)
+    @user = FactoryBot.create(:user)
   end
 
   should "not work without login" do

@@ -2,13 +2,13 @@ require 'test_helper'
 
 class FavoritesControllerTest < ActionController::TestCase
   setup do
-    @favorite = FactoryGirl.create(:favorite)
-    @favorite2 = FactoryGirl.create(:favorite)
-    @favorite_thing1 = FactoryGirl.create(:favorite_thing)
+    @favorite = FactoryBot.create(:favorite)
+    @favorite2 = FactoryBot.create(:favorite)
+    @favorite_thing1 = FactoryBot.create(:favorite_thing)
     @favorite_thing1.favorite = @favorite
-    @favorite_thing2 = FactoryGirl.create(:favorite_thing)
+    @favorite_thing2 = FactoryBot.create(:favorite_thing)
     @favorite_thing2.favorite = @favorite
-    @user = FactoryGirl.create(:user)
+    @user = FactoryBot.create(:user)
   end
 
   should "not work without login" do

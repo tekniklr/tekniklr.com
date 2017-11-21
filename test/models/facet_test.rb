@@ -3,7 +3,7 @@ require 'test_helper'
 class FacetTest < ActiveSupport::TestCase
   
   def setup
-    @facet = FactoryGirl.build(:facet)
+    @facet = FactoryBot.build(:facet)
   end
 
   should "validate presence of name" do

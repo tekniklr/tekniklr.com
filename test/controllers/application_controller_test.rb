@@ -3,7 +3,7 @@ require 'test_helper'
 class ApplicationControllerTest < ActionController::TestCase
 
   setup do
-    @user = FactoryGirl.create(:user)
+    @user = FactoryBot.create(:user)
   end
 
   should "not clean cache unless logged in" do

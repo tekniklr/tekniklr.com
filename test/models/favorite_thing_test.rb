@@ -3,7 +3,7 @@ require 'test_helper'
 class FavoriteThingTest < ActiveSupport::TestCase
 
   def setup
-    @favorite_thing = FactoryGirl.build(:favorite_thing)
+    @favorite_thing = FactoryBot.build(:favorite_thing)
   end
   
   should "validate cromulence of link" do

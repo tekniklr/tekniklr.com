@@ -2,8 +2,8 @@ require 'test_helper'
 
 class RecentGamesControllerTest < ActionController::TestCase
   setup do
-    @recent_game = FactoryGirl.create(:recent_game)
-    @user = FactoryGirl.create(:user)
+    @recent_game = FactoryBot.create(:recent_game)
+    @user = FactoryBot.create(:user)
   end
 
   should "only allow limited access without login" do
