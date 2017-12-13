@@ -39,7 +39,7 @@ class GamingJob < ApplicationJob
             skip_amazon = true
             platform = 'Steam'
           else
-            additional_keywords = 'Xbox 360'
+            additional_keywords = 'Xbox One'
             platform = 'Xbox'
           end
         end
