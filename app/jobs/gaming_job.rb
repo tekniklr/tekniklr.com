@@ -14,7 +14,7 @@ class GamingJob < ApplicationJob
         title = item.title
         platform = item.platform
         case platform
-        when '3DS', 'Wii U', 'PS4', 'PS3', 'Xbox One', 'Xbox 360', 'Mac', 'PC'
+        when '3DS', 'Switch', 'PS4', 'Xbox One', 'Mac', 'PC'
           additional_keywords = platform
         else
           skip_amazon = true
