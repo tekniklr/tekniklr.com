@@ -65,4 +65,5 @@ group :development do
   gem 'capistrano-rbenv', require: false
   gem 'capistrano-bundler', require: false
   gem 'capistrano-rails', require: false
+  gem "brakeman", require: false
 end
