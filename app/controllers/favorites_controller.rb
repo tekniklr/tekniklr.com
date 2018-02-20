@@ -4,7 +4,7 @@ class FavoritesController < ApplicationController
    
   # GET /favorites
   def index
-    @favorites = Favorite.all
+    @favorites = Favorite.with_things
     respond_to do |format|
       format.html # index.html.erb
     end
@@ -21,7 +21,7 @@ class FavoritesController < ApplicationController
   # GET /favorites/new
   def new
     @favorite = Favorite.new
-    @favorite.sort = Favorite.all.count + 1
+    @favorite.sort = Favorite.last.sort + 1
     1.upto(NUM_FAVS) { |n| @favorite.favorite_things.build(:sort => n) }
     respond_to do |format|
       format.html # new.html.erb
