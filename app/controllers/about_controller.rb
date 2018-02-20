@@ -19,7 +19,7 @@ class AboutController < ApplicationController
   end
   
   def build_favorites
-    @favorites = Favorite.all
+    @favorites = Favorite.with_things
     @things_fetched = Rails.cache.read('things_fetched')
     @things         = Rails.cache.read('things_amazon')
     if !@things_fetched
