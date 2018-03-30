@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
-gem 'rails', '5.1.5'
-gem 'mysql2', '<0.5.0'
+gem 'rails', '5.1.6'
+gem 'mysql2'
 
 gem 'paperclip'
 gem 'validates_timeliness'
