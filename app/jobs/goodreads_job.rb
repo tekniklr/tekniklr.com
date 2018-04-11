@@ -16,7 +16,10 @@ class GoodreadsJob < ApplicationJob
       title = $2
       (title.blank? || previous_titles.include?(title)) and next
       previous_titles << title
-      amazon = get_amazon(title, 'Books')
+      skip_amazon_titles = [
+        'EarthBound'
+      ]
+      amazon = skip_amazon_titles.include?(title) ? false : get_amazon(title, 'Books')
       if amazon
         parsed_items << {
           :title        => title,
