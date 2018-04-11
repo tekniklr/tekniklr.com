@@ -19,7 +19,7 @@ class ApplicationJob < ActiveJob::Base
       image_override_name = "products/#{item_title.downcase.gsub(/[^a-z0-9]+/, '_')}.jpg"
 
       favorite_things = FavoriteThing.by_thing_with_image(item_title)
-      recent_games = RecentGame.by_name_with_image(item_title)
+      recent_games = (item_type == 'VideoGames') ? RecentGame.by_name_with_image(item_title) : []
       if !favorite_things.empty?
         Rails.logger.debug "Favorite thing with uploaded image found"
         cached_amazon_items[item_key] = {
