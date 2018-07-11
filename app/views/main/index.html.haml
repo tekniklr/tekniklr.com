@@ -1,8 +1,8 @@
-- unless @tumblr_posts.blank?
+- unless @blog_post.blank?
   #single_post
     %h1
       = link_to 'Blogs', "https://#{WPDOMAIN}/wpblog/"
-    = render 'blog/post', post: @tumblr_posts.first
+    = render 'blog/post', post: @blog_post
     
 - unless @tweets.blank?
   %h1
