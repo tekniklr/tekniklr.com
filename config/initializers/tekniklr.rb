@@ -5,8 +5,8 @@ TAGLINE = 'code writing, game playing, bike riding, noun verbing cyborg'
 NUM_FAVS = 6
 SIMILAR_THRESHOLD = 50
 CACHED_ITEMS = [
-                  'tumblr_expiry',
-                  'tumblr_posts',
+                  'blog_expiry',
+                  'blog_posts',
                   'flickr_expiry',
                   'flickr_photos',
                   'goodreads_expiry',

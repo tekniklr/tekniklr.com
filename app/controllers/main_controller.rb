@@ -8,11 +8,11 @@ class MainController < ApplicationController
       Delayed::Job.enqueue(TwitterJob.new)
     end
 
-    @tumblr_expiry   = Rails.cache.read('tumblr_expiry')
-    @tumblr_posts    = Rails.cache.read('tumblr_posts')
-    if @tumblr_expiry.nil? || Time.now > @tumblr_expiry
-      @tumblr_expiry = Rails.cache.write('tumblr_expiry', (Time.now + 1.hour))
-      Delayed::Job.enqueue(TumblrJob.new)
+    @blog_expiry   = Rails.cache.read('blog_expiry')
+    @blog_post     = Rails.cache.read('blog_posts')
+    if @blog_expiry.nil? || Time.now > @blog_expiry
+      @blog_expiry = Rails.cache.write('blog_expiry', (Time.now + 12.minutes))
+      Delayed::Job.enqueue(BlogJob.new)
     end
     
     @flickr_expiry   = Rails.cache.read('flickr_expiry')
