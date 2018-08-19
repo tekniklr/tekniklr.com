@@ -1,7 +1,7 @@
 EMAIL = 'tekniklr@tekniklr.com'
 DOMAIN = 'tekniklr.pizza'
 WPDOMAIN = 'tekniklr.com'
-TAGLINE = 'code writing, game playing, bike riding, noun verbing cyborg'
+TAGLINE = 'coding, gaming, biking, lifting, verbing cyborg'
 NUM_FAVS = 6
 SIMILAR_THRESHOLD = 50
 CACHED_ITEMS = [
