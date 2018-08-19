@@ -22,7 +22,10 @@ class SessionsController < ApplicationController
   def validate  
     auth = request.env["omniauth.auth"]
     user = User.find_by_provider_and_uid_and_enabled(auth["provider"], auth["uid"], true)
-    user or raise UserNotAuthorized
+    unless user
+      logger.warn "rejecting attempted login from provider #{auth["provider"]} with uid #{auth["uid"]}"
+      raise UserNotAuthorized
+    end
     session[:user_id] = user.id
     flash[:notice] = 'Signed in!'
     redirect_to root_url
