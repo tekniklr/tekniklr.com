@@ -11,6 +11,13 @@ class TwitterJob < ApplicationJob
         config.access_token_secret = ACCESS_TOKEN_SECRET
       end
       tweets = twitter.user_timeline('tekniklr', {count: 69, exclude_replies: false, include_rts: true, trim_user: false, tweet_mode: 'extended'} )
+      if tweets.first.created_at.to_datetime < Time.now-1.week
+        # if I haven't tweeted in a while, maybe I've quit twitter? it's
+        # plausible, as twitter is only getting worse. don't show tweets, in
+        # that case.
+        twitter_user = {}
+        tweets = []
+      end
     rescue
       twitter_user = {}
       tweets = []
