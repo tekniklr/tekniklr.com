@@ -16,7 +16,6 @@ public/wpblog/
 config/database.yml
 config/secrets.yml
 config/initializers/omniauth.rb
-config/initializers/secret_token.rb
 config/.amazonrc
 config/initializers/lastfm.rb
 config/initializers/twitter.rb
