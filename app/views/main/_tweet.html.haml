@@ -23,7 +23,7 @@
       - tweet_text.gsub!(/@#{mention.screen_name}/, "<a href='https://twitter.com/#{mention.screen_name}' target='_blank'>@#{mention.screen_name}</a>")
   - if !actual_tweet.media.blank?
     - actual_tweet.media.each do |medium|
-      - tweet_text.gsub!(/#{medium.url}/, "<a href='#{medium.expanded_url}' target='_blank'><img src='#{medium.media_url_https}' /></a>")
+      - tweet_text.gsub!(/#{medium.url}/, "<a href='#{medium.media_url_https}' class='tweet_thumbnail'><img src='#{medium.media_url_https}' /></a>")
   - if !actual_tweet.urls.blank?
     - actual_tweet.urls.each do |url|
       - tweet_text.gsub!(/#{url.url}/, "<a href='#{url.expanded_url}' target='_blank'>#{url.display_url}</a>")
@@ -39,7 +39,7 @@
         = link_to "@#{tweet_user_handle}", tweet_user_link, target: '_blank'
 
     .tweet_content
-      = simple_format sanitize(tweet_text, tags: %w(a img), attributes: %w(href target src)), {}, sanitize: false # simple format was double sanitizing
+      = simple_format sanitize(tweet_text, tags: %w(a img), attributes: %w(href target src class)), {}, sanitize: false # simple format was double sanitizing
 
     .reach
       %span{title: "#{tweet.retweet_count} boosts"}
