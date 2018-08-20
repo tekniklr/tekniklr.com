@@ -11,16 +11,3 @@ directory, so that's kinda neat. It's also not that hard; just make sure you hav
 an .htaccess with the following in the WordPress root directory:
   PassengerEnabled off
 I don't know of any way to do this other than with Passenger.
-
-== Colophon
-
-Anyway, things I used while implementing this include:
-* TDD
-* DRY
-* omniauth
-* HTML5 (boilerplate)
-* HAML
-* sass
-* CoffeeScript
-* modern railsy ajax
-* ruby-aaws
