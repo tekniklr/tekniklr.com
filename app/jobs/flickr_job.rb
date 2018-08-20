@@ -4,7 +4,7 @@ class FlickrJob < ApplicationJob
     Rails.logger.debug "Fetching flickr photos from RSS..."
     begin
       feed   = Feedjira::Feed.fetch_and_parse('https://api.flickr.com/services/feeds/photos_public.gne?id=7686648@N06&lang=en-us&format=rss_200')
-      photos = feed.entries[0..5]
+      photos = feed.entries[0..20]
     rescue
       photos = []
     end
