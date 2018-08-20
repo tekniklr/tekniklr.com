@@ -51,7 +51,7 @@
             });
           });
       %div{id: "toot_#{toot.id}"}
-        = simple_format sanitize(toot_text, tags: %w(a img p), attributes: %w(href target src)), {}, sanitize: false # simple format was double sanitizing
+        = simple_format sanitize(toot_text, tags: %w(a img p br), attributes: %w(href target src)), {}, sanitize: false # simple format was double sanitizing
         - if !media.blank?
           %p
             - media.each do |medium|
