@@ -7,7 +7,7 @@
 - unless @toots.blank?
   %h1
     = link_to 'Toots', 'https://cybre.space/@tekniklr'
-  .toot_block
+  .toot_block{class: 'show_scroll'}
     %ul#mastodon
       - @toots.each do |toot|
         - begin
@@ -25,7 +25,7 @@
 - unless @tweets.blank?
   %h1
     = link_to 'Tweets', 'https://twitter.com/tekniklr'
-  .tweet_block
+  .tweet_block{class: 'show_scroll'}
     %ul#twitter
       - @tweets.each do |tweet|
         - begin
