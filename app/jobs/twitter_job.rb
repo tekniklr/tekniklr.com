@@ -15,11 +15,9 @@ class TwitterJob < ApplicationJob
         # if I haven't tweeted in a while, maybe I've quit twitter? it's
         # plausible, as twitter is only getting worse. don't show tweets, in
         # that case.
-        twitter_user = {}
         tweets = []
       end
     rescue
-      twitter_user = {}
       tweets = []
     end
     Rails.cache.write('tweets', tweets)

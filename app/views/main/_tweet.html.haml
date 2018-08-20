@@ -6,7 +6,7 @@
     - actual_tweet = tweet.retweeted_status
     .retweet
       ↺
-      .twitter_name
+      .display_name
         = tweet_user_name
       retweeted
 
@@ -33,9 +33,9 @@
 
   .tweet
     .user_name
-      .twitter_name
+      .display_name
         = tweet_user_name
-      .twitter_handle
+      .handle
         = link_to "@#{tweet_user_handle}", tweet_user_link, target: '_blank'
 
     .tweet_content

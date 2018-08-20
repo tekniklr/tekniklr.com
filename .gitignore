@@ -20,4 +20,5 @@ config/initializers/secret_token.rb
 config/.amazonrc
 config/initializers/lastfm.rb
 config/initializers/twitter.rb
+config/initializers/mastodon.rb
 .capistrano/
