@@ -6,3 +6,4 @@
 //= require scaffold
 //= require favorites
 //= require prettify
+//= require jquery.colorbox
