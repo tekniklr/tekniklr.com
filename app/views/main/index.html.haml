@@ -14,6 +14,13 @@
           = render 'toot', toot: toot
         - rescue
           - # I don't care too much if a toot couldn't be displayed- it's certainly not worth breaking the index page over.
+      :javascript
+        $('a.toot_thumbnail').colorbox({
+          scalePhotos: true,
+          opacity: 0.9,
+          maxHeight: '90%',
+          maxWidth: '90%'
+        });
     
 - unless @tweets.blank?
   %h1

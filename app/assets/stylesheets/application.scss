@@ -7,7 +7,6 @@
  * style scope.
  *= require_self
  *= require jquery-ui
- *# require_tree . 
 */
 
 // colors / sizes / etc. used everywhere.
@@ -39,3 +38,6 @@
 
 // google's code prettifier
 @import "prettify.scss";
+
+// colorbox
+@import "jquery.colorbox.scss";
