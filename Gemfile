@@ -36,6 +36,8 @@ gem 'twitter'
 
 gem 'htmlentities'
 
+gem 'mastodon-api', require: 'mastodon'
+
 # run processes in the background
 gem 'delayed_job'
 gem 'delayed_job_active_record'

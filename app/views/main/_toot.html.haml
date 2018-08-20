@@ -1,0 +1,54 @@
+%li
+  - toot_handle       = toot.attributes.account.username
+  - toot_display_name = toot.attributes.account.display_name
+
+  - if !toot.attributes.reblog.blank?
+    .boost
+      ↺
+      .display_name
+        = toot_display_name
+      boosted
+    - toot_handle       = toot.attributes.reblog.account.username
+    - toot_display_name = toot.attributes.reblog.account.display_name
+    - toot_user_avatar  = toot.attributes.reblog.account.avatar
+    - toot_user_link    = toot.attributes.reblog.account.url
+    - toot_link         = toot.attributes.reblog.url
+    - toot_text         = toot.attributes.reblog.content
+    - boost_count       = toot.attributes.reblog.reblogs_count
+    - fave_count        = toot.attributes.reblog.favourites_count
+    - media             = toot.reblog.media_attachments
+  - else
+    - toot_user_avatar  = toot.attributes.account.avatar
+    - toot_user_link    = toot.attributes.account.url
+    - toot_link         = toot.attributes.url
+    - toot_text         = toot.attributes.content
+    - boost_count       = toot.attributes.reblogs_count
+    - fave_count        = toot.attributes.favourites_count
+    - media             = toot.media_attachments
+      
+  .user_pic
+    - if !toot_user_avatar.blank?
+      = link_to image_tag(toot_user_avatar, alt: toot_display_name, title:toot_display_name), toot_user_link, target: '_blank'
+
+  .toot
+    .user_name
+      .display_name
+        = toot_display_name
+      .handle
+        = link_to "@#{toot_handle}", toot_user_link, target: '_blank'
+
+    .toot_content
+      = simple_format sanitize(toot_text, tags: %w(a img p), attributes: %w(href target src)), {}, sanitize: false # simple format was double sanitizing
+      - if !media.blank?
+        %p
+          - media.each do |medium|
+            = link_to image_tag(medium.attributes.preview_url, alt: medium.attributes.description, title: medium.attributes.description, width: medium.attributes.meta.small.width, height: medium.attributes.meta.small.height), medium.attributes.url, target: '_blank'
+
+    .reach
+      %span{title: "#{boost_count} boosts"}
+        = "↺ #{boost_count}"
+      %span{title: "#{fave_count} florps"}
+        = "☆ #{fave_count}"
+
+  .time_ago
+    = link_to time_ago_in_words(toot.created_at.to_datetime)+' ago', toot_link, target: '_blank'

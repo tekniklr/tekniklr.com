@@ -19,6 +19,8 @@ CACHED_ITEMS = [
                   'things_amazon',
                   'tabletop_fetched',
                   'tabletop_amazon',
+                  'toots',
+                  'toot_expiry',
                   'tweets',
                   'tweet_expiry'
                 ]

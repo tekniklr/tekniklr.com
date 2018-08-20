@@ -3,6 +3,17 @@
     %h1
       = link_to 'Blogs', "https://#{WPDOMAIN}/wpblog/"
     = render 'blog/post', post: @blog_post
+
+- unless @toots.blank?
+  %h1
+    = link_to 'Toots', 'https://cybre.space/@tekniklr'
+  .toot_block
+    %ul#mastodon
+      - @toots.each do |toot|
+        - begin
+          = render 'toot', toot: toot
+        - rescue
+          - # I don't care too much if a toot couldn't be displayed- it's certainly not worth breaking the index page over.
     
 - unless @tweets.blank?
   %h1
@@ -13,7 +24,7 @@
         - begin
           = render 'tweet', tweet: tweet
         - rescue
-          - # I don't actually care too much if a tweet couldn't be displayed- it's certainly not worth breaking the index page over.
+          - # I don't care too much if a tweet couldn't be displayed- it's certainly not worth breaking the index page over.
 
 - if !@flickr_photos.blank? && @flickr_photos.count > 1
   - fade_photos = 0
