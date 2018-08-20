@@ -101,6 +101,11 @@ ul#twitter, ul#mastodon {
       width: 3em;
       float: left;
     }
+    .spoiler {
+      font-weight: bold;
+      color: $link_color;
+      cursor: pointer;
+    }
     .tweet, .toot {
       width: -webkit-calc(100% - 4em);
       width: -moz-calc(100% - 4em);
