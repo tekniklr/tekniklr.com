@@ -58,9 +58,9 @@
               = link_to image_tag(medium.attributes.preview_url, alt: medium.attributes.description, title: medium.attributes.description, width: medium.attributes.meta.small.width, height: medium.attributes.meta.small.height), medium.attributes.url, class: 'toot_thumbnail'
 
     .reach
-      %span{title: "#{boost_count} boosts"}
+      %span{title: pluralize(boost_count, 'boost')}
         = "↺ #{boost_count}"
-      %span{title: "#{fave_count} florps"}
+      %span{title: pluralize(fave_count, 'florp')}
         = "☆ #{fave_count}"
 
   .time_ago
