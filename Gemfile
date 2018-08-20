@@ -45,7 +45,6 @@ gem 'daemons'
 
 # assets
 gem 'sass-rails'
-gem 'coffee-rails'
 gem 'uglifier'
 
 group :test do
