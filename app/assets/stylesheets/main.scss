@@ -46,10 +46,14 @@
 
 .tweet_block, .toot_block {
   padding: 0;
-  margin: 0 auto 3em auto;
+  margin: 0 auto 2em auto;
   height: 18em;
   max-width: 100%;
   overflow-y: scroll;
+  background-image: image-url("scroll.png");
+  background-repeat: no-repeat;
+  background-position: bottom right;
+  @include rounded(1px, $faint_border_color, .75em, 0em, solid);
   @media screen and (min-width: $mobile_threshhold) {
     /* regular layout */
     width: 80%;
