@@ -1,5 +1,10 @@
 # config valid only for Capistrano 3
 lock '>=3.0'
+set :application, 'tekniklr.com'
+set :repo_url,  "https://github.com/tekniklr/tekniklr.com.git"
+set :linked_files, %w{config/database.yml config/secrets.yml config/initializers/omniauth.rb config/.amazonrc config/initializers/lastfm.rb config/initializers/twitter.rb config/initializers/mastodon.rb}
+set :linked_dirs, %w{public/wpblog public/images public/icons public/recent_games public/favorite_things tmp/pids}
+set :keep_releases, 7
 
 namespace :deploy do
 
