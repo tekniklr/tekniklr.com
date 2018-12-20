@@ -16,7 +16,6 @@ gem 'jquery-ui-rails'
 # needed for authentication
 gem 'omniauth'
 gem 'omniauth-twitter'
-gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 gem 'json'
 
