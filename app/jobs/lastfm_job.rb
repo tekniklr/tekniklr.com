@@ -5,7 +5,7 @@ class LastfmJob < ApplicationJob
     parsed_items = []
     begin
       require 'lastfm'
-      lastfm = Lastfm.new(LASTFM_API_KEY, LASTFM_API_SECRET)
+      lastfm = Lastfm.new(Rails.application.credentials.lastfm[:api_key], Rails.application.credentials.lastfm[:api_secret])
       recent_tracks = lastfm.user.get_recent_tracks(user: 'tekniklr')
       items = recent_tracks.uniq{|i| i.name}[0..10]
     rescue
