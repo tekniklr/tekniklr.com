@@ -5,10 +5,10 @@ class TwitterJob < ApplicationJob
     begin
       require 'twitter'
       twitter = Twitter::REST::Client.new do |config|
-        config.consumer_key        = TWITTER_CONSUMER_KEY
-        config.consumer_secret     = TWITTER_CONSUMER_SECRET
-        config.access_token        = TWITTER_ACCESS_TOKEN
-        config.access_token_secret = TWITTER_ACCESS_TOKEN_SECRET
+        config.consumer_key        = Rails.application.credentials.twitter[:consumer_key]
+        config.consumer_secret     = Rails.application.credentials.twitter[:consumer_secret]
+        config.access_token        = Rails.application.credentials.twitter[:access_token]
+        config.access_token_secret = Rails.application.credentials.twitter[:access_token_secret]
       end
       tweets = twitter.user_timeline('tekniklr', {count: 69, exclude_replies: false, include_rts: true, trim_user: false, tweet_mode: 'extended'} )
       if tweets.first.created_at.to_datetime < Time.now-1.week

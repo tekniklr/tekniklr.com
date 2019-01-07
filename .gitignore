@@ -14,10 +14,6 @@ public/favorite_things/
 public/system/
 public/wpblog/
 config/database.yml
-config/secrets.yml
-config/initializers/omniauth.rb
 config/.amazonrc
-config/initializers/lastfm.rb
-config/initializers/twitter.rb
-config/initializers/mastodon.rb
 .capistrano/
+config/master.key
