@@ -1,7 +1,5 @@
 %li
-  - if book[:image_url] && book[:amazon_url] && (book[:similarity] >= SIMILAR_THRESHOLD)
-    = link_to image_tag(book[:image_url], alt: book[:title], title: book[:title]), book[:amazon_url], target: '_blank'
-  - elsif book[:image_url] && book[:amazon_title].blank?
+  - if book[:image_url]
     = link_to image_tag(book[:image_url], alt: book[:title], title: book[:title]), book[:url], target: '_blank'
   - else
     = link_to book[:title], book[:url], target: '_blank'

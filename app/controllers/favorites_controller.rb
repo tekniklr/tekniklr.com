@@ -105,7 +105,7 @@ class FavoritesController < ApplicationController
   private
 
   def favorite_params
-    params.require(:favorite).permit(:favorite_type, :sort, favorite_things_attributes: [:id, :thing, :link, :sort, :image, :amazon_url, :_destroy])
+    params.require(:favorite).permit(:favorite_type, :sort, favorite_things_attributes: [:id, :thing, :link, :sort, :image, :_destroy])
   end
   
 end
