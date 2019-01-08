@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_08_024352) do
+ActiveRecord::Schema.define(version: 2019_01_08_045059) do
 
   create_table "delayed_jobs", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "priority", default: 0
@@ -56,7 +56,6 @@ ActiveRecord::Schema.define(version: 2019_01_08_024352) do
     t.integer "sort"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string "amazon_url"
     t.string "image_file_name"
     t.string "image_content_type"
     t.integer "image_file_size"
@@ -97,7 +96,6 @@ ActiveRecord::Schema.define(version: 2019_01_08_024352) do
     t.datetime "image_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string "amazon_url"
   end
 
   create_table "tabletop_games", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

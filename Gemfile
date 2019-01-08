@@ -23,10 +23,6 @@ gem 'json'
 gem 'feedjira'
 gem 'iconv' # needed to parse some feeds
 
-gem 'similar_text'
-
-# for amazon web services; not to be confused with ruby-aws
-gem 'ruby-aaws', git: 'https://github.com/tekniklr/ruby-aaws.git'
 
 gem 'lastfm'
 

@@ -15,6 +15,5 @@ public/system/
 public/tabletop_games/
 public/wpblog/
 config/database.yml
-config/.amazonrc
 .capistrano/
 config/master.key
