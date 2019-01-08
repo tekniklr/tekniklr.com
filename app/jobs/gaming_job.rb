@@ -8,17 +8,10 @@ class GamingJob < ApplicationJob
     all_items = (manual_items + psn_items + xbox_items + steam_items).sort_by{|i| i.published ? i.published : Time.now-1000.years}.reverse
     parsed_items = []
     all_items.each do |item|
-      skip_amazon = false
-      additional_keywords = nil
       if item.respond_to?('has_key?') && item.has_key?(:parsed)
-        title = item.title
-        platform = item.platform
-        case platform
-        when '3DS', 'Switch', 'PS4', 'Xbox One', 'Mac', 'PC'
-          additional_keywords = platform
-        else
-          skip_amazon = true
-        end
+        title       = item.title
+        platform    = item.platform
+        image_url   = item.image.url(:default)
       else
         Rails.logger.debug "Parsing #{item.title}..."
         item.title.match?(/tekniklr(started|completed)/) and next
@@ -32,72 +25,48 @@ class GamingJob < ApplicationJob
         title = $3
         case type
         when 'trophy'
-          additional_keywords = 'PS4'
           platform = 'Playstation'
         when 'achievement'
           if item.url =~ /truesteamachievements/
-            skip_amazon = true
             platform = 'Steam'
           else
-            additional_keywords = 'Xbox One'
             platform = 'Xbox'
           end
         end
         title.gsub!(/ Trophies/, '')
+        image_url = find_game_image(title)
       end
-      unless skip_amazon
-        amazon = get_amazon(title, 'VideoGames', additional_keywords)
-      end
-      if amazon
-        parsed_items << {
-          title:               title,
-          additional_keywords: additional_keywords,
-          achievement:         achievement,
-          platform:            platform,
-          url:                 item.url,
-          published:           item.published,
-          image_url:           amazon[:image_url],
-          amazon_url:          amazon[:amazon_url],
-          amazon_title:        amazon[:amazon_title],
-          similarity:          amazon[:similarity]
-        }
-      elsif !item.image.blank?
-        parsed_items << {
-          title:               item.title,
-          additional_keywords: additional_keywords,
-          platform:            platform,
-          url:                 item.url,
-          published:           item.published,
-          image_url:           item.image.url(:default)
-        }
-      else
-        parsed_items << {
-          title:               title,
-          additional_keywords: additional_keywords,
-          platform:            platform,
-          achievement:         achievement,
-          url:                 item.url,
-          published:           item.published
-        }
-      end
+      parsed_items << {
+        title:               title,
+        platform:            platform,
+        achievement:         achievement,
+        url:                 item.url,
+        published:           item.published,
+        image_url:           image_url
+      }
     end
-    Rails.cache.write('gaming', parsed_items.uniq{ |i| [i.title.downcase.gsub(/\s+/, ' ').gsub(/[^\w\s]/, ''), i.additional_keywords] }[0..9])
+    Rails.cache.write('gaming', parsed_items.uniq{ |i| [i.title.downcase.gsub(/\s+/, ' ').gsub(/[^\w\s]/, '')] }[0..9])
   end
   
   private
 
+  def find_game_image(title)
+    Rails.logger.debug "Looking for upladed image for #{title}..."
+    matching_game = RecentGame.where(name: title).first
+    (matching_game && matching_game.image?) ? matching_game.image.url(:default) : ''
+  end
 
   def get_recent_games
     Rails.logger.debug "Parsing manually entered games..."
     items = []
     RecentGame.first(12).each do |game|
       items << {
-        parsed:    true,
-        platform:  game.platform,
-        title:     game.name,
-        url:       game.url,
-        published: game.started_playing,
-        image:     game.image
+        parsed:      true,
+        platform:    game.platform,
+        title:       game.name,
+        url:         game.url,
+        published:   game.started_playing,
+        image:       game.image
       }
     end
     return items
