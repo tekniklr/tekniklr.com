@@ -4,7 +4,7 @@ set :deploy_to, "/home/tekniklr/rails.tekniklr.com"
 set :branch, 'master'
 set :tmp_dir, "/home/tekniklr/tmp"
 set :rbenv_type, :user
-set :rbenv_ruby, '2.4.2'
+set :rbenv_ruby, '2.6.0'
 set :ssh_options, {
   forward_agent: true
 }

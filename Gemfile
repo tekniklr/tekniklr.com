@@ -21,10 +21,9 @@ gem 'json'
 
 # rss fetcher/parser that actually works
 gem 'feedjira'
+gem 'iconv' # needed to parse some feeds
 
 gem 'similar_text'
-
-gem 'iconv'
 
 # for amazon web services; not to be confused with ruby-aws
 gem 'ruby-aaws', git: 'https://github.com/tekniklr/ruby-aaws.git'
