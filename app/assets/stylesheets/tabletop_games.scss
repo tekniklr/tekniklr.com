@@ -13,6 +13,11 @@ table#manage_tabletop {
     padding: .5em;
     border: 1px solid $navigation_border_color;
   }
+  td.game_image {
+    img {
+      min-width: 100px;
+    }
+  }
 }
 
 ul#tabletop_list {
@@ -37,6 +42,7 @@ ul#tabletop_list {
         margin-right: 1em;
         img {
           max-height: 6em;
+          min-width: 100px;
           max-width: 100%;
         }
       }
