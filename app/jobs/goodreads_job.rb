@@ -16,27 +16,13 @@ class GoodreadsJob < ApplicationJob
       title = $2
       (title.blank? || previous_titles.include?(title)) and next
       previous_titles << title
-      skip_amazon_titles = [
-        'EarthBound'
-      ]
-      amazon = skip_amazon_titles.include?(title) ? false : get_amazon(title, 'Books')
-      if amazon
-        parsed_items << {
-          :title        => title,
-          :url          => item.url,
-          :published    => item.published,
-          :image_url    => amazon[:image_url],
-          :amazon_url   => amazon[:amazon_url],
-          :amazon_title => amazon[:amazon_title],
-          :similarity   => amazon[:similarity]
-        }
-      else
-        parsed_items << {
-          :title      => title,
-          :url        => item.url,
-          :published  => item.published
-        }
-      end
+      image_url = Nokogiri::HTML(item.summary).css("img")[0]['src']
+      parsed_items << {
+        title:     title,
+        url:       item.url,
+        published: item.published,
+        image_url: image_url
+      }
     end
     Rails.cache.write('goodreads', parsed_items)
   end
