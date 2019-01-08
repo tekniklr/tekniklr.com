@@ -26,24 +26,17 @@
   %h1 Stuff I like
   %dl.favorites
     - @favorites.each do |favorite|
-      - cache [favorite.favorite_things, @things] do
+      - cache [favorite.favorite_things] do
         %dt #{favorite.favorite_type}
-        - if !favorite.favorite_things.any?{|t| @things && @things.keys.include?(t.thing)}
-          %dd
+        %dd.spacey
+          %ul
             - favorite.favorite_things.each do |thing|
-              - thing == favorite.favorite_things.last ? sep = '' : sep = '  ☆ '
-              = (!thing.link.blank? ? link_to(thing.thing, thing.link, target: '_blank') : thing.thing) + sep
-        - else
-          %dd.spacey
-            %ul
-              - favorite.favorite_things.each do |thing|
-                %li{:class => (thing == favorite.favorite_things.last) ? '' : 'separated'}
-                  = (!thing.link.blank? ? link_to(thing.thing, thing.link) : thing.thing)
-                  - if @things[thing.thing]
-                    %br
-                    - 
-                    - if @things[thing.thing][:similarity] >= SIMILAR_THRESHOLD && !@things[thing.thing][:amazon_url].blank?
-                      = link_to image_tag(@things[thing.thing][:image_url], alt: thing.thing, title: thing.thing), @things[thing.thing][:amazon_url], target: '_blank'
-                    - elsif !@things[thing.thing][:image_url].blank?
-                      = image_tag(@things[thing.thing][:image_url], alt: thing.thing, title: thing.thing)
+              %li{:class => (thing == favorite.favorite_things.last) ? '' : 'separated'}
+                = (!thing.link.blank? ? link_to(thing.thing, thing.link, target: '_blank') : thing.thing)
+                - if thing.image?
+                  %br
+                  - if thing.link.blank?
+                    = image_tag(thing.image.url(:default), alt: thing.thing)
+                  - else
+                    = link_to(image_tag(thing.image.url(:default), alt: thing.thing), thing.link, target: '_blank')
                       
