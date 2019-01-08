@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170622054446) do
+ActiveRecord::Schema.define(version: 2019_01_08_024352) do
 
-  create_table "delayed_jobs", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "delayed_jobs", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "priority", default: 0
     t.integer "attempts", default: 0
     t.text "handler"
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20170622054446) do
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
-  create_table "experiences", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "experiences", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.date "start_date"
     t.date "end_date"
     t.string "title"
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 20170622054446) do
     t.index ["affiliation_link"], name: "index_experiences_on_affiliation_link"
   end
 
-  create_table "facets", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "facets", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name"
     t.text "value"
     t.datetime "created_at"
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 20170622054446) do
     t.index ["slug"], name: "index_facets_on_slug"
   end
 
-  create_table "favorite_things", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "favorite_things", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.integer "favorite_id"
     t.string "thing"
     t.string "link"
@@ -64,14 +64,14 @@ ActiveRecord::Schema.define(version: 20170622054446) do
     t.index ["favorite_id"], name: "index_favorite_things_on_favorite_id"
   end
 
-  create_table "favorites", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "favorites", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "favorite_type"
     t.integer "sort"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "links", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "links", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name"
     t.string "url"
     t.boolean "visible"
@@ -86,7 +86,7 @@ ActiveRecord::Schema.define(version: 20170622054446) do
     t.index ["visible"], name: "index_links_on_visible"
   end
 
-  create_table "recent_games", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "recent_games", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name"
     t.string "platform"
     t.datetime "started_playing"
@@ -100,7 +100,7 @@ ActiveRecord::Schema.define(version: 20170622054446) do
     t.string "amazon_url"
   end
 
-  create_table "tabletop_games", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "tabletop_games", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.text "expansions"
     t.text "other_info"
@@ -108,9 +108,13 @@ ActiveRecord::Schema.define(version: 20170622054446) do
     t.datetime "updated_at", null: false
     t.string "players"
     t.string "bgg_url"
+    t.string "image_file_name"
+    t.string "image_content_type"
+    t.integer "image_file_size"
+    t.datetime "image_updated_at"
   end
 
-  create_table "users", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "users", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "provider"
     t.string "uid"
     t.string "handle"

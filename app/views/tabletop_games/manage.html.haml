@@ -4,6 +4,7 @@
 
 %table#manage_tabletop
   %tr
+    %th Image
     %th Name
     %th Players
     %th Info
@@ -13,6 +14,9 @@
 
   - @tabletop_games.each do |tabletop_game|
     %tr
+      %td.game_image
+        - if tabletop_game.image?
+          = image_tag tabletop_game.image.url(:default), alt: tabletop_game.name, width: 100
       %td
         = tabletop_game.name
       %td

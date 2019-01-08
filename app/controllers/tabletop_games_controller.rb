@@ -75,7 +75,7 @@ class TabletopGamesController < ApplicationController
   private
 
   def tabletop_game_params
-    params.require(:tabletop_game).permit(:expansions, :name, :other_info, :players, :bgg_url)
+    params.require(:tabletop_game).permit(:expansions, :name, :other_info, :players, :bgg_url, :image)
   end
 
 end
