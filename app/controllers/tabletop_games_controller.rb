@@ -5,12 +5,6 @@ class TabletopGamesController < ApplicationController
   # GET /tabletop_games
   def index
     @tabletop_games   = TabletopGame.all
-    @tabletop_fetched = Rails.cache.read('tabletop_fetched')
-    @tabletop_amazon  = Rails.cache.read('tabletop_amazon')
-    if !@tabletop_fetched
-      @tabletop_fetched = Rails.cache.write('tabletop_fetched', true)
-      Delayed::Job.enqueue(TabletopJob.new)
-    end
     respond_to do |format|
       format.html # index.html.erb
     end
