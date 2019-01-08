@@ -20,12 +20,6 @@ class AboutController < ApplicationController
   
   def build_favorites
     @favorites = Favorite.with_things
-    @things_fetched = Rails.cache.read('things_fetched')
-    @things         = Rails.cache.read('things_amazon')
-    if !@things_fetched
-      @things_fetched = Rails.cache.write('things_fetched', true)
-      Delayed::Job.enqueue(ThingsJob.new)
-    end
   end
   
 end

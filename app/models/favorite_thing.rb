@@ -2,7 +2,7 @@ class FavoriteThing < ApplicationRecord
   belongs_to  :favorite
 
   has_attached_file     :image,
-                        :styles => { :default => ["60x75>", :png] },
+                        :styles => { :default => ["90x90>", :png] },
                         :path => ":rails_root/public/favorite_things/:attachment/:id/:style/:filename",
                         :url => "/favorite_things/:attachment/:id/:style/:filename"
   validates_attachment_content_type :image, :content_type => [ 'image/png', 'image/jpg', 'image/jpeg', 'image/gif']
