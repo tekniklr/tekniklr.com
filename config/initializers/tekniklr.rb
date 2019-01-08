@@ -15,8 +15,6 @@ CACHED_ITEMS = [
                   'lastfm',
                   'gaming_expiry',
                   'gaming',
-                  'things_fetched',
-                  'things_amazon',
                   'tabletop_fetched',
                   'tabletop_amazon',
                   'toots',
