@@ -8,6 +8,15 @@
 
   .row
     .left
+      = f.label :image
+    .right
+      = f.file_field :image
+      - if f.object.image?
+        = image_tag f.object.image.url(:default), alt: f.object.name
+    .clear
+
+  .row
+    .left
       = f.label :name
     .right
       = f.text_field :name, :size => 48
