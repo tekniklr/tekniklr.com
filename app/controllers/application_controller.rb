@@ -21,8 +21,7 @@ class ApplicationController < ActionController::Base
 
   def clean_cache
     deleted = []
-    to_delete = CACHED_ITEMS+['amazon_items']
-    to_delete.each do |item|
+    CACHED_ITEMS.each do |item|
       if Rails.cache.delete(item)
         deleted << item
       end

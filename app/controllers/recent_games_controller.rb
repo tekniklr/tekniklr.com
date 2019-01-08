@@ -64,7 +64,7 @@ class RecentGamesController < ApplicationController
   private
 
   def recent_game_params
-    params.require(:recent_game).permit(:name, :platform, :started_playing, :url, :image, :amazon_url)
+    params.require(:recent_game).permit(:name, :platform, :started_playing, :url, :image)
   end
 
 end
