@@ -1,24 +1,17 @@
 %li
   :ruby
-    item_id = item[:achievement] ? item[:achievement].downcase.gsub(/[^a-z]/, '_') : "#{item[:title]} #{item.published}".downcase.gsub(/[^a-z]/, '_')
+    item_id = !item[:achievement].blank? ? item[:achievement].downcase.gsub(/[^a-z]/, '_') : "#{item[:title]} #{item.published}".downcase.gsub(/[^a-z]/, '_')
     hover_text = "#{item[:title]}"
     if item[:platform]
       hover_text << "\n(#{item[:platform]})"
     end
-    if item[:achievement]
+    unless item[:achievement].blank?
       hover_text << "\n\n#{item[:achievement]}"
     end
-    if item[:amazon_url] || item[:url]
-      amazon_url = (item[:amazon_url] && (item[:similarity] >= SIMILAR_THRESHOLD)) ? item[:amazon_url] : nil
-      url = !amazon_url.blank? ? amazon_url : item[:url]
-    end
   - if !item[:image_url].blank?
-    - if !amazon_url.blank?
-      = link_to image_tag(item[:image_url], alt: hover_text, title: hover_text), amazon_url, id: "opener_#{item_id}"
-    - else
-      = link_to image_tag(item[:image_url], alt: hover_text, title: hover_text), url, id: "opener_#{item_id}"
+    = link_to image_tag(item[:image_url], alt: hover_text, title: hover_text), item[:url], id: "opener_#{item_id}"
   - else
-    = link_to hover_text, url, id: "opener_#{item_id}"
+    = link_to hover_text, item[:url], id: "opener_#{item_id}"
   %p{:class => "when fade#{fade}"}
     - if item[:published]
       = how_long_ago(item[:published])
@@ -36,17 +29,17 @@
     %div{id: "dialog_game_#{item_id}", title: item[:title]}
       - if item[:image_url]
         %p.center
-          - if !url.blank?
-            = link_to image_tag(item[:image_url]), url, target: '_blank'
+          - if !item[:url].blank?
+            = link_to image_tag(item[:image_url]), item[:url], target: '_blank'
           - else
             = image_tag item[:image_url]
       %p
-        - if item[:achievement]
+        - unless item[:achievement].blank?
           Earned #{link_to item[:achievement], item[:url], target: '_blank'} in 
         - else
           Played 
-        - if !url.blank?
-          #{link_to item[:title], url, target: '_blank'}
+        - if !item[:url].blank?
+          #{link_to item[:title], item[:url], target: '_blank'}
         - else
           #{item[:title]}
         -if item[:platform]
