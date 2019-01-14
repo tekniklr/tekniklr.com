@@ -16,7 +16,7 @@ class Blog < ApplicationRecord
   # I use the FeedWordPress plugin to import posts from my tumblr, but it's
   # REAL GOOD at pulling in the same post two, three, more times. delete the
   # dupes.
-  def self.remove_duplicates
+  def self.remove_duplicates!
     posts = Blog.posts.published.sorted.limit(20)
     previous_guid = false
     posts.each do |post|
