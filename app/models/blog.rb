@@ -28,4 +28,11 @@ class Blog < ApplicationRecord
     end
   end
 
+  # who knows what lurks in the depths??? er, lurked.
+  def self.remove_old!
+    Blog.posts.published.where('post_date < ?', Date.today-3.years).each do |post|
+      post.trash!
+    end
+  end
+
 end
