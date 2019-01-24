@@ -55,7 +55,7 @@
         - if !media.blank?
           - media.each do |medium|
             %p
-              = link_to image_tag(medium.attributes.preview_url, alt: medium.attributes.description, title: medium.attributes.description, width: medium.attributes.meta.small.width, height: medium.attributes.meta.small.height), medium.attributes.url, class: 'toot_thumbnail'
+              = link_to image_tag(medium.attributes.preview_url, alt: medium.attributes.description, title: medium.attributes.description, width: medium.attributes.meta.small.width), medium.attributes.url, class: 'toot_thumbnail'
 
     .reach
       %span{title: pluralize(boost_count, 'boost')}
