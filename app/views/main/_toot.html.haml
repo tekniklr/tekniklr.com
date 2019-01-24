@@ -53,8 +53,8 @@
       %div{id: "toot_#{toot.id}"}
         = simple_format sanitize(toot_text, tags: %w(a img p br span), attributes: %w(href target src class)), {}, sanitize: false # simple format was double sanitizing
         - if !media.blank?
-          %p
-            - media.each do |medium|
+          - media.each do |medium|
+            %p
               = link_to image_tag(medium.attributes.preview_url, alt: medium.attributes.description, title: medium.attributes.description, width: medium.attributes.meta.small.width, height: medium.attributes.meta.small.height), medium.attributes.url, class: 'toot_thumbnail'
 
     .reach
