@@ -23,7 +23,6 @@ gem 'json'
 gem 'feedjira'
 gem 'iconv' # needed to parse some feeds
 
-
 gem 'lastfm'
 
 gem 'twitter'
