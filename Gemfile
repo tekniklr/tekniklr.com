@@ -37,7 +37,7 @@ gem 'delayed_job_active_record'
 gem 'daemons'
 
 # assets
-gem 'sass-rails'
+gem 'sassc-rails'
 gem 'uglifier'
 
 group :test do
