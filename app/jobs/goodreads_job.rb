@@ -4,7 +4,9 @@ class GoodreadsJob < ApplicationJob
     Rails.logger.debug "Fetching Goodreads checkins from RSS..."
     parsed_items = []
     begin
-      feed  = Feedjira::Feed.fetch_and_parse('https://www.goodreads.com/user/updates_rss/10905654***REMOVED***')
+      url   = 'https://www.goodreads.com/user/updates_rss/10905654***REMOVED***'
+      xml   = HTTParty.get(url).body
+      feed  = Feedjira.parse(xml)
       items = feed.entries.uniq{|i| i.title}
     rescue
       items = []
