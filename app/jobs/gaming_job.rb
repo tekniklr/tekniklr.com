@@ -77,7 +77,9 @@ class GamingJob < ApplicationJob
   def get_psn
     Rails.logger.debug "Fetching PSN trophies from truetrophies..."
     begin
-      feed  = Feedjira::Feed.fetch_and_parse('https://www.truetrophies.com/friendfeedrss.aspx?gamerid=26130')
+      url   = 'https://www.truetrophies.com/friendfeedrss.aspx?gamerid=26130'
+      xml   = HTTParty.get(url).body
+      feed  = Feedjira.parse(xml)
       items = feed.entries
     rescue
       items = []
@@ -90,7 +92,9 @@ class GamingJob < ApplicationJob
   def get_xbox
     Rails.logger.debug "Fetching xbox achievements from trueachievements..."
     begin
-      feed  = Feedjira::Feed.fetch_and_parse('https://www.trueachievements.com/friendfeedrss.aspx?gamerid=294291')
+      url   = 'https://www.trueachievements.com/friendfeedrss.aspx?gamerid=294291'
+      xml   = HTTParty.get(url).body
+      feed  = Feedjira.parse(xml)
       items = feed.entries
     rescue
       items = []
@@ -103,7 +107,9 @@ class GamingJob < ApplicationJob
   def get_steam
     Rails.logger.debug "Fetching steam achievements from truesteamachievements..."
     begin
-      feed  = Feedjira::Feed.fetch_and_parse('https://www.truesteamachievements.com/friendfeedrss.aspx?gamerid=38607')
+      url   = 'https://www.truesteamachievements.com/friendfeedrss.aspx?gamerid=38607'
+      xml   = HTTParty.get(url).body
+      feed  = Feedjira.parse(xml)
       items = feed.entries
     rescue
       items = []
