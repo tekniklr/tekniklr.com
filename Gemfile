@@ -17,6 +17,7 @@ gem 'jquery-ui-rails'
 gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
+gem 'omniauth-rails_csrf_protection'
 gem 'json'
 
 # rss fetcher/parser that actually works
