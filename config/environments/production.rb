@@ -46,6 +46,9 @@ TekniklrCom::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
+  config.force_ssl = true
+  config.ssl_options = { redirect: { exclude: -> request { request.host =~ /tekniklr\.pizza/ } } }
+
   TekniklrCom::Application.config.middleware.use ExceptionNotification::Rack,
   :ignore_exceptions => ['ActionController::BadRequest','ActionController::InvalidCrossOriginRequest'] + ExceptionNotifier.ignored_exceptions,
   :ignore_crawlers => %w{Uptimebot},

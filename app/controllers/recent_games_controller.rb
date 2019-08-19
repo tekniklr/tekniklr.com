@@ -39,7 +39,7 @@ class RecentGamesController < ApplicationController
     @recent_game = RecentGame.find(params[:id])
 
     respond_to do |format|
-      if @recent_game.update_attributes(recent_game_params)
+      if @recent_game.update(recent_game_params)
         flash[:notice] = 'Recent game was successfully updated.'
         format.html { redirect_to new_recent_game_url }
         format.js

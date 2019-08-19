@@ -53,7 +53,7 @@ class FavoritesController < ApplicationController
   # PUT /favorites/sort
   def sort_favorites
     id_order = params[:favorite]
-    logger.debug "************ resorting favorites as #{id_order.pretty_inspect}..."
+    logger.debug "************ resorting favorites as #{id_order.inspect}..."
     id_order.each_with_index do |id, index|
       logger.debug "************ id #{id} to order #{index}..."
       Favorite.update(id, sort: index)
@@ -67,7 +67,7 @@ class FavoritesController < ApplicationController
   # PUT /favorites/sort
   def sort_things
     id_order = params[:thing]
-    logger.debug "************ resorting things as #{id_order.pretty_inspect}..."
+    logger.debug "************ resorting things as #{id_order.inspect}..."
     id_order.each_with_index do |id, index|
       logger.debug "************ id #{id} to order #{index}..."
       FavoriteThing.update(id, sort: index)
@@ -82,7 +82,7 @@ class FavoritesController < ApplicationController
   def update
     @favorite = Favorite.find(params[:id])
     respond_to do |format|
-      if @favorite.update_attributes(favorite_params)
+      if @favorite.update(favorite_params)
         Rails.cache.delete('things_fetched')
         format.html { redirect_to @favorite, :notice => 'Favorite was successfully updated.' }
       else

@@ -49,7 +49,7 @@ class FacetsController < ApplicationController
   def update
     @facet = Facet.find(params[:id])
     respond_to do |format|
-      if @facet.update_attributes(facet_params)
+      if @facet.update(facet_params)
         flash[:notice] = 'Facet was successfully updated.'
         format.html { redirect_to facets_url }
         format.js
