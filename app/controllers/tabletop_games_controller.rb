@@ -48,7 +48,7 @@ class TabletopGamesController < ApplicationController
   def update
     @tabletop_game = TabletopGame.find(params[:id])
     respond_to do |format|
-      if @tabletop_game.update_attributes(tabletop_game_params)
+      if @tabletop_game.update(tabletop_game_params)
         Rails.cache.delete('tabletop_fetched')
         format.html { redirect_to manage_tabletop_games_url, :notice => 'TableTop game was successfully updated.' }
       else

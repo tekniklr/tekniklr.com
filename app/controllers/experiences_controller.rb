@@ -50,7 +50,7 @@ class ExperiencesController < ApplicationController
     @experience = Experience.find(params[:id])
 
     respond_to do |format|
-      if @experience.update_attributes(experience_params)
+      if @experience.update(experience_params)
         flash[:notice] = 'Experience was successfully updated.'
         format.html { redirect_to experiences_url }
         format.js
