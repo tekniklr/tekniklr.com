@@ -50,12 +50,16 @@ TekniklrCom::Application.configure do
   config.ssl_options = { redirect: { exclude: -> request { request.host =~ /tekniklr\.pizza/ } } }
 
   TekniklrCom::Application.config.middleware.use ExceptionNotification::Rack,
-  :ignore_exceptions => ['ActionController::BadRequest','ActionController::InvalidCrossOriginRequest'] + ExceptionNotifier.ignored_exceptions,
-  :ignore_crawlers => %w{Uptimebot},
-  :email => {
-    :email_prefix => "[tekniklr.com] ",
-    :sender_address => %{rails@tekniklr.com},
-    :exception_recipients => %w{rails@tekniklr.com}
-  }
+    ignore_exceptions:  [
+                          'ActionController::BadRequest',
+                          'ActionController::InvalidCrossOriginRequest',
+                          'Mime::Type::InvalidMimeType'
+                        ] + ExceptionNotifier.ignored_exceptions,
+    ignore_crawlers:    %w{Uptimebot},
+    email: {
+      email_prefix:          "[tekniklr.com] ",
+      sender_address:        %{rails@tekniklr.com},
+      exception_recipients:  %w{rails@tekniklr.com}
+    }
 
 end
