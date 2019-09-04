@@ -3,19 +3,19 @@ class ApplicationController < ActionController::Base
   include Exceptions
   protect_from_forgery with: :exception
   
-  rescue_from Exceptions::UserNotAuthorized, :with => :user_not_authorized
+  rescue_from Exceptions::UserNotAuthorized, with: :user_not_authorized
   
-  helper_method :current_user
-  helper_method :logged_in?
+  helper_method  :current_user
+  helper_method  :logged_in?
   
-  before_action   :get_links
-  before_action   :is_admin?, :only => :clean_cache
+  before_action  :get_links
+  before_action  :is_admin?, only: :clean_cache
   
   # https://github.com/rails/rails/issues/671
   def routing_error
     respond_to do |format|
-      format.html { render '404', :status => 404 }
-      format.any  { redirect_to :action => 'routing_error', :format => 'html' }
+      format.html { render '404', status: 404 }
+      format.any  { redirect_to action: 'routing_error', format: 'html' }
     end
   end
 
