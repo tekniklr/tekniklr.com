@@ -1,1 +1,3 @@
 PassengerRuby /home/tekniklr/.rbenv/versions/2.6.4/bin/ruby
+PassengerFriendlyErrorPages off
+PassengerShowVersionInHeader off
