@@ -19,12 +19,6 @@ module ApplicationHelper
     ie_tag(:body, attrs, &block)
   end
   
-  # can be called from any view to insert a stylesheet link
-  # into the header for that page
-  def stylesheet(*args)
-    content_for(:header) { stylesheet_link_tag(*args) }
-  end
-  
   # will output the value of a given facet with the optional provided styling;
   # if the facet has multiple lines it will be converted to a list
   def facet_value(value, list = false, cssclass = false, csselclass = false)

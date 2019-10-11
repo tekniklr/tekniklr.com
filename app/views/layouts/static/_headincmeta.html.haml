@@ -25,11 +25,9 @@
 
 %link{rel: "stylesheet", href: "https://fonts.googleapis.com/css?family=Maven+Pro", type: "text/css"}/
 
-= stylesheet_link_tag :application
-
+= stylesheet_link_tag :application, media: :all
+= javascript_include_tag :application
 = csrf_meta_tag
-
-= javascript_include_tag 'application'
 
 = yield :header
 
