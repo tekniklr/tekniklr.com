@@ -2,6 +2,10 @@ TekniklrCom::Application.configure do
 
   config.eager_load = false
 
+  config.assets.compile = true
+
+  config.assets.debug = true
+
   config.cache_classes = false
 
   config.whiny_nils = true
