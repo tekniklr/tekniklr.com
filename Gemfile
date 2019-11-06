@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '6.0'
+gem 'rails', '6.0.1'
 gem 'mysql2'
 
 gem 'paperclip'
