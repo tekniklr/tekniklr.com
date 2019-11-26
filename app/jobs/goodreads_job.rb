@@ -8,7 +8,8 @@ class GoodreadsJob < ApplicationJob
       xml   = HTTParty.get(url).body
       feed  = Feedjira.parse(xml)
       items = feed.entries.uniq{|i| i.title}
-    rescue
+    rescue => exception
+      ErrorMailer.background_error('caching goodreads activity', exception).deliver_now
       items = []
     end
     previous_titles = []
