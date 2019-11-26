@@ -5,11 +5,9 @@ class MastodonJob < ApplicationJob
     begin
       client = Mastodon::REST::Client.new(base_url: 'https://cybre.space', bearer_token: Rails.application.credentials.mastodon[:access_secret])
       account = client.verify_credentials
-      toots = client.statuses(account.id, {limit: 69}).select{|t| t.attributes.visibility == 'public'}
+      toots = client.statuses(account.id, {limit: 40}).select{|t| t.attributes.visibility == 'public'} # max is 40, default is 20
       if toots.first.created_at.to_datetime < Time.now-1.week
-        # if I haven't tooted in a while, maybe I've wandered off from
-        # mastodon again? it's happened before. I hope this death of twitter
-        # thing sticks, one day
+        # if I haven't tooted in a while, don't show old shit
         toots = []
       end
     rescue
