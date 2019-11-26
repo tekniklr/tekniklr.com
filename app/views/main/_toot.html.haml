@@ -1,6 +1,6 @@
 %li
-  - toot_handle       = toot.attributes.account.username
-  - toot_display_name = toot.attributes.account.display_name
+  - toot_handle       = toot.account.username
+  - toot_display_name = toot.account.display_name
 
   - if !toot.attributes.reblog.blank?
     .boost
@@ -8,24 +8,24 @@
       .display_name
         = toot_display_name
       boosted
-    - toot_handle       = toot.attributes.reblog.account.username
-    - toot_display_name = toot.attributes.reblog.account.display_name
-    - toot_user_avatar  = toot.attributes.reblog.account.avatar
-    - toot_user_link    = toot.attributes.reblog.account.url
-    - toot_link         = toot.attributes.reblog.url
-    - toot_spoiler      = toot.attributes.reblog.spoiler_text
-    - toot_text         = toot.attributes.reblog.content
-    - boost_count       = toot.attributes.reblog.reblogs_count
-    - fave_count        = toot.attributes.reblog.favourites_count
+    - toot_handle       = toot.reblog.account.username
+    - toot_display_name = toot.reblog.account.display_name
+    - toot_user_avatar  = toot.reblog.account.avatar
+    - toot_user_link    = toot.reblog.account.url
+    - toot_link         = toot.reblog.url
+    - toot_spoiler      = toot.reblog.spoiler_text
+    - toot_text         = toot.reblog.content
+    - boost_count       = toot.reblog.reblogs_count
+    - fave_count        = toot.reblog.favourites_count
     - media             = toot.reblog.media_attachments
   - else
-    - toot_user_avatar  = toot.attributes.account.avatar
-    - toot_user_link    = toot.attributes.account.url
-    - toot_link         = toot.attributes.url
-    - toot_spoiler      = toot.attributes.spoiler_text
-    - toot_text         = toot.attributes.content
-    - boost_count       = toot.attributes.reblogs_count
-    - fave_count        = toot.attributes.favourites_count
+    - toot_user_avatar  = toot.account.avatar
+    - toot_user_link    = toot.account.url
+    - toot_link         = toot.url
+    - toot_spoiler      = toot.spoiler_text
+    - toot_text         = toot.content
+    - boost_count       = toot.reblogs_count
+    - fave_count        = toot.favourites_count
     - media             = toot.media_attachments
       
   .user_pic
