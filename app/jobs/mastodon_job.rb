@@ -10,7 +10,8 @@ class MastodonJob < ApplicationJob
         # if I haven't tooted in a while, don't show old shit
         toots = []
       end
-    rescue
+    rescue => exception
+      ErrorMailer.background_error('caching toots', exception).deliver_now
       toots = []
     end
     Rails.cache.write('toots', toots)

@@ -7,7 +7,8 @@ class FlickrJob < ApplicationJob
       xml    = HTTParty.get(url).body
       feed   = Feedjira.parse(xml)
       photos = feed.entries[0..20]
-    rescue
+    rescue => exception
+      ErrorMailer.background_error('caching flickr photos', exception).deliver_now
       photos = []
     end
     found_photos = []

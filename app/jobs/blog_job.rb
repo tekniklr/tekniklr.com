@@ -6,8 +6,8 @@ class BlogJob < ApplicationJob
       Blog.remove_duplicates!
       Blog.remove_old!
       post = Blog.posts.published.sorted.first
-    rescue Mysql2::Error::ConnectionError
-      Rails.logger.debug "Unable to connect to database!"
+    rescue  => exception
+      ErrorMailer.background_error('caching/purging blog posts', exception).deliver_now
       post = nil
     end
     Rails.cache.write('blog_posts', post)
