@@ -81,7 +81,8 @@ class GamingJob < ApplicationJob
       xml   = HTTParty.get(url).body
       feed  = Feedjira.parse(xml)
       items = feed.entries
-    rescue
+    rescue => exception
+      ErrorMailer.background_error('caching PSN activity', exception).deliver_now
       items = []
     end
     return items
@@ -96,7 +97,8 @@ class GamingJob < ApplicationJob
       xml   = HTTParty.get(url).body
       feed  = Feedjira.parse(xml)
       items = feed.entries
-    rescue
+    rescue => exception
+      ErrorMailer.background_error('caching XBOX activity', exception).deliver_now
       items = []
     end
     return items
@@ -111,7 +113,8 @@ class GamingJob < ApplicationJob
       xml   = HTTParty.get(url).body
       feed  = Feedjira.parse(xml)
       items = feed.entries
-    rescue
+    rescue => exception
+      ErrorMailer.background_error('caching steam activity', exception).deliver_now
       items = []
     end
     return items

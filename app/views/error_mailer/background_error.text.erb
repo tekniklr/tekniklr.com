@@ -1,0 +1,6 @@
+There was a background error <%= @message %> on tekniklr.com.
+
+The specific error was: <%= truncate(@exception.message, length: 500, escape: false) %> (<%= @exception.class %>)
+
+Full trace:
+<%= @exception.backtrace.join("\n ") %>

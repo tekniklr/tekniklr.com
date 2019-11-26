@@ -15,7 +15,8 @@ class TwitterJob < ApplicationJob
         # if I haven't tweeted in a while, don't show old shit
         tweets = []
       end
-    rescue
+    rescue => exception
+      ErrorMailer.background_error('caching tweets', exception).deliver_now
       tweets = []
     end
     Rails.cache.write('tweets', tweets)
