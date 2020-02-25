@@ -1,5 +1,5 @@
 # config valid only for Capistrano 3
-lock '>=3.0'
+lock '~>3.12.0'
 set :application, 'tekniklr.com'
 set :repo_url,  "https://github.com/tekniklr/tekniklr.com.git"
 set :linked_files, %w{config/master.key config/database.yml}
