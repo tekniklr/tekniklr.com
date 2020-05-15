@@ -11,7 +11,7 @@ class TwitterJob < ApplicationJob
         config.access_token_secret = Rails.application.credentials.twitter[:access_token_secret]
       end
       tweets = twitter.user_timeline('tekniklr', {count: 69, exclude_replies: false, include_rts: true, trim_user: false, tweet_mode: 'extended'} )
-      if tweets.first.created_at.to_datetime < Time.now-1.week
+      if tweets.empty? || (tweets.first.created_at.to_datetime < Time.now-1.week)
         # if I haven't tweeted in a while, don't show old shit
         tweets = []
       end
