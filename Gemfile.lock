@@ -1,3 +1,14 @@
+GIT
+  remote: https://github.com/tootsuite/mastodon-api.git
+  revision: 60b0ed09c3b979cbeb833db0a320b30e1b022a1e
+  ref: 60b0ed0
+  specs:
+    mastodon-api (2.0.0)
+      addressable (~> 2.6)
+      buftok (~> 0)
+      http (~> 4.0)
+      oj (~> 3.7)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -108,6 +119,9 @@ GEM
       loofah (>= 2.3.1)
       sax-machine (>= 1.0)
     ffi (1.13.1)
+    ffi-compiler (1.0.1)
+      ffi (>= 1.0.0)
+      rake
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     haml (5.2.0)
@@ -115,14 +129,16 @@ GEM
       tilt
     hashie (4.1.0)
     htmlentities (4.3.4)
-    http (3.3.0)
+    http (4.4.1)
       addressable (~> 2.3)
       http-cookie (~> 1.0)
-      http-form_data (~> 2.0)
-      http_parser.rb (~> 0.6.0)
+      http-form_data (~> 2.2)
+      http-parser (~> 1.2.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     http-form_data (2.3.0)
+    http-parser (1.2.1)
+      ffi-compiler (>= 1.0, < 2.0)
     http_parser.rb (0.6.0)
     httparty (0.18.1)
       mime-types (~> 3.0)
@@ -155,11 +171,6 @@ GEM
       mini_mime (>= 0.1.1)
     marcel (0.3.3)
       mimemagic (~> 0.3.2)
-    mastodon-api (2.0.0)
-      addressable (~> 2.6)
-      buftok (~> 0)
-      http (~> 3.3)
-      oj (~> 3.7)
     memoizable (0.4.2)
       thread_safe (~> 0.3, >= 0.3.1)
     method_source (1.0.0)
@@ -288,11 +299,11 @@ GEM
     timeliness (0.4.4)
     turn (0.9.6)
       ansi
-    twitter (6.2.0)
+    twitter (7.0.0)
       addressable (~> 2.3)
       buftok (~> 0.2.0)
       equalizer (~> 0.0.11)
-      http (~> 3.0)
+      http (~> 4.0)
       http-form_data (~> 2.0)
       http_parser.rb (~> 0.6.0)
       memoizable (~> 0.4.0)
@@ -337,7 +348,7 @@ DEPENDENCIES
   json
   kt-paperclip
   lastfm
-  mastodon-api
+  mastodon-api!
   minitest
   mysql2
   omniauth

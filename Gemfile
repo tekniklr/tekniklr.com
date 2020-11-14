@@ -30,7 +30,7 @@ gem 'twitter'
 
 gem 'htmlentities'
 
-gem 'mastodon-api', require: 'mastodon'
+gem 'mastodon-api', require: 'mastodon', git: 'https://github.com/tootsuite/mastodon-api.git', ref: '60b0ed0'
 
 # run processes in the background
 gem 'delayed_job'
