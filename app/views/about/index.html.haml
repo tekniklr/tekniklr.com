@@ -6,16 +6,8 @@
     = image_tag "http://gravatar.com/avatar/#{@gravatar_id}.png?s=150", class: 'photo', alt: 'tekniklr'
 
   %dl.info
-    - cache @who do
-      = facet_print @who
-    - cache @location do
-      = facet_print @location, 'adr'
     - cache @interests do
       = facet_print @interests
-    - cache @twitter do
-      = facet_print @twitter
-    - cache @messaging do
-      = facet_print @messaging
     %dt Also available on
     %dd
       - cache @about_links do
