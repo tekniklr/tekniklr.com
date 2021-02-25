@@ -1,22 +1,14 @@
 require File.expand_path('../boot', __FILE__)
 
 require "rails"
-
-# Include each railties manually, excluding cruft (from https://stackoverflow.com/questions/49813214/disable-active-storage-in-rails-5-2 )
-%w(
-  active_record/railtie
-  action_controller/railtie
-  action_view/railtie
-  action_mailer/railtie
-  active_job/railtie
-  rails/test_unit/railtie
-  sprockets/railtie
-).each do |railtie|
-  begin
-    require railtie
-  rescue LoadError
-  end
-end
+require "active_model/railtie"
+require "active_record/railtie"
+require "action_controller/railtie"
+require "action_view/railtie"
+require "action_mailer/railtie"
+require "active_job/railtie"
+require "rails/test_unit/railtie"
+require "sprockets/railtie"
 
 if defined?(Bundler)
   Bundler.require(:default, Rails.env)
