@@ -1,5 +1,5 @@
 EMAIL = 'tekniklr@tekniklr.com'
-DOMAIN = 'tekniklr.pizza'
+DOMAIN = 'tekniklr.com'
 WPDOMAIN = 'tekniklr.com'
 NUM_FAVS = 6
 SIMILAR_THRESHOLD = 50
