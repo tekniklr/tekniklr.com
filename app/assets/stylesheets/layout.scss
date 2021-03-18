@@ -53,7 +53,7 @@ a:hover { color: $hover_color; }
   height: 100%;
   margin: 0;
   padding: 1em 0 1em 0;
-  background-color: #ffffff;
+  background-color: $page_bg;
   color: #000000;
   a:link, a:active, a:visited {
     color: #333333;
