@@ -20,7 +20,7 @@ module TekniklrCom
     config.encoding = "utf-8"
     config.filter_parameters += [:password]
     config.assets.enabled = true
-    config.assets.version = '1.2'
+    config.assets.version = '2.0'
     config.i18n.enforce_available_locales = false
     config.time_zone = 'Pacific Time (US & Canada)'
     config.active_record.default_timezone = :local
