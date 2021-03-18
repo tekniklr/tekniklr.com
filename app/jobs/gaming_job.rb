@@ -89,7 +89,6 @@ class GamingJob < ApplicationJob
   end
 
   # using trueachievements which works in the exact same way as truetrophies
-  # even though I don't really play xbox anymore...
   def get_xbox
     Rails.logger.debug "Fetching xbox achievements from trueachievements..."
     begin
