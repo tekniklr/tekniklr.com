@@ -5,15 +5,15 @@
 $nav_items: 3;
 
 /* colors */
-$the_color: #fef7ff;
+$the_color: #3366ff;
 $page_bg: #ffffff;
 $content_bg: $page_bg;
-$navigation_bg: $content_bg;
-$faint_border_color: darken($the_color, 3%);
-$med_border_color: darken($the_color, 15%);
-$border_color: darken($the_color, 20%);
-$heading_border_color: darken($the_color, 60%);
-$navigation_border_color: darken($the_color, 70%);
+$navigation_bg: fade-out($the_color, .95);
+$faint_border_color: lighten($the_color, 33%);
+$med_border_color: lighten($the_color, 25%);
+$border_color: lighten($the_color, 15%);
+$heading_border_color: lighten($the_color, 10%);
+$navigation_border_color: $the_color;
 
 /* widths */
 $mobile_threshhold: 550px;
@@ -31,10 +31,10 @@ $content_font_family: Helvetica, "Helvetica Neue", Arial, sans-serif;
 $heading_font_family: 'Maven Pro', Helvetica, "Helvetica Neue", Arial, sans-serif;
 $navigation_font_family: 'Maven Pro', Helvetica, "Helvetica Neue", Arial, sans-serif;
 $base_font_color: #607890; // from boilerplate
-$navigation_font_color: lighten($base_font_color, 10%);
-$hover_color: darken($the_color, 50%);
-$link_color: adjust_color($hover_color, $red: -100, $green: -100);
-$visited_link_color: darken($hover_color, 15%);
+$navigation_font_color: $navigation_border_color;
+$link_color: $the_color;
+$hover_color: adjust_color($the_color, $lightness: +10);
+$visited_link_color: adjust_color($link_color, $lightness: +15);
 
 /* ******************************************************** */
 /* mixins                                                   */
