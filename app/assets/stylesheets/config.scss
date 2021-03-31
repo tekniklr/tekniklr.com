@@ -9,7 +9,7 @@ $the_color: #3366ff;
 $page_bg: #ffffff;
 $field_bg: #ffffff;
 $content_bg: $page_bg;
-$navigation_bg: fade-out($the_color, .95);
+$navigation_bg: fade-out($the_color, .9);
 $faint_border_color: lighten($the_color, 33%);
 $med_border_color: lighten($the_color, 25%);
 $border_color: lighten($the_color, 15%);
