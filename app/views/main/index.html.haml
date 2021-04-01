@@ -44,7 +44,7 @@
   - fade_photos = 0
   .photos_block
     %h1
-      = link_to 'Pictures', 'https://www.flickr.com/photos/tekniklr/'
+      = link_to 'Pictures', 'https://www.instagram.com/tekniklr/'
     %ul#flickr
       - @flickr_photos.each_with_index do |photo, index|
         = render 'photo', photo: photo, index: index, fade: fade_level(@flickr_photos.count, fade_photos)
