@@ -22,7 +22,7 @@ class RecentGameTest < ActiveSupport::TestCase
   end
   
   should "validate size of platform" do
-    @game.platform = '0123456789012'
+    @game.platform = '0123456789012345'
     assert_equal(false, @game.save)
   end
 
