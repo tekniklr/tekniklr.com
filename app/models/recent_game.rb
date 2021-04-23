@@ -9,7 +9,7 @@ class RecentGame < ApplicationRecord
   validates_length_of   :name, maximum: 72
 
   validates_presence_of :platform
-  validates_length_of   :platform, maximum: 12
+  validates_length_of   :platform, maximum: 15
 
   validates_presence_of :started_playing
   validates_date        :started_playing
