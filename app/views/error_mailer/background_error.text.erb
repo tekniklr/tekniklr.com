@@ -2,5 +2,12 @@ There was a background error <%= @message %> on tekniklr.com.
 
 The specific error was: <%= truncate(@exception.message, length: 500, escape: false) %> (<%= @exception.class %>)
 
+<%- unless @extra_message.blank? -%>
+-------------------------------------------------------------------------------
+<%= @extra_message %>
+
+-------------------------------------------------------------------------------
+
+<%- end -%>
 Full trace:
 <%= @exception.backtrace.join("\n ") %>

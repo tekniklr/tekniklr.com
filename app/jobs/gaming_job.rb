@@ -76,47 +76,20 @@ class GamingJob < ApplicationJob
   # PSN trophies into an RSS feed...
   def get_psn
     Rails.logger.debug "Fetching PSN trophies from truetrophies..."
-    begin
-      url   = 'https://www.truetrophies.com/friendfeedrss.aspx?gamerid=26130'
-      xml   = HTTParty.get(url).body
-      feed  = Feedjira.parse(xml)
-      items = feed.entries
-    rescue => exception
-      ErrorMailer.background_error('caching PSN activity', exception).deliver_now
-      items = []
-    end
-    return items
+    get_xml('https://www.truetrophies.com/friendfeedrss.aspx?gamerid=26130')
   end
 
   # using trueachievements which works in the exact same way as truetrophies
   def get_xbox
     Rails.logger.debug "Fetching xbox achievements from trueachievements..."
-    begin
-      url   = 'https://www.trueachievements.com/friendfeedrss.aspx?gamerid=294291'
-      xml   = HTTParty.get(url).body
-      feed  = Feedjira.parse(xml)
-      items = feed.entries
-    rescue => exception
-      ErrorMailer.background_error('caching XBOX activity', exception).deliver_now
-      items = []
-    end
-    return items
+    get_xml('https://www.trueachievements.com/friendfeedrss.aspx?gamerid=294291')
   end
 
   # using truesteamachievements which works in the exact same way as 
   # truetrophies
   def get_steam
     Rails.logger.debug "Fetching steam achievements from truesteamachievements..."
-    begin
-      url   = 'https://www.truesteamachievements.com/friendfeedrss.aspx?gamerid=38607'
-      xml   = HTTParty.get(url).body
-      feed  = Feedjira.parse(xml)
-      items = feed.entries
-    rescue => exception
-      ErrorMailer.background_error('caching steam activity', exception).deliver_now
-      items = []
-    end
-    return items
+    get_xml('https://www.truesteamachievements.com/friendfeedrss.aspx?gamerid=38607')
   end
 
 end

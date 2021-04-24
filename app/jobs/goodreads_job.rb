@@ -3,15 +3,8 @@ class GoodreadsJob < ApplicationJob
   def perform
     Rails.logger.debug "Fetching Goodreads checkins from RSS..."
     parsed_items = []
-    begin
-      url   = 'https://www.goodreads.com/user/updates_rss/10905654***REMOVED***'
-      xml   = HTTParty.get(url).body
-      feed  = Feedjira.parse(xml)
-      items = feed.entries.uniq{|i| i.title}
-    rescue => exception
-      ErrorMailer.background_error('caching goodreads activity', exception).deliver_now
-      items = []
-    end
+    items = get_xml('https://www.goodreads.com/user/updates_rss/10905654***REMOVED***')
+    items = items.uniq{|i| i.title}
     previous_titles = []
     items.each do |item|
       Rails.logger.debug "Parsing #{item.title}..."
