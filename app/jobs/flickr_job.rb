@@ -2,15 +2,8 @@ class FlickrJob < ApplicationJob
   
   def perform
     Rails.logger.debug "Fetching flickr photos from RSS..."
-    begin
-      url    = 'https://api.flickr.com/services/feeds/photos_public.gne?id=7686648@N06&lang=en-us&format=rss_200'
-      xml    = HTTParty.get(url).body
-      feed   = Feedjira.parse(xml)
-      photos = feed.entries[0..20]
-    rescue => exception
-      ErrorMailer.background_error('caching flickr photos', exception).deliver_now
-      photos = []
-    end
+    photos = get_xml('https://api.flickr.com/services/feeds/photos_public.gne?id=7686648@N06&lang=en-us&format=rss_200')
+    photos = photos[0..20]
     found_photos = []
     photos.each do |photo|
       photo.summary =~ /img src=\"([0-9a-z\/:._]+)\"/
