@@ -51,7 +51,7 @@ end
 
 group :production do
   gem 'exception_notification'
-  gem 'therubyracer'
+  gem 'mini_racer'
 end
 
 # prevent console errors
