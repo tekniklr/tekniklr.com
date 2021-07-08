@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '~>6.1.0'
 gem 'mysql2'
-gem 'webrick'
+gem 'puma'
 gem 'rexml'
 
 gem 'kt-paperclip'
