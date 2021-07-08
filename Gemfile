@@ -2,9 +2,11 @@ source 'https://rubygems.org'
 
 gem 'rails', '~>6.1.0'
 gem 'mysql2'
+gem 'webrick'
+gem 'rexml'
 
 gem 'kt-paperclip'
-gem 'validates_timeliness'
+gem 'validates_timeliness', '~> 6.0.0.alpha1'
 
 # better html
 gem 'haml'
