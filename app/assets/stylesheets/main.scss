@@ -141,7 +141,7 @@ ul#twitter, ul#mastodon {
   }
 }
 
-ul#gaming, ul#goodreads, ul#lastfm, ul#flickr {
+ul#gaming, ul#goodreads, ul#lastfm {
   width: 100%;
   max-width: 100%;
   margin: 0 auto 0 auto;
@@ -199,38 +199,6 @@ ul#lastfm {
     img {
       max-height: 4em;
       overflow: hidden;
-    }
-  }
-}
-ul#flickr {
-  $flickr_height: 15.5em;
-  height: $flickr_height;
-  li {
-    width: 10em;
-    height: $flickr_height;
-    .caption {
-      font-weight: normal;
-    }
-    img {
-      margin: 0;
-      padding: 0;
-      max-width:  9em;
-      max-height: 7em;
-      @include rounded(1px, $med_border_color, .75em, .3em, none);
-    }
-  }
-  li:hover {
-    width: 10em;
-    height: $flickr_height;
-    .caption {
-      font-weight: bold;
-    }
-    img {
-      margin: 0;
-      padding: 0;
-      max-width:  11.5em;
-      max-height: 7.5em;
-      @include rounded(1px, $border_color, .75em, .3em, none);
     }
   }
 }
