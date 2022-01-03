@@ -21,13 +21,6 @@ class MainController < ApplicationController
       @blog_expiry = Rails.cache.write('blog_expiry', (Time.now + 12.minutes))
       Delayed::Job.enqueue(BlogJob.new)
     end
-    
-    @flickr_expiry   = Rails.cache.read('flickr_expiry')
-    @flickr_photos   = Rails.cache.read('flickr_photos')
-    if @flickr_expiry.nil? || Time.now > @flickr_expiry
-      @flickr_expiry = Rails.cache.write('flickr_expiry', (Time.now + 1.hours))
-      Delayed::Job.enqueue(FlickrJob.new)
-    end
 
     @goodreads_expiry   = Rails.cache.read('goodreads_expiry')
     @goodreads          = Rails.cache.read('goodreads')
