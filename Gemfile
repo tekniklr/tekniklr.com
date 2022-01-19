@@ -5,6 +5,11 @@ gem 'mysql2'
 gem 'puma'
 gem 'rexml'
 
+# ruby 3.1.0 compatibility because we aren't ready for rails 7.0.1 https://gist.github.com/yahonda/2776d8d7b6ea7045359f38c10449937b
+gem 'net-smtp'
+gem 'net-imap'
+gem 'net-pop'
+
 gem 'kt-paperclip'
 gem 'validates_timeliness', '~> 6.0.0.alpha1'
 
