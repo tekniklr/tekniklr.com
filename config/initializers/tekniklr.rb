@@ -12,8 +12,6 @@ CACHED_ITEMS = [
                   'lastfm',
                   'gaming_expiry',
                   'gaming',
-                  'toots',
-                  'toot_expiry',
                   'tweets',
                   'tweet_expiry'
                 ]
