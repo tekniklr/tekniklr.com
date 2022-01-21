@@ -1,55 +1,40 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~>6.1.0'
+gem 'rails', '~>7.0.0'
 gem 'mysql2'
 gem 'puma'
-gem 'rexml'
 
-# ruby 3.1.0 compatibility because we aren't ready for rails 7.0.1 https://gist.github.com/yahonda/2776d8d7b6ea7045359f38c10449937b
-gem 'net-smtp'
-gem 'net-imap'
-gem 'net-pop'
-
-gem 'kt-paperclip'
-gem 'validates_timeliness', '~> 6.0.0.alpha1'
-
-# better html
 gem 'haml'
-
-# javascript funtimes
+gem 'sassc-rails'
+gem 'uglifier'
+gem "sprockets-rails"
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
+
+gem 'kt-paperclip'
+gem 'validates_timeliness', '~> 6.0.0.alpha1' # for validates_date # FIXME - 6.0.0.beta2 does not work with rails 7 at all because of version requirements but the oldver version works well enough for now aside from some deprecation warnings (ActiveRecord::Base.default_timezone). upgrade when possible.
 
 # needed for authentication
 gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection'
-gem 'json'
 
 # rss fetcher/parser that actually works
 gem 'feedjira'
 gem 'iconv' # needed to parse some feeds
 
+# non-RSS external services/APIs
 gem 'lastfm'
-
 gem 'twitter'
-
-gem 'htmlentities'
-
-gem 'mastodon-api', require: 'mastodon', git: 'https://github.com/tootsuite/mastodon-api.git', ref: '60b0ed0'
+gem 'mastodon-api', require: 'mastodon'
 
 # run processes in the background
 gem 'delayed_job'
 gem 'delayed_job_active_record'
 gem 'daemons'
 
-# assets
-gem 'sassc-rails'
-gem 'uglifier'
-
 group :test do
-  gem 'turn', require: false
   gem 'factory_bot_rails', require: false
   gem 'minitest', require: false
   gem 'shoulda', require: false
