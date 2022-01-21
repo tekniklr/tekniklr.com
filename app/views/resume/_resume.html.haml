@@ -38,9 +38,9 @@
                   %em.location
                     = experience.affiliation_link ? link_to(experience.affiliation, experience.affiliation_link, target: '_blank'): experience.affiliation
                 .right
-                  %span.dtstart{title: experience.start_date.to_s(:standard)} #{experience.start_date.to_s(:resume_date)}
+                  %span.dtstart{title: experience.start_date.to_formatted_s(:standard)} #{experience.start_date.to_formatted_s(:resume_date)}
                   \~
-                  %span.dtend{title: experience.end_date ? experience.end_date.to_s(:standard) : ''} #{experience.end_date ? experience.end_date.to_s(:resume_date) : "present"}
+                  %span.dtend{title: experience.end_date ? experience.end_date.to_formatted_s(:standard) : ''} #{experience.end_date ? experience.end_date.to_formatted_s(:resume_date) : "present"}
                   %br
                   #{experience.location}
                 .clear

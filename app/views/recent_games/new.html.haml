@@ -13,7 +13,7 @@
         .left
           - if game.image?
             = image_tag game.image.url(:default), alt: game.name, align: 'left', hspace: 10
-          #{game.started_playing.to_s}:
+          #{game.started_playing.to_formatted_s}:
           %br
           #{game.name}
           %br
