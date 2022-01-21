@@ -27,7 +27,6 @@ gem 'iconv' # needed to parse some feeds
 # non-RSS external services/APIs
 gem 'lastfm'
 gem 'twitter'
-gem 'mastodon-api', require: 'mastodon'
 
 # run processes in the background
 gem 'delayed_job'

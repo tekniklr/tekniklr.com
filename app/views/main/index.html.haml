@@ -3,24 +3,6 @@
     %h1
       = link_to 'Blog', "https://#{WPDOMAIN}/wpblog/"
     = render 'blog/post', post: @blog_post
-
-- unless @toots.blank?
-  %h1
-    = link_to 'Toots', 'https://cybre.space/@tekniklr'
-  .toot_block{class: 'show_scroll'}
-    %ul#mastodon
-      - @toots.each do |toot|
-        - begin
-          = render 'toot', toot: toot
-        - rescue
-          - # I don't care too much if a toot couldn't be displayed- it's certainly not worth breaking the index page over.
-    :javascript
-      $('a.toot_thumbnail').colorbox({
-        scalePhotos: true,
-        opacity: 0.9,
-        maxHeight: '90%',
-        maxWidth: '90%'
-      });
     
 - unless @tweets.blank?
   %h1
