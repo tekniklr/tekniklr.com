@@ -51,7 +51,7 @@ class ApplicationController < ActionController::Base
   end
   
   def current_user  
-    Current.user ||= User.find(session[:user_id]) if session[:user_id]
+    @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
   
   def is_admin?
