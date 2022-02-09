@@ -14,5 +14,5 @@ Rails.application.configure do
   config.content_security_policy_nonce_directives = %w(script-src)
 
   # to only log but still allow things through
-  config.content_security_policy_report_only = true
+  #config.content_security_policy_report_only = true
 end
