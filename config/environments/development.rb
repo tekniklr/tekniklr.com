@@ -1,4 +1,4 @@
-TekniklrCom::Application.configure do
+Rails.application.configure do
 
   config.eager_load = false
 
@@ -21,5 +21,6 @@ TekniklrCom::Application.configure do
   
   Paperclip.options[:command_path] = "/opt/local/bin"
   
+  #config.content_security_policy_report_only = true
 end
 

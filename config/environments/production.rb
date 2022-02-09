@@ -1,4 +1,4 @@
-TekniklrCom::Application.configure do
+Rails.application.configure do
 
   config.eager_load = true
 

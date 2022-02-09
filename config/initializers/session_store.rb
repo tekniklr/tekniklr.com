@@ -1,6 +1,6 @@
 # Be sure to restart your server when you modify this file.
 
-TekniklrCom::Application.config.session_store :cookie_store, :key => '_tekniklr_com_session'
+TekniklrCom::Application.config.session_store :cookie_store, key: '_tekniklr_com_session', same_site: :strict
 
 # Use the database for sessions instead of the cookie-based default,
 # which shouldn't be used to store highly confidential information

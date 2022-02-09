@@ -26,7 +26,7 @@
         $( '#dialog_game_#{item_id}' ).dialog( "open" );
       });
     });
-  %div{style: 'display:none;'}
+  %div{class: 'dialog_game'}
     %div{id: "dialog_game_#{item_id}", title: item[:title]}
       - if item[:image_url]
         %p.center
