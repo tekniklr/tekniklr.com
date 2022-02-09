@@ -18,7 +18,7 @@ gem 'validates_timeliness', '~> 6.0.0.alpha1' # for validates_date # FIXME - 6.0
 gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
-gem 'omniauth-rails_csrf_protection'
+gem 'omniauth-rails_csrf_protection', '1.0.0'
 
 # rss fetcher/parser that actually works
 gem 'feedjira'
