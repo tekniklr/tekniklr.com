@@ -1,12 +1,12 @@
 !!! 5
--ie_html :lang => 'en' do
+-ie_html lang: 'en' do
   %head
-    = render :partial => 'layouts/static/headincmeta'
-  %body{:onload => "prettyPrint()"}
+    = render partial: 'layouts/static/headincmeta'
+  %body
     #container
-      = render :partial => 'layouts/static/header'
-      = render :partial => 'layouts/static/navigation'
-      #main{:role => 'main'}
+      = render partial: 'layouts/static/header'
+      = render partial: 'layouts/static/navigation'
+      #main{role: 'main'}
         - if flash[:error]
           #flash.error
             %h2 Error
@@ -18,5 +18,5 @@
         - unless @page_title.blank? || !@title_display
           %h1 #{@page_title}
         = yield
-      = render :partial => 'layouts/static/footer'
-    = render :partial => 'layouts/static/pageend'
+      = render partial: 'layouts/static/footer'
+    = render partial: 'layouts/static/pageend'

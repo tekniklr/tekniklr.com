@@ -11,6 +11,11 @@ class ApplicationController < ActionController::Base
   before_action  :get_links
   before_action  :is_admin?, only: :clean_cache
   
+  # https://github.com/haml/haml/issues/934
+  before_action do
+    Current.content_security_policy_nonce = content_security_policy_nonce
+  end
+
   # https://github.com/rails/rails/issues/671
   def routing_error
     respond_to do |format|
@@ -31,7 +36,7 @@ class ApplicationController < ActionController::Base
   end
   
   protected
-  
+
   def page_title(title, display = false)
     @page_title = title ? title : nil
     @title_display = display
@@ -46,7 +51,7 @@ class ApplicationController < ActionController::Base
   end
   
   def current_user  
-    @current_user ||= User.find(session[:user_id]) if session[:user_id]  
+    Current.user ||= User.find(session[:user_id]) if session[:user_id]
   end
   
   def is_admin?

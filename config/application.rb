@@ -7,6 +7,7 @@ require "action_controller/railtie"
 require "action_view/railtie"
 require "action_mailer/railtie"
 require "active_job/railtie"
+require "active_support/railtie"
 require "rails/test_unit/railtie"
 require "sprockets/railtie"
 
@@ -18,9 +19,6 @@ module TekniklrCom
   class Application < Rails::Application
     config.autoload_once_paths += %W(#{Rails.root}/lib)
     config.encoding = "utf-8"
-    config.filter_parameters += [:password]
-    config.assets.enabled = true
-    config.assets.version = '2.0'
     config.i18n.enforce_available_locales = false
     config.time_zone = 'Pacific Time (US & Canada)'
     config.active_record.default_timezone = :local

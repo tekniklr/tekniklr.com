@@ -1,4 +1,4 @@
-TekniklrCom::Application.configure do
+Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   config.active_support.test_order = :random

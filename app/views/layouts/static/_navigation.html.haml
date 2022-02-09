@@ -1,11 +1,11 @@
-%nav#navigation{:role =>'navigation'}
+%nav#navigation{role: 'navigation'}
   .mobile
     %ul
       %li
-        %a#toggle_navigation{:href => '#'} navigation
+        %a#toggle_navigation{href: '#'} navigation
     %ul#single_column_navigation
-      = render :partial => 'layouts/static/nav_items'
+      = render partial: 'layouts/static/nav_items'
   .regular
     %ul
-      = render :partial => 'layouts/static/nav_items'
+      = render partial: 'layouts/static/nav_items'
     .break

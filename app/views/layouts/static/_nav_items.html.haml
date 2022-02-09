@@ -3,5 +3,5 @@
 %li
   = link_to 'blog', "https://#{WPDOMAIN}/wpblog/"
 %li
-  = form_tag "https://#{WPDOMAIN}/wpblog/", :method => 'get', :id => 'wp_search', :role => 'search' do
+  = form_tag "https://#{WPDOMAIN}/wpblog/", method: 'get', id: 'wp_search', role: 'search' do
     = text_field_tag :s
