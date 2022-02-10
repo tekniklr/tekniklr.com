@@ -7,4 +7,4 @@ require 'rubygems'
 require ::File.expand_path('../config/environment',  __FILE__)
 Gem.clear_paths
 
-run TekniklrCom::Application
+run Rails.application

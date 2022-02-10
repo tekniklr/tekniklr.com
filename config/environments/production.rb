@@ -49,7 +49,7 @@ Rails.application.configure do
   config.force_ssl = true
   config.ssl_options = { redirect: { exclude: -> request { request.host =~ /tekniklr\.pizza/ } } }
 
-  TekniklrCom::Application.config.middleware.use ExceptionNotification::Rack,
+  config.middleware.use ExceptionNotification::Rack,
     ignore_exceptions:  [
                           'ActionController::BadRequest',
                           'ActionController::InvalidCrossOriginRequest',
