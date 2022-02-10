@@ -6,8 +6,7 @@ class SessionsController < ApplicationController
       # just log in as the first user
       user = User.first
       user or raise UserNotAuthorized
-      session[:user_id] = user.id
-      flash[:notice] = 'Signed in!'
+      signin(user)
       redirect_to root_url
     else
       return redirect_to 'https://tekniklr.com/login' unless request.ssl?
@@ -15,19 +14,18 @@ class SessionsController < ApplicationController
   end
   
   def failure
-    flash[:error] = params[:message]
+    flash[:error] = "Error: #{params[:message]}"
     redirect_to root_url
   end
   
   def validate  
     auth = request.env["omniauth.auth"]
-    user = User.find_by_provider_and_uid_and_enabled(auth["provider"], auth["uid"], true)
+    user = User.where(provider: auth["provider"], uid: auth["uid"], enabled: true).first
     unless user
       logger.warn "rejecting attempted login from provider #{auth["provider"]} with uid #{auth["uid"]}"
       raise UserNotAuthorized
     end
-    session[:user_id] = user.id
-    flash[:notice] = 'Signed in!'
+    signin(user)
     redirect_to root_url
   end
   
@@ -37,4 +35,11 @@ class SessionsController < ApplicationController
     redirect_to root_url  
   end
   
+  private
+
+  def signin(user)
+    session[:user_id] = user.id
+    flash[:notice] = "Welcome, #{user.name}"
+  end
+
 end
