@@ -3,7 +3,7 @@ TekniklrCom::Application.routes.draw do
   
   # omniauth authentication
   get  '/login',                   to: 'sessions#login', as: :login
-  get  '/auth/:provider/callback', to: 'sessions#validate'
+  post '/auth/:provider/callback', to: 'sessions#validate'
   get  '/logout',                  to: 'sessions#logout', as: :logout
   get  '/auth/failure',            to: 'sessions#failure'
   
