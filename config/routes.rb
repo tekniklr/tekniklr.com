@@ -2,10 +2,10 @@ Rails.application.routes.draw do
   root :to => 'main#index'
   
   # omniauth authentication
-  get  '/login',                   to: 'sessions#login', as: :login
-  post '/auth/:provider/callback', to: 'sessions#validate'
-  get  '/logout',                  to: 'sessions#logout', as: :logout
-  get  '/auth/failure',            to: 'sessions#failure'
+  get    '/login',                   to: 'sessions#login', as: :login
+  match  '/auth/:provider/callback', to: 'sessions#validate', via: [:get, :post]
+  get    '/logout',                  to: 'sessions#logout', as: :logout
+  get    '/auth/failure',            to: 'sessions#failure'
   
   # clean cache items
   get '/clean_cache',             to: 'application#clean_cache', as: :clean_cache
