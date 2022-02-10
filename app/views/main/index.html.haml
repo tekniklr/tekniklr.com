@@ -15,8 +15,8 @@
         - rescue
           - # I don't care too much if a tweet couldn't be displayed- it's certainly not worth breaking the index page over.
     :javascript
-      // just some bogon ruby interpolation because otherwise the nonce might
-      // not be added to this block: #{SecureRandom.base64(16)}
+      // just some bogon ruby interpolation because otherwise a haml hack might
+      // not add the nonce to this block: there are #{@tweets.size} tweets to show
       $('a.tweet_thumbnail').colorbox({
         scalePhotos: true,
         opacity: 0.9,
