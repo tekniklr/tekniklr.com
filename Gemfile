@@ -12,7 +12,7 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
 gem 'kt-paperclip'
-gem 'validates_timeliness', '~> 6.0.0.alpha1' # for validates_date # FIXME - 6.0.0.beta2 does not work with rails 7 at all because of version requirements but the oldver version works well enough for now aside from some deprecation warnings (ActiveRecord::Base.default_timezone). upgrade when possible.
+gem 'validates_timeliness'
 
 # needed for authentication
 gem 'omniauth'
