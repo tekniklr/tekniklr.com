@@ -76,20 +76,20 @@ class GamingJob < ApplicationJob
   # PSN trophies into an RSS feed...
   def get_psn
     Rails.logger.debug "Fetching PSN trophies from truetrophies..."
-    get_xml('https://www.truetrophies.com/friendfeedrss.aspx?gamerid=26130')
+    get_xml('https://www.truetrophies.com/friendfeedrss.aspx?gamerid=26130', 'gaming_expiry')
   end
 
   # using trueachievements which works in the exact same way as truetrophies
   def get_xbox
     Rails.logger.debug "Fetching xbox achievements from trueachievements..."
-    get_xml('https://www.trueachievements.com/friendfeedrss.aspx?gamerid=294291')
+    get_xml('https://www.trueachievements.com/friendfeedrss.aspx?gamerid=294291', 'gaming_expiry')
   end
 
   # using truesteamachievements which works in the exact same way as 
   # truetrophies
   def get_steam
     Rails.logger.debug "Fetching steam achievements from truesteamachievements..."
-    get_xml('https://www.truesteamachievements.com/friendfeedrss.aspx?gamerid=38607')
+    get_xml('https://www.truesteamachievements.com/friendfeedrss.aspx?gamerid=38607', 'gaming_expiry')
   end
 
 end
