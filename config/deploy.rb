@@ -1,7 +1,7 @@
 set :application, 'tekniklr.com'
 set :repo_url,  "https://github.com/tekniklr/tekniklr.com.git"
 set :linked_files, %w{config/master.key config/database.yml}
-set :linked_dirs, %w{public/wpblog public/images public/icons public/recent_games public/favorite_things public/tabletop_games public/.well-known tmp/pids}
+set :linked_dirs, %w{public/wpblog public/images public/icons public/recent_games public/favorite_things public/tabletop_games public/.well-known tmp/pids logs}
 set :keep_releases, 6
 
 namespace :deploy do
