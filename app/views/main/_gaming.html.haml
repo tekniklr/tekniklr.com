@@ -19,11 +19,17 @@
   :javascript
     $(function() {
       $( '#dialog_game_#{item_id}' ).dialog({
-        autoOpen: false,  
+        autoOpen: false,
+        closeOnEscape: true,
+        modal: true,
+        resizable: false
       });
       $( '#opener_#{item_id}' ).click(function(e) {
         e.preventDefault();
         $( '#dialog_game_#{item_id}' ).dialog( "open" );
+        jQuery('.ui-widget-overlay').bind('click',function(){
+          jQuery('#dialog_game_#{item_id}').dialog('close');
+        });
       });
     });
   %div{class: 'dialog_game'}
