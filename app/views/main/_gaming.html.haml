@@ -1,7 +1,7 @@
 %li
   :ruby
     item_id = !item[:achievement].blank? ? item[:achievement] : "#{item[:title]} #{item.published}"
-    item_id = item_id.downcase.gsub(/[^a-z]/, '_').gsub(/_+/, '_').gsub(/_\z/, '')
+    item_id = item_id.downcase.gsub(/[^a-z0-9]/, '_').gsub(/_+/, '_').gsub(/_\z/, '')
     hover_text = "#{item[:title]}"
     if item[:platform]
       hover_text << "\n(#{item[:platform]})"
