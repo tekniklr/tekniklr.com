@@ -1,9 +1,40 @@
 %li
-  - description = song[:artist] + ' - ' + song[:title]
+  :ruby
+    description = song[:artist] + ' - ' + song[:title]
+    song_id = "#{description} - #{song[:published]}"
+    song_id = song_id.downcase.gsub(/[^a-z]/, '_').gsub(/_+/, '_').gsub(/_\z/, '')
+    hover_text = "#{song[:artist]} - #{song[:title]}"
   - if song[:image_url]
-    = link_to image_tag(song[:image_url], alt: description, title: description), song[:lastfm_url], target: '_blank'
+    = link_to image_tag(song[:image_url], alt: description, title: description), song[:lastfm_url], id: "opener_#{song_id}"
   - else
-    = link_to description, song[:lastfm_url]
+    = link_to description, song[:lastfm_url], id: "opener_#{song_id}"
   %p{:class => "when fade#{fade}"}
     - if song[:published]
       = time_ago_in_words(song[:published])+' ago'
+  :javascript
+    $(function() {
+      $( '#dialog_song_#{song_id}' ).dialog({
+        autoOpen: false,  
+      });
+      $( '#opener_#{song_id}' ).click(function(e) {
+        e.preventDefault();
+        $( '#dialog_song_#{song_id}' ).dialog( "open" );
+      });
+    });
+  %div{class: 'dialog_song'}
+    %div{id: "dialog_song_#{song_id}", title: song[:title]}
+      - if song[:image_url]
+        %p.center
+          - if !song[:lastfm_url].blank?
+            = link_to image_tag(song[:image_url]), song[:lastfm_url], target: '_blank'
+          - else
+            = image_tag song[:image_url]
+      %p
+        - if !song[:lastfm_url].blank?
+          #{link_to description, song[:lastfm_url], target: '_blank'}
+        - else
+          = description
+      %p.clear.center.when.fade60
+        - if song[:published]
+          - the_time = (song[:published].to_time.to_i == song[:published].beginning_of_day.to_time.to_i) ? song[:published].end_of_day : song[:published]
+          = how_long_ago(the_time)

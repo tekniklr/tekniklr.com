@@ -1,8 +1,39 @@
 %li
+  :ruby
+    book_id = "#{book[:title]} #{book[:published]}"
+    book_id = book_id.downcase.gsub(/[^a-z]/, '_').gsub(/_+/, '_').gsub(/_\z/, '')
+    hover_text = "#{book[:title]}"
   - if book[:image_url]
-    = link_to image_tag(book[:image_url], alt: book[:title], title: book[:title]), book[:url], target: '_blank'
+    = link_to image_tag(book[:image_url], alt: book[:title], title: book[:title]), book[:url], id: "opener_#{book_id}"
   - else
-    = link_to book[:title], book[:url], target: '_blank'
+    = link_to book[:title], book[:url], id: "opener_#{book_id}"
   %p{:class => "when fade#{fade}"}
     - if book[:published]
       = how_long_ago(book[:published])
+  :javascript
+    $(function() {
+      $( '#dialog_book_#{book_id}' ).dialog({
+        autoOpen: false,  
+      });
+      $( '#opener_#{book_id}' ).click(function(e) {
+        e.preventDefault();
+        $( '#dialog_book_#{book_id}' ).dialog( "open" );
+      });
+    });
+  %div{class: 'dialog_book'}
+    %div{id: "dialog_book_#{book_id}", title: book[:title]}
+      - if book[:image_url]
+        %p.center
+          - if !book[:url].blank?
+            = link_to image_tag(book[:image_url]), book[:url], target: '_blank'
+          - else
+            = image_tag book[:image_url]
+      %p
+        - if !book[:url].blank?
+          #{link_to book[:title], book[:url], target: '_blank'}
+        - else
+          #{book[:title]}
+      %p.clear.center.when.fade60
+        - if book[:published]
+          - the_time = (book[:published].to_time.to_i == book[:published].beginning_of_day.to_time.to_i) ? book[:published].end_of_day : book[:published]
+          = how_long_ago(the_time)
