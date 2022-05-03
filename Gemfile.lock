@@ -71,7 +71,7 @@ GEM
     airbrussh (1.4.0)
       sshkit (>= 1.6.1, != 1.7.0)
     awesome_print (1.9.2)
-    brakeman (5.2.2)
+    brakeman (5.2.3)
     buftok (0.2.0)
     builder (3.2.4)
     capistrano (3.17.0)
@@ -182,7 +182,7 @@ GEM
     multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
-    mysql2 (0.5.3)
+    mysql2 (0.5.4)
     naught (1.1.0)
     net-imap (0.2.3)
       digest
@@ -206,7 +206,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.13.4-x86_64-linux)
       racc (~> 1.4)
-    oauth (0.5.8)
+    oauth (0.5.9)
     oauth2 (1.4.9)
       faraday (>= 0.17.3, < 3.0)
       jwt (>= 1.0, < 3.0)
@@ -385,4 +385,4 @@ DEPENDENCIES
   validates_timeliness
 
 BUNDLED WITH
-   2.3.9
+   2.3.12
