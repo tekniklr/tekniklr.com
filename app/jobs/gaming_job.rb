@@ -88,7 +88,6 @@ class GamingJob < ApplicationJob
   # using truesteamachievements which works in the exact same way as 
   # truetrophies
   def get_steam
-    return [] # FIXME - dreamhost is currently banned from truesteamacheivements by Cloudflare; but I haven't gamed on steam in years anyway. so, just skip the check for now
     Rails.logger.debug "Fetching steam achievements from truesteamachievements..."
     get_xml('https://www.truesteamachievements.com/friendfeedrss.aspx?gamerid=38607', 'gaming_expiry')
   end
