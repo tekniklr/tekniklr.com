@@ -32,6 +32,13 @@ class FacetTest < ActiveSupport::TestCase
       assert !@facet.valid?
     end
 
+    should "not be valid if a facet with its slug already exists" do
+      @facet1 = FactoryBot.create(:facet, slug: 'facet_uniq')
+      assert @facet1.valid?
+      @facet2 = FactoryBot.build(:facet, slug: 'facet_uniq')
+      assert !@facet2.valid?
+    end
+
   end
 
   should "use the value when outputing facet as a string" do

@@ -35,7 +35,7 @@ class FacetsControllerTest < ActionController::TestCase
 
   should "create facet" do
     assert_difference('Facet.count') do
-      post :create, params: {facet: @facet.attributes}, session: {user_id: @user.id}
+      post :create, params: {facet: FactoryBot.attributes_for(:facet)}, session: {user_id: @user.id}
     end
     assert_redirected_to facets_path
   end
