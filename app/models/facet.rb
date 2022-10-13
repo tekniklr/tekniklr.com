@@ -7,8 +7,6 @@ class Facet < ApplicationRecord
   
   validates_uniqueness_of  :slug
 
-  default_scope { order('slug asc') }
-
   def to_s
     value
   end
