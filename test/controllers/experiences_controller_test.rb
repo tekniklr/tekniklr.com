@@ -14,7 +14,7 @@ class ExperiencesControllerTest < ActionController::TestCase
     get :show, params: {id: @experience}
     assert_redirected_to root_url
 
-    post :create, params: {experience: @experience.attributes}
+    post :create, params: {experience: FactoryBot.attributes_for(:experience)}
     assert_redirected_to root_url
     
     get :edit, params: {id: @experience}
@@ -35,7 +35,7 @@ class ExperiencesControllerTest < ActionController::TestCase
 
   should "create experience" do
     assert_difference('Experience.count') do
-      post :create, params: {experience: @experience.attributes}, session: {user_id: @user.id}
+      post :create, params: {experience: FactoryBot.attributes_for(:experience)}, session: {user_id: @user.id}
     end
     assert_redirected_to experiences_path
   end

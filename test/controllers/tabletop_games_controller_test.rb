@@ -16,7 +16,7 @@ class TabletopGamesControllerTest < ActionController::TestCase
     get :new
     assert_redirected_to root_url
     
-    post :create, params: {tabletop_game: @tabletop_game.attributes}
+    post :create, params: {tabletop_game: FactoryBot.attributes_for(:tabletop_game)}
     assert_redirected_to root_url
     
     get :edit, params: {id: @tabletop_game.to_param}
@@ -48,7 +48,7 @@ class TabletopGamesControllerTest < ActionController::TestCase
 
   should "create tabletop_game" do
     assert_difference('TabletopGame.count') do
-      post :create, params: {tabletop_game: @tabletop_game.attributes}, session: {user_id: @user.id}
+      post :create, params: {tabletop_game: FactoryBot.attributes_for(:tabletop_game)}, session: {user_id: @user.id}
     end
     assert_redirected_to manage_tabletop_games_path
   end

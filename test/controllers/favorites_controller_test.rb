@@ -18,7 +18,7 @@ class FavoritesControllerTest < ActionController::TestCase
     get :new
     assert_redirected_to root_url
     
-    post :create, params: {favorite: @favorite.attributes}
+    post :create, params: {favorite: FactoryBot.attributes_for(:favorite)}
     assert_redirected_to root_url
     
     get :show, params: {id: @favorite.to_param}
@@ -53,7 +53,7 @@ class FavoritesControllerTest < ActionController::TestCase
 
   should "create favorite" do
     assert_difference('Favorite.count') do
-      post :create, params: {favorite: @favorite.attributes}, session: {user_id: @user.id}
+      post :create, params: {favorite: FactoryBot.attributes_for(:favorite)}, session: {user_id: @user.id}
     end
     assert_redirected_to favorite_path(assigns(:favorite))
   end
