@@ -4,7 +4,7 @@
     #links
       - @links.each do |link|
         = render 'link', :link => link
-    .center
+    .centered
       = submit_tag "Update all"
 
 - if @link
@@ -14,5 +14,5 @@
     %div.link#link
       = fields_for @link do |create|
         = render 'form', :f => create, :link => @link  
-    .center
+    .centered
       = submit_tag "Add"

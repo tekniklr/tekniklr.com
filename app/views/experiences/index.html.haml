@@ -11,5 +11,5 @@
     %div.exp#experience
       = fields_for @experience do |create|
         = render 'form', :f => create, :experience => @experience  
-    .center
+    .centered
       = submit_tag "Add"

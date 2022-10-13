@@ -1,7 +1,7 @@
 = form_for @facet, :remote => true do |f|
   %div.facet#facet
     = render 'form', :f => f, :facet => @facet
-  .center
+  .centered
     = submit_tag "Update"
     %p
       = link_to 'Cancel', @facet, :remote => true

@@ -11,5 +11,5 @@
     %div.facet#facet
       = fields_for @facet do |create|
         = render 'form', :f => create, :facet => @facet  
-    .center
+    .centered
       = submit_tag "Add"

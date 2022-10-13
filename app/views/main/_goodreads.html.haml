@@ -32,7 +32,7 @@
   %div{class: 'dialog_book'}
     %div{id: "dialog_book_#{book_id}", title: book[:title]}
       - if book[:image_url]
-        %p.center
+        %p.centered
           - if !book[:url].blank?
             = link_to image_tag(book[:image_url]), book[:url], target: '_blank'
           - else
@@ -42,7 +42,7 @@
           #{link_to book[:title], book[:url], target: '_blank'}
         - else
           #{book[:title]}
-      %p.clear.center.when.fade60
+      %p.clear.centered.when.fade60
         - if book[:published]
           - the_time = (book[:published].to_time.to_i == book[:published].beginning_of_day.to_time.to_i) ? book[:published].end_of_day : book[:published]
           = how_long_ago(the_time)

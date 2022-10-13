@@ -6,7 +6,7 @@
       %span.drag ≡
       = thing.link ? link_to(thing.thing, thing.link) : thing.thing
 
-.center
+.centered
   = link_to 'Change', edit_favorite_path(@favorite)
   |
   = link_to 'Show all', favorites_path
