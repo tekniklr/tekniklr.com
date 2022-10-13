@@ -11,22 +11,25 @@
   %p{:class => "when fade#{fade}"}
     - if song[:published]
       = time_ago_in_words(song[:published])+' ago'
-  :javascript
-    $(function() {
-      $( '#dialog_song_#{song_id}' ).dialog({
-        autoOpen: false,
-        closeOnEscape: true,
-        modal: true,
-        resizable: false
-      });
-      $( '#opener_#{song_id}' ).click(function(e) {
-        e.preventDefault();
-        $( '#dialog_song_#{song_id}' ).dialog( "open" );
-        jQuery('.ui-widget-overlay').bind('click',function(){
-          jQuery('#dialog_song_#{song_id}').dialog('close');
-        });
-      });
-    });
+  :ruby
+    javascript = <<-END
+                  $(function() {
+                    $( '#dialog_song_#{song_id}' ).dialog({
+                      autoOpen: false,
+                      closeOnEscape: true,
+                      modal: true,
+                      resizable: false
+                    });
+                    $( '#opener_#{song_id}' ).click(function(e) {
+                      e.preventDefault();
+                      $( '#dialog_song_#{song_id}' ).dialog( "open" );
+                      jQuery('.ui-widget-overlay').bind('click',function(){
+                        jQuery('#dialog_song_#{song_id}').dialog('close');
+                      });
+                    });
+                  });
+                END
+  = javascript_tag javascript, type: 'application/javascript', nonce: true
   %div{class: 'dialog_song'}
     %div{id: "dialog_song_#{song_id}", title: song[:title]}
       - if song[:image_url]

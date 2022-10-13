@@ -10,22 +10,25 @@
   %p{:class => "when fade#{fade}"}
     - if book[:published]
       = how_long_ago(book[:published])
-  :javascript
-    $(function() {
-      $( '#dialog_book_#{book_id}' ).dialog({
-        autoOpen: false,
-        closeOnEscape: true,
-        modal: true,
-        resizable: false
-      });
-      $( '#opener_#{book_id}' ).click(function(e) {
-        e.preventDefault();
-        $( '#dialog_book_#{book_id}' ).dialog( "open" );
-        jQuery('.ui-widget-overlay').bind('click',function(){
-          jQuery('#dialog_book_#{book_id}').dialog('close');
-        });
-      });
-    });
+  :ruby
+    javascript = <<-END
+                  $(function() {
+                    $( '#dialog_book_#{book_id}' ).dialog({
+                      autoOpen: false,
+                      closeOnEscape: true,
+                      modal: true,
+                      resizable: false
+                    });
+                    $( '#opener_#{book_id}' ).click(function(e) {
+                      e.preventDefault();
+                      $( '#dialog_book_#{book_id}' ).dialog( "open" );
+                      jQuery('.ui-widget-overlay').bind('click',function(){
+                        jQuery('#dialog_book_#{book_id}').dialog('close');
+                      });
+                    });
+                  });
+                END
+  = javascript_tag javascript, type: 'application/javascript', nonce: true
   %div{class: 'dialog_book'}
     %div{id: "dialog_book_#{book_id}", title: book[:title]}
       - if book[:image_url]
