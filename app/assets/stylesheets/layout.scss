@@ -1,10 +1,42 @@
-body, select, input, textarea {
+// to stop 'Section offsets must be ordered and non-overlapping.' errors, move
+// all styling that had been on html or body tags here
+#container, #simple {
+  /* Prevent iOS and IE text size adjust after device orientation change,
+   * without disabling user zoom. (from HTML boilerplate) */
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
   /* default font size, text color, etc */
+  margin: 0;
   color: $base_font_color;
   font-size: $base_font_size;
   font-family: $content_font_family;
   line-height: 150%;
+  background-color: $page_bg;
 }
+
+// used for pages with "no" layout
+#simple {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 1em 0 1em 0;
+  background-color: $page_bg;
+  color: #000000;
+  a:link, a:active, a:visited {
+    color: #333333;
+    text-decoration: none;
+  }
+  a:hover {
+    color: $hover_color;
+    text-decoration: underline;
+  }
+}
+
+#container {
+  max-width: $max_page_width;
+  margin: auto;
+}
+
 
 /* for a fluid layout; this will make this scale down to fit */
 img,
@@ -16,10 +48,6 @@ video,
 blockquote,
 blockquote p image {
   max-width: 100%;
-}
-
-body {
-  background-color: $page_bg;
 }
 
 p {
@@ -47,29 +75,7 @@ a:hover { color: $hover_color; }
   text-align: right;
 }
 
-// used for pages with "no" layout
-#simple {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 1em 0 1em 0;
-  background-color: $page_bg;
-  color: #000000;
-  a:link, a:active, a:visited {
-    color: #333333;
-    text-decoration: none;
-  }
-  a:hover {
-    color: $hover_color;
-    text-decoration: underline;
-  }
-}
 
-#container {
-  max-width: $max_page_width;
-  margin: auto;
-}
-  
 #admin {
   width: 100%;
   text-align: right;
