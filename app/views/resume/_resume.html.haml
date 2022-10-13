@@ -4,12 +4,7 @@
     %div
       = mail_to @resume_email.value, @resume_email.value, class: :email, target: '_blank'
       &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-      %span.adr
-        %span.locality
-          portland
-        , 
-        %span.region
-          oregon
+      %span.adr <span class="locality">portland</span>, <span class="region">oregon</span>
       &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
       = link_to @resume_url.value, @resume_url.value, class: :url, target: '_blank'
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
