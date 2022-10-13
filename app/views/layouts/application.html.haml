@@ -1,22 +1,21 @@
 !!! 5
--ie_html lang: 'en' do
-  %head
-    = render partial: 'layouts/static/headincmeta'
-  %body
-    #container
-      = render partial: 'layouts/static/header'
-      = render partial: 'layouts/static/navigation'
-      #main{role: 'main'}
-        - if flash[:error]
-          #flash.error
-            %h2 Error
-            = flash[:error]
-        - if flash[:notice]
-          #flash.notice
-            %h2 Notice
-            = flash[:notice]
-        - unless @page_title.blank? || !@title_display
-          %h1 #{@page_title}
-        = yield
-      = render partial: 'layouts/static/footer'
-    = render partial: 'layouts/static/pageend'
+%head
+  = render partial: 'layouts/static/headincmeta'
+%body
+  #container
+    = render partial: 'layouts/static/header'
+    = render partial: 'layouts/static/navigation'
+    #main{role: 'main'}
+      - if flash[:error]
+        #flash.error
+          %h2 Error
+          = flash[:error]
+      - if flash[:notice]
+        #flash.notice
+          %h2 Notice
+          = flash[:notice]
+      - unless @page_title.blank? || !@title_display
+        %h1 #{@page_title}
+      = yield
+    = render partial: 'layouts/static/footer'
+  = render partial: 'layouts/static/pageend'
