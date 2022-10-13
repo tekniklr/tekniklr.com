@@ -1,24 +1,5 @@
 module ApplicationHelper
   
-  # ie/css hacks: http://www.paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/
-  def ie_tag(name=:body, attrs={}, &block)
-    attrs.symbolize_keys!
-    haml_concat("<!--[if lt IE 7]> #{ tag(name, add_class('ie6', attrs), true) } <![endif]-->".html_safe)
-    haml_concat("<!--[if IE 7]>    #{ tag(name, add_class('ie7', attrs), true) } <![endif]-->".html_safe)
-    haml_concat("<!--[if IE 8]>    #{ tag(name, add_class('ie8', attrs), true) } <![endif]-->".html_safe)
-    haml_concat("<!--[if gt IE 8]><!-->".html_safe)
-    haml_tag name, attrs do
-      haml_concat("<!--<![endif]-->".html_safe)
-      block.call
-    end
-  end
-  def ie_html(attrs={}, &block)
-    ie_tag(:html, attrs, &block)
-  end
-  def ie_body(attrs={}, &block)
-    ie_tag(:body, attrs, &block)
-  end
-  
   # will output the value of a given facet with the optional provided styling;
   # if the facet has multiple lines it will be converted to a list
   def facet_value(value, list = false, cssclass = false, csselclass = false)
