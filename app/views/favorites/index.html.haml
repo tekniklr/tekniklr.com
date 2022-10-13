@@ -16,7 +16,7 @@
         |
         = link_to('Destroy', favorite, :data => { :confirm => "Are you sure you want to delete your #{favorite.favorite_type} favorites?" }, :method => :delete, :remote => true)
 
-.center
+.centered
   = link_to 'New Favorite', new_favorite_path
 
 = javascript_include_tag :favorites

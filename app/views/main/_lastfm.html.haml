@@ -33,7 +33,7 @@
   %div{class: 'dialog_song'}
     %div{id: "dialog_song_#{song_id}", title: song[:title]}
       - if song[:image_url]
-        %p.center
+        %p.centered
           - if !song[:lastfm_url].blank?
             = link_to image_tag(song[:image_url]), song[:lastfm_url], target: '_blank'
           - else
@@ -43,7 +43,7 @@
           #{link_to description, song[:lastfm_url], target: '_blank'}
         - else
           = description
-      %p.clear.center.when.fade60
+      %p.clear.centered.when.fade60
         - if song[:published]
           - the_time = (song[:published].to_time.to_i == song[:published].beginning_of_day.to_time.to_i) ? song[:published].end_of_day : song[:published]
           = how_long_ago(the_time)
