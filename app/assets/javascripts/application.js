@@ -1,4 +1,8 @@
 //= require jquery3
 //= require jquery_ujs
 //= require jquery-ui
-//= require_tree .
+//= require jquery.colorbox
+//= require plugins
+//= require scaffold
+//= require navigation
+//= require main
