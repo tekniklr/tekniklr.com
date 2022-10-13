@@ -8,7 +8,7 @@ class ResumeController < ApplicationController
   
   def clean
     collect_facets
-    render        :layout   => 'simple.html'
+    render        layout: 'simple'
   end
 
   private
