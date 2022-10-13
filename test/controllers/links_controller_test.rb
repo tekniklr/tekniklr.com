@@ -14,7 +14,7 @@ class LinksControllerTest < ActionController::TestCase
     post :update_all
     assert_redirected_to root_url
 
-    post :create, params: {link: @link.attributes}
+    post :create, params: {link: FactoryBot.attributes_for(:link)}
     assert_redirected_to root_url
 
     delete :destroy, params: {id: @link.to_param}
@@ -29,7 +29,7 @@ class LinksControllerTest < ActionController::TestCase
 
   should "create link" do
     assert_difference('Link.count') do
-      post :create, params: {link: @link.attributes}, session: {user_id: @user.id}
+      post :create, params: {link: FactoryBot.attributes_for(:link)}, session: {user_id: @user.id}
     end
     assert_redirected_to links_path
   end

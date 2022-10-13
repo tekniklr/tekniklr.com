@@ -14,7 +14,7 @@ class FacetsControllerTest < ActionController::TestCase
     get :show, params: {id: @facet.to_param}
     assert_redirected_to root_url
 
-    post :create, params: {facet: @facet.attributes}
+    post :create, params: {facet: FactoryBot.attributes_for(:facet)}
     assert_redirected_to root_url
     
     get :edit, params: {id: @facet.to_param}
