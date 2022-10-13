@@ -2,7 +2,7 @@
   %address.vcard
     .fn #{@resume_name}
     %div
-      = mail_to @resume_email.to_s, @resume_email, class: :email, target: '_blank'
+      = mail_to @resume_email.value, @resume_email.value, class: :email, target: '_blank'
       &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
       %span.adr
         %span.locality
@@ -11,7 +11,7 @@
         %span.region
           oregon
       &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-      = link_to @resume_url, @resume_url, class: :url, target: '_blank'
+      = link_to @resume_url.value, @resume_url.value, class: :url, target: '_blank'
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
   %dl
