@@ -259,10 +259,6 @@ a:hover { color: $hover_color; }
     }
   }
 }
-// fix for ie being stupid and not listening to media/size restrictions
-html.ie6 #navigation .mobile {display: none;}
-html.ie7 #navigation .mobile {display: none;}
-html.ie8 #navigation .mobile {display: none;}
 
 #social {
   @media screen and (min-width: $social_media_threshhold) {
