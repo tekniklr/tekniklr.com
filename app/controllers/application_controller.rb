@@ -10,11 +10,6 @@ class ApplicationController < ActionController::Base
   
   before_action  :get_links
   before_action  :is_admin?, only: :clean_cache
-  
-  # https://github.com/haml/haml/issues/934
-  before_action do
-    Current.content_security_policy_nonce = content_security_policy_nonce
-  end
 
   # https://github.com/rails/rails/issues/671
   def routing_error

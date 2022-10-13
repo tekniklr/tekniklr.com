@@ -16,22 +16,25 @@
   %p{:class => "when fade#{fade}"}
     - if item[:published]
       = how_long_ago(item[:published])
-  :javascript
-    $(function() {
-      $( '#dialog_game_#{item_id}' ).dialog({
-        autoOpen: false,
-        closeOnEscape: true,
-        modal: true,
-        resizable: false
-      });
-      $( '#opener_#{item_id}' ).click(function(e) {
-        e.preventDefault();
-        $( '#dialog_game_#{item_id}' ).dialog( "open" );
-        jQuery('.ui-widget-overlay').bind('click',function(){
-          jQuery('#dialog_game_#{item_id}').dialog('close');
-        });
-      });
-    });
+  :ruby
+      javascript = <<-END
+                    $(function() {
+                      $( '#dialog_game_#{item_id}' ).dialog({
+                        autoOpen: false,
+                        closeOnEscape: true,
+                        modal: true,
+                        resizable: false
+                      });
+                      $( '#opener_#{item_id}' ).click(function(e) {
+                        e.preventDefault();
+                        $( '#dialog_game_#{item_id}' ).dialog( "open" );
+                        jQuery('.ui-widget-overlay').bind('click',function(){
+                          jQuery('#dialog_game_#{item_id}').dialog('close');
+                        });
+                      });
+                    });
+                  END
+  = javascript_tag javascript, type: 'application/javascript', nonce: true
   %div{class: 'dialog_game'}
     %div{id: "dialog_game_#{item_id}", title: item[:title]}
       - if item[:image_url]
