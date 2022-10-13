@@ -8,7 +8,7 @@ FactoryBot.define do
 
   factory :facet do
     sequence(:name) {|n| "Facet #{n}"}
-    slug            { "facet_perm" }
+    sequence(:slug) {|s| "facet_#{s}"}
     value           { "stuff, stuff, and more stuff" }
   end
 
