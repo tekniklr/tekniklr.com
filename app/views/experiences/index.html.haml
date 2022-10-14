@@ -2,14 +2,14 @@
   %h1 Current experiences
   #experiences
   - @experiences.each do |experience|
-    = render 'show', :experience => experience
+    = render 'show', experience: experience
 
 - if @experience
   %h1 New experience
   #notification
-  = form_for :experience, :html => {:id => 'new_exp'}, :remote => true do    
+  = form_for :experience, html: {id: 'new_exp'}, remote: true do
     %div.exp#experience
       = fields_for @experience do |create|
-        = render 'form', :f => create, :experience => @experience  
+        = render 'form', f: create, experience: @experience
     .centered
       = submit_tag "Add"
