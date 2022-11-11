@@ -2,8 +2,8 @@
 
 %ol#sort_favorites
   - @favorites.each do |favorite|
-    %li{id: "favorite_#{favorite.id}"}
-      %span.drag ≡
+    %li.item_drag{id: "favorite_#{favorite.id}", 'data-id': favorite.id}
+      %span.drag ↕️
       %strong #{favorite.favorite_type}
       %ol
         - favorite.favorite_things.each do |thing|

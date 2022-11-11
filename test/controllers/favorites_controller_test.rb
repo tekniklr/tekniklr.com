@@ -69,12 +69,12 @@ class FavoritesControllerTest < ActionController::TestCase
   end
 
   should "re-order favorites" do
-    put :sort_favorites, params: {favorite: [@favorite.to_param, @favorite2.to_param]}, session: {user_id: @user.id}
+    put :sort_favorites, params: {favorite_ids: [@favorite.to_param, @favorite2.to_param]}, session: {user_id: @user.id}
     assert_redirected_to favorites_path
   end
 
   should "re-order things" do
-    put :sort_things, params: {thing: [@favorite_thing1.to_param, @favorite_thing2.to_param]}, session: {user_id: @user.id}
+    put :sort_things, params: {thing_ids: [@favorite_thing1.to_param, @favorite_thing2.to_param]}, session: {user_id: @user.id}
     assert_redirected_to favorites_path
   end
 

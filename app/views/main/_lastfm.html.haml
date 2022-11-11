@@ -11,39 +11,42 @@
   %p{:class => "when fade#{fade}"}
     - if song[:published]
       = time_ago_in_words(song[:published])+' ago'
+  %dialog.fixed{id: "dialog_song_#{song_id}", title: song[:title]}
+    - if song[:image_url]
+      %p.centered
+        - if !song[:lastfm_url].blank?
+          = link_to image_tag(song[:image_url]), song[:lastfm_url], target: '_blank'
+        - else
+          = image_tag song[:image_url]
+    %p
+      - if !song[:lastfm_url].blank?
+        #{link_to description, song[:lastfm_url], target: '_blank'}
+      - else
+        = description
+    %p.clear.centered.when.fade60
+      - if song[:published]
+        - the_time = (song[:published].to_time.to_i == song[:published].beginning_of_day.to_time.to_i) ? song[:published].end_of_day : song[:published]
+        = how_long_ago(the_time)
+    %p.centered
+      %button{id: "closer_#{song_id}"} close
   :ruby
     javascript = <<-END
-                  $(function() {
-                    $( '#dialog_song_#{song_id}' ).dialog({
-                      autoOpen: false,
-                      closeOnEscape: true,
-                      modal: true,
-                      resizable: false
-                    });
-                    $( '#opener_#{song_id}' ).click(function(e) {
-                      e.preventDefault();
-                      $( '#dialog_song_#{song_id}' ).dialog( "open" );
-                      jQuery('.ui-widget-overlay').bind('click',function(){
-                        jQuery('#dialog_song_#{song_id}').dialog('close');
-                      });
-                    });
+                  var dialog_song_#{song_id} = document.querySelector("#dialog_song_#{song_id}");
+                  dialogPolyfill.registerDialog(dialog_song_#{song_id});
+                  $('#opener_#{song_id}').click(function(e) {
+                    dialog_song_#{song_id}.showModal();
+                    return false;
                   });
+                  $('#closer_#{song_id}').click(function(e) {
+                    dialog_song_#{song_id}.close();
+                    return false;
+                  });
+                  const updateBackdrop_song_#{song_id} = (ev) => {
+                    if (ev && ev.target !== dialog_song_#{song_id}) {
+                      return;
+                    }
+                    dialog_song_#{song_id}.close();
+                  };
+                  dialog_song_#{song_id}.addEventListener('click', updateBackdrop_song_#{song_id});
                 END
   = javascript_tag javascript, type: 'application/javascript', nonce: true
-  %div{class: 'dialog_song'}
-    %div{id: "dialog_song_#{song_id}", title: song[:title]}
-      - if song[:image_url]
-        %p.centered
-          - if !song[:lastfm_url].blank?
-            = link_to image_tag(song[:image_url]), song[:lastfm_url], target: '_blank'
-          - else
-            = image_tag song[:image_url]
-      %p
-        - if !song[:lastfm_url].blank?
-          #{link_to description, song[:lastfm_url], target: '_blank'}
-        - else
-          = description
-      %p.clear.centered.when.fade60
-        - if song[:published]
-          - the_time = (song[:published].to_time.to_i == song[:published].beginning_of_day.to_time.to_i) ? song[:published].end_of_day : song[:published]
-          = how_long_ago(the_time)
