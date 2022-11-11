@@ -1,7 +1,7 @@
 %li
   :ruby
-    item_id = !item[:achievement].blank? ? item[:achievement] : "#{item[:title]} #{item.published}"
-    item_id = item_id.downcase.gsub(/[^a-z0-9]/, '_').gsub(/_+/, '_').gsub(/_\z/, '')
+    game_id = !item[:achievement].blank? ? item[:achievement] : "#{item[:title]} #{item.published}"
+    game_id = game_id.downcase.gsub(/[^a-z0-9]/, '_').gsub(/_+/, '_').gsub(/_\z/, '')
     hover_text = "#{item[:title]}"
     if item[:platform]
       hover_text << "\n(#{item[:platform]})"
@@ -10,51 +10,54 @@
       hover_text << "\n\n#{item[:achievement]}"
     end
   - if !item[:image_url].blank?
-    = link_to image_tag(item[:image_url], alt: hover_text, title: hover_text), item[:url], id: "opener_#{item_id}"
+    = link_to image_tag(item[:image_url], alt: hover_text, title: hover_text), item[:url], id: "opener_#{game_id}"
   - else
-    = link_to hover_text, item[:url], id: "opener_#{item_id}"
+    = link_to hover_text, item[:url], id: "opener_#{game_id}"
   %p{:class => "when fade#{fade}"}
     - if item[:published]
       = how_long_ago(item[:published])
-  :ruby
-      javascript = <<-END
-                    $(function() {
-                      $( '#dialog_game_#{item_id}' ).dialog({
-                        autoOpen: false,
-                        closeOnEscape: true,
-                        modal: true,
-                        resizable: false
-                      });
-                      $( '#opener_#{item_id}' ).click(function(e) {
-                        e.preventDefault();
-                        $( '#dialog_game_#{item_id}' ).dialog( "open" );
-                        jQuery('.ui-widget-overlay').bind('click',function(){
-                          jQuery('#dialog_game_#{item_id}').dialog('close');
-                        });
-                      });
-                    });
-                  END
-  = javascript_tag javascript, type: 'application/javascript', nonce: true
-  %div{class: 'dialog_game'}
-    %div{id: "dialog_game_#{item_id}", title: item[:title]}
-      - if item[:image_url]
-        %p.centered
-          - if !item[:url].blank?
-            = link_to image_tag(item[:image_url]), item[:url], target: '_blank'
-          - else
-            = image_tag item[:image_url]
-      %p
-        - unless item[:achievement].blank?
-          Earned #{link_to item[:achievement], item[:url], target: '_blank'} in 
-        - else
-          Played 
+  %dialog.fixed{id: "dialog_game_#{game_id}", title: item[:title]}
+    - if item[:image_url]
+      %p.centered
         - if !item[:url].blank?
-          #{link_to item[:title], item[:url], target: '_blank'}
+          = link_to image_tag(item[:image_url]), item[:url], target: '_blank'
         - else
-          #{item[:title]}
-        -if item[:platform]
-          on #{item[:platform]}
-      %p.clear.centered.when.fade60
-        - if item[:published]
-          - the_time = (item[:published].to_time.to_i == item[:published].beginning_of_day.to_time.to_i) ? item[:published].end_of_day : item[:published]
-          = how_long_ago(the_time)
+          = image_tag item[:image_url]
+    %p
+      - unless item[:achievement].blank?
+        Earned #{link_to item[:achievement], item[:url], target: '_blank'} in 
+      - else
+        Played 
+      - if !item[:url].blank?
+        #{link_to item[:title], item[:url], target: '_blank'}
+      - else
+        #{item[:title]}
+      -if item[:platform]
+        on #{item[:platform]}
+    %p.clear.centered.when.fade60
+      - if item[:published]
+        - the_time = (item[:published].to_time.to_i == item[:published].beginning_of_day.to_time.to_i) ? item[:published].end_of_day : item[:published]
+        = how_long_ago(the_time)
+    %p.centered
+      %button{id: "closer_#{game_id}"} close
+  :ruby
+    javascript = <<-END
+                  var dialog_game_#{game_id} = document.querySelector("#dialog_game_#{game_id}");
+                  dialogPolyfill.registerDialog(dialog_game_#{game_id});
+                  $('#opener_#{game_id}').click(function(e) {
+                    dialog_game_#{game_id}.showModal();
+                    return false;
+                  });
+                  $('#closer_#{game_id}').click(function(e) {
+                    dialog_game_#{game_id}.close();
+                    return false;
+                  });
+                  const updateBackdrop_game_#{game_id} = (ev) => {
+                    if (ev && ev.target !== dialog_game_#{game_id}) {
+                      return;
+                    }
+                    dialog_game_#{game_id}.close();
+                  };
+                  dialog_game_#{game_id}.addEventListener('click', updateBackdrop_game_#{game_id});
+                END
+  = javascript_tag javascript, type: 'application/javascript', nonce: true

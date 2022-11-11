@@ -9,7 +9,6 @@ gem 'sassc-rails'
 gem 'uglifier'
 gem "sprockets-rails"
 gem 'jquery-rails'
-gem 'jquery-ui-rails'
 
 gem 'kt-paperclip'
 gem 'validates_timeliness'

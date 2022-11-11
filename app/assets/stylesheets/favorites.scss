@@ -45,3 +45,10 @@
   width: 50%;
   margin: auto;
 }
+
+.item_drag, .item_dragging {
+  padding: .2em;
+}
+.item_dragging {
+  background-color: $faint_border_color;
+}

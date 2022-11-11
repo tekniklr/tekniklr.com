@@ -1,9 +1,9 @@
 %h1
-  Favorite Type #{@favorite.sort}: #{@favorite.favorite_type}
+  Favorite Type: #{@favorite.favorite_type}
 %ol#sort_things
   - @favorite.favorite_things.each do |thing|
-    %li{id: "thing_#{thing.id}"}
-      %span.drag ≡
+    %li.item_drag{id: "thing_#{thing.id}", 'data-id': thing.id}
+      %span.drag ↕️
       = thing.link ? link_to(thing.thing, thing.link) : thing.thing
 
 .centered

@@ -1,7 +1,9 @@
 //= require jquery3
 //= require rails-ujs
-//= require jquery-ui
+//= require dialog-polyfill
 //= require jquery.colorbox
+//= require sortablejs
+//= require jquery-sortablejs
 //= require plugins
 //= require scaffold
 //= require navigation

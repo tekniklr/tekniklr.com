@@ -10,39 +10,42 @@
   %p{:class => "when fade#{fade}"}
     - if book[:published]
       = how_long_ago(book[:published])
+  %dialog.fixed{id: "dialog_book_#{book_id}", title: book[:title]}
+    - if book[:image_url]
+      %p.centered
+        - if !book[:url].blank?
+          = link_to image_tag(book[:image_url]), book[:url], target: '_blank'
+        - else
+          = image_tag book[:image_url]
+    %p
+      - if !book[:url].blank?
+        #{link_to book[:title], book[:url], target: '_blank'}
+      - else
+        #{book[:title]}
+    %p.clear.centered.when.fade60
+      - if book[:published]
+        - the_time = (book[:published].to_time.to_i == book[:published].beginning_of_day.to_time.to_i) ? book[:published].end_of_day : book[:published]
+        = how_long_ago(the_time)
+    %p.centered
+      %button{id: "closer_#{book_id}"} close
   :ruby
     javascript = <<-END
-                  $(function() {
-                    $( '#dialog_book_#{book_id}' ).dialog({
-                      autoOpen: false,
-                      closeOnEscape: true,
-                      modal: true,
-                      resizable: false
-                    });
-                    $( '#opener_#{book_id}' ).click(function(e) {
-                      e.preventDefault();
-                      $( '#dialog_book_#{book_id}' ).dialog( "open" );
-                      jQuery('.ui-widget-overlay').bind('click',function(){
-                        jQuery('#dialog_book_#{book_id}').dialog('close');
-                      });
-                    });
+                  var dialog_book_#{book_id} = document.querySelector("#dialog_book_#{book_id}");
+                  dialogPolyfill.registerDialog(dialog_book_#{book_id});
+                  $('#opener_#{book_id}').click(function(e) {
+                    dialog_book_#{book_id}.showModal();
+                    return false;
                   });
+                  $('#closer_#{book_id}').click(function(e) {
+                    dialog_book_#{book_id}.close();
+                    return false;
+                  });
+                  const updateBackdrop_book_#{book_id} = (ev) => {
+                    if (ev && ev.target !== dialog_book_#{book_id}) {
+                      return;
+                    }
+                    dialog_book_#{book_id}.close();
+                  };
+                  dialog_book_#{book_id}.addEventListener('click', updateBackdrop_book_#{book_id});
                 END
   = javascript_tag javascript, type: 'application/javascript', nonce: true
-  %div{class: 'dialog_book'}
-    %div{id: "dialog_book_#{book_id}", title: book[:title]}
-      - if book[:image_url]
-        %p.centered
-          - if !book[:url].blank?
-            = link_to image_tag(book[:image_url]), book[:url], target: '_blank'
-          - else
-            = image_tag book[:image_url]
-      %p
-        - if !book[:url].blank?
-          #{link_to book[:title], book[:url], target: '_blank'}
-        - else
-          #{book[:title]}
-      %p.clear.centered.when.fade60
-        - if book[:published]
-          - the_time = (book[:published].to_time.to_i == book[:published].beginning_of_day.to_time.to_i) ? book[:published].end_of_day : book[:published]
-          = how_long_ago(the_time)

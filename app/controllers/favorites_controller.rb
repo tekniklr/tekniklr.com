@@ -52,7 +52,7 @@ class FavoritesController < ApplicationController
 
   # PUT /favorites/sort
   def sort_favorites
-    id_order = params[:favorite]
+    id_order = params[:favorite_ids]
     logger.debug "************ resorting favorites as #{id_order.inspect}..."
     id_order.each_with_index do |id, index|
       logger.debug "************ id #{id} to order #{index}..."
@@ -66,7 +66,7 @@ class FavoritesController < ApplicationController
 
   # PUT /favorites/sort
   def sort_things
-    id_order = params[:thing]
+    id_order = params[:thing_ids]
     logger.debug "************ resorting things as #{id_order.inspect}..."
     id_order.each_with_index do |id, index|
       logger.debug "************ id #{id} to order #{index}..."
