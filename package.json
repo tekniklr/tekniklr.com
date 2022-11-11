@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "dialog-polyfill": "^0.5.6",
+    "jquery-colorbox": "^1.6.4",
     "jquery-sortablejs": "^1.0.1",
     "sortablejs": "^1.15.0"
   }
