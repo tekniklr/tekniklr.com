@@ -9,8 +9,8 @@
     unless item[:achievement].blank?
       hover_text << "\n\n#{item[:achievement]}"
     end
-  - if !item[:image_url].blank?
-    = link_to image_tag(item[:image_url], alt: hover_text, title: hover_text), item[:url], id: "opener_#{game_id}"
+  - if !item[:thumb_url].blank?
+    = link_to image_tag(item[:thumb_url], alt: hover_text, title: hover_text), item[:url], id: "opener_#{game_id}"
   - else
     = link_to hover_text, item[:url], id: "opener_#{game_id}"
   %p{:class => "when fade#{fade}"}
