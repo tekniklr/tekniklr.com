@@ -12,12 +12,14 @@
           = link_to 'edit', edit_recent_game_path(game)
         .left
           - if game.image?
-            = image_tag game.image.url(:default), alt: game.name, align: 'left', hspace: 10
-          #{game.started_playing.to_formatted_s}:
-          %br
-          #{game.name}
-          %br
-          %em #{game.platform}
+            .gaming_image
+              = image_tag game.image.url(:thumb), alt: game.name, align: 'left', hspace: 10
+          .gaming_details
+            #{game.started_playing.to_formatted_s}:
+            %br
+            #{game.name}
+            %br
+            %em #{game.platform}
         .right
           %p
             = link_to 'remove', game, :method => :delete, :data => { :confirm => "Are you sure you want to remove #{game.name}?" }

@@ -10,6 +10,12 @@ ul#recent_games {
     display: block;
     margin: 3em 0 3em 0;
     @include rounded(1px, $med_border_color, 2em, 1.5em, dashed);
+    .gaming_image {
+      display: inline-block;
+    }
+    .gaming_details {
+      display: inline-block;
+    }
     .left {
       width: 80%;
       float: left;

@@ -11,6 +11,7 @@ class GamingJob < ApplicationJob
       if item.respond_to?('has_key?') && item.has_key?(:parsed)
         title       = item.title
         platform    = item.platform
+        thumb_url   = item.image.url(:thumb)
         image_url   = item.image.url(:default)
       else
         Rails.logger.debug "Parsing #{item.title}..."
@@ -35,6 +36,7 @@ class GamingJob < ApplicationJob
         end
         title.gsub!(/ Trophies/, '')
         image_url = find_game_image(title)
+        thumb_url = find_game_image(title, true)
       end
       parsed_items << {
         title:               title,
@@ -42,6 +44,7 @@ class GamingJob < ApplicationJob
         achievement:         achievement,
         url:                 item.url,
         published:           item.published,
+        thumb_url:           thumb_url,
         image_url:           image_url
       }
     end
@@ -50,10 +53,14 @@ class GamingJob < ApplicationJob
   
   private
 
-  def find_game_image(title)
+  def find_game_image(title, thumb = false)
     Rails.logger.debug "Looking for upladed image for #{title}..."
     matching_game = RecentGame.where(name: title).first
-    (matching_game && matching_game.image?) ? matching_game.image.url(:default) : ''
+    if matching_game && matching_game.image?
+      thumb ? matching_game.image.url(:thumb) : matching_game.image.url(:default)
+    else
+      ''
+    end
   end
 
   def get_recent_games
