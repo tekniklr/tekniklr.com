@@ -3,8 +3,8 @@
     book_id = "#{book[:title]} #{book[:published]}"
     book_id = book_id.downcase.gsub(/[^a-z0-9]/, '_').gsub(/_+/, '_').gsub(/_\z/, '')
     hover_text = "#{book[:title]}"
-  - if book[:image_url]
-    = link_to image_tag(book[:image_url], alt: book[:title], title: book[:title]), book[:url], id: "opener_#{book_id}"
+  - if book[:thumb_url]
+    = link_to image_tag(book[:thumb_url], alt: book[:title], title: book[:title]), book[:url], id: "opener_#{book_id}"
   - else
     = link_to book[:title], book[:url], id: "opener_#{book_id}"
   %p{:class => "when fade#{fade}"}
