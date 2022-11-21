@@ -16,7 +16,7 @@
     %tr
       %td.game_image
         - if tabletop_game.image?
-          = image_tag tabletop_game.image.url(:default), alt: tabletop_game.name, width: 100
+          = image_tag tabletop_game.image.url(:thumb), alt: tabletop_game.name, width: 100
       %td
         = tabletop_game.name
       %td

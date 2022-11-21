@@ -8,12 +8,14 @@
           - if tabletop_game.image?
             .game_image
               = image_tag tabletop_game.image.url(:default), alt: tabletop_game.name, title: tabletop_game.name
+          - else
+            &nbsp;
+        .game_detail
           .game_name
             = tabletop_game.name
           - if !tabletop_game.players.blank?
             .game_players
               #{tabletop_game.players} players
-        .game_detail
           - if !tabletop_game.other_info.blank?
             .game_info
               = simple_format tabletop_game.other_info
