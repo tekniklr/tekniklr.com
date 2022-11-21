@@ -24,11 +24,46 @@
           %ul
             - favorite.favorite_things.each do |thing|
               %li{:class => (thing == favorite.favorite_things.last) ? '' : 'separated'}
-                = (!thing.link.blank? ? link_to(thing.thing, thing.link, target: '_blank') : thing.thing)
+                = (!thing.link.blank? ? link_to(thing.thing, thing.link, target: '_blank', id: "opener_thing_#{thing.id}_text") : thing.thing)
                 - if thing.image?
                   %br
                   - if thing.link.blank?
-                    = image_tag(thing.image.url(:default), alt: thing.thing)
+                    = image_tag(thing.image.url(:thumb), alt: thing.thing)
                   - else
-                    = link_to(image_tag(thing.image.url(:default), alt: thing.thing), thing.link, target: '_blank')
-                      
+                    = link_to image_tag(thing.image.url(:thumb), alt: thing.thing), thing.link, target: '_blank', id: "opener_thing_#{thing.id}_img"
+                %dialog.fixed{id: "dialog_thing_#{thing.id}", title: thing.thing}
+                  - if thing.image?
+                    %p.centered
+                      - if thing.link.blank?
+                        = image_tag(thing.image.url(:default), alt: thing.thing)
+                      - else
+                        = link_to(image_tag(thing.image.url(:default), alt: thing.thing), thing.link, target: '_blank')
+                  %p
+                    = (!thing.link.blank? ? link_to(thing.thing, thing.link, target: '_blank') : thing.thing)
+                  %p.centered
+                    %button{id: "closer_thing_#{thing.id}"} close
+              :ruby
+                javascript = <<-END
+                  var dialog_thing_#{thing.id} = document.querySelector("#dialog_thing_#{thing.id}");
+                  dialogPolyfill.registerDialog(dialog_thing_#{thing.id});
+                  $('#opener_thing_#{thing.id}_text').click(function(e) {
+                    dialog_thing_#{thing.id}.showModal();
+                    return false;
+                  });
+                  $('#opener_thing_#{thing.id}_img').click(function(e) {
+                    dialog_thing_#{thing.id}.showModal();
+                    return false;
+                  });
+                  $('#closer_thing_#{thing.id}').click(function(e) {
+                    dialog_thing_#{thing.id}.close();
+                    return false;
+                  });
+                  const updateBackdrop_thing_#{thing.id} = (ev) => {
+                    if (ev && ev.target !== dialog_thing_#{thing.id}) {
+                      return;
+                    }
+                    dialog_thing_#{thing.id}.close();
+                  };
+                  dialog_thing_#{thing.id}.addEventListener('click', updateBackdrop_thing_#{thing.id});
+                END
+              = javascript_tag javascript, type: 'application/javascript', nonce: true

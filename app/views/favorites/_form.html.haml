@@ -16,7 +16,7 @@
       .thing_form
         .thing_image
           - if ft.object.image?
-            = image_tag ft.object.image.url(:default), alt: ft.object.thing
+            = image_tag ft.object.image.url(:thumb), alt: ft.object.thing
 
         .thing_fields
           = ft.label :thing, 'Thing name'
