@@ -1,6 +1,6 @@
 class RecentGame < ApplicationRecord
   has_attached_file     :image,
-                        :styles => { :default => ["90x90>", :png] },
+                        :styles => { :default => ["200x200>", :png] },
                         :path => ":rails_root/public/recent_games/:attachment/:id/:style/:filename",
                         :url => "/recent_games/:attachment/:id/:style/:filename"
   validates_attachment_content_type :image, :content_type => [ 'image/png', 'image/jpg', 'image/jpeg', 'image/gif']
