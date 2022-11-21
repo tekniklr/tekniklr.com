@@ -12,11 +12,14 @@ class GoodreadsJob < ApplicationJob
       title = $2
       (title.blank? || previous_titles.include?(title)) and next
       previous_titles << title
-      image_url = Nokogiri::HTML(item.summary).css("img")[0]['src']
+      orig_image_url = Nokogiri::HTML(item.summary).css("img")[0]['src']
+      thumb_url = orig_image_url.gsub(/_S[A-Z][0-9]+_\.jpg/, '_SY100_.jpg')
+      image_url = orig_image_url.gsub(/_S[A-Z][0-9]+_\.jpg/, '_SY300_.jpg')
       parsed_items << {
         title:     title,
         url:       item.url,
         published: item.published,
+        thumb_url: thumb_url,
         image_url: image_url
       }
     end
