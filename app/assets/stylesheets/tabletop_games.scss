@@ -4,18 +4,21 @@
 
 table#manage_tabletop {
   width: 90%;
+  border-spacing: 0;
   margin: 0 auto 2em auto;
+  th, td {
+    padding: 1em;
+    border: 1px solid $navigation_border_color;
+  }
   th {
     font-size: 110%;
     font-weight: bold;
   }
   td {
-    padding: .5em;
-    border: 1px solid $navigation_border_color;
   }
   td.game_image {
     img {
-      min-width: 100px;
+      max-width: 100px;
     }
   }
 }
