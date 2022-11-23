@@ -21,7 +21,7 @@
       %dt #{favorite.favorite_type}
       %dd.spacey
         %ul
-          - favorite.favorite_things.each do |thing|
+          - favorite.favorite_things.each_with_index do |thing, index|
             %li
               = (!thing.link.blank? ? link_to(thing.thing, thing.link, target: '_blank', id: "opener_thing_#{thing.id}_text") : thing.thing)
               - if thing.image?
@@ -31,15 +31,15 @@
                 - else
                   = link_to image_tag(thing.image.url(:thumb), alt: thing.thing), thing.link, target: '_blank', id: "opener_thing_#{thing.id}_img"
               %dialog.fixed{id: "dialog_thing_#{thing.id}", title: thing.thing}
+                %h2 ##{index+1} favorite #{favorite.favorite_type.singularize}:
                 - if thing.image?
-                  %p.centered
+                  .centered
                     - if thing.link.blank?
                       = image_tag(thing.image.url(:default), alt: thing.thing)
                     - else
                       = link_to(image_tag(thing.image.url(:default), alt: thing.thing), thing.link, target: '_blank')
-                %p
-                  = (!thing.link.blank? ? link_to(thing.thing, thing.link, target: '_blank') : thing.thing)
-                %p.centered
+                = (!thing.link.blank? ? link_to(thing.thing, thing.link, target: '_blank') : thing.thing)
+                .centered
                   %button{id: "closer_thing_#{thing.id}"} close
               :ruby
                 javascript = <<-END
