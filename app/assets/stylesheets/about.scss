@@ -33,17 +33,8 @@ dl.favorites {
     padding: 0;
     text-align: center;
     li {
-      display: inline;
-      margin: 0;
-      text-align: center;
-      padding: 0 1em 0 1em;
-      float: left;
-      width: 7em;
-      overflow: hidden;
-    }
-    li.separated {
       border-right: 1px solid $faint_border_color;
-      height: 9em;
+      height: 11em;
       display: inline;
       margin: 0;
       text-align: center;
@@ -51,6 +42,9 @@ dl.favorites {
       float: left;
       width: 7em;
       overflow: hidden;
+    }
+    li:last-child {
+      border: none;
     }
     img {
       margin-top: .5em;
