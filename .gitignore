@@ -2,7 +2,7 @@
 .sass-cache/*
 REVISION
 db/*.sqlite3
-log/*.log*
+logs/*.log*
 tmp/
 .DS_Store
 doc/api

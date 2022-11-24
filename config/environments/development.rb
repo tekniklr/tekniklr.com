@@ -17,7 +17,7 @@ Rails.application.configure do
 
   config.active_support.deprecation = :log
   
-  config.logger = Logger.new(Rails.root.join("log",Rails.env + ".log"),1,5*1024*1024)
+  config.logger = Logger.new(Rails.root.join("logs",Rails.env + ".log"),1,5*1024*1024)
   
   Paperclip.options[:command_path] = "/opt/local/bin"
   
