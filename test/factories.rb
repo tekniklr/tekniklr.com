@@ -46,7 +46,7 @@ FactoryBot.define do
 
   factory :user do
     sequence(:name) {|n| "User: #{n}"}
-    provider        { 'twitter' }
+    provider        { 'google_oauth2' }
     uid             { '12345' }
     handle          { 'tekniklr' }
   end

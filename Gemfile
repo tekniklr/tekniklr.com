@@ -15,7 +15,6 @@ gem 'validates_timeliness'
 
 # needed for authentication
 gem 'omniauth'
-gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection'
 
