@@ -41,5 +41,5 @@ Rails.application.configure do
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
 
-  config.logger = Logger.new(Rails.root.join("logs",Rails.env + ".log"),1,5*1024*1024)
+  config.logger = Logger.new(Rails.root.join("log",Rails.env + ".log"),1,5*1024*1024)
 end

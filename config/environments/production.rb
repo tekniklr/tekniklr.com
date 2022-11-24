@@ -32,7 +32,7 @@ Rails.application.configure do
   config.action_dispatch.x_sendfile_header = "X-Sendfile" # Use 'X-Accel-Redirect' for nginx
 
   # specify log location, keep at least 10 rotated logs, rotate every 5MB
-  config.logger = ActiveSupport::Logger.new(Rails.root.join("logs",Rails.env+".log"),10,5*1024*1024)
+  config.logger = ActiveSupport::Logger.new(Rails.root.join("log",Rails.env+".log"),10,5*1024*1024)
 
   # Use a different cache store in production
   #config.cache_store = :memory_store
