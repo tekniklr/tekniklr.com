@@ -149,9 +149,8 @@ ul#gaming, ul#goodreads, ul#lastfm {
   list-style-type: none;
   text-align: center;
   overflow: hidden;
-  height: 10.3em;
-  font-size: 80%;
-  line-height: 1.125em;
+  height: 155px;
+  line-height: 110%;
   li {
     display: inline-block;
     margin: 0 auto;
@@ -159,21 +158,25 @@ ul#gaming, ul#goodreads, ul#lastfm {
     vertical-align: top;
     float: none;
     overflow: hidden;
-    width: 6em;
-    height: 10em;
-    padding: .5em 1em 3em 1em;
+    width: 100px;
+    height: 155px;
+    padding: 5px 7px;
     img {
       max-width: 100px;
       max-height: 100px;
       overflow: hidden;
     }
+    p {
+      font-size: 80%;
+      max-width: 100px;
+    }
   }
 }
 ul#lastfm {
-  height: 100px;
+  height: 125px;
   overflow: hidden;
   li {
-    height: 100px;
+    height: 125px;
     width: 60px;
     padding: 5px;
     text-align: center;
@@ -186,9 +189,14 @@ ul#lastfm {
   }
 }
 
-dialog img {
-  max-width: 300px !important;
-  max-height: 300px !important;
+dialog {
+  p {
+    max-width: 300px !important;
+  }
+  img {
+    max-width: 300px !important;
+    max-height: 300px !important;
+  }
 }
 
 .banksy {
