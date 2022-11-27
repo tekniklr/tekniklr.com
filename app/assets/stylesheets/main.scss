@@ -152,42 +152,20 @@ ul#gaming, ul#goodreads, ul#lastfm {
   height: 10.3em;
   font-size: 80%;
   line-height: 1.125em;
-  @media screen and (min-width: $mobile_threshhold) {
-    /* regular layout */
-    li {
-      display: inline-block;
-      margin: 0 auto;
-      width: 6em;
-      height: 10em;
-      text-align: center;
-      vertical-align: top;
-      padding: .5em 1em 3em 1em;
-      float: none;
+  li {
+    display: inline-block;
+    margin: 0 auto;
+    text-align: center;
+    vertical-align: top;
+    float: none;
+    overflow: hidden;
+    width: 6em;
+    height: 10em;
+    padding: .5em 1em 3em 1em;
+    img {
+      max-width: 100px;
+      max-height: 100px;
       overflow: hidden;
-      img {
-        max-width: 100px;
-        max-height: 100px;
-        overflow: hidden;
-      }
-    }
-  }
-  @media screen and (max-width: $mobile_threshhold) {
-    /* mobile layout */
-    li {
-      display: inline-block;
-      margin: 0 auto;
-      width: 5.5em;
-      height: 9.5em;
-      text-align: center;
-      vertical-align: top;
-      padding: .5em .5em 3em .5em;
-      float: none;
-      overflow: hidden;
-      img {
-        max-width: 100px;
-        max-height: 100px;
-        overflow: hidden;
-      }
     }
   }
 }
