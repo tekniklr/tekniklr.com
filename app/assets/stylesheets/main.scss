@@ -158,17 +158,39 @@ ul#gaming, ul#goodreads, ul#lastfm {
     vertical-align: top;
     float: none;
     overflow: hidden;
-    width: 100px;
     height: 155px;
-    padding: 5px 7px;
     img {
-      max-width: 100px;
       max-height: 100px;
       overflow: hidden;
     }
     p {
       font-size: 80%;
-      max-width: 100px;
+    }
+  }
+  @media screen and (min-width: $mobile_threshhold) {
+    /* regular layout */
+    li {
+      width: 100px;
+      padding: 5px 7px;
+      img {
+        max-width: 100px;
+      }
+      p {
+        max-width: 100px;
+      }
+    }
+  }
+  @media screen and (max-width: $mobile_threshhold) {
+    /* mobile layout */
+    li {
+      width: 80px;
+      padding: 5px 7px;
+    }
+    img {
+      max-width: 80px;
+    }
+    p {
+      max-width: 80px;
     }
   }
 }
