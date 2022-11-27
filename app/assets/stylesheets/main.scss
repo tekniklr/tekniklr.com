@@ -213,11 +213,13 @@ ul#lastfm {
 
 dialog {
   p {
-    max-width: 300px !important;
+    width: 300px !important;
+    max-width: 100% !important;
   }
   img {
-    max-width: 300px !important;
-    max-height: 300px !important;
+    width: 300px !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
   }
 }
 
