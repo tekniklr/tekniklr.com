@@ -3,6 +3,27 @@
     %h1
       = link_to 'Blog', "https://#{WPDOMAIN}/wpblog/"
     = render 'blog/post', post: @blog_post
+
+- unless @toots.blank?
+  %h1
+    = link_to 'Toots', "#{Rails.application.credentials.mastodon[MASTODON][:url]}/@tekniklr"
+  .toot_block{class: 'show_scroll'}
+    %ul#mastodon
+      - @toots.each do |toot|
+        - begin
+          = render 'toot', toot: toot
+        - rescue
+          - # I don't care too much if a toot couldn't be displayed- it's certainly not worth breaking the index page over.
+    :ruby
+      javascript = <<-END
+                      $('a.toot_thumbnail').colorbox({
+                        scalePhotos: true,
+                        opacity: 0.9,
+                        maxHeight: '90%',
+                        maxWidth: '90%'
+                      });
+                  END
+    = javascript_tag javascript, type: 'application/javascript', nonce: true
     
 - unless @tweets.blank?
   %h1

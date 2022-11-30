@@ -1,3 +1,13 @@
+GIT
+  remote: https://github.com/mastodon/mastodon-api
+  revision: 60b0ed09c3b979cbeb833db0a320b30e1b022a1e
+  specs:
+    mastodon-api (2.0.0)
+      addressable (~> 2.6)
+      buftok (~> 0)
+      http (~> 4.0)
+      oj (~> 3.7)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -204,6 +214,7 @@ GEM
       rack (>= 1.2, < 4)
       snaky_hash (~> 2.0)
       version_gem (~> 1.1)
+    oj (3.13.23)
     omniauth (2.1.0)
       hashie (>= 3.4.6)
       rack (>= 2.2.3)
@@ -321,8 +332,7 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.8.2)
-    validates_timeliness (7.0.0.beta1)
-      activemodel (>= 7.0.0, < 8)
+    validates_timeliness (5.0.0)
       timeliness (>= 0.3.10, < 1)
     version_gem (1.1.1)
     websocket-driver (0.7.5)
@@ -354,6 +364,7 @@ DEPENDENCIES
   jquery-rails
   kt-paperclip
   lastfm
+  mastodon-api!
   mini_racer
   minitest
   mysql2
