@@ -11,7 +11,7 @@ gem "sprockets-rails"
 gem 'jquery-rails'
 
 gem 'kt-paperclip'
-gem 'validates_timeliness'
+gem 'validates_timeliness', '>=7.0.0.beta1'
 
 # needed for authentication
 gem 'omniauth'
