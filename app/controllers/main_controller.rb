@@ -1,6 +1,12 @@
 class MainController < ApplicationController
 
   def index
+    @toot_expiry    = Rails.cache.read('toot_expiry')
+    @toots          = Rails.cache.read('toots')
+    if @toot_expiry.nil? || Time.now > @toot_expiry
+      @toot_expiry  = Rails.cache.write('toot_expiry', (Time.now + 12.minutes))
+      Delayed::Job.enqueue(MastodonJob.new)
+    end
 
     @tweet_expiry    = Rails.cache.read('tweet_expiry')
     @tweets          = Rails.cache.read('tweets')

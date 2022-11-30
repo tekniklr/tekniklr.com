@@ -44,7 +44,7 @@
   font-size: 90%
 }
 
-.tweet_block {
+.tweet_block, .toot_block {
   padding: 0;
   margin: 0 auto 2em auto;
   height: 18em;
@@ -63,7 +63,7 @@
     width: 100%;
   }
 }
-ul#twitter {
+ul#twitter, ul#mastodon {
   width: 96%;
   max-width: 100%;
   margin: auto;
@@ -110,7 +110,7 @@ ul#twitter {
       color: $link_color;
       cursor: pointer;
     }
-    .tweet {
+    .tweet, .toot {
       width: -webkit-calc(100% - 4em);
       width: -moz-calc(100% - 4em);
       width: calc(100% - 4em);
@@ -119,7 +119,7 @@ ul#twitter {
       padding: 0 .5em 0 .5em;
       .user_name {
       }
-      .tweet_content {
+      .tweet_content, .toot_content {
         img {
           display: inline-block;
         }
