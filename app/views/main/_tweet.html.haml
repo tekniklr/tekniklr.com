@@ -42,9 +42,9 @@
       = simple_format sanitize(tweet_text, tags: %w(a img), attributes: %w(href target src class)), {}, sanitize: false # simple format was double sanitizing
 
     .reach
-      %span{title: pluralize(tweet.retweet_count, 'boost')}
+      %span{title: pluralize(tweet.retweet_count, 'retweet')}
         = link_to "↺ #{tweet.retweet_count}", "https://twitter.com/intent/retweet?tweet_id=#{tweet_id}", target: '_blank'
-      %span{title: pluralize(tweet.favorite_count, 'florp')}
+      %span{title: pluralize(tweet.favorite_count, 'like')}
         = link_to "☆ #{tweet.favorite_count}", "https://twitter.com/intent/like?tweet_id=#{tweet_id}", target: '_blank'
 
   .time_ago
