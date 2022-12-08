@@ -30,6 +30,8 @@ module ApplicationHelper
   def how_long_ago(date)
     if date.to_date == Date.today
       return 'today'
+    elsif date.to_date == Date.yesterday
+      return 'yesterday'
     else
       return  time_ago_in_words(date)+' ago'
     end
