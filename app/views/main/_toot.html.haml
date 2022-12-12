@@ -41,15 +41,18 @@
 
     .toot_content
       - if !toot_spoiler.blank?
-        .spoiler{id: "spoiler_#{toot.id}"}
+        .spoiler{id: "spoiler_#{toot.id}", title: 'Click to show content'}
           = toot_spoiler
-        :javascript
-          $(document).ready(function() {
-            $('#toot_#{toot.id}').hide();
-            $('#spoiler_#{toot.id}').click(function() {
-              $('#toot_#{toot.id}').toggle(400);
-            });
-          });
+        :ruby
+          javascript =  <<-END
+                          $(document).ready(function() {
+                            $('#toot_#{toot.id}').hide();
+                            $('#spoiler_#{toot.id}').click(function() {
+                              $('#toot_#{toot.id}').toggle(400);
+                            });
+                          });
+                        END
+        = javascript_tag javascript, type: 'application/javascript', nonce: true
       %div{id: "toot_#{toot.id}"}
         = simple_format sanitize(toot_text, tags: %w(a img p br span), attributes: %w(href target src class)), {}, sanitize: false # simple format was double sanitizing
         - if !media.blank?
