@@ -32,9 +32,6 @@ gem 'delayed_job'
 gem 'delayed_job_active_record'
 gem 'daemons'
 
-# FIXME - pin old version to avoid https://github.com/mikel/mail/issues/1489
-gem 'mail', '2.7.1'
-
 group :test do
   gem 'factory_bot_rails', require: false
   gem 'minitest', require: false
