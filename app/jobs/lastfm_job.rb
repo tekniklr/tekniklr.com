@@ -7,7 +7,7 @@ class LastfmJob < ApplicationJob
       require 'lastfm'
       lastfm = Lastfm.new(Rails.application.credentials.lastfm[:api_key], Rails.application.credentials.lastfm[:api_secret])
       recent_tracks = lastfm.user.get_recent_tracks(user: 'tekniklr')
-      items = recent_tracks ? recent_tracks.uniq{|i| i.name || 'unnamed'}[0..24] : []
+      items = recent_tracks ? recent_tracks.uniq{|i| i.name || 'unnamed'}[0..15] : []
     rescue => exception
       ErrorMailer.background_error('caching Last.fm activity', exception).deliver_now
       items = []
