@@ -2,16 +2,20 @@
  * can be applied to say, list items, to make progressive items more faint
  */
 .fade0 {}
-.fade10 {@include transparent(0.90);}
-.fade20 {@include transparent(0.80);}
-.fade30 {@include transparent(0.70);}
-.fade40 {@include transparent(0.60);}
-.fade50 {@include transparent(0.50);}
-.fade60 {@include transparent(0.45);}
-.fade70 {@include transparent(0.40);}
-.fade80 {@include transparent(0.35);}
-.fade90 {@include transparent(0.30);}
-.fade100 {@include transparent(0.25);}
+.fade10 {@include transparent(0.95);}
+.fade20 {@include transparent(0.90);}
+.fade30 {@include transparent(0.85);}
+.fade40 {@include transparent(0.80);}
+.fade50 {@include transparent(0.75);}
+.fade60 {@include transparent(0.70);}
+.fade70 {@include transparent(0.65);}
+.fade80 {@include transparent(0.60);}
+.fade90 {@include transparent(0.55);}
+.fade100 {@include transparent(0.50);}
+.fade110 {@include transparent(0.45);}
+.fade120 {@include transparent(0.40);}
+.fade130 {@include transparent(0.35);}
+.fade140 {@include transparent(0.30);}
 
 /* wrap around blog post to keep it to size */
 #single_post {
