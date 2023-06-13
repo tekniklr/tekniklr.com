@@ -5,7 +5,7 @@ class MainController < ApplicationController
     @tweet_expiry    = Rails.cache.read('tweet_expiry')
     @tweets          = Rails.cache.read('tweets')
     if @tweet_expiry.nil? || Time.now > @tweet_expiry
-      @tweet_expiry  = Rails.cache.write('tweet_expiry', (Time.now + 12.minutes))
+      @tweet_expiry  = Rails.cache.write('tweet_expiry', (Time.now + 60.minutes))
       TwitterJob.perform_later
     end
 
