@@ -15,6 +15,12 @@ class TwitterJob < ApplicationJob
         # if I haven't tweeted in a while, don't show old shit
         tweets = []
       end
+    rescue Twitter::Error::Unauthorized
+      # think this happens when I exceed the new 25 request per 24 hour limit
+      # increase the refresh limit, accordingly, without replacing any cached
+      # tweets we already have
+      Rails.cache.write('tweet_expiry', (Time.now + 24.hours))
+      return
     rescue => exception
       ErrorMailer.background_error('caching tweets', exception).deliver_now
       tweets = []
