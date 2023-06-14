@@ -9,7 +9,7 @@ class ApplicationJob < ActiveJob::Base
       items = feed.entries
     rescue Feedjira::NoParserAvailable => exception
       error = true
-      ErrorMailer.background_error("parsing XML file from #{url}", exception, "recieved XML:\n\n#{xml}").deliver_now
+      ErrorMailer.background_error("parsing XML file from #{url}", exception, "received XML:\n\n#{xml}").deliver_now
     rescue => exception
       error = true
       ErrorMailer.background_error("fetching/parsing XML file from #{url}", exception).deliver_now
