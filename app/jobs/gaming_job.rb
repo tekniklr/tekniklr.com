@@ -15,10 +15,10 @@ class GamingJob < ApplicationJob
         image_url   = item.image.url(:default)
       else
         Rails.logger.debug "Parsing #{item.title}..."
-        item.title.match?(/tekniklr(started|completed)/) and next
+        item.title.match?(/tekniklr (started|completed)/) and next
         item.title.match(/tekniklr won the (.*) (trophy|achievement) in (.*)\z/)
         if ($1.blank? || $2.blank? || $3.blank?)
-          puts "Couldn't parse an achievement, type, or game title from #{item.title}! Skipping."
+          puts "Couldn't parse an achievement, type, or game title from \"#{item.title}\"! Skipping."
           next
         end
         achievement = $1
