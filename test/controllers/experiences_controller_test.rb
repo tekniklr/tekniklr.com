@@ -11,19 +11,19 @@ class ExperiencesControllerTest < ActionController::TestCase
     get :index
     assert_redirected_to root_url
 
-    get :show, params: {id: @experience}
+    get :show, params: {id: @experience.id}
     assert_redirected_to root_url
 
     post :create, params: {experience: FactoryBot.attributes_for(:experience)}
     assert_redirected_to root_url
     
-    get :edit, params: {id: @experience}
+    get :edit, params: {id: @experience.id}
     assert_redirected_to root_url
     
-    put :update, params: {id: @experience, experience: @experience.attributes}
+    put :update, params: {id: @experience.id, experience: FactoryBot.attributes_for(:experience)}
     assert_redirected_to root_url
 
-    delete :destroy, params: {id: @experience}
+    delete :destroy, params: {id: @experience.id}
     assert_redirected_to root_url
   end
 
@@ -41,23 +41,23 @@ class ExperiencesControllerTest < ActionController::TestCase
   end
 
   should "show experience" do
-    get :show, params: {id: @experience}, session: {user_id: @user.id}
+    get :show, params: {id: @experience.id}, session: {user_id: @user.id}
     assert_response :success
   end
   
   should "get edit" do
-    get :edit, params: {id: @experience}, session: {user_id: @user.id}
+    get :edit, params: {id: @experience.id}, session: {user_id: @user.id}
     assert_response :success
   end
 
   should "update experience" do
-    put :update, params: {id: @experience, experience: @experience.attributes}, session: {user_id: @user.id}
+    put :update, params: {id: @experience.id, experience: FactoryBot.attributes_for(:experience)}, session: {user_id: @user.id}
     assert_redirected_to experiences_path
   end
 
   should "destroy experience" do
     assert_difference('Experience.count', -1) do
-      delete :destroy, params: {id: @experience}, session: {user_id: @user.id}
+      delete :destroy, params: {id: @experience.id}, session: {user_id: @user.id}
     end
     assert_redirected_to experiences_path
   end

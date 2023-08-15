@@ -17,7 +17,7 @@ class LinksControllerTest < ActionController::TestCase
     post :create, params: {link: FactoryBot.attributes_for(:link)}
     assert_redirected_to root_url
 
-    delete :destroy, params: {id: @link.to_param}
+    delete :destroy, params: {id: @link.id}
     assert_redirected_to root_url
   end
 
@@ -36,13 +36,13 @@ class LinksControllerTest < ActionController::TestCase
 
   should "update links" do
     @link2 = FactoryBot.create(:link)
-    put :update_all, params: {links: {@link.to_param => @link.attributes, @link2.to_param => @link2.attributes}}, session: {user_id: @user.id}
+    put :update_all, params: {links: {@link.id => FactoryBot.attributes_for(:link), @link2.id => FactoryBot.attributes_for(:link)}}, session: {user_id: @user.id}
     assert_redirected_to links_path
   end
 
   should "destroy link" do
     assert_difference('Link.count', -1) do
-      delete :destroy, params: {id: @link.to_param}, session: {user_id: @user.id}
+      delete :destroy, params: {id: @link.id}, session: {user_id: @user.id}
     end
     assert_redirected_to links_path
   end

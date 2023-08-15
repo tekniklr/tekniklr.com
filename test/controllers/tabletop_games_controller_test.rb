@@ -19,13 +19,13 @@ class TabletopGamesControllerTest < ActionController::TestCase
     post :create, params: {tabletop_game: FactoryBot.attributes_for(:tabletop_game)}
     assert_redirected_to root_url
     
-    get :edit, params: {id: @tabletop_game.to_param}
+    get :edit, params: {id: @tabletop_game.id}
     assert_redirected_to root_url
     
-    put :update, params: {id: @tabletop_game.to_param, tabletop_game: @tabletop_game.attributes}
+    put :update, params: {id: @tabletop_game.id, tabletop_game: FactoryBot.attributes_for(:tabletop_game)}
     assert_redirected_to root_url
     
-    delete :destroy, params: {id: @tabletop_game.to_param}
+    delete :destroy, params: {id: @tabletop_game.id}
     assert_redirected_to root_url
   end
 
@@ -54,18 +54,18 @@ class TabletopGamesControllerTest < ActionController::TestCase
   end
 
   should "get edit" do
-    get :edit, params: {id: @tabletop_game.to_param}, session: {user_id: @user.id}
+    get :edit, params: {id: @tabletop_game.id}, session: {user_id: @user.id}
     assert_response :success
   end
 
   should "update tabletop_game" do
-    put :update, params: {id: @tabletop_game.to_param, tabletop_game: @tabletop_game.attributes}, session: {user_id: @user.id}
+    put :update, params: {id: @tabletop_game.id, tabletop_game: FactoryBot.attributes_for(:tabletop_game)}, session: {user_id: @user.id}
     assert_redirected_to manage_tabletop_games_path
   end
 
   should "destroy tabletop_game" do
     assert_difference('TabletopGame.count', -1) do
-      delete :destroy, params: {id: @tabletop_game.to_param}, session: {user_id: @user.id}
+      delete :destroy, params: {id: @tabletop_game.id}, session: {user_id: @user.id}
     end
     assert_redirected_to manage_tabletop_games_path
   end

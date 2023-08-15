@@ -13,13 +13,13 @@ class RecentGamesControllerTest < ActionController::TestCase
     post :create, params: {recent_game: FactoryBot.attributes_for(:recent_game)}
     assert_redirected_to root_url
     
-    get :edit, params: {id: @recent_game}
+    get :edit, params: {id: @recent_game.id}
     assert_redirected_to root_url
     
-    put :update, params: {id: @recent_game, recent_game: @recent_game.attributes}
+    put :update, params: {id: @recent_game.id, recent_game: FactoryBot.attributes_for(:recent_game)}
     assert_redirected_to root_url
 
-    delete :destroy, params: {id: @recent_game.to_param}
+    delete :destroy, params: {id: @recent_game.id}
     assert_redirected_to root_url
   end
 
@@ -36,18 +36,18 @@ class RecentGamesControllerTest < ActionController::TestCase
   end
 
   should "get edit" do
-    get :edit, params: {id: @recent_game}, session: {user_id: @user.id}
+    get :edit, params: {id: @recent_game.id}, session: {user_id: @user.id}
     assert_response :success
   end
 
   should "update recent_game" do
-    put :update, params: {id: @recent_game, recent_game: @recent_game.attributes}, session: {user_id: @user.id}
+    put :update, params: {id: @recent_game.id, recent_game: FactoryBot.attributes_for(:recent_game)}, session: {user_id: @user.id}
     assert_redirected_to new_recent_game_path
   end
 
   should "destroy recent_game" do
     assert_difference('RecentGame.count', -1) do
-      delete :destroy, params: {id: @recent_game.to_param}, session: {user_id: @user.id}
+      delete :destroy, params: {id: @recent_game.id}, session: {user_id: @user.id}
     end
     assert_redirected_to new_recent_game_path
   end
