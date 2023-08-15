@@ -1,6 +1,6 @@
 %li
   :ruby
-    book_id = "#{book[:title]} #{book[:published]}"
+    book_id = "#{book[:title]} #{book[:published].to_fs(:published)}"
     book_id = book_id.downcase.gsub(/[^a-z0-9]/, '_').gsub(/_+/, '_').gsub(/_\z/, '')
     hover_text = "#{book[:title]}"
   - if book[:thumb_url]
