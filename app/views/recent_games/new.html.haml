@@ -15,7 +15,7 @@
             .gaming_image
               = image_tag game.image.url(:thumb), alt: game.name, align: 'left', hspace: 10
           .gaming_details
-            #{game.started_playing.to_formatted_s}:
+            #{game.started_playing.to_formatted_s(:standard)}:
             %br
             #{game.name}
             %br
