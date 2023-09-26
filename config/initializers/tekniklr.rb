@@ -14,7 +14,5 @@ CACHED_ITEMS = [
                   'gaming_expiry',
                   'gaming',
                   'toots',
-                  'toot_expiry',
-                  'tweets',
-                  'tweet_expiry'
+                  'toot_expiry'
                 ]
