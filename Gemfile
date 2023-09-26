@@ -47,7 +47,7 @@ end
 group :development do
   gem "awesome_print", require: false
   gem "pry-rails", require: false
-  gem 'capistrano-rbenv', require: false
+  gem 'capistrano-rvm', require: false
   gem 'capistrano-bundler', require: false
   gem 'capistrano-rails', require: false
   gem "brakeman", require: false
