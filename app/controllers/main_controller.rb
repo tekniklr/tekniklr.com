@@ -2,13 +2,6 @@ class MainController < ApplicationController
 
   def index
 
-    @tweet_expiry    = Rails.cache.read('tweet_expiry')
-    @tweets          = Rails.cache.read('tweets')
-    if @tweet_expiry.nil? || Time.now > @tweet_expiry
-      @tweet_expiry  = Rails.cache.write('tweet_expiry', (Time.now + 60.minutes))
-      TwitterJob.perform_later
-    end
-
     @toot_expiry    = Rails.cache.read('toot_expiry')
     @toots          = Rails.cache.read('toots')
     if @toot_expiry.nil? || Time.now > @toot_expiry

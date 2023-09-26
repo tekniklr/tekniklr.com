@@ -83,7 +83,7 @@ GEM
     awesome_print (1.9.2)
     base64 (0.1.1)
     brakeman (6.0.1)
-    buftok (0.2.0)
+    buftok (0.3.0)
     builder (3.2.4)
     capistrano (3.17.3)
       airbrussh (>= 1.0.0)
@@ -111,7 +111,6 @@ GEM
       delayed_job (>= 3.0, < 5)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
-    equalizer (0.0.11)
     erubi (1.12.0)
     exception_notification (4.5.0)
       actionmailer (>= 5.2, < 8)
@@ -151,7 +150,6 @@ GEM
     http-form_data (2.3.0)
     http-parser (1.2.3)
       ffi-compiler (>= 1.0, < 2.0)
-    http_parser.rb (0.6.0)
     httparty (0.21.0)
       mini_mime (>= 1.0.0)
       multi_xml (>= 0.5.2)
@@ -183,8 +181,6 @@ GEM
       net-pop
       net-smtp
     marcel (1.0.2)
-    memoizable (0.4.2)
-      thread_safe (~> 0.3, >= 0.3.1)
     method_source (1.0.0)
     mime-types (3.5.1)
       mime-types-data (~> 3.2015)
@@ -194,9 +190,7 @@ GEM
       libv8-node (~> 18.16.0.0)
     minitest (5.20.0)
     multi_xml (0.6.0)
-    multipart-post (2.3.0)
     mysql2 (0.5.5)
-    naught (1.1.0)
     net-imap (0.3.7)
       date
       net-protocol
@@ -301,7 +295,6 @@ GEM
     shoulda-context (2.0.0)
     shoulda-matchers (4.5.1)
       activesupport (>= 4.2.0)
-    simple_oauth (0.3.1)
     snaky_hash (2.0.1)
       hashie
       version_gem (~> 1.1, >= 1.1.1)
@@ -319,21 +312,9 @@ GEM
     terrapin (0.6.0)
       climate_control (>= 0.0.3, < 1.0)
     thor (1.2.2)
-    thread_safe (0.3.6)
     tilt (2.3.0)
     timeliness (0.4.5)
     timeout (0.4.0)
-    twitter (7.0.0)
-      addressable (~> 2.3)
-      buftok (~> 0.2.0)
-      equalizer (~> 0.0.11)
-      http (~> 4.0)
-      http-form_data (~> 2.0)
-      http_parser.rb (~> 0.6.0)
-      memoizable (~> 0.4.0)
-      multipart-post (~> 2.0)
-      naught (~> 1.0)
-      simple_oauth (~> 0.3.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     uglifier (4.2.0)
@@ -389,7 +370,6 @@ DEPENDENCIES
   sassc-rails
   shoulda
   sprockets-rails
-  twitter
   uglifier
   validates_timeliness (>= 7.0.0.beta1)
 
