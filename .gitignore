@@ -7,6 +7,7 @@ tmp/
 .DS_Store
 doc/api
 doc/app
+public/assets/
 public/static/
 public/icons/
 public/recent_games/
