@@ -17,6 +17,7 @@ end
 
 module TekniklrCom
   class Application < Rails::Application
+    config.load_defaults 7.1
     config.autoload_once_paths += %W(#{Rails.root}/lib)
     config.encoding = "utf-8"
     config.i18n.enforce_available_locales = false
@@ -24,7 +25,6 @@ module TekniklrCom
     config.active_record.default_timezone = :local
     config.active_record.time_zone_aware_attributes = false
     config.active_record.belongs_to_required_by_default = true
-    config.active_record.legacy_connection_handling = false
     config.action_controller.forgery_protection_origin_check = true
     config.active_job.queue_adapter = :delayed_job
     config.assets.paths << Rails.root.join('node_modules')
