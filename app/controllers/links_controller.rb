@@ -13,18 +13,28 @@ class LinksController < ApplicationController
 
   # PUT /links
   def update_all
-    @links = Link.update(params[:links].keys, params[:links].values).reject { |l| l.errors.empty? }
-    if @links.empty?
+    errors = []
+    params[:links].each do |key, values|
+      logger.debug "************ updating #{key} with #{values}"
+      link = Link.find(key)
+      unless link.update(update_links_params(values))
+        logger.debug "************ failed! - #{link.errors.full_messages}"
+        errors << link.errors.full_messages
+      end
+    end
+    @links = Link.all
+    if errors.empty?
       flash[:notice] = 'Links updated.'
       redirect_to(links_url)
     else
-      render(:action => 'index')
+      flash[:error] = "Some links could not be updated: #{errors.flatten.to_sentence}"
+      render action: :index
     end
   end
 
   # POST /link
   def create
-    @link = Link.new(link_params)
+    @link = Link.new(new_link_params)
     respond_to do |format|
       if @link.save
         flash[:notice] = 'Link added.'
@@ -51,7 +61,14 @@ class LinksController < ApplicationController
   private
 
   def link_params
-    params.require(:link).permit(:name, :url, :visible, :social_icon, :icon, :icon_file_name, :icon_content_type, :icon_file_size, :icon_updated_at)
+     [:name, :url, :visible, :social_icon, :icon, :icon_file_name, :icon_content_type, :icon_file_size, :icon_updated_at]
+  end
+
+  def new_link_params
+    params.require(:link).permit(*link_params)
+  end
+  def update_links_params(input)
+    input.permit(*link_params)
   end
 
 end
