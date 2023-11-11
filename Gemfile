@@ -41,6 +41,7 @@ end
 group :production do
   gem 'exception_notification'
   gem 'mini_racer'
+  gem 'passenger'
 end
 
 # prevent console errors
