@@ -249,6 +249,9 @@ GEM
     omniauth-rails_csrf_protection (1.0.1)
       actionpack (>= 4.2)
       omniauth (~> 2.0)
+    passenger (6.0.18)
+      rack
+      rake (>= 0.8.1)
     pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -396,6 +399,7 @@ DEPENDENCIES
   omniauth
   omniauth-google-oauth2
   omniauth-rails_csrf_protection
+  passenger
   pry-rails
   puma
   rails (~> 7.1.0)
