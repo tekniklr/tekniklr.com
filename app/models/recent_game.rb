@@ -22,6 +22,9 @@ class RecentGame < ApplicationRecord
 
   default_scope { order('started_playing desc, updated_at desc') }
   
+  scope :by_name, lambda { |name|
+    where("name like ?", "%#{name}%")
+  }
   scope :by_name_with_image, lambda { |name|
     where("name like ?", "%#{name}%").
     where('image_file_name is not null')
