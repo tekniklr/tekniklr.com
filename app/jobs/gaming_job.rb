@@ -11,6 +11,7 @@ class GamingJob < ApplicationJob
       if item.respond_to?('has_key?') && item.has_key?(:parsed)
         title       = item.title
         platform    = item.platform
+        published   = item.published
         thumb_url   = item.image.url(:thumb)
         image_url   = item.image.url(:default)
       else
@@ -35,6 +36,11 @@ class GamingJob < ApplicationJob
           end
         end
         title.gsub!(/ Trophies/, '')
+        published = item.published
+        manual_published = RecentGame.by_name(title).first
+        if (manual_published && manual_published.updated_at > published)
+          published = manual_published.updated_at+5.seconds
+        end
         image_url = find_game_image(title)
         thumb_url = find_game_image(title, true)
       end
@@ -43,19 +49,19 @@ class GamingJob < ApplicationJob
         platform:            platform,
         achievement:         achievement,
         url:                 item.url,
-        published:           item.published,
+        published:           published,
         thumb_url:           thumb_url,
         image_url:           image_url
       }
     end
-    Rails.cache.write('gaming', parsed_items.uniq{ |i| [i.title.downcase.gsub(/\s+/, ' ').gsub(/[^\w\s]/, '')] }[0..9])
+    Rails.cache.write('gaming', parsed_items.sort_by{|i| i.published }.reverse.uniq{ |i| [i.title.downcase.gsub(/\s+/, ' ').gsub(/[^\w\s]/, '')] }[0..9])
   end
   
   private
 
   def find_game_image(title, thumb = false)
     Rails.logger.debug "Looking for upladed image for #{title}..."
-    matching_game = RecentGame.where(name: title).first
+    matching_game = RecentGame.by_name_with_image(title).first
     if matching_game && matching_game.image?
       thumb ? matching_game.image.url(:thumb) : matching_game.image.url(:default)
     else
