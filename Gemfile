@@ -31,9 +31,6 @@ gem 'delayed_job'
 gem 'delayed_job_active_record'
 gem 'daemons'
 
-# hopefully temporary kludges
-gem 'base64', '0.1.1' # passenger was failing to start with: "You have already activated base64 0.1.1, but your Gemfile requires base64 0.2.0. Since base64 is a default gem, you can either remove your dependency on it or try updating to a newer version of bundler that supports base64 as a default gem. (Gem::LoadError)"; upgrading bundler didn't help so use the old base64 for now (2023/11/10)
-
 group :test do
   gem 'factory_bot_rails', require: false
   gem 'minitest', require: false

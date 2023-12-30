@@ -90,7 +90,7 @@ GEM
     airbrussh (1.5.0)
       sshkit (>= 1.6.1, != 1.7.0)
     awesome_print (1.9.2)
-    base64 (0.1.1)
+    base64 (0.2.0)
     bigdecimal (3.1.5)
     brakeman (6.1.1)
       racc
@@ -374,7 +374,6 @@ PLATFORMS
 
 DEPENDENCIES
   awesome_print
-  base64 (= 0.1.1)
   brakeman
   capistrano-bundler
   capistrano-rails
