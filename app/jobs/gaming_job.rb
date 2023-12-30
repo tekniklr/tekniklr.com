@@ -7,6 +7,7 @@ class GamingJob < ApplicationJob
     steam_items = get_steam
     all_items = (manual_items + psn_items + xbox_items + steam_items).sort_by{|i| i.published ? i.published : Time.now-1000.years}.reverse
     parsed_items = []
+    cheevos_kludged = []
     all_items.each do |item|
       if item.respond_to?('has_key?') && item.has_key?(:parsed)
         title       = item.title
@@ -37,9 +38,12 @@ class GamingJob < ApplicationJob
         end
         title.gsub!(/ Trophies/, '')
         published = item.published
-        manual_published = RecentGame.by_name(title).first
-        if (manual_published && manual_published.updated_at > published)
-          published = manual_published.updated_at+5.seconds
+        unless cheevos_kludged.include?(title)
+          manual_published = RecentGame.by_name(title).first
+          if (manual_published && manual_published.updated_at > published)
+            published = manual_published.updated_at+5.seconds
+            cheevos_kludged << title
+          end
         end
         image_url = find_game_image(title)
         thumb_url = find_game_image(title, true)
