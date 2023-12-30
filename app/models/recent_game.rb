@@ -20,7 +20,7 @@ class RecentGame < ApplicationRecord
   validates_length_of   :url, maximum: 75, allow_blank: true, allow_nil: true
   validates_format_of   :url, with: URI.regexp, allow_blank: true, allow_nil: true
 
-  default_scope { order('started_playing desc, created_at desc') }
+  default_scope { order('started_playing desc, updated_at desc') }
   
   scope :by_name_with_image, lambda { |name|
     where("name like ?", "%#{name}%").
