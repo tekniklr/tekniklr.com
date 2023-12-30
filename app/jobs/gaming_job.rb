@@ -72,7 +72,7 @@ class GamingJob < ApplicationJob
         platform:    game.platform,
         title:       game.name,
         url:         game.url,
-        published:   game.started_playing,
+        published:   game.updated_at,
         image:       game.image
       }
     end
