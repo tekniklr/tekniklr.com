@@ -39,9 +39,9 @@ class GamingJob < ApplicationJob
         title.gsub!(/ Trophies/, '')
         published = item.published
         unless cheevos_kludged.include?(title)
-          manual_published = RecentGame.by_name(title).first
-          if (manual_published && manual_published.updated_at > published)
-            published = manual_published.updated_at+5.seconds
+          manual_published = manual_items.select{|g| g.title == title}.first
+          if (manual_published && manual_published.published > published)
+            published = manual_published.published+5.seconds
             cheevos_kludged << title
           end
         end
@@ -77,12 +77,13 @@ class GamingJob < ApplicationJob
     Rails.logger.debug "Parsing manually entered games..."
     items = []
     RecentGame.first(12).each do |game|
+      sort_time = Time.zone.local(game.started_playing.year, game.started_playing.month, game.started_playing.day, game.updated_at.hour, game.updated_at.min, game.updated_at.sec)
       items << {
         parsed:      true,
         platform:    game.platform,
         title:       game.name,
         url:         game.url,
-        published:   game.updated_at,
+        published:   sort_time,
         image:       game.image
       }
     end
