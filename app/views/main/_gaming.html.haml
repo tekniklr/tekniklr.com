@@ -16,28 +16,24 @@
   %p{:class => "when fade#{fade}"}
     - if item[:published]
       = how_long_ago(item[:published])
-  %dialog.fixed{id: "dialog_game_#{game_id}", title: item[:title]}
+  %dialog.game_dialog.fixed{id: "dialog_game_#{game_id}"}
     - if item[:image_url]
-      %p.centered
+      %p.centered{title: item[:title]}
         - if !item[:url].blank?
           = link_to image_tag(item[:image_url]), item[:url], target: '_blank'
         - else
           = image_tag item[:image_url]
-    %p
-      - unless item[:achievement].blank?
-        Earned #{link_to item[:achievement], item[:url], target: '_blank'} in 
-      - else
-        Played 
+    .game_name
       - if !item[:url].blank?
         #{link_to item[:title], item[:url], target: '_blank'}
       - else
         #{item[:title]}
-      -if item[:platform]
-        on #{item[:platform]}
-    %p.clear.centered.when.fade60
-      - if item[:published]
-        - the_time = (item[:published].to_time.to_i == item[:published].beginning_of_day.to_time.to_i) ? item[:published].end_of_day : item[:published]
-        = how_long_ago(the_time)
+    -if item[:platform]
+      .game_platform
+        (#{item[:platform]})
+    - if item[:achievement]
+      .cheevo{title: 'last achievement'}
+        #{link_to item[:achievement], item[:url], target: '_blank'}
     %p.centered
       %button{id: "closer_#{game_id}"} close
   :ruby

@@ -216,14 +216,26 @@ ul#lastfm {
 }
 
 dialog {
-  p {
+  * {
     width: 300px !important;
     max-width: 100% !important;
   }
   img {
-    width: 300px !important;
-    max-width: 100% !important;
     max-height: 100% !important;
+  }
+}
+
+.game_dialog {
+  .game_name {
+    margin: .5em 0 .5em 0;
+    font-size: 125%;
+  }
+  .game_platform {
+    font-size: 75%;
+  }
+  .cheevo {
+    margin: .5em 0 .5em 0;
+    font-style: italic;
   }
 }
 
