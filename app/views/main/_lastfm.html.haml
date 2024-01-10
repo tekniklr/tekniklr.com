@@ -29,24 +29,22 @@
         = how_long_ago(the_time)
     %p.centered
       %button{id: "closer_#{song_id}"} close
-  :ruby
-    javascript = <<-END
-                  var dialog_song_#{song_id} = document.querySelector("#dialog_song_#{song_id}");
-                  dialogPolyfill.registerDialog(dialog_song_#{song_id});
-                  $('#opener_#{song_id}').click(function(e) {
-                    dialog_song_#{song_id}.showModal();
-                    return false;
-                  });
-                  $('#closer_#{song_id}').click(function(e) {
-                    dialog_song_#{song_id}.close();
-                    return false;
-                  });
-                  const updateBackdrop_song_#{song_id} = (ev) => {
-                    if (ev && ev.target !== dialog_song_#{song_id}) {
-                      return;
-                    }
-                    dialog_song_#{song_id}.close();
-                  };
-                  dialog_song_#{song_id}.addEventListener('click', updateBackdrop_song_#{song_id});
-                END
-  = javascript_tag javascript, type: 'application/javascript', nonce: true
+  = javascript_tag nonce: true do
+    :plain
+      var dialog_song_#{song_id} = document.querySelector("#dialog_song_#{song_id}");
+      dialogPolyfill.registerDialog(dialog_song_#{song_id});
+      $('#opener_#{song_id}').click(function(e) {
+        dialog_song_#{song_id}.showModal();
+        return false;
+      });
+      $('#closer_#{song_id}').click(function(e) {
+        dialog_song_#{song_id}.close();
+        return false;
+      });
+      const updateBackdrop_song_#{song_id} = (ev) => {
+        if (ev && ev.target !== dialog_song_#{song_id}) {
+          return;
+        }
+        dialog_song_#{song_id}.close();
+      };
+      dialog_song_#{song_id}.addEventListener('click', updateBackdrop_song_#{song_id});

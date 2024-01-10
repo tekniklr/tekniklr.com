@@ -14,16 +14,14 @@
           = render 'toot', toot: toot
         - rescue
           - # I don't care too much if a toot couldn't be displayed- it's certainly not worth breaking the index page over.
-    :ruby
-      javascript = <<-END
-                      $('a.toot_thumbnail').colorbox({
-                        scalePhotos: true,
-                        opacity: 0.9,
-                        maxHeight: '90%',
-                        maxWidth: '90%'
-                      });
-                  END
-    = javascript_tag javascript, type: 'application/javascript', nonce: true
+    = javascript_tag nonce: true do
+      :plain
+        $('a.toot_thumbnail').colorbox({
+          scalePhotos: true,
+          opacity: 0.9,
+          maxHeight: '90%',
+          maxWidth: '90%'
+        });
 
 - if !@gaming.blank? && @gaming.count > 1
   - fade_games = 0

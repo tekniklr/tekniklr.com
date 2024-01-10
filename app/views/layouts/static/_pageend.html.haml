@@ -2,11 +2,9 @@
 = yield :javascript
 
 - if @wpblog
-  :ruby
-    javascript = <<-END
-                    $(document).ready(function(e) {
-                      var loading_img = new Image();
-                      loading_img.src = '/loading.gif';
-                    });
-                END
-  = javascript_tag javascript, type: 'application/javascript', nonce: true
+  = javascript_tag nonce: true do
+    :plain
+      $(document).ready(function(e) {
+        var loading_img = new Image();
+        loading_img.src = '/loading.gif';
+      });
