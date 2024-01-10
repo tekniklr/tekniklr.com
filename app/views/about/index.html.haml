@@ -41,8 +41,8 @@
                 = (!thing.link.blank? ? link_to(thing.thing, thing.link, target: '_blank') : thing.thing)
                 .centered
                   %button{id: "closer_thing_#{thing.id}"} close
-              :ruby
-                javascript = <<-END
+              = javascript_tag nonce: true do
+                :plain
                   var dialog_thing_#{thing.id} = document.querySelector("#dialog_thing_#{thing.id}");
                   dialogPolyfill.registerDialog(dialog_thing_#{thing.id});
                   $('#opener_thing_#{thing.id}_text').click(function(e) {
@@ -64,5 +64,3 @@
                     dialog_thing_#{thing.id}.close();
                   };
                   dialog_thing_#{thing.id}.addEventListener('click', updateBackdrop_thing_#{thing.id});
-                END
-              = javascript_tag javascript, type: 'application/javascript', nonce: true

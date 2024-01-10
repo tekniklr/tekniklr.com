@@ -28,24 +28,22 @@
         = how_long_ago(the_time)
     %p.centered
       %button{id: "closer_#{book_id}"} close
-  :ruby
-    javascript = <<-END
-                  var dialog_book_#{book_id} = document.querySelector("#dialog_book_#{book_id}");
-                  dialogPolyfill.registerDialog(dialog_book_#{book_id});
-                  $('#opener_#{book_id}').click(function(e) {
-                    dialog_book_#{book_id}.showModal();
-                    return false;
-                  });
-                  $('#closer_#{book_id}').click(function(e) {
-                    dialog_book_#{book_id}.close();
-                    return false;
-                  });
-                  const updateBackdrop_book_#{book_id} = (ev) => {
-                    if (ev && ev.target !== dialog_book_#{book_id}) {
-                      return;
-                    }
-                    dialog_book_#{book_id}.close();
-                  };
-                  dialog_book_#{book_id}.addEventListener('click', updateBackdrop_book_#{book_id});
-                END
-  = javascript_tag javascript, type: 'application/javascript', nonce: true
+  = javascript_tag nonce: true do
+    :plain
+      var dialog_book_#{book_id} = document.querySelector("#dialog_book_#{book_id}");
+      dialogPolyfill.registerDialog(dialog_book_#{book_id});
+      $('#opener_#{book_id}').click(function(e) {
+        dialog_book_#{book_id}.showModal();
+        return false;
+      });
+      $('#closer_#{book_id}').click(function(e) {
+        dialog_book_#{book_id}.close();
+        return false;
+      });
+      const updateBackdrop_book_#{book_id} = (ev) => {
+        if (ev && ev.target !== dialog_book_#{book_id}) {
+          return;
+        }
+        dialog_book_#{book_id}.close();
+      };
+      dialog_book_#{book_id}.addEventListener('click', updateBackdrop_book_#{book_id});
