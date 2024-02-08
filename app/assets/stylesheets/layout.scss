@@ -23,8 +23,7 @@
   background-color: $page_bg;
   color: #000000;
   a:link, a:active, a:visited {
-    color: #333333;
-    text-decoration: none;
+    color: $link_color;
   }
   a:hover {
     color: $hover_color;
