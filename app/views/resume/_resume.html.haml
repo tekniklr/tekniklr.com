@@ -35,7 +35,7 @@
                   %strong.summary #{experience.title}
                   %br
                   %em.location
-                    = experience.affiliation_link ? link_to(experience.affiliation, experience.affiliation_link, target: '_blank'): experience.affiliation
+                    = !experience.affiliation_link.blank? ? link_to(experience.affiliation, experience.affiliation_link, target: '_blank'): experience.affiliation
                 .right
                   %span.dtstart{title: experience.start_date.to_formatted_s(:standard)} #{experience.start_date.to_formatted_s(:resume_date)}
                   \~
