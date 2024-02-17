@@ -1,16 +1,8 @@
 class SessionsController < ApplicationController
-  
-  skip_before_action :verify_authenticity_token, only: :create
 
   def login
     page_title 'login', true
-    if Rails.env.development?
-      # just log in as the first user
-      user = User.first
-      user or raise UserNotAuthorized
-      signin(user)
-      redirect_to root_url
-    else
+    unless Rails.env.development?
       return redirect_to 'https://tekniklr.com/login' unless request.ssl?
     end
   end
@@ -24,7 +16,7 @@ class SessionsController < ApplicationController
     auth = request.env["omniauth.auth"]
     user = User.where(provider: auth["provider"], uid: auth["uid"], enabled: true).first
     unless user
-      logger.warn "rejecting attempted login from provider #{auth["provider"]} with uid #{auth["uid"]}"
+      logger.warn "************ rejecting attempted login from provider #{auth["provider"]} with uid #{auth["uid"]}"
       raise UserNotAuthorized
     end
     signin(user)
