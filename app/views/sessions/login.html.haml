@@ -1,3 +1,4 @@
 %ul#login_methods
   %li
-    = link_to 'Google', '/auth/google_oauth2', method: :post
+    = form_with url: '/auth/google_oauth2', method: :post do |f|
+      = f.submit 'Google'
