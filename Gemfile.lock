@@ -264,17 +264,17 @@ GEM
     puma (6.4.2)
       nio4r (~> 2.0)
     racc (1.7.3)
-    rack (3.0.9)
-    rack-protection (4.0.0)
+    rack (2.2.8)
+    rack-protection (3.2.0)
       base64 (>= 0.1.0)
-      rack (>= 3.0.0, < 4)
-    rack-session (2.0.0)
-      rack (>= 3.0.0)
+      rack (~> 2.2, >= 2.2.4)
+    rack-session (1.0.2)
+      rack (< 3)
     rack-test (2.1.0)
       rack (>= 1.3)
-    rackup (2.1.0)
-      rack (>= 3)
-      webrick (~> 1.8)
+    rackup (1.0.0)
+      rack (< 3)
+      webrick
     rails (7.1.3)
       actioncable (= 7.1.3)
       actionmailbox (= 7.1.3)
@@ -404,6 +404,7 @@ DEPENDENCIES
   omniauth-rails_csrf_protection
   pry-rails
   puma
+  rack (< 3.0)
   rails (~> 7.1.0)
   rails-controller-testing
   sassc-rails

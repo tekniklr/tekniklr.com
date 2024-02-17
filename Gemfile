@@ -17,6 +17,7 @@ gem 'validates_timeliness', '>=7.0.0.beta1'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection'
+gem 'rack', '<3.0' # rack 3 brok csrf / omniauth
 
 # rss fetcher/parser that actually works
 gem 'feedjira'
