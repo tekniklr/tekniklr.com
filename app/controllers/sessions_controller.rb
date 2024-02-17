@@ -32,7 +32,7 @@ class SessionsController < ApplicationController
   private
 
   def signin(user)
-    session[:user_id] = user.id
+    reset_session
     flash[:notice] = "Welcome, #{user.name}"
   end
 
