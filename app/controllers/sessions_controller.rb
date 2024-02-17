@@ -24,7 +24,7 @@ class SessionsController < ApplicationController
   end
   
   def logout  
-    session[:user_id] = nil
+    reset_session
     flash[:notice] = 'Logged out'
     redirect_to root_url  
   end
@@ -32,7 +32,7 @@ class SessionsController < ApplicationController
   private
 
   def signin(user)
-    reset_session
+    session[:user_id] = user.id
     flash[:notice] = "Welcome, #{user.name}"
   end
 
