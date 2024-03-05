@@ -19,11 +19,6 @@
       %dd
         = facet_value @tech.value
 
-    - if @fun_dev
-      %dt.experience #{@fun_dev.name}
-      %dd
-        = facet_value @fun_dev.value, true, 'vcalendar', 'experience vevent'
-
     - cache @experiences do
       - if @experiences
         %dt.experience Professional experience
@@ -49,6 +44,11 @@
                       %li
                         = sanitize task, tags: %w(a strong em u), attributes: %w(href target name title src alt class)
   
+    - if @fun_dev
+      %dt.experience #{@fun_dev.name}
+      %dd
+        = facet_value @fun_dev.value, true, 'vcalendar', 'experience vevent'
+
     - if @publications
       %dt.publications #{@publications.name}
       %dd
