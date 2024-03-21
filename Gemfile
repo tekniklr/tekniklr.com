@@ -17,7 +17,7 @@ gem 'validates_timeliness', '>=7.0.0.beta1'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection'
-gem 'rack', '<3.0' # rack 3 brok csrf / omniauth
+gem 'rack', '<3.0' # rack 3 broke csrf / omniauth but because of a rails 7.1/passenger bug, apparently (see: https://github.com/cookpad/omniauth-rails_csrf_protection/issues/15#issuecomment-2012584360); once dreamhost updates passenger to >=6.0.19 (see: https://github.com/phusion/passenger/issues/2503), try unpinning
 
 # rss fetcher/parser that actually works
 gem 'feedjira'
