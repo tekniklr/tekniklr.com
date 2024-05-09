@@ -14,7 +14,6 @@ public/recent_games/
 public/favorite_things/
 public/system/
 public/tabletop_games/
-public/wpblog/
 config/database.yml
 .capistrano/
 config/master.key

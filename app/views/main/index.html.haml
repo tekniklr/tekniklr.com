@@ -1,7 +1,7 @@
 - unless @blog_post.blank?
   #single_post
     %h1
-      = link_to 'Blog', "https://#{WPDOMAIN}/wpblog/"
+      = link_to 'Blog', "https://#{WPDOMAIN}/"
     = render 'blog/post', post: @blog_post
   
 - unless @toots.blank?
