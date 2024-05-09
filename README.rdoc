@@ -3,11 +3,5 @@
 The rails source for my website, http://tekniklr.com
 Always a work in progress.
 
-Not much that is visibly fancy to the end user, but I put some shinyness into the
-admin end in a quasi CMS sort of way.
-
-Also, it's designed to be a rails app with a running wordpress in the public/
-directory, so that's kinda neat. It's also not that hard; just make sure you have
-an .htaccess with the following in the WordPress root directory:
-  PassengerEnabled off
-I don't know of any way to do this other than with Passenger.
+Not much that is visibly fancy to the end user, but I put some shinyness into
+the admin end in a quasi CMS sort of way.

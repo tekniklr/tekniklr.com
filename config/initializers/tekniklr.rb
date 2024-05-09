@@ -1,6 +1,6 @@
 EMAIL = 'tekniklr@tekniklr.com'
 DOMAIN = 'tekniklr.com'
-WPDOMAIN = 'tekniklr.com'
+WPDOMAIN = 'blog.tekniklr.com'
 MASTODON = :pdx_social
 NUM_FAVS = 6
 SIMILAR_THRESHOLD = 50

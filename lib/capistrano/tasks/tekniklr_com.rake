@@ -4,7 +4,7 @@ namespace :tekniklr_com do
   task :wptheme do
     on roles(:app) do
       within shared_path do
-        execute "cd '/home/tekniklr/rails.tekniklr.com/shared/public/wpblog/wp-content/themes/tekniklr.com/'; git pull"
+        execute "cd '/home/tekniklr/blog.tekniklr.com/wp-content/themes/tekniklr.com/'; git pull"
       end
     end
   end
