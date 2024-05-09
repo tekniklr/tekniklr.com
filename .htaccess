@@ -1,2 +1,7 @@
 PassengerRuby /home/tekniklr/.rvm/wrappers/ruby-3.2.2/ruby
 PassengerFriendlyErrorPages off
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+</IfModule>
+Redirect 301 /wpblog/ https://blog.tekniklr.com/
