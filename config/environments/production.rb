@@ -13,7 +13,7 @@ Rails.application.configure do
   config.action_view.cache_template_loading = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
-  config.public_file_server.enabled = false
+  config.public_file_server.enabled = true
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
@@ -29,7 +29,7 @@ Rails.application.configure do
 
   # Specifies the header that your server uses for sending files
   # (comment out if your front-end server doesn't support this)
-  config.action_dispatch.x_sendfile_header = "X-Sendfile" # Use 'X-Accel-Redirect' for nginx
+  #config.action_dispatch.x_sendfile_header = "X-Sendfile" # Use 'X-Accel-Redirect' for nginx
 
   # specify log location, keep at least 10 rotated logs, rotate every 5MB
   config.logger = ActiveSupport::Logger.new(Rails.root.join("log",Rails.env+".log"),10,5*1024*1024)
