@@ -13,7 +13,7 @@ Rails.application.configure do
   config.action_view.cache_template_loading = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
-  config.public_file_server.enabled = false
+  config.public_file_server.enabled = true
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
