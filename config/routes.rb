@@ -50,6 +50,9 @@ Rails.application.routes.draw do
 
   resources :recent_games, only: [:new, :create,  :edit, :update, :destroy]
 
+  get '/wpblog(/:blog_params)',           to: 'application#redirect_wordpress'
+
+
   # https://github.com/rails/rails/issues/671
   # http://techoctave.com/c7/posts/36-rails-3-0-rescue-from-routing-error-solution
   match '*a', to: "application#routing_error", via: :get
