@@ -29,6 +29,10 @@ class ApplicationController < ActionController::Base
     flash[:notice] = "Baleeted the following cache items: #{deleted.to_sentence}"
     redirect_to root_url
   end
+
+  def redirect_wordpress
+    redirect_to "https://blog.tekniklr.com/#{params[:blog_params]}", status: 301, allow_other_host: true
+  end
   
   protected
 
