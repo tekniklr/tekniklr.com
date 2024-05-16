@@ -7,7 +7,7 @@ namespace :delayed_job do
   end
 
   def delayed_job_roles
-    fetch(:delayed_job_server_role, :app)
+    fetch(:delayed_job_server_role, :delayed_job)
   end
 
   desc 'Stop the delayed_job process'
@@ -15,7 +15,7 @@ namespace :delayed_job do
     on roles(delayed_job_roles) do
       within release_path do    
         with rails_env: fetch(:rails_env) do
-          execute :bundle, :exec, :'script/delayed_job', :stop
+          execute :bundle, :exec, :'bin/delayed_job', :stop
         end
       end
     end
@@ -26,7 +26,7 @@ namespace :delayed_job do
     on roles(delayed_job_roles) do
       within release_path do
         with rails_env: fetch(:rails_env) do
-          execute :bundle, :exec, :'script/delayed_job', args, :start
+          execute :bundle, :exec, :'bin/delayed_job', args, :start
         end
       end
     end
@@ -37,18 +37,8 @@ namespace :delayed_job do
     on roles(delayed_job_roles) do
       within release_path do
         with rails_env: fetch(:rails_env) do
-          execute :bundle, :exec, :'script/delayed_job', args, :restart
+          execute :bundle, :exec, :'bin/delayed_job', args, :restart
         end
-      end
-    end
-  end
-
-  desc 'Kill any orphaned delayed_job processes'
-  task :kill do
-    on roles(:app) do
-      within shared_path do
-        execute "pkill -u tekniklr -f delayed_job; true"
-        execute "sleep 5"
       end
     end
   end

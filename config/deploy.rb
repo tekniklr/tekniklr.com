@@ -23,18 +23,21 @@ set :puma_service_unit_name, "puma"
 set :puma_systemctl_user, :user
 
 namespace :deploy do
-
   after :publishing, :tekniklr_com do
     invoke "tekniklr_com:wptheme"
-    invoke "delayed_job:kill"
   end
+end
 
-  after :finished, :restart
-
-  after :restart, :delayed_job do
-    invoke 'delayed_job:start'
+before 'deploy:updated', 'deploy:stop'
+namespace :deploy do
+  task :stop do
+    invoke 'delayed_job:stop'
   end
+end
 
-  after :finishing, :cleanup
-
+after 'deploy:publishing', 'deploy:restart'
+namespace :deploy do
+  task :restart do
+    invoke 'delayed_job:restart'
+  end
 end
