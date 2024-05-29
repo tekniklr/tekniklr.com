@@ -44,7 +44,6 @@ group :production do
   gem 'mini_racer'
 end
 
-# prevent console errors
 group :development do
   gem "awesome_print",      require: false
   gem "pry-rails",          require: false
