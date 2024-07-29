@@ -9,6 +9,13 @@ GIT
       oj (~> 3.7)
 
 GIT
+  remote: https://github.com/ruby/net-pop.git
+  revision: e8d0afe2773b9eb6a23c39e9e437f6fc0fc7c733
+  specs:
+    net-pop (0.1.2)
+      net-protocol
+
+GIT
   remote: https://github.com/seuros/capistrano-puma.git
   revision: 2cc11846540489edda10d83e026c9bea04e6fab1
   specs:
@@ -228,7 +235,6 @@ GEM
     net-imap (0.4.14)
       date
       net-protocol
-    net-pop (0.1.2)
     net-protocol (0.2.2)
       timeout
     net-scp (4.0.0)
@@ -413,6 +419,7 @@ DEPENDENCIES
   mini_racer
   minitest
   mysql2
+  net-pop!
   omniauth
   omniauth-google-oauth2
   omniauth-rails_csrf_protection
