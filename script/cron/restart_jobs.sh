@@ -25,7 +25,7 @@ kill_orphaned_delayed_jobs () {
 restart_delayed_job () {
   kill_orphaned_delayed_jobs
   echo "Starting a new delayed_job process..."
-  RAILS_ENV=production ${app_root}/script/delayed_job start
+  RAILS_ENV=production ${app_root}/bin/delayed_job start
   echo "Started delayed_job!"
 }
 
