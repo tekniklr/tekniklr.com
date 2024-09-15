@@ -6,7 +6,6 @@ gem 'puma'
 
 gem 'haml'
 gem 'sassc-rails'
-gem 'uglifier'
 gem "sprockets-rails"
 gem 'jquery-rails'
 
@@ -41,7 +40,7 @@ end
 
 group :production do
   gem 'exception_notification'
-  gem 'mini_racer'
+  gem 'terser'
 end
 
 group :development do
