@@ -329,7 +329,7 @@ GEM
       psych (>= 4.0.0)
     reline (0.5.10)
       io-console (~> 0.5)
-    rexml (3.3.8)
+    rexml (3.3.9)
     sassc (2.4.0)
       ffi (~> 1.9)
     sassc-rails (2.1.2)
