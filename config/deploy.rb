@@ -5,7 +5,7 @@ set :linked_dirs, %w{public/images public/icons public/recent_games public/favor
 set :keep_releases, 6
 set :tmp_dir, "/home/tekniklr/tmp"
 set :rvm_type, :user
-set :rvm_ruby_version, 'ruby-3.3.3'
+set :rvm_ruby_version, 'ruby-3.3.5'
 set :ssh_options, {
   forward_agent: true
 }
