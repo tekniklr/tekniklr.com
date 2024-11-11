@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~>7.2.0'
+gem 'rails', '~>8.0.0'
 gem 'mysql2'
 gem 'puma'
 
@@ -10,7 +10,6 @@ gem "sprockets-rails"
 gem 'jquery-rails'
 
 gem 'kt-paperclip'
-gem 'validates_timeliness', '>=7.0.0.beta1'
 
 # needed for authentication
 gem 'omniauth'
