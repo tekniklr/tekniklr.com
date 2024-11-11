@@ -15,7 +15,6 @@ class RecentGame < ApplicationRecord
   validates_length_of   :platform, maximum: 15
 
   validates_presence_of :started_playing
-  validates_date        :started_playing
   
   validates_length_of   :url, maximum: 75, allow_blank: true, allow_nil: true
   validates_format_of   :url, with: URI.regexp, allow_blank: true, allow_nil: true

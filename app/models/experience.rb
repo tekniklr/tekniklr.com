@@ -11,7 +11,6 @@ class Experience < ApplicationRecord
   validates_length_of   :location, :maximum => 60, :allow_nil => true, :allow_blank => true
   
   validates_presence_of :start_date
-  validates_date        :start_date
   
   default_scope { order('start_date desc') }
 end
