@@ -1,7 +1,7 @@
 class TumblrJob < ApplicationJob
-  
+
   # I've been purging old local wordpress posts for a long time, but these all
-  # come from tumblr, where they've statyed unless manually removed. until now.
+  # come from tumblr, where they've stayed unless manually removed. until now.
   def perform
     Rails.logger.debug "Removing old tumblr posts..."
     begin
