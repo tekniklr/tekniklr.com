@@ -14,6 +14,7 @@ class MainController < ApplicationController
     if @blog_expiry.nil? || Time.now > @blog_expiry
       @blog_expiry = Rails.cache.write('blog_expiry', (Time.now + 12.minutes))
       BlogJob.perform_later
+      TumblrJob.perform_later
     end
 
     @goodreads_expiry   = Rails.cache.read('goodreads_expiry')
