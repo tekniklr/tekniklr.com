@@ -17,7 +17,7 @@ kill_orphaned_delayed_jobs () {
     echo "Orphaned jobs found! Killing..."
     pkill -u tekniklr -f delayed_job > /dev/null 2>&1
   else
-    echo "No oprhapned jobs found."
+    echo "No orphaned jobs found."
   fi
 }
 
