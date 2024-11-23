@@ -30,7 +30,7 @@ class Blog < ApplicationRecord
 
   # who knows what lurks in the depths??? er, lurked.
   def self.remove_old!
-    Blog.posts.published.where('post_date < ?', Date.today-KEEP_HISTORY).each do |post|
+    Blog.posts.published.where('post_date < ?', Date.today-BLOG_HISTORY).each do |post|
       post.trash!
     end
   end
