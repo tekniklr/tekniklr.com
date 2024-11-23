@@ -4,7 +4,7 @@ WPDOMAIN = 'blog.tekniklr.com'
 MASTODON = :pdx_social
 NUM_FAVS = 6
 SIMILAR_THRESHOLD = 50
-KEEP_HISTORY = 18.months
+BLOG_HISTORY = 18.months
 CACHED_ITEMS = [
                   'blog_expiry',
                   'blog_posts',
