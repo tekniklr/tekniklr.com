@@ -4,15 +4,13 @@
 home=/home/tekniklr
 app_root=${home}/rails.tekniklr.com/current/
 pid_file=${app_root}/tmp/pids/server.pid
-
-# load environment
-source ${home}/.profile #> /dev/null 2>&1
+rvm_path=${home}/.rvm/bin/rvm
 
 # function to actually restart delayed_job
 restart_rails () {
   echo "Restarting rails..."
   cd $app_root
-  RAILS_ENV=production bin/rails restart
+  RAILS_ENV=production $rvm_path default do bundle exec bin/rails restart
   echo "Restarted rails!"
 }
 

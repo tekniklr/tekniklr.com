@@ -6,9 +6,7 @@
 home=/home/tekniklr
 app_root=${home}/rails.tekniklr.com/current/
 pid_file=${app_root}/tmp/pids/delayed_job.pid
-
-# load environment
-source ${home}/.profile #> /dev/null 2>&1
+rvm_path=${home}/.rvm/bin/rvm
 
 # sometimes we get multiple delayed_job processes- kill any
 kill_orphaned_delayed_jobs () {
@@ -26,7 +24,7 @@ restart_delayed_job () {
   kill_orphaned_delayed_jobs
   echo "Starting a new delayed_job process..."
   cd $app_root
-  RAILS_ENV=production bin/delayed_job start
+  RAILS_ENV=production $rvm_path default do bundle exec bin/delayed_job start
   echo "Started delayed_job!"
 }
 
