@@ -14,17 +14,25 @@ restart_rails () {
   echo "Restarted rails!"
 }
 
-# does rails THINK it is running
-if [ -s  $pid_file ]; then
-  # yes - but do we actually have a process to match that pid?
-  if ! ps -p `cat $pid_file` > /dev/null 2>&1
-    # yes - we have a running server to match rails' view of reality
-  then
+# is the puma service running?
+if systemctl --user is-active --quiet puma; then
+
+  # does rails THINK it is running
+  if [ -s  $pid_file ]; then
+    # yes - but do we actually have a process to match that pid?
+    if ! ps -p `cat $pid_file` > /dev/null 2>&1
+      # yes - we have a running server to match rails' view of reality
+    then
+      # no - restart
+      restart_rails
+    fi
+  else
     # no - restart
+    echo "No rails server pid file"
     restart_rails
   fi
+
 else
-  # no - restart
-  echo "No rails server pid file"
-  restart_rails
+  echo "Puma not running"
+  systemctl --user restart puma
 fi
