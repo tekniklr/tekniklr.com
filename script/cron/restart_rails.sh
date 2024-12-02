@@ -15,6 +15,7 @@ restart_rails () {
 }
 
 # is the puma service running?
+export XDG_RUNTIME_DIR=/run/user/$(id -u)
 if systemctl --user is-active --quiet puma; then
 
   # does rails THINK it is running
