@@ -29,10 +29,10 @@
   .skeet_block{class: 'show_scroll'}
     %ul#bluesky
       - @skeets.each do |skeet|
-        - #begin
-        = render 'skeet', skeet: skeet
-        - # rescue
-        - # I don't care too much if a skeet couldn't be displayed- it's certainly not worth breaking the index page over.
+        - begin
+          = render 'skeet', skeet: skeet
+        - rescue
+          - # I don't care too much if a skeet couldn't be displayed- it's certainly not worth breaking the index page over.
 
 - if !@gaming.blank? && @gaming.count > 1
   - fade_games = 0
