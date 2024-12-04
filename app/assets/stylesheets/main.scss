@@ -48,7 +48,7 @@
   font-size: 90%
 }
 
-.toot_block {
+.toot_block, .skeet_block {
   padding: 0;
   margin: 0 auto 2em auto;
   height: 18em;
@@ -67,7 +67,7 @@
     width: 100%;
   }
 }
-ul#mastodon {
+ul#mastodon, ul#bluesky {
   width: 96%;
   max-width: 100%;
   margin: auto;
@@ -102,19 +102,22 @@ ul#mastodon {
       display: inline;
       font-size: 80%;
     }
-    .retweet, .boost {
+    .boost, .reskeet {
       margin: 0 0 .5em 0;
     }
     .user_pic {
       width: 3em;
       float: left;
+      img {
+        max-width: 3em;
+      }
     }
     .spoiler {
       font-weight: bold;
       color: $link_color;
       cursor: pointer;
     }
-    .tweet, .toot {
+    .toot, .skeet {
       width: -webkit-calc(100% - 4em);
       width: -moz-calc(100% - 4em);
       width: calc(100% - 4em);
@@ -123,13 +126,42 @@ ul#mastodon {
       padding: 0 .5em 0 .5em;
       .user_name {
       }
-      .tweet_content, .toot_content {
+      .toot_content, .skeet_content {
+        display: inline-block;
         img {
           display: inline-block;
+        }
+        .nested, .link_preview {
+          clear: both;
+          @include rounded(1px, $faint_border_color, .75em, .5em, dashed);
+        }
+        .nest_fix {
+          clear: both;
+        }
+        .link_preview {
+          overflow: hidden;
+          a:hover {
+            font-weight: normal;
+          }
+          .preview_image {}
+          .preview_title, .preview_description, .preview_link {
+            padding: .25em;
+          }
+          .preview_title {
+            font-weight: 125%;
+          }
+          .preview_description {
+            font-size: 75%;
+          }
+          .preview_link {
+            border-top: 1px $faint_border_color solid;
+            font-size: 60%;
+          }
         }
       }
       .reach {
         margin: .5em 0 0 0;
+        clear: both;
         span {
           margin-right: 1.5em;
         }
@@ -142,6 +174,11 @@ ul#mastodon {
       clear: both;
       text-align: right;
     }
+  }
+}
+ul#bluesky .user_pic {
+  img {
+    @include rounded(0px, $page_bg, 2em, 0, none);
   }
 }
 
