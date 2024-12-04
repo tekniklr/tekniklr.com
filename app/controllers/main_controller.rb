@@ -9,6 +9,13 @@ class MainController < ApplicationController
       Delayed::Job.enqueue(MastodonJob.new)
     end
 
+    @skeet_expiry    = Rails.cache.read('skeet_expiry')
+    @skeets          = Rails.cache.read('skeets')
+    if @skeet_expiry.nil? || Time.now > @skeet_expiry
+      @skeet_expiry  = Rails.cache.write('skeet_expiry', (Time.now + 12.minutes))
+      Delayed::Job.enqueue(BlueskyJob.new)
+    end
+
     @blog_expiry   = Rails.cache.read('blog_expiry')
     @blog_post     = Rails.cache.read('blog_posts')
     if @blog_expiry.nil? || Time.now > @blog_expiry
