@@ -39,7 +39,11 @@
           - replacements = []
           - skeet.post.record.facets.each do |facet|
             - if facet.features.first['$type'] == 'app.bsky.richtext.facet#link'
-              - replacements << [skeet_text[(facet.index.byteStart-2)..(facet.index.byteEnd)], facet.features.first.uri]
+              - facet_start = facet.index.byteStart
+              - facet_end = facet.index.byteEnd
+              - newline_count = skeet_text[0..facet_start].count('\n')
+              - facet_start = facet_start-newline_count
+              - replacements << [skeet_text[(facet_start)..(facet_end)], facet.features.first.uri]
             - replacements.each do |replace|
               - skeet_text.sub! replace.first, "<a href=\"#{replace.last}\" target=\"_blank\">#{replace.first}</a>"
         = simple_format sanitize(skeet_text, tags: %w(a), attributes: %w(href target)), {}, sanitize: false # simple format was double sanitizing
