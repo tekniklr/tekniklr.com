@@ -20,7 +20,7 @@ class BlueskyJob < ApplicationJob
       # limit to cache for later display, and deleting ones above the limit
       skeets = []
       newest_skeet = nil
-      posts['feed'].each do |post|
+      posts.feed.each do |post|
         post_is_reskeet = (post.post.viewer.has_key?('repost'))
         posted_at = post_is_reskeet ? Time.new(post.reason.indexedAt) : Time.new(post.post.record.createdAt)
         newest_skeet ||= posted_at # this will just be set to the first item (newest's) post date
