@@ -1,14 +1,18 @@
 Rails.application.configure do
 
+  config.enable_reloading = true
+
   config.eager_load = false
 
-  config.assets.compile = true
+  config.assets.quiet = true
 
   config.assets.debug = true
 
+  config.assets.digest = false
+
   config.whiny_nils = true
 
-  config.consider_all_requests_local       = true
+  config.consider_all_requests_local = true
 
   config.action_mailer.raise_delivery_errors = false
 
