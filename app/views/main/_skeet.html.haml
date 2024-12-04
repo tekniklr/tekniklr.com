@@ -53,7 +53,7 @@
             - uri = preview.uri
             - title = preview.has_key?('title') ? preview.title : ''
             - description = preview.has_key?('description') ? preview.description : ''
-            - if preview.thumb
+            - if preview.has_key?('thumb')
               .preview_image
                 = link_to image_tag(preview.thumb, alt: title, title: title), uri, target: '_blank'
             - if title
@@ -95,7 +95,7 @@
               .skeet_content
                 = simple_format sanitize(nested_text)
               - if nested_previews
-                - preview = skeet.post.embed.record.embeds.first.external
+                - preview = nested_record.embeds.first.external
                 .link_preview
                   - uri = preview.uri
                   - title = preview.has_key?('title') ? preview.title : ''
@@ -112,7 +112,7 @@
                   .preview_link
                     = link_to uri, uri, target: '_blank'
               - if nested_images
-                - images = skeet.post.embed.record.embeds.first.images
+                - images = nested_record.embeds.first.images
                 .skeet_images
                   - images.each do |image|
                     %p
