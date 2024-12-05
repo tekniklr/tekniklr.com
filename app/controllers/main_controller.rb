@@ -2,11 +2,12 @@ class MainController < ApplicationController
 
   def index
 
-    @toot_expiry    = Rails.cache.read('toot_expiry')
-    @toots          = Rails.cache.read('toots')
-    if @toot_expiry.nil? || Time.now > @toot_expiry
-      @toot_expiry  = Rails.cache.write('toot_expiry', (Time.now + 12.minutes))
-      Delayed::Job.enqueue(MastodonJob.new)
+    @blog_expiry   = Rails.cache.read('blog_expiry')
+    @blog_post     = Rails.cache.read('blog_posts')
+    if @blog_expiry.nil? || Time.now > @blog_expiry
+      @blog_expiry = Rails.cache.write('blog_expiry', (Time.now + 12.minutes))
+      BlogJob.perform_later
+      TumblrJob.perform_later
     end
 
     @skeet_expiry    = Rails.cache.read('skeet_expiry')
@@ -16,12 +17,18 @@ class MainController < ApplicationController
       Delayed::Job.enqueue(BlueskyJob.new)
     end
 
-    @blog_expiry   = Rails.cache.read('blog_expiry')
-    @blog_post     = Rails.cache.read('blog_posts')
-    if @blog_expiry.nil? || Time.now > @blog_expiry
-      @blog_expiry = Rails.cache.write('blog_expiry', (Time.now + 12.minutes))
-      BlogJob.perform_later
-      TumblrJob.perform_later
+    @toot_expiry    = Rails.cache.read('toot_expiry')
+    @toots          = Rails.cache.read('toots')
+    if @toot_expiry.nil? || Time.now > @toot_expiry
+      @toot_expiry  = Rails.cache.write('toot_expiry', (Time.now + 12.minutes))
+      Delayed::Job.enqueue(MastodonJob.new)
+    end
+
+    @gaming_expiry   = Rails.cache.read('gaming_expiry')
+    @gaming          = Rails.cache.read('gaming')
+    if @gaming_expiry.nil? || Time.now > @gaming_expiry
+      @gaming_expiry = Rails.cache.write('gaming_expiry', (Time.now + 2.hours))
+      GamingJob.perform_later
     end
 
     @goodreads_expiry   = Rails.cache.read('goodreads_expiry')
@@ -36,13 +43,6 @@ class MainController < ApplicationController
     if @lastfm_expiry.nil? || Time.now > @lastfm_expiry
       @lastfm_expiry = Rails.cache.write('lastfm_expiry', (Time.now + 12.minutes))
       LastfmJob.perform_later
-    end
-
-    @gaming_expiry   = Rails.cache.read('gaming_expiry')
-    @gaming          = Rails.cache.read('gaming')
-    if @gaming_expiry.nil? || Time.now > @gaming_expiry
-      @gaming_expiry = Rails.cache.write('gaming_expiry', (Time.now + 2.hours))
-      GamingJob.perform_later
     end
 
   end
