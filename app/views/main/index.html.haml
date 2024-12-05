@@ -3,7 +3,18 @@
     %h1
       = link_to 'Blog', "https://#{WPDOMAIN}/"
     = render 'blog/post', post: @blog_post
-  
+
+- unless @skeets.blank?
+  %h1
+    = link_to 'Skeets', "https://bsky.app/profile/tekniklr.bsky.social"
+  .skeet_block{class: 'show_scroll'}
+    %ul#bluesky
+      - @skeets.each do |skeet|
+        - begin
+          = render 'skeet', skeet: skeet
+        - rescue
+          - # I don't care too much if a skeet couldn't be displayed- it's certainly not worth breaking the index page over.
+
 - unless @toots.blank?
   %h1
     = link_to 'Toots', "#{Rails.application.credentials.mastodon[MASTODON][:url]}/@tekniklr"
@@ -22,17 +33,6 @@
             maxHeight: '90%',
             maxWidth: '90%'
           });
-
-- unless @skeets.blank?
-  %h1
-    = link_to 'Skeets', "https://bsky.app/profile/tekniklr.bsky.social"
-  .skeet_block{class: 'show_scroll'}
-    %ul#bluesky
-      - @skeets.each do |skeet|
-        - begin
-          = render 'skeet', skeet: skeet
-        - rescue
-          - # I don't care too much if a skeet couldn't be displayed- it's certainly not worth breaking the index page over.
 
 - if !@gaming.blank? && @gaming.count > 1
   - fade_games = 0
