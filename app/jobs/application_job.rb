@@ -25,4 +25,8 @@ class ApplicationJob < ActiveJob::Base
     return items
   end
 
+  def http_status_good(url)
+    HTTParty.get(url).response.code == '200'
+  end
+
 end

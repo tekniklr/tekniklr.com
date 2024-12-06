@@ -22,8 +22,8 @@ class GamingJob < ApplicationJob
         published   = item.published
         achievement = item.achievement
         url         = item.url
-        image_url   = find_game_image(title)
-        thumb_url   = find_game_image(title, true)
+        image_url   = http_status_good(item.image) ? item.image : find_game_image(title)
+        thumb_url   = http_status_good(item.image) ? item.image : find_game_image(title, true)
       else # parsed from True(Trophies|Achievements) RSS feeds
         Rails.logger.debug "Parsing #{item.title}..."
         item.title.match?(/tekniklr (started|completed)/) and next
@@ -128,7 +128,8 @@ class GamingJob < ApplicationJob
             title:       game.name,
             achievement: newest_achievement.has_key?('name') ? newest_achievement.name : newest_achievement.apiname,
             published:   Time.at(newest_achievement.unlocktime),
-            url:         "https://store.steampowered.com/app/#{game.appid}/"
+            url:         "https://store.steampowered.com/app/#{game.appid}/",
+            image:       "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/#{game.appid}/header.jpg"
           }
         end
       end
