@@ -13,6 +13,7 @@ class GamingJob < ApplicationJob
         title       = item.title
         platform    = item.platform
         published   = item.published
+        url         = item.url
         thumb_url   = item.image.url(:thumb)
         image_url   = item.image.url(:default)
       elsif item.respond_to?('has_key?') && item.has_key?(:steam) # from Steam API
@@ -20,6 +21,7 @@ class GamingJob < ApplicationJob
         platform    = item.platform
         published   = item.published
         achievement = item.achievement
+        url         = item.url
         image_url   = find_game_image(title)
         thumb_url   = find_game_image(title, true)
       else # parsed from True(Trophies|Achievements) RSS feeds
@@ -41,6 +43,7 @@ class GamingJob < ApplicationJob
         end
         title.gsub!(/ Trophies/, '')
         published = item.published
+        url = item.url
         unless cheevos_kludged.include?(title)
           manual_published = manual_items.select{|g| g.title == title}.first
           if (manual_published && manual_published.published > published)
@@ -55,7 +58,7 @@ class GamingJob < ApplicationJob
         title:               title,
         platform:            platform,
         achievement:         achievement,
-        url:                 item.respond_to?('url') ? item.url : '',
+        url:                 url,
         published:           published,
         thumb_url:           thumb_url,
         image_url:           image_url
@@ -124,7 +127,8 @@ class GamingJob < ApplicationJob
             platform:    'Steam',
             title:       game.name,
             achievement: newest_achievement.has_key?('name') ? newest_achievement.name : newest_achievement.apiname,
-            published:   Time.at(newest_achievement.unlocktime)
+            published:   Time.at(newest_achievement.unlocktime),
+            url:         "https://store.steampowered.com/app/#{game.appid}/"
           }
         end
       end
