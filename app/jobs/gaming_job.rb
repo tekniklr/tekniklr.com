@@ -9,13 +9,20 @@ class GamingJob < ApplicationJob
     parsed_items = []
     cheevos_kludged = []
     all_items.each do |item|
-      if item.respond_to?('has_key?') && item.has_key?(:parsed)
+      if item.respond_to?('has_key?') && item.has_key?(:parsed) # manually created RecentGame
         title       = item.title
         platform    = item.platform
         published   = item.published
         thumb_url   = item.image.url(:thumb)
         image_url   = item.image.url(:default)
-      else
+      elsif item.respond_to?('has_key?') && item.has_key?(:steam) # from Steam API
+        title       = item.title
+        platform    = item.platform
+        published   = item.published
+        achievement = item.achievement
+        image_url   = find_game_image(title)
+        thumb_url   = find_game_image(title, true)
+      else # parsed from True(Trophies|Achievements) RSS feeds
         Rails.logger.debug "Parsing #{item.title}..."
         item.title.match?(/tekniklr (started|completed)/) and next
         item.title.match(/tekniklr won the (.*) (trophy|achievement) in (.*)\z/)
@@ -30,11 +37,7 @@ class GamingJob < ApplicationJob
         when 'trophy'
           platform = 'Playstation'
         when 'achievement'
-          if item.url =~ /truesteamachievements/
-            platform = 'Steam'
-          else
-            platform = 'Xbox'
-          end
+          platform = 'Xbox'
         end
         title.gsub!(/ Trophies/, '')
         published = item.published
@@ -52,7 +55,7 @@ class GamingJob < ApplicationJob
         title:               title,
         platform:            platform,
         achievement:         achievement,
-        url:                 item.url,
+        url:                 item.respond_to?('url') ? item.url : '',
         published:           published,
         thumb_url:           thumb_url,
         image_url:           image_url
@@ -103,11 +106,32 @@ class GamingJob < ApplicationJob
     get_xml('https://www.trueachievements.com/friendfeedrss.aspx?gamerid=294291', 'gaming_expiry')
   end
 
-  # using truesteamachievements which works in the exact same way as 
-  # truetrophies
+  # using Steam API
   def get_steam
-    Rails.logger.debug "Fetching steam achievements from truesteamachievements..."
-    get_xml('https://www.truesteamachievements.com/friendfeedrss.aspx?gamerid=38607', 'gaming_expiry')
+    Rails.logger.debug "Fetching steam achievements and games via Steam API.."
+    items =[]
+    begin
+      steam_api_key = Rails.application.credentials.steam[:api_key]
+      steam_id = Rails.application.credentials.steam[:id]
+      steam_games = JSON.parse(HTTParty.get("https://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=#{steam_api_key}&steamid=#{steam_id}&format=json").body).response
+      (steam_games.total_count > 0) or return items
+      steam_games.games.each do |game|
+        game_achievements = JSON.parse(HTTParty.get("https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?appid=#{game.appid}&key=#{steam_api_key}&steamid=#{steam_id}&format=json").body)
+        newest_achievement = game_achievements.playerstats.has_key?('achievements') ? game_achievements.playerstats.achievements.select{|a| a.achieved == 1}.sort_by{|a| a.unlocktime}.last : false
+        if newest_achievement
+          items << {
+            steam:       true,
+            platform:    'Steam',
+            title:       game.name,
+            achievement: newest_achievement.has_key?('name') ? newest_achievement.name : newest_achievement.apiname,
+            published:   Time.at(newest_achievement.unlocktime)
+          }
+        end
+      end
+    rescue => exception
+      ErrorMailer.background_error("fetching/parsing Steam achievements via API", exception).deliver_now
+    end
+    return items
   end
 
 end
