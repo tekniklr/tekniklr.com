@@ -25,15 +25,18 @@
           = image_tag item[:image_url]
     .game_name
       - if !item[:url].blank?
-        #{link_to item[:title], item[:url], target: '_blank'}
+        = link_to item[:title], item[:url], target: '_blank'
       - else
-        #{item[:title]}
+        = item[:title]
     -if item[:platform]
       .game_platform
         (#{item[:platform]})
     - if item[:achievement]
       .cheevo{title: 'last achievement'}
-        #{link_to item[:achievement], item[:url], target: '_blank'}
+        - if !item[:url].blank?
+          = link_to item[:achievement], item[:url], target: '_blank'
+        - else
+          = item[:achievement]
     %p.centered
       %button{id: "closer_#{game_id}"} close
   = javascript_tag nonce: true do
