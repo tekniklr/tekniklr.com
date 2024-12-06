@@ -14,7 +14,7 @@ class BlueskyJob < ApplicationJob
 
       # fetch all skeets
       verify_tokens
-      posts = make_request("#{@base_url}/app.bsky.feed.getAuthorFeed", type: 'GET', params: { actor: @user_did, limit: 100 })
+      posts = make_request("#{@base_url}/app.bsky.feed.getAuthorFeed", type: 'GET', auth_token: @token, params: { actor: @user_did, limit: 100 })
 
       # iterate through all retrieved posts, adding onew beneath the delete 
       # limit to cache for later display, and deleting ones above the limit
@@ -30,7 +30,7 @@ class BlueskyJob < ApplicationJob
           Rails.logger.debug "\tRemoving old #{post_is_reskeet ? 'reskeet' : 'skeet'} at URI #{uri}..."
           did, nsid, record_key = uri.delete_prefix("at://").split("/")
           verify_tokens
-          make_request("#{@base_url}/com.atproto.repo.deleteRecord", body: { repo: did, collection: nsid, rkey: record_key })
+          make_request("#{@base_url}/com.atproto.repo.deleteRecord", auth_token: @token, body: { repo: did, collection: nsid, rkey: record_key })
         elsif newest_skeet >= Time.now-1.week # only store skeets if I've been active over there recently
           # is less old - keep
           skeets << post
@@ -46,38 +46,6 @@ class BlueskyJob < ApplicationJob
   end
 
   private
-
-
-  # Makes a request to the API.
-  def make_request(url, body: {}, params: {}, type: 'POST', auth_token: true, content_type: "application/json")
-    uri = URI.parse(url)
-    http = Net::HTTP.new(uri.host, uri.port)
-    http.use_ssl = (uri.scheme == "https")
-    http.open_timeout = 4
-    http.read_timeout = 4
-    http.write_timeout = 4
-
-    params.present? and uri.query = URI.encode_www_form(params)
-
-    request = (type == 'POST') ? Net::HTTP::Post.new(uri.request_uri) : Net::HTTP::Get.new(uri.request_uri)
-    request["content-type"] = content_type
-
-    # This allows the authorization token to:
-    #   - Be sent using the currently stored token (true).
-    #   - Not send when providing the username/password to generate the token (false).
-    #   - Use a different token - like the refresh token (string).
-    if auth_token
-      token = auth_token.is_a?(String) ? auth_token : @token
-      request["Authorization"] = "Bearer #{token}"
-    end
-
-    request.body = body.is_a?(Hash) ? body.to_json : body if body.present?
-
-    response = http.request(request)
-    raise "#{response.code} response - #{response.body}" unless response.code.to_s.start_with?("2")
-
-    response.content_type == "application/json" ? JSON.parse(response.body) : response.body
-  end
 
   # Generate tokens given an account identifier and app password.
   def generate_tokens
