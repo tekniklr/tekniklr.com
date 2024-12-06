@@ -33,7 +33,7 @@ class ApplicationJob < ActiveJob::Base
 
   # Makes a request to an API - originally from talking to Bluesky API, but
   # easily more general purpose
-  def make_request(url, body: {}, params: {}, type: 'POST', auth_token: false, content_type: "application/json")
+  def make_request(url, body: {}, params: {}, headers: {}, type: 'POST', auth_token: false, auth_type: 'Bearer', content_type: "application/json")
     uri = URI.parse(url)
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = (uri.scheme == "https")
@@ -46,18 +46,20 @@ class ApplicationJob < ActiveJob::Base
     request = (type == 'POST') ? Net::HTTP::Post.new(uri.request_uri) : Net::HTTP::Get.new(uri.request_uri)
     request["content-type"] = content_type
 
-    # This allows the authorization token to:
-    #   - Be sent using the currently stored token (true).
-    #   - Not send when providing the username/password to generate the token (false).
-    #   - Use a different token - like the refresh token (string).
     if auth_token
-      request["Authorization"] = "Bearer #{auth_token}"
+      request["Authorization"] = "#{auth_type} #{auth_token}"
+    end
+
+    if headers.present?
+      headers.each do |key, value|
+        request[key] = value
+      end
     end
 
     request.body = body.is_a?(Hash) ? body.to_json : body if body.present?
 
     response = http.request(request)
-    raise "#{response.code} response - #{response.body}" unless response.code.to_s.start_with?("2")
+    raise "#{response.code} response - #{response.inspect}" unless response.code.to_s.start_with?("2")
 
     response.content_type == "application/json" ? JSON.parse(response.body) : response.body
   end
