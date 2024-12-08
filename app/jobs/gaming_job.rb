@@ -116,10 +116,10 @@ class GamingJob < ApplicationJob
     begin
       steam_api_key = Rails.application.credentials.steam[:api_key]
       steam_id = Rails.application.credentials.steam[:id]
-      steam_games = JSON.parse(HTTParty.get("https://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=#{steam_api_key}&steamid=#{steam_id}&format=json").body).response
+      steam_games = make_request('https://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/', type: 'GET', params: { key: steam_api_key, steamid: steam_id, format: 'json' }).response
       (steam_games.total_count > 0) or return items
       steam_games.games.each do |game|
-        game_achievements = JSON.parse(HTTParty.get("https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?appid=#{game.appid}&key=#{steam_api_key}&steamid=#{steam_id}&format=json").body)
+        game_achievements = make_request('https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/', type: 'GET', params: { key: steam_api_key, steamid: steam_id, appid: game.appid, format: 'json' })
         newest_achievement = game_achievements.playerstats.has_key?('achievements') ? game_achievements.playerstats.achievements.select{|a| a.achieved == 1}.sort_by{|a| a.unlocktime}.last : false
         if newest_achievement
           items << {
