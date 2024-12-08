@@ -34,6 +34,7 @@ class ApplicationJob < ActiveJob::Base
   # Makes a request to an API - originally from talking to Bluesky API, but
   # easily more general purpose
   def make_request(url, body: {}, params: {}, headers: {}, type: 'POST', auth_token: false, auth_type: 'Bearer', content_type: "application/json")
+    Rails.logger.debug "Making #{type} request to #{url}..."
     uri = URI.parse(url)
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = (uri.scheme == "https")
@@ -59,7 +60,18 @@ class ApplicationJob < ActiveJob::Base
     request.body = body.is_a?(Hash) ? body.to_json : body if body.present?
 
     response = http.request(request)
-    raise "#{response.code} response - #{response.inspect}" unless response.code.to_s.start_with?("2")
+    case response
+    when Net::HTTPSuccess then
+      # all good
+    when Net::HTTPRedirection then
+      # for a redirect, don't process automatically here (while it would be
+      # easy enough to call make_request() adain with this location, it's
+      # possible there is additional metadata in the location params to work
+      # with [this is true for the PlayStation API, apparently])
+      return response['location']
+    else
+      raise "#{response.code} response - #{response.inspect}"
+    end
 
     response.content_type == "application/json" ? JSON.parse(response.body) : response.body
   end
