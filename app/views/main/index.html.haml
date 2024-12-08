@@ -12,8 +12,8 @@
       - @skeets.each do |skeet|
         - begin
           = render 'skeet', skeet: skeet
-        - rescue
-          - # I don't care too much if a skeet couldn't be displayed- it's certainly not worth breaking the index page over.
+        - rescue => exception
+          - logger.error exception
 
 - unless @toots.blank?
   %h1
@@ -23,8 +23,8 @@
       - @toots.each do |toot|
         - begin
           = render 'toot', toot: toot
-        - rescue
-          - # I don't care too much if a toot couldn't be displayed- it's certainly not worth breaking the index page over.
+        - rescue => exception
+          - logger.error exception
       = javascript_tag nonce: true do
         :plain
           $('a.toot_thumbnail').colorbox({
