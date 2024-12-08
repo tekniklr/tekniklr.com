@@ -65,9 +65,9 @@ class ApplicationJob < ActiveJob::Base
       # all good
     when Net::HTTPRedirection then
       # for a redirect, don't process automatically here (while it would be
-      # easy enough to call make_request() adain with this location, it's
-      # possible there is additional metadata in the location params to work
-      # with [this is true for the PlayStation API, apparently])
+      # easy enough to call make_request() again with this location, it's
+      # possible there are additional metadata in the location params to do
+      # something else with [this is true for the PlayStation API, apparently])
       return response['location']
     else
       raise "#{response.code} response - #{response.inspect}"
