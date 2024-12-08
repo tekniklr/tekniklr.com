@@ -36,6 +36,8 @@
       %div{id: "skeet_#{skeet.post.uri}"}
         - if has_facets
           - replacements = []
+          - replaced_text = []
+          - replacing_text = skeet_text
           - skeet.post.record.facets.each do |facet|
             - if facet.features.first['$type'] == 'app.bsky.richtext.facet#link'
               - facet_start = facet.index.byteStart
@@ -43,8 +45,14 @@
               - newline_count = skeet_text[0..facet_start].lines.count-1
               - facet_start = facet_start-newline_count
               - replacements << [skeet_text[(facet_start)..(facet_end)], facet.features.first.uri]
-            - replacements.each do |replace|
-              - skeet_text.sub! replace.first, "<a href=\"#{replace.last}\" target=\"_blank\">#{replace.first}</a>"
+          - replacements.each do |replace|
+            - logger.debug "************ processing replacement: #{replace}"
+            - replacing_text.sub! replace.first, "<a href=\"#{replace.last}\" target=\"_blank\">#{replace.first}</a>"
+            - replace_index = replacing_text.index(replace.first)+(replace.first.size+4)
+            - replaced_text << replacing_text[0..replace_index]
+            - replacing_text = replacing_text[(replace_index+1)..]
+          - replaced_text << replacing_text
+          - skeet_text = replaced_text.join(' ')
         = simple_format sanitize(skeet_text, tags: %w(a), attributes: %w(href target)), {}, sanitize: false # simple format was double sanitizing
         - if has_previews
           - preview = skeet.post.embed.media.external
