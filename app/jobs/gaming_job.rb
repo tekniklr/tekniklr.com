@@ -2,8 +2,8 @@ class GamingJob < ApplicationJob
   
   def perform
     manual_items = get_recent_games
-    psn_items = get_psn
-    xbox_items = get_xbox
+    psn_items = get_psn_rss
+    xbox_items = get_xbox_api
     steam_items = get_steam
     all_items = (manual_items + psn_items + xbox_items + steam_items).sort_by{|i| i.published ? i.published : Time.now-1000.years}.reverse
     parsed_items = []
@@ -22,8 +22,15 @@ class GamingJob < ApplicationJob
         published   = item.published
         achievement = item.achievement
         url         = item.url
-        image_url   = http_status_good(item.image) ? item.image : find_game_image(title)
-        thumb_url   = http_status_good(item.image) ? item.image : find_game_image(title, true)
+        image_url   = item.image ? item.image : find_game_image(title)
+        thumb_url   = item.image ? item.image : find_game_image(title, true)
+      elsif item.respond_to?('has_key?') && item.has_key?(:xbox) # from OpenXBL API
+        title       = item.title
+        platform    = item.platform
+        published   = item.published
+        achievement = item.achievement
+        image_url   = item.image ? item.image : find_game_image(title)
+        thumb_url   = item.image ? item.image : find_game_image(title, true)
       else # parsed from True(Trophies|Achievements) RSS feeds
         Rails.logger.debug "Parsing #{item.title}..."
         item.title.match?(/tekniklr (started|completed)/) and next
@@ -98,15 +105,39 @@ class GamingJob < ApplicationJob
 
   # using truetrophies which seems to be one of the only reliable ways to turn 
   # PSN trophies into an RSS feed...
-  def get_psn
+  def get_psn_rss
     Rails.logger.debug "Fetching PSN trophies from truetrophies..."
     get_xml('https://www.truetrophies.com/friendfeedrss.aspx?gamerid=26130', 'gaming_expiry')
   end
 
   # using trueachievements which works in the exact same way as truetrophies
-  def get_xbox
+  def get_xbox_rss
     Rails.logger.debug "Fetching xbox achievements from trueachievements..."
     get_xml('https://www.trueachievements.com/friendfeedrss.aspx?gamerid=294291', 'gaming_expiry')
+  end
+
+  # using the OpenXBL API at https://xbl.io/
+  def get_xbox_api
+    Rails.logger.debug "Fetching Xbox activity via OpenXBL API.."
+    items = []
+    begin
+      games = make_request('https://xbl.io/api/v2/player/titleHistory', type: 'GET', headers: { 'x-authorization': Rails.application.credentials.xbox['api_key'] })
+      games.titles.select{|g| g.type == 'Game' }.first(9).each do |game|
+        achievements = make_request("https://xbl.io/api/v2/achievements/player/#{Rails.application.credentials.xbox['id']}/#{game.titleId}", type: 'GET', headers: { 'x-authorization': Rails.application.credentials.xbox['api_key'] })
+        newest_achievement = achievements.achievements.select{|a| a.progressState == 'Achieved'}.sort_by{|a| a.progression.timeUnlocked}.last
+        items << {
+            xbox:       true,
+            platform:    'Xbox',
+            title:       game.name,
+            achievement: newest_achievement ? newest_achievement.name : false,
+            published:   Time.new(game.titleHistory.lastTimePlayed).localtime,
+            image:       store_local_copy(game.displayImage, "xbox_#{game.titleId}")
+          }
+      end
+    rescue => exception
+      ErrorMailer.background_error("fetching/parsing Xbox activity via API", exception).deliver_now
+    end
+    return items
   end
 
   # using Steam API
