@@ -31,6 +31,38 @@ class ApplicationJob < ActiveJob::Base
     HTTParty.get(url).response.code == '200'
   end
 
+  # useful when a job references a remote image which should be served locally
+  def store_local_copy(url, filename)
+    # this folder doesn't persist across deployments - this is fine as this
+    # is really just a cache that would normallly go in a tmp directory, but
+    # it is easiest to serve these assets directly as opposed to sending tmp
+    # files via rails for them - they are probably just local caches of
+    # remote public images
+    unless File.exist?(File.join(Rails.public_path, 'remote_cache'))
+      Dir.mkdir(File.join(Rails.public_path, 'remote_cache'))
+    end
+
+    file_path = File.join(Rails.public_path, 'remote_cache', filename)
+    web_path = Rails.application.routes.url_helpers.root_path+"remote_cache/"+filename
+
+    # if there is already a file with the specified filename then just return
+    # that path
+    File.exist?(file_path) and return web_path
+
+    # if we can't actually get the remote copy then don't do anything
+    http_status_good(url) or return false
+
+    # if we got to this point, download the remote asset and store it
+    File.open(file_path, "w") do |file|
+      file.binmode
+      HTTParty.get(url, stream_body: true) do |fragment|
+        file.write(fragment)
+      end
+    end
+
+    return web_path
+  end
+
   # Makes a request to an API - originally from talking to Bluesky API, but
   # easily more general purpose
   def make_request(url, body: {}, params: {}, headers: {}, type: 'POST', auth_token: false, auth_type: 'Bearer', content_type: "application/json")

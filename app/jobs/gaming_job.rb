@@ -129,7 +129,7 @@ class GamingJob < ApplicationJob
             achievement: newest_achievement.has_key?('name') ? newest_achievement.name : newest_achievement.apiname,
             published:   Time.at(newest_achievement.unlocktime),
             url:         "https://store.steampowered.com/app/#{game.appid}/",
-            image:       "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/#{game.appid}/header.jpg"
+            image:       store_local_copy("https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/#{game.appid}/header.jpg", "steam_#{game.appid}")
           }
         end
       end
