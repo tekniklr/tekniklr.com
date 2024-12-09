@@ -3,7 +3,7 @@ class GamingJob < ApplicationJob
   def perform
     manual_items = get_recent_games
     psn_items = get_psn_rss
-    xbox_items = get_xbox_api
+    xbox_items = get_xbox
     steam_items = get_steam
     all_items = (manual_items + psn_items + xbox_items + steam_items).sort_by{|i| i.published ? i.published : Time.now-1000.years}.reverse
     parsed_items = []
@@ -110,14 +110,8 @@ class GamingJob < ApplicationJob
     get_xml('https://www.truetrophies.com/friendfeedrss.aspx?gamerid=26130', 'gaming_expiry')
   end
 
-  # using trueachievements which works in the exact same way as truetrophies
-  def get_xbox_rss
-    Rails.logger.debug "Fetching xbox achievements from trueachievements..."
-    get_xml('https://www.trueachievements.com/friendfeedrss.aspx?gamerid=294291', 'gaming_expiry')
-  end
-
   # using the OpenXBL API at https://xbl.io/
-  def get_xbox_api
+  def get_xbox
     Rails.logger.debug "Fetching Xbox activity via OpenXBL API.."
     items = []
     begin
