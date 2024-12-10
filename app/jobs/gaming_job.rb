@@ -17,21 +17,23 @@ class GamingJob < ApplicationJob
         thumb_url   = item.image.url(:thumb)
         image_url   = item.image.url(:default)
       elsif item.respond_to?('has_key?') && item.has_key?(:steam) # from Steam API
-        title       = item.title
-        platform    = item.platform
-        published   = item.published
-        achievement = item.achievement
-        url         = item.url
-        image_url   = item.image ? item.image : find_game_image(title)
-        thumb_url   = item.image ? item.image : find_game_image(title, true)
+        title            = item.title
+        platform         = item.platform
+        published        = item.published
+        achievement      = item.achievement
+        achievement_time = item.achievement_time
+        url              = item.url
+        image_url        = item.image ? item.image : find_game_image(title)
+        thumb_url        = item.image ? item.image : find_game_image(title, true)
       elsif item.respond_to?('has_key?') && item.has_key?(:xbox) # from OpenXBL API
-        title       = item.title
-        platform    = item.platform
-        published   = item.published
-        achievement = item.achievement
-        image_url   = item.image ? item.image : find_game_image(title)
-        thumb_url   = item.image ? item.image : find_game_image(title, true)
-      else # parsed from True(Trophies|Achievements) RSS feeds
+        title            = item.title
+        platform         = item.platform
+        published        = item.published
+        achievement      = item.achievement
+        achievement_time = item.achievement_time
+        image_url        = item.image ? item.image : find_game_image(title)
+        thumb_url        = item.image ? item.image : find_game_image(title, true)
+      else # parsed from TrueTrophies RSS feeds
         Rails.logger.debug "Parsing #{item.title}..."
         item.title.match?(/tekniklr (started|completed)/) and next
         item.title.match(/tekniklr won the (.*) (trophy|achievement) in (.*)\z/)
@@ -50,6 +52,7 @@ class GamingJob < ApplicationJob
         end
         title.gsub!(/ Trophies/, '')
         published = item.published
+        achievement_time = item.published
         url = item.url
         unless cheevos_kludged.include?(title)
           manual_published = manual_items.select{|g| g.title == title}.first
@@ -65,6 +68,7 @@ class GamingJob < ApplicationJob
         title:               title,
         platform:            platform,
         achievement:         achievement,
+        achievement_time:    achievement_time,
         url:                 url,
         published:           published,
         thumb_url:           thumb_url,
@@ -120,17 +124,20 @@ class GamingJob < ApplicationJob
         if game.devices.include?('Xbox360')
           achievements = make_request("https://xbl.io/api/v2/achievements/x360/#{Rails.application.credentials.xbox['id']}/title/#{game.titleId}", type: 'GET', headers: { 'x-authorization': Rails.application.credentials.xbox['api_key'] })
           newest_achievement = achievements.achievements.select{|a| a.unlocked }.sort_by{|a| a.timeUnlocked}.last
+          newest_achievement_time = newest_achievement ? Time.new(newest_achievement.timeUnlocked) : false
         else
           achievements = make_request("https://xbl.io/api/v2/achievements/player/#{Rails.application.credentials.xbox['id']}/#{game.titleId}", type: 'GET', headers: { 'x-authorization': Rails.application.credentials.xbox['api_key'] })
           newest_achievement = achievements.achievements.select{|a| a.progressState == 'Achieved'}.sort_by{|a| a.progression.timeUnlocked}.last
+          newest_achievement_time = newest_achievement ? Time.new(newest_achievement.progression.timeUnlocked) : false
         end
         items << {
-            xbox:       true,
-            platform:    'Xbox',
-            title:       game.name,
-            achievement: newest_achievement ? newest_achievement.name : false,
-            published:   Time.new(game.titleHistory.lastTimePlayed).localtime,
-            image:       store_local_copy(game.displayImage, "xbox_#{game.titleId}")
+            xbox:             true,
+            platform:         'Xbox',
+            title:            game.name,
+            achievement:      newest_achievement ? newest_achievement.name : false,
+            achievement_time: newest_achievement_time ? newest_achievement_time : false,
+            published:        Time.new(game.titleHistory.lastTimePlayed),
+            image:            store_local_copy(game.displayImage, "xbox_#{game.titleId}")
           }
       end
     rescue => exception
@@ -146,9 +153,9 @@ class GamingJob < ApplicationJob
     begin
       steam_api_key = Rails.application.credentials.steam[:api_key]
       steam_id = Rails.application.credentials.steam[:id]
-      steam_games = make_request('https://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/', type: 'GET', params: { key: steam_api_key, steamid: steam_id, format: 'json' }).response
-      (steam_games.total_count > 0) or return items
-      steam_games.games.each do |game|
+      steam_games = make_request('https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/', type: 'GET', params: { key: steam_api_key, steamid: steam_id, format: 'json', include_appinfo: 'true', include_played_free_games: 'true' }).response
+      recent_steam_games = steam_games.games.sort_by{|g| g.rtime_last_played}.reverse.first(9)
+      recent_steam_games.each do |game|
         begin
           game_achievements = make_request('https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/', type: 'GET', params: { key: steam_api_key, steamid: steam_id, appid: game.appid, format: 'json' })
           newest_achievement = game_achievements.playerstats.has_key?('achievements') ? game_achievements.playerstats.achievements.select{|a| a.achieved == 1}.sort_by{|a| a.unlocktime}.last : false
@@ -161,13 +168,14 @@ class GamingJob < ApplicationJob
         end
         if newest_achievement
           items << {
-            steam:       true,
-            platform:    'Steam',
-            title:       game.name,
-            achievement: newest_achievement.has_key?('name') ? newest_achievement.name : newest_achievement.apiname,
-            published:   Time.at(newest_achievement.unlocktime),
-            url:         "https://store.steampowered.com/app/#{game.appid}/",
-            image:       store_local_copy("https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/#{game.appid}/header.jpg", "steam_#{game.appid}")
+            steam:            true,
+            platform:         'Steam',
+            title:            game.name,
+            achievement:      (newest_achievement && newest_achievement.has_key?('name')) ? newest_achievement.name : (newest_achievement ? newest_achievement.apiname : false),
+            achievement_time: newest_achievement ? Time.at(newest_achievement.unlocktime) : false,
+            published:        Time.at(game.rtime_last_played),
+            url:              "https://store.steampowered.com/app/#{game.appid}/",
+            image:            store_local_copy("https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/#{game.appid}/header.jpg", "steam_#{game.appid}")
           }
         end
       end
