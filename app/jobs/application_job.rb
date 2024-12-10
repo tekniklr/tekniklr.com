@@ -65,8 +65,9 @@ class ApplicationJob < ActiveJob::Base
 
   # Makes a request to an API - originally from talking to Bluesky API, but
   # easily more general purpose
-  def make_request(url, body: {}, params: {}, headers: {}, type: 'POST', auth_token: false, auth_type: 'Bearer', content_type: "application/json")
-    Rails.logger.debug "Making #{type} request to #{url}..."
+  MAX_TRIES = 5
+  def make_request(url, body: {}, params: {}, headers: {}, type: 'POST', auth_token: false, auth_type: 'Bearer', content_type: "application/json", tries: 1)
+    Rails.logger.debug "Attempt #{tries}/#{MAX_TRIES}: #{type} request to #{url}..."
     uri = URI.parse(url)
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = (uri.scheme == "https")
@@ -91,7 +92,16 @@ class ApplicationJob < ActiveJob::Base
 
     request.body = body.is_a?(Hash) ? body.to_json : body if body.present?
 
-    response = http.request(request)
+    begin
+      response = http.request(request)
+    rescue Net::ReadTimeout => exception
+      if tries <= MAX_TRIES
+        response = make_request(url, body: body, params: params, headers: headers, type: type, auth_token: auth_token, auth_type: auth_type, content_type: content_type, tries: tries+1)
+      else
+        ErrorMailer.background_error("Failed to send a #{type} request to #{url} after #{MAX_TRIES} attempts", exception).deliver_now
+      end
+    end
+
     case response
     when Net::HTTPSuccess then
       # all good
