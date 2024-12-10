@@ -110,6 +110,28 @@ class GamingJob < ApplicationJob
     get_xml('https://www.truetrophies.com/friendfeedrss.aspx?gamerid=26130', 'gaming_expiry')
   end
 
+  # using PlayStation API, which isn't officially documented but is reverse
+  # engineer documented here:
+  # https://andshrew.github.io/PlayStation-Trophies/#/APIv2?id=playstation-trophies-api-v2
+  # see generate_psn_tokens(), etc., private methods below for more details
+  def get_psn_api
+    Rails.logger.debug "Fetching PSN achievements and games via PSN API.."
+    @psn_token_cache = 'psn_token_cache'
+    items =[]
+    begin
+      # authenticate
+      token_data = Rails.cache.read(@psn_token_cache)
+      process_psn_tokens(token_data) if token_data.present?
+
+      # fetch 800 most recent trophies
+      verify_psn_tokens
+      psn_trophies = make_request("https://m.np.playstation.com/api/trophy/v1/users/#{Rails.application.credentials.playstation[:id]}/trophyTitles", type: 'GET', auth_token: @psn_token, params: { limit: 800 })
+    rescue => exception
+      ErrorMailer.background_error("fetching/parsing PSN achievements via API", exception).deliver_now
+    end
+    return items
+  end
+
   # using the OpenXBL API at https://xbl.io/
   def get_xbox
     Rails.logger.debug "Fetching Xbox activity via OpenXBL API.."
@@ -162,6 +184,96 @@ class GamingJob < ApplicationJob
       ErrorMailer.background_error("fetching/parsing Steam achievements via API", exception).deliver_now
     end
     return items
+  end
+
+  private
+
+  # Generate tokens given an account and time specific npsso and shared
+  # community client ID and auth. developed using community documentation from
+  # https://andshrew.github.io/PlayStation-Trophies/#/APIv2?id=obtaining-an-authentication-token
+  # and looking at other projects on github who use the same documentation
+  # believe it or not, everyone on the internet uses the same client_id and
+  # Basic auth token, AFAICT. I still put them in rails credentials because it
+  # felt gross just leaving them here, even with them being public knowledge.
+  # the npsso needs to be refreshed occassionally - get a new one by logging
+  # into the playstation website at https://my.account.sony.com and visiting
+  # https://ca.account.sony.com/api/v1/ssocookie
+  def generate_psn_tokens
+    # this first request returns a 302, which we do not want to follow but
+    # instead want to get the code from the returned location
+    auth_resp = make_request(
+                  'https://ca.account.sony.com/api/authz/v3/oauth/authorize',
+                  type: 'GET',
+                  headers: {
+                    Cookie: "npsso=#{Rails.application.credentials.playstation[:npsso]}"
+                  },
+                  params: {
+                    access_type: 'offline',
+                    client_id: Rails.application.credentials.playstation[:client_id],
+                    response_type: 'code',
+                    scope: 'psn:mobile.v2.core psn:clientapp',
+                    redirect_uri: 'com.scee.psxandroid.scecompcall://redirect'
+                  }
+                )
+    redirect_uri = URI.parse(auth_resp)
+    redirect_params = Hash[URI.decode_www_form redirect_uri.query]
+
+    # now, with the code from above, we can make a second request which should
+    # provide an access token
+    token_resp =  make_request(
+                    'https://ca.account.sony.com/api/authz/v3/oauth/token',
+                    type: 'POST',
+                    body: {
+                      code: redirect_params['code'],
+                      redirect_uri: 'com.scee.psxandroid.scecompcall://redirect',
+                      grant_type: 'authorization_code',
+                      token_format: 'jwt'
+                    },
+                    content_type: 'application/x-www-form-urlencoded',
+                    auth_type: 'Basic',
+                    auth_token: Rails.application.credentials.playstation[:basic_auth]
+                  )
+
+    process_psn_tokens(token_resp)
+    store_psn_token_data(token_resp)
+  end
+
+  def perform_psn_token_refresh
+    response =  make_request(
+                  "https://ca.account.sony.com/api/authz/v3/oauth/token",
+                  type: 'POST',
+                  headers: {
+                    Cookie: "npsso=#{Rails.application.credentials.playstation[:npsso]}"
+                  },
+                  body: {
+                    refresh_token: @psn_refresh_token,
+                    grant_type: "refresh_token",
+                    token_format: "jwt"
+                  },
+                  content_type: 'application/x-www-form-urlencoded',
+                  auth_type: 'Basic',
+                  auth_token: Rails.application.credentials.playstation[:basic_auth]
+                )
+    process_psn_tokens(response)
+    store_psn_token_data(response)
+  end
+
+  def verify_psn_tokens
+    if @psn_token.nil?
+      generate_psn_tokens
+    elsif @psn_token_expires_at < Time.now.utc + 60
+      perform_psn_token_refresh
+    end
+  end
+
+  def process_psn_tokens(response_body)
+    @psn_token = response_body["accessToken"]
+    @psn_refresh_token = response_body["refreshToken"]
+    @psn_token_expires_at = Time.at(JSON.parse(Base64.decode64(response_body["accessJwt"].split(".")[1]))["exp"]).utc
+  end
+
+  def store_psn_token_data(data)
+    Rails.cache.write(@psn_token_cache, data)
   end
 
 end
