@@ -28,15 +28,23 @@
         = link_to item[:title], item[:url], target: '_blank'
       - else
         = item[:title]
-    -if item[:platform]
-      .game_platform
-        (#{item[:platform]})
+    .game_platform
+      - if item[:published]
+        played
+        = how_long_ago(item[:published])
+      -if item[:platform]
+        on
+        = item[:platform]
     - if item[:achievement]
       .cheevo{title: 'last achievement'}
         - if !item[:url].blank?
           = link_to item[:achievement], item[:url], target: '_blank'
         - else
           = item[:achievement]
+        - if !item[:achievement_time].blank?
+          .cheevo_time
+            earned
+            = how_long_ago(item[:achievement_time])
     %p.centered
       %button{id: "closer_#{game_id}"} close
   = javascript_tag nonce: true do
