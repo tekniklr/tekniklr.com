@@ -112,7 +112,7 @@ class ApplicationJob < ActiveJob::Base
       # something else with [this is true for the PlayStation API, apparently])
       return response['location']
     else
-      raise "#{response.code} response - #{response.inspect}"
+      raise "#{(response.is_a?(Hash) && response.has_key?('code')) ? response.code : 'Unanticipated'} response - #{response.inspect}"
     end
 
     response.content_type == "application/json" ? JSON.parse(response.body) : response.body
