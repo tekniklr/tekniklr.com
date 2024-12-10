@@ -98,7 +98,7 @@ class ApplicationJob < ActiveJob::Base
       if tries <= MAX_TRIES
         response = make_request(url, body: body, params: params, headers: headers, type: type, auth_token: auth_token, auth_type: auth_type, content_type: content_type, tries: tries+1)
       else
-        ErrorMailer.background_error("Failed to send a #{type} request to #{url} after #{MAX_TRIES} attempts", exception).deliver_now
+        raise exception
       end
     end
 
