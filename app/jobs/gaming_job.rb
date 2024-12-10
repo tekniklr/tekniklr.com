@@ -149,8 +149,16 @@ class GamingJob < ApplicationJob
       steam_games = make_request('https://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/', type: 'GET', params: { key: steam_api_key, steamid: steam_id, format: 'json' }).response
       (steam_games.total_count > 0) or return items
       steam_games.games.each do |game|
-        game_achievements = make_request('https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/', type: 'GET', params: { key: steam_api_key, steamid: steam_id, appid: game.appid, format: 'json' })
-        newest_achievement = game_achievements.playerstats.has_key?('achievements') ? game_achievements.playerstats.achievements.select{|a| a.achieved == 1}.sort_by{|a| a.unlocktime}.last : false
+        begin
+          game_achievements = make_request('https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/', type: 'GET', params: { key: steam_api_key, steamid: steam_id, appid: game.appid, format: 'json' })
+          newest_achievement = game_achievements.playerstats.has_key?('achievements') ? game_achievements.playerstats.achievements.select{|a| a.achieved == 1}.sort_by{|a| a.unlocktime}.last : false
+        rescue
+          # the steam API returns a `Net::HTTPBadRequest 400 Bad Request` error
+          # for games that have no achievements
+          # regardless of if the exception is that, or something else went
+          # wrong, just assume there are no achievements this run
+          newest_achievement = false
+        end
         if newest_achievement
           items << {
             steam:       true,
