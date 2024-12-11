@@ -111,6 +111,8 @@ class ApplicationJob < ActiveJob::Base
       # possible there are additional metadata in the location params to do
       # something else with [this is true for the PlayStation API, apparently])
       return response['location']
+    when Net::HTTPTooManyRequests then
+      raise "#{response.code} response after #{tries} attempts - #{response.inspect}"
     else
       if response.is_a?(Net::HTTPBadRequest) && JSON.parse(response.body).has_key?('playerstats')
         # the steam API really overreacts when a game has no achievements and
