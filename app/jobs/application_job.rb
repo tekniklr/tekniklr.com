@@ -65,8 +65,9 @@ class ApplicationJob < ActiveJob::Base
 
   # Makes a request to an API - originally from talking to Bluesky API, but
   # easily more general purpose
-  def make_request(url, body: {}, params: {}, headers: {}, type: 'POST', auth_token: false, auth_type: 'Bearer', content_type: "application/json")
-    Rails.logger.debug "Making #{type} request to #{url}..."
+  MAX_TRIES = 5
+  def make_request(url, body: {}, params: {}, headers: {}, type: 'POST', auth_token: false, auth_type: 'Bearer', content_type: "application/json", tries: 1)
+    Rails.logger.debug "Attempt #{tries}/#{MAX_TRIES}: #{type} request to #{url}..."
     uri = URI.parse(url)
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = (uri.scheme == "https")
@@ -91,7 +92,16 @@ class ApplicationJob < ActiveJob::Base
 
     request.body = body.is_a?(Hash) ? body.to_json : body if body.present?
 
-    response = http.request(request)
+    begin
+      response = http.request(request)
+    rescue Net::ReadTimeout => exception
+      if tries <= MAX_TRIES
+        response = make_request(url, body: body, params: params, headers: headers, type: type, auth_token: auth_token, auth_type: auth_type, content_type: content_type, tries: tries+1)
+      else
+        raise exception
+      end
+    end
+
     case response
     when Net::HTTPSuccess then
       # all good
@@ -102,7 +112,17 @@ class ApplicationJob < ActiveJob::Base
       # something else with [this is true for the PlayStation API, apparently])
       return response['location']
     else
-      raise "#{response.code} response - #{response.inspect}"
+      if response.is_a?(Net::HTTPBadRequest) && JSON.parse(response.body).has_key?('playerstats')
+        # the steam API really overreacts when a game has no achievements and
+        # you try to query those achievements
+        return JSON.parse(response.body)
+      elsif tries < MAX_TRIES
+        # otherwise, retry in case this is a transient error
+        response = make_request(url, body: body, params: params, headers: headers, type: type, auth_token: auth_token, auth_type: auth_type, content_type: content_type, tries: tries+1)
+      else
+        # other otherwise, give up
+        raise "#{(response.is_a?(Hash) && response.has_key?('code')) ? response.code : 'Unanticipated'} response after #{MAX_TRIES} attempts - #{response.inspect}"
+      end
     end
 
     response.content_type == "application/json" ? JSON.parse(response.body) : response.body
