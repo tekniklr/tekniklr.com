@@ -115,7 +115,7 @@ class ApplicationJob < ActiveJob::Base
       if tries <= MAX_TRIES
         response = make_request(url, body: body, params: params, headers: headers, type: type, auth_token: auth_token, auth_type: auth_type, content_type: content_type, tries: tries+1)
       else
-        raise "#{(response.is_a?(Hash) && response.has_key?('code')) ? response.code : 'Unanticipated'} response - #{response.inspect}"
+        raise "#{(response.is_a?(Hash) && response.has_key?('code')) ? response.code : 'Unanticipated'} response after #{MAX_TRIES} attempts - #{response.inspect}"
       end
     end
 
