@@ -33,11 +33,6 @@ class ApplicationJob < ActiveJob::Base
 
   # useful when a job references a remote image which should be served locally
   def store_local_copy(url, filename)
-    # this folder doesn't persist across deployments - this is fine as this
-    # is really just a cache that would normallly go in a tmp directory, but
-    # it is easiest to serve these assets directly as opposed to sending tmp
-    # files via rails for them - they are probably just local caches of
-    # remote public images
     unless File.exist?(File.join(Rails.public_path, 'remote_cache'))
       Dir.mkdir(File.join(Rails.public_path, 'remote_cache'))
     end
