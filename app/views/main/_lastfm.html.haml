@@ -26,7 +26,7 @@
     %p.clear.centered.when.fade60
       - if song[:published]
         - the_time = (song[:published].to_time.to_i == song[:published].beginning_of_day.to_time.to_i) ? song[:published].end_of_day : song[:published]
-        = how_long_ago(the_time)
+        = time_ago_in_words(the_time)+' ago'
     %p.centered
       %button{id: "closer_#{song_id}"} close
   = javascript_tag nonce: true do
