@@ -9,7 +9,7 @@
     = link_to book[:title], book[:url], id: "opener_#{book_id}"
   %p{:class => "when fade#{fade}"}
     - if book[:published]
-      = how_long_ago(book[:published])
+      = time_ago_in_words(book[:published])+' ago'
   %dialog.fixed{id: "dialog_book_#{book_id}", title: book[:title]}
     - if book[:image_url]
       %p.centered
@@ -25,7 +25,7 @@
     %p.clear.centered.when.fade60
       - if book[:published]
         - the_time = (book[:published].to_time.to_i == book[:published].beginning_of_day.to_time.to_i) ? book[:published].end_of_day : book[:published]
-        = how_long_ago(the_time)
+        = time_ago_in_words(the_time)+' ago'
     %p.centered
       %button{id: "closer_#{book_id}"} close
   = javascript_tag nonce: true do
