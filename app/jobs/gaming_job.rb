@@ -30,7 +30,7 @@ class GamingJob < ApplicationJob
 
   def find_game_image(title, thumb = false)
     Rails.logger.debug "Looking for upladed image for #{title}..."
-    matching_game = RecentGame.by_name_with_image(title).first
+    matching_game = RecentGame.by_name(title).with_image.first
     if matching_game && matching_game.image?
       thumb ? matching_game.image.url(:thumb) : matching_game.image.url(:default)
     else
