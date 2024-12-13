@@ -61,7 +61,7 @@ class ApplicationJob < ActiveJob::Base
   # Makes a request to an API - originally from talking to Bluesky API, but
   # easily more general purpose
   MAX_TRIES = 5
-  def make_request(url, body: {}, params: {}, headers: {}, type: 'POST', auth_token: false, auth_type: 'Bearer', content_type: "application/json", tries: 1)
+  def make_request(url, body: {}, params: {}, headers: {}, type: 'POST', auth_token: false, auth_type: 'Bearer', user_agent: 'Ruby', content_type: "application/json", tries: 1)
     Rails.logger.debug "Attempt #{tries}/#{MAX_TRIES}: #{type} request to #{url}..."
     uri = URI.parse(url)
     http = Net::HTTP.new(uri.host, uri.port)
@@ -72,7 +72,7 @@ class ApplicationJob < ActiveJob::Base
 
     params.present? and uri.query = URI.encode_www_form(params)
 
-    request = (type == 'POST') ? Net::HTTP::Post.new(uri.request_uri) : Net::HTTP::Get.new(uri.request_uri)
+    request = (type == 'POST') ? Net::HTTP::Post.new(uri.request_uri, 'user-agent': user_agent) : Net::HTTP::Get.new(uri.request_uri, 'user-agent': user_agent)
     request["content-type"] = content_type
 
     if auth_token
