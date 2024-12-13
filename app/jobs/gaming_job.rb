@@ -104,8 +104,8 @@ class GamingJob < ApplicationJob
             achievement_time: achievement_time,
             published:        achievement_time,
             url:              "https://psnprofiles.com#{game_info_link}",
-            image_url:        image,
-            thumb_url:        image
+            image_url:        image ? image : find_game_image(game_title),
+            thumb_url:        image ? image : find_game_image(game_title, true)
           }
       end
     rescue => exception
@@ -142,8 +142,8 @@ class GamingJob < ApplicationJob
             achievement:      newest_achievement ? newest_achievement.name : false,
             achievement_time: newest_achievement_time ? newest_achievement_time : false,
             published:        Time.new(game.titleHistory.lastTimePlayed),
-            image_url:        image,
-            thumb_url:        image
+            image_url:        image ? image : find_game_image(game.name),
+            thumb_url:        image ? image : find_game_image(game.name, true)
           }
       end
     rescue => exception
@@ -180,8 +180,8 @@ class GamingJob < ApplicationJob
           achievement_time: newest_achievement ? Time.at(newest_achievement.unlocktime) : false,
           published:        Time.at(game.rtime_last_played),
           url:              "https://store.steampowered.com/app/#{game.appid}/",
-          image_url:        image,
-          thumb_url:        image
+          image_url:        image ? image : find_game_image(game.name),
+          thumb_url:        image ? image : find_game_image(game.name, true)
         }
       end
     rescue => exception
