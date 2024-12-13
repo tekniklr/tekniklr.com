@@ -2,7 +2,11 @@ class GamingJob < ApplicationJob
   
   def perform
     manual_items = get_recent_games
-    psn_items = get_psn_rss
+    psn_items = begin
+                  get_psn_api
+                rescue
+                  get_psn_rss
+                end
     xbox_items = get_xbox
     steam_items = get_steam
     all_items = (manual_items + psn_items + xbox_items + steam_items).sort_by{|i| i.published}.reverse.uniq{ |i| [normalize_title(i.title.downcase)] }
