@@ -98,7 +98,7 @@ class ApplicationJob < ActiveJob::Base
       response = http.request(request)
     rescue Net::ReadTimeout => exception
       if tries <= MAX_TRIES
-        response = make_request(url, body: body, params: params, headers: headers, type: type, auth_token: auth_token, auth_type: auth_type, content_type: content_type, tries: tries+1)
+        response = make_request(url, body: body, params: params, headers: headers, type: type, auth_token: auth_token, auth_type: auth_type, user_agent: user_agent, content_type: content_type, tries: tries+1)
       else
         raise exception
       end
@@ -122,7 +122,7 @@ class ApplicationJob < ActiveJob::Base
         return JSON.parse(response.body)
       elsif tries < MAX_TRIES
         # otherwise, retry in case this is a transient error
-        response = make_request(url, body: body, params: params, headers: headers, type: type, auth_token: auth_token, auth_type: auth_type, content_type: content_type, tries: tries+1)
+        response = make_request(url, body: body, params: params, headers: headers, type: type, auth_token: auth_token, auth_type: auth_type, user_agent: user_agent, content_type: content_type, tries: tries+1)
       else
         # other otherwise, give up
         raise "#{(response.is_a?(Net::HTTPBadRequest) && response.has_key?('code')) ? response.code : 'Unanticipated'} response after #{tries} attempts - #{response.inspect}"
