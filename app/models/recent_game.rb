@@ -22,10 +22,12 @@ class RecentGame < ApplicationRecord
   default_scope { order('started_playing desc, updated_at desc') }
   
   scope :by_name, lambda { |name|
-    where("name like ?", "%#{name}%")
+    name_parts = name.gsub(/[^A-z0-9 ]/, ' ').split(' ')
+    clauses = ("name like ? and "*(name_parts.size)).gsub(/ and \z/, '')
+    conditions = name_parts.map{|p| "%#{p}%"}
+    where([clauses, conditions].flatten)
   }
-  scope :by_name_with_image, lambda { |name|
-    where("name like ?", "%#{name}%").
+  scope :with_image, -> {
     where('image_file_name is not null')
   }
 
