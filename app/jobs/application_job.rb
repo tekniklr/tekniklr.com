@@ -27,16 +27,23 @@ class ApplicationJob < ActiveJob::Base
     return items
   end
 
+  # removes all non-alphanumeric characters and whitespace, to hopefully be
+  # more able to compare matching titles from different sources
+  def normalize_title(title)
+    title.downcase.gsub(/[^A-z0-9]/, '')
+  end
+
   def http_status_good(url)
     HTTParty.get(url).response.code == '200'
   end
 
   # useful when a job references a remote image which should be served locally
-  def store_local_copy(url, filename)
+  def store_local_copy(url, platform, filename)
     unless File.exist?(File.join(Rails.public_path, 'remote_cache'))
       Dir.mkdir(File.join(Rails.public_path, 'remote_cache'))
     end
 
+    filename = platform+'_'+normalize_title(filename)
     file_path = File.join(Rails.public_path, 'remote_cache', filename)
     web_path = Rails.application.routes.url_helpers.root_path+"remote_cache/"+filename
 

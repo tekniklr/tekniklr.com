@@ -20,8 +20,8 @@ class GoodreadsJob < ApplicationJob
         title:     title,
         url:       item.url,
         published: item.published,
-        thumb_url: store_local_copy(thumb_url, "goodreads_thumb_#{file_title}"),
-        image_url: store_local_copy(image_url, "goodreads_big_#{file_title}")
+        thumb_url: store_local_copy(thumb_url, 'goodreads_thumb', normalize_title(file_title)),
+        image_url: store_local_copy(image_url, 'goodreads_big', normalize_title(file_title))
       }
     end
     Rails.cache.write('goodreads', parsed_items)
