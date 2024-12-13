@@ -5,7 +5,7 @@ class GamingJob < ApplicationJob
     psn_items = get_psn_rss
     xbox_items = get_xbox
     steam_items = get_steam
-    all_items = (manual_items + psn_items + xbox_items + steam_items).sort_by{|i| i.published}.reverse.uniq{ |i| [i.title.downcase.gsub(/[^A-z0-9]/, '')] }
+    all_items = (manual_items + psn_items + xbox_items + steam_items).sort_by{|i| i.published}.reverse.uniq{ |i| [normalize_title(i.title.downcase)] }
     Rails.cache.write('gaming', all_items[0..9])
   end
   
@@ -28,14 +28,20 @@ class GamingJob < ApplicationJob
     return items
   end
 
-  def find_game_image(title, thumb = false)
-    Rails.logger.debug "Looking for upladed image for #{title}..."
-    matching_game = RecentGame.by_name(title).with_image.first
-    if matching_game && matching_game.image?
-      thumb ? matching_game.image.url(:thumb) : matching_game.image.url(:default)
+  def find_game_image(title, thumb = false, platform: false)
+    Rails.logger.debug "Looking for cached or uploaded image for #{title}..."
+    if platform
+      filename = "#{platform}_#{normalize_title(title)}"
+      file_path = File.join(Rails.public_path, 'remote_cache', filename)
+      web_path = Rails.application.routes.url_helpers.root_path+"remote_cache/"+filename
+      File.exist?(file_path) and return web_path
     else
-      ''
+      matching_game = RecentGame.by_name(title).with_image.first
+      if matching_game && matching_game.image?
+        return thumb ? matching_game.image.url(:thumb) : matching_game.image.url(:default)
+      end
     end
+    ''
   end
 
   # using truetrophies which seems to be one of the only reliable ways to turn 
@@ -52,29 +58,17 @@ class GamingJob < ApplicationJob
         next
       end
       achievement = $1
-      type = $2
       title = $3
-      case type
-      when 'trophy'
-        platform = 'Playstation'
-      when 'achievement'
-        platform = 'Xbox'
-      end
       title.gsub!(/ Trophies/, '')
-      published = item.published
-      achievement_time = item.published
-      url = item.url
-      image_url = find_game_image(title)
-      thumb_url = find_game_image(title, true)
       items << {
             platform:         'PlayStation',
             title:            title,
             achievement:      achievement,
-            achievement_time: achievement_time,
-            published:        achievement_time,
+            achievement_time: item.published,
+            published:        item.published,
             url:              item.url,
-            image_url:        find_game_image(title),
-            thumb_url:        find_game_image(title, true)
+            image_url:        find_game_image(title, platform: 'psn'),
+            thumb_url:        find_game_image(title, true, platform: 'psn')
           }
     end
     return items
@@ -96,7 +90,7 @@ class GamingJob < ApplicationJob
         game_title = parsed_game_info.search('h3').first.children.last.text
         newest_achievement = parsed_game_info.search('tr').css('.completed').last
         achievement_time = DateTime.parse("#{newest_achievement.search('td')[2].css('.typo-top-date').first.text} #{newest_achievement.search('td')[2].css('.typo-bottom-date').first.text}")
-        image = store_local_copy(parsed_game_info.search('picture').css('.game').css('.lg').search('img').first['src'], "psn_#{game_title.gsub(/[^A-z]/, '')}")
+        image = store_local_copy(parsed_game_info.search('picture').css('.game').css('.lg').search('img').first['src'], 'psn', normalize_title(game_title))
         items << {
             platform:         'PlayStation',
             title:            game_title,
@@ -157,7 +151,7 @@ class GamingJob < ApplicationJob
           newest_achievement = false
           newest_achievement_time = false
         end
-        image = store_local_copy(game.displayImage, "xbox_#{game.titleId}")
+        image = store_local_copy(game.displayImage, 'xbox', game.name)
         items << {
             platform:         'Xbox',
             title:            game.name,
@@ -194,7 +188,7 @@ class GamingJob < ApplicationJob
           # wrong, just assume there are no achievements this run
           newest_achievement = false
         end
-        image = store_local_copy("https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/#{game.appid}/header.jpg", "steam_#{game.appid}")
+        image = store_local_copy("https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/#{game.appid}/header.jpg", 'steam', game.name)
         items << {
           platform:         'Steam',
           title:            game.name,
