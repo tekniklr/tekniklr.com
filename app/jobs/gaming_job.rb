@@ -5,8 +5,8 @@ class GamingJob < ApplicationJob
     psn_items = get_psn_rss
     xbox_items = get_xbox
     steam_items = get_steam
-    all_items = (manual_items + psn_items + xbox_items + steam_items).sort_by{|i| i.published}.reverse
-    Rails.cache.write('gaming', all_items.sort_by{|i| i.published }.reverse.uniq{ |i| [i.title.downcase.gsub(/[^A-z0-9]/, '')] }[0..9])
+    all_items = (manual_items + psn_items + xbox_items + steam_items).sort_by{|i| i.published}.reverse.uniq{ |i| [i.title.downcase.gsub(/[^A-z0-9]/, '')] }
+    Rails.cache.write('gaming', all_items[0..9])
   end
   
   private
