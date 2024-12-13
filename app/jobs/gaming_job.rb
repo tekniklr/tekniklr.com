@@ -55,7 +55,7 @@ class GamingJob < ApplicationJob
             thumb_url:        image
           }
       end
-    rescue
+    rescue => exception
       ErrorMailer.background_error("fetching/parsing PSN activity via PSNProfiles", exception).deliver_now
     end
     return items
