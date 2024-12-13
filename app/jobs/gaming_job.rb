@@ -2,7 +2,7 @@ class GamingJob < ApplicationJob
   
   def perform
     manual_items = get_recent_games
-    psn_items = get_psn
+    psn_items = get_psn_rss
     xbox_items = get_xbox
     steam_items = get_steam
     all_items = (manual_items + psn_items + xbox_items + steam_items).sort_by{|i| i.published}.reverse
@@ -28,8 +28,61 @@ class GamingJob < ApplicationJob
     return items
   end
 
-  # using PSNProfiles.com
-  def get_psn
+  def find_game_image(title, thumb = false)
+    Rails.logger.debug "Looking for upladed image for #{title}..."
+    matching_game = RecentGame.by_name_with_image(title).first
+    if matching_game && matching_game.image?
+      thumb ? matching_game.image.url(:thumb) : matching_game.image.url(:default)
+    else
+      ''
+    end
+  end
+
+  # using truetrophies which seems to be one of the only reliable ways to turn 
+  # PSN trophies into an RSS feed...
+  def get_psn_rss
+    Rails.logger.debug "Fetching PSN trophies from truetrophies..."
+    rss_items = get_xml('https://www.truetrophies.com/friendfeedrss.aspx?gamerid=26130', 'gaming_expiry')
+    items = []
+    rss_items.each do |item|
+      item.title.match?(/tekniklr (started|completed)/) and next
+      item.title.match(/tekniklr won the (.*) (trophy|achievement) in (.*)\z/)
+      if ($1.blank? || $2.blank? || $3.blank?)
+        puts "Couldn't parse an achievement, type, or game title from \"#{item.title}\"! Skipping."
+        next
+      end
+      achievement = $1
+      type = $2
+      title = $3
+      case type
+      when 'trophy'
+        platform = 'Playstation'
+      when 'achievement'
+        platform = 'Xbox'
+      end
+      title.gsub!(/ Trophies/, '')
+      published = item.published
+      achievement_time = item.published
+      url = item.url
+      image_url = find_game_image(title)
+      thumb_url = find_game_image(title, true)
+      items << {
+            platform:         'PlayStation',
+            title:            title,
+            achievement:      achievement,
+            achievement_time: achievement_time,
+            published:        achievement_time,
+            url:              item.url,
+            image_url:        find_game_image(title),
+            thumb_url:        find_game_image(title, true)
+          }
+    end
+    return items
+  end
+
+  # using PSNProfiles.com - unfortunately, while this works locally DreamHost
+  # is blocked
+  def get_psn_profiles
     Rails.logger.debug "Fetching PSN trophies from PSNProfiles..."
     items = []
     begin
