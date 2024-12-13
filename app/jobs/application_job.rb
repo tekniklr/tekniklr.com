@@ -33,11 +33,6 @@ class ApplicationJob < ActiveJob::Base
 
   # useful when a job references a remote image which should be served locally
   def store_local_copy(url, filename)
-    # this folder doesn't persist across deployments - this is fine as this
-    # is really just a cache that would normallly go in a tmp directory, but
-    # it is easiest to serve these assets directly as opposed to sending tmp
-    # files via rails for them - they are probably just local caches of
-    # remote public images
     unless File.exist?(File.join(Rails.public_path, 'remote_cache'))
       Dir.mkdir(File.join(Rails.public_path, 'remote_cache'))
     end
@@ -66,7 +61,7 @@ class ApplicationJob < ActiveJob::Base
   # Makes a request to an API - originally from talking to Bluesky API, but
   # easily more general purpose
   MAX_TRIES = 5
-  def make_request(url, body: {}, params: {}, headers: {}, type: 'POST', auth_token: false, auth_type: 'Bearer', content_type: "application/json", tries: 1)
+  def make_request(url, body: {}, params: {}, headers: {}, type: 'POST', auth_token: false, auth_type: 'Bearer', user_agent: 'Ruby', content_type: "application/json", tries: 1)
     Rails.logger.debug "Attempt #{tries}/#{MAX_TRIES}: #{type} request to #{url}..."
     uri = URI.parse(url)
     http = Net::HTTP.new(uri.host, uri.port)
@@ -77,7 +72,7 @@ class ApplicationJob < ActiveJob::Base
 
     params.present? and uri.query = URI.encode_www_form(params)
 
-    request = (type == 'POST') ? Net::HTTP::Post.new(uri.request_uri) : Net::HTTP::Get.new(uri.request_uri)
+    request = (type == 'POST') ? Net::HTTP::Post.new(uri.request_uri, 'user-agent': user_agent) : Net::HTTP::Get.new(uri.request_uri, 'user-agent': user_agent)
     request["content-type"] = content_type
 
     if auth_token
@@ -111,7 +106,7 @@ class ApplicationJob < ActiveJob::Base
       # possible there are additional metadata in the location params to do
       # something else with [this is true for the PlayStation API, apparently])
       return response['location']
-    when Net::HTTPTooManyRequests then
+    when Net::HTTPTooManyRequests, Net::HTTPForbidden then
       raise "#{response.code} response after #{tries} attempts - #{response.inspect}"
     else
       if response.is_a?(Net::HTTPBadRequest) && JSON.parse(response.body).has_key?('playerstats')

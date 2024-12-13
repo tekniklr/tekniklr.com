@@ -15,7 +15,7 @@
     = link_to hover_text, item[:url], id: "opener_#{game_id}"
   %p{:class => "when fade#{fade}"}
     - if item[:published]
-      = how_long_ago(item[:published])
+      = time_ago_in_words(item[:published])+' ago'
   %dialog.game_dialog.fixed{id: "dialog_game_#{game_id}"}
     - if item[:image_url]
       %p.centered{title: item[:title]}
@@ -31,7 +31,7 @@
     .game_platform
       - if item[:published]
         played
-        = how_long_ago(item[:published])
+        = time_ago_in_words(item[:published])+' ago'
       -if item[:platform]
         on
         = item[:platform]
@@ -44,7 +44,7 @@
         - if !item[:achievement_time].blank?
           .cheevo_time
             earned
-            = how_long_ago(item[:achievement_time])
+            = time_ago_in_words(item[:achievement_time])+' ago'
     %p.centered
       %button{id: "closer_#{game_id}"} close
   = javascript_tag nonce: true do
