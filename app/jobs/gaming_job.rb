@@ -28,14 +28,20 @@ class GamingJob < ApplicationJob
     return items
   end
 
-  def find_game_image(title, thumb = false)
-    Rails.logger.debug "Looking for upladed image for #{title}..."
-    matching_game = RecentGame.by_name(title).with_image.first
-    if matching_game && matching_game.image?
-      thumb ? matching_game.image.url(:thumb) : matching_game.image.url(:default)
+  def find_game_image(title, thumb = false, platform: false)
+    Rails.logger.debug "Looking for cached or uploaded image for #{title}..."
+    if platform
+      filename = "#{platform}_#{normalize_title(title)}"
+      file_path = File.join(Rails.public_path, 'remote_cache', filename)
+      web_path = Rails.application.routes.url_helpers.root_path+"remote_cache/"+filename
+      File.exist?(file_path) and return web_path
     else
-      ''
+      matching_game = RecentGame.by_name(title).with_image.first
+      if matching_game && matching_game.image?
+        return thumb ? matching_game.image.url(:thumb) : matching_game.image.url(:default)
+      end
     end
+    ''
   end
 
   # using truetrophies which seems to be one of the only reliable ways to turn 
@@ -52,29 +58,17 @@ class GamingJob < ApplicationJob
         next
       end
       achievement = $1
-      type = $2
       title = $3
-      case type
-      when 'trophy'
-        platform = 'Playstation'
-      when 'achievement'
-        platform = 'Xbox'
-      end
       title.gsub!(/ Trophies/, '')
-      published = item.published
-      achievement_time = item.published
-      url = item.url
-      image_url = find_game_image(title)
-      thumb_url = find_game_image(title, true)
       items << {
             platform:         'PlayStation',
             title:            title,
             achievement:      achievement,
-            achievement_time: achievement_time,
-            published:        achievement_time,
+            achievement_time: item.published,
+            published:        item.published,
             url:              item.url,
-            image_url:        find_game_image(title),
-            thumb_url:        find_game_image(title, true)
+            image_url:        find_game_image(title, platform: 'psn'),
+            thumb_url:        find_game_image(title, true, platform: 'psn')
           }
     end
     return items
