@@ -35,11 +35,10 @@ class GamingJob < ApplicationJob
       file_path = File.join(Rails.public_path, 'remote_cache', filename)
       web_path = Rails.application.routes.url_helpers.root_path+"remote_cache/"+filename
       File.exist?(file_path) and return web_path
-    else
-      matching_game = RecentGame.by_name(title).with_image.first
-      if matching_game && matching_game.image?
-        return thumb ? matching_game.image.url(:thumb) : matching_game.image.url(:default)
-      end
+    end
+    matching_game = RecentGame.by_name(title).with_image.first
+    if matching_game && matching_game.image?
+      return thumb ? matching_game.image.url(:thumb) : matching_game.image.url(:default)
     end
     ''
   end
