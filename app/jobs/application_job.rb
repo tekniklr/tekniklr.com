@@ -70,6 +70,7 @@ class ApplicationJob < ActiveJob::Base
   MAX_TRIES = 5
   def make_request(url, body: {}, params: {}, headers: {}, type: 'POST', auth_token: false, auth_type: 'Bearer', user_agent: 'Ruby', content_type: "application/json", tries: 1)
     Rails.logger.debug "Attempt #{tries}/#{MAX_TRIES}: #{type} request to #{url}..."
+
     uri = URI.parse(url)
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = (uri.scheme == "https")
@@ -79,18 +80,13 @@ class ApplicationJob < ActiveJob::Base
 
     params.present? and uri.query = URI.encode_www_form(params)
 
-    request = (type == 'POST') ? Net::HTTP::Post.new(uri.request_uri, 'user-agent': user_agent) : Net::HTTP::Get.new(uri.request_uri, 'user-agent': user_agent)
-    request["content-type"] = content_type
-
+    headers["content-type"] = content_type
     if auth_token
-      request["Authorization"] = "#{auth_type} #{auth_token}"
+      headers["Authorization"] = "#{auth_type} #{auth_token}"
     end
+    headers['user-agent'] = user_agent
 
-    if headers.present?
-      headers.each do |key, value|
-        request[key] = value
-      end
-    end
+    request = (type == 'POST') ? Net::HTTP::Post.new(uri.request_uri, headers) : Net::HTTP::Get.new(uri.request_uri, headers)
 
     request.body = body.is_a?(Hash) ? body.to_json : body if body.present?
 
