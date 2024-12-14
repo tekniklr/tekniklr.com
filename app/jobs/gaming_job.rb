@@ -184,4 +184,58 @@ class GamingJob < ApplicationJob
     return items
   end
 
+  # using Nintendo API
+  def get_nintendo
+    Rails.logger.debug "Fetching game activity via Nintendo API.."
+    items =[]
+    begin
+      # the session code may expire ocassionally, for details on how to
+      # generate a new one, see:
+      #   https://dev.to/mathewthe2/intro-to-nintendo-switch-rest-api-2cm7
+      # and comments in the credentials file
+      client_id = Rails.application.credentials.nintendo[:client_id]
+      session_token_code = Rails.application.credentials.nintendo[:session_token_code]
+      session_token_code_verifier = Rails.application.credentials.nintendo[:session_token_code_verifier]
+
+      user_agent_version = 'unknown' # see https://github.com/frozenpandaman/splatnet2statink/commits/master
+
+      session_token_resp =  make_request(
+                              'https://accounts.nintendo.com/connect/1.0.0/api/session_token',
+                              type: 'POST',
+                              content_type: 'application/x-www-form-urlencoded',
+                              user_agent: "OnlineLounge/#{user_agent_version} NASDKAPI Android",
+                              headers: {
+                                'X-Platform': 'Android',
+                                'X-ProductVersion': user_agent_version,
+                              },
+                              body: {
+                                client_id: client_id,
+                                session_token_code: session_token_code,
+                                session_token_code_verifier: session_token_code_verifier
+                              }
+                            )
+      session_token = session_token_resp.session_token
+
+      api_token_resp =  make_request(
+                          'https://accounts.nintendo.com/connect/1.0.0/api/token',
+                          type: 'POST',
+                          content_type: 'application/json; charset=utf-8',
+                          user_agent: "com.nintendo.znca/#{user_agent_version} (Android/7.1.2)",
+                          headers: {
+                            'X-Platform': 'Android',
+                            'X-ProductVersion': user_agent_version
+                          },
+                          body: {
+                            client_id: client_id,
+                            grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer-session-token',
+                            session_token: session_token
+                          }
+                        )
+
+    rescue => exception
+      ErrorMailer.background_error("fetching/parsing Nintendo games via API", exception).deliver_now
+    end
+    return items
+  end
+
 end
