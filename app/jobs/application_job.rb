@@ -121,7 +121,7 @@ class ApplicationJob < ActiveJob::Base
         response = make_request(url, body: body, params: params, headers: headers, type: type, auth_token: auth_token, auth_type: auth_type, user_agent: user_agent, content_type: content_type, tries: tries+1)
       else
         # other otherwise, give up
-        raise "#{(response.is_a?(Net::HTTPBadRequest) && response.has_key?('code')) ? response.code : 'Unanticipated'} response after #{tries} attempts - #{response.inspect}"
+        raise "#{(response.is_a?(Net::HTTPBadRequest) && response.respond_to?('code')) ? response.code : 'Unanticipated'} response after #{tries} attempts - #{response.inspect}"
       end
     end
 
