@@ -116,12 +116,14 @@ class ApplicationJob < ActiveJob::Base
         # the steam API really overreacts when a game has no achievements and
         # you try to query those achievements
         return JSON.parse(response.body)
+      elsif response.is_a?(Net::HTTPBadRequest)
+        raise "#{response.code} response after #{tries} attempts - #{response.inspect}"
       elsif tries < MAX_TRIES
         # otherwise, retry in case this is a transient error
         response = make_request(url, body: body, params: params, headers: headers, type: type, auth_token: auth_token, auth_type: auth_type, user_agent: user_agent, content_type: content_type, tries: tries+1)
       else
         # other otherwise, give up
-        raise "#{(response.is_a?(Net::HTTPBadRequest) && response.respond_to?('code')) ? response.code : 'Unanticipated'} response after #{tries} attempts - #{response.inspect}"
+        raise "#{response.respond_to?('code') ? response.code : 'Unanticipated'} response after #{tries} attempts - #{response.inspect}"
       end
     end
 
