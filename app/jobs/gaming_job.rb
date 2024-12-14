@@ -194,15 +194,42 @@ class GamingJob < ApplicationJob
     auth_resp = make_request(
                   'https://ca.account.sony.com/api/authz/v3/oauth/authorize',
                   type: 'GET',
+                  content_type: 'application/x-www-form-urlencoded',
+                  user_agent: 'PlayStation/21090100 CFNetwork/1126 Darwin/19.5.0',
                   headers: {
-                    Cookie: "npsso=#{Rails.application.credentials.playstation[:npsso]}"
+                    Cookie: "npsso=#{Rails.application.credentials.playstation[:npsso]}",
+                    'Accept-Language': 'en-US',
+                    'X-Psn-Correlation-Id': Rails.application.credentials.playstation[:cid],
+                    "X-Requested-With": "com.scee.psxandroid",
+                    "Sec-Fetch-Dest": "document",
+                    "Sec-Fetch-Mode": "navigate",
+                    "Sec-Fetch-Site": "same-site",
+                    "Sec-Fetch-User": "?1"
                   },
                   params: {
                     access_type: 'offline',
+                    app_context: 'inapp_ios',
+                    auth_ver: 'v3',
+                    cid: Rails.application.credentials.playstation[:cid],
                     client_id: Rails.application.credentials.playstation[:client_id],
+                    darkmode: 'true',
+                    device_base_font_size: 10,
+                    device_profile: 'mobile',
+                    duid: '0000000d0004008088347AA0C79542D3B656EBB51CE3EBE1',
+                    elements_visibility: 'no_aclink',
+                    extraQueryParams: {
+                        PlatformPrivacyWs1: 'minimal'
+                    },
+                    no_captcha: 'true',
+                    redirect_uri: 'com.scee.psxandroid.scecompcall://redirect',
                     response_type: 'code',
                     scope: 'psn:mobile.v2.core psn:clientapp',
-                    redirect_uri: 'com.scee.psxandroid.scecompcall://redirect'
+                    service_entity: 'urn:service-entity:psn',
+                    service_logo: 'ps',
+                    smcid: 'psapp:settings-entrance',
+                    support_scheme: 'sneiprls',
+                    token_format: 'jwt',
+                    ui: 'pr'
                   }
                 )
     redirect_uri = URI.parse(auth_resp)
@@ -213,15 +240,34 @@ class GamingJob < ApplicationJob
     token_resp =  make_request(
                     'https://ca.account.sony.com/api/authz/v3/oauth/token',
                     type: 'POST',
-                    body: {
-                      code: redirect_params['code'],
-                      redirect_uri: 'com.scee.psxandroid.scecompcall://redirect',
-                      grant_type: 'authorization_code',
-                      token_format: 'jwt'
-                    },
                     content_type: 'application/x-www-form-urlencoded',
                     auth_type: 'Basic',
-                    auth_token: Rails.application.credentials.playstation[:basic_auth]
+                    auth_token: Rails.application.credentials.playstation[:basic_auth],
+                    user_agent: 'PlayStation/21090100 CFNetwork/1126 Darwin/19.5.0',
+                    headers: {
+                      'Accept-Language': 'en-US',
+                      'X-Psn-Correlation-Id': Rails.application.credentials.playstation[:cid]
+                    },
+                    body: {
+                      access_type: 'offline',
+                      app_context: 'inapp_ios',
+                      code: redirect_params['code'],
+                      darkmode: 'true',
+                      device_base_font_size: 10,
+                      device_profile: 'mobile',
+                      elements_visibility: 'no_aclink',
+                      extraQueryParams: {
+                          PlatformPrivacyWs1: 'minimal'
+                      },
+                      grant_type: "authorization_code",
+                      redirect_uri: 'com.scee.psxandroid.scecompcall://redirect',
+                      support_scheme: 'sneiprls',
+                      scope: 'psn:mobile.v2.core psn:clientapp',
+                      service_logo: 'ps',
+                      smcid: 'psapp%3Asettings-entrance',
+                      token_format: 'jwt',
+                      ui: 'pr'
+                    }
                   )
 
     process_psn_tokens(token_resp)
