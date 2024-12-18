@@ -114,6 +114,7 @@ class GamingJob < ApplicationJob
     begin
       games = make_request('https://xbl.io/api/v2/player/titleHistory', type: 'GET', headers: { 'x-authorization': Rails.application.credentials.xbox['api_key'] })
       games.titles.select{|g| g.type == 'Game' }.first(9).each do |game|
+        title = game.name.gsub(/ - Windows Edition/, '')
         begin
           if game.devices.include?('Xbox360')
             achievements = make_request("https://xbl.io/api/v2/achievements/x360/#{Rails.application.credentials.xbox['id']}/title/#{game.titleId}", type: 'GET', headers: { 'x-authorization': Rails.application.credentials.xbox['api_key'] })
@@ -128,15 +129,15 @@ class GamingJob < ApplicationJob
           newest_achievement = false
           newest_achievement_time = false
         end
-        image = store_local_copy(game.displayImage, 'xbox', game.name)
+        image = store_local_copy(game.displayImage, 'xbox', title)
         items << {
             platform:         'Xbox',
-            title:            game.name,
+            title:            title,
             achievement:      newest_achievement ? newest_achievement.name : false,
             achievement_time: newest_achievement_time ? newest_achievement_time : false,
             published:        Time.new(game.titleHistory.lastTimePlayed),
-            image_url:        image ? image : find_game_image(game.name),
-            thumb_url:        image ? image : find_game_image(game.name, true)
+            image_url:        image ? image : find_game_image(title),
+            thumb_url:        image ? image : find_game_image(title, true)
           }
       end
     rescue => exception
