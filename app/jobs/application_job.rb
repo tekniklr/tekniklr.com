@@ -129,6 +129,9 @@ class ApplicationJob < ActiveJob::Base
 
     if response.respond_to?('content_type') && response.respond_to?('body')
       response.content_type == "application/json" ? JSON.parse(response.body) : response.body
+    elsif tries < MAX_TRIES
+      # retry in case this is a transient error
+      make_request(url, body: body, params: params, headers: headers, type: type, auth_token: auth_token, auth_type: auth_type, user_agent: user_agent, content_type: content_type, tries: tries+1)
     else
       raise net_http_error(response, tries: tries, additional_message: "got a malformed response lacking a content_type or a body")
     end
