@@ -127,17 +127,24 @@ class ApplicationJob < ActiveJob::Base
       end
     end
 
-    response.content_type == "application/json" ? JSON.parse(response.body) : response.body
+    if response.respond_to?('content_type') && response.respond_to?('body')
+      response.content_type == "application/json" ? JSON.parse(response.body) : response.body
+    else
+      raise net_http_error(response, tries: tries, additional_message: "got a malformed response lacking a content_type or a body")
+    end
   end
 
   private
 
-  def net_http_error(response, tries: false)
+  def net_http_error(response, tries: false, additional_message: false)
     message = "#{response.respond_to?('code') ? response.code : 'Unanticipated'} response"
     tries and message += " after #{tries} attempts"
-    if response.respond_to?('body')
-      message += ' - '
+    additional_message and message += "; #{additional_message}"
+    message += " - \n"
+    if response.respond_to?('content_type') && response.respond_to?('body')
       message += (response.content_type == "application/json") ? JSON.parse(response.body).inspect : response.body.inspect
+    else
+      message += response.inspect
     end
     message
   end
