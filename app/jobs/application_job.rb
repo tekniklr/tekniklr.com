@@ -110,24 +110,36 @@ class ApplicationJob < ActiveJob::Base
       # something else with [this is true for the PlayStation API, apparently])
       return response['location']
     when Net::HTTPTooManyRequests, Net::HTTPForbidden then
-      raise "#{response.code} response after #{tries} attempts - #{response.inspect}"
+      raise net_http_error(response, tries: tries)
     else
       if response.is_a?(Net::HTTPBadRequest) && JSON.parse(response.body).has_key?('playerstats')
         # the steam API really overreacts when a game has no achievements and
         # you try to query those achievements
         return JSON.parse(response.body)
       elsif response.is_a?(Net::HTTPBadRequest)
-        raise "#{response.code} response after #{tries} attempts - #{response.inspect}"
+        raise net_http_error(response, tries: tries)
       elsif tries < MAX_TRIES
         # otherwise, retry in case this is a transient error
         response = make_request(url, body: body, params: params, headers: headers, type: type, auth_token: auth_token, auth_type: auth_type, user_agent: user_agent, content_type: content_type, tries: tries+1)
       else
         # other otherwise, give up
-        raise "#{response.respond_to?('code') ? response.code : 'Unanticipated'} response after #{tries} attempts - #{response.inspect}"
+        raise net_http_error(response, tries: tries)
       end
     end
 
     response.content_type == "application/json" ? JSON.parse(response.body) : response.body
+  end
+
+  private
+
+  def net_http_error(response, tries: false)
+    message = "#{response.respond_to?('code') ? response.code : 'Unanticipated'} response"
+    tries and message += " after #{tries} attempts"
+    if response.respond_to?('body')
+      message += ' - '
+      message += (response.content_type == "application/json") ? JSON.parse(response.body).inspect : response.body.inspect
+    end
+    message
   end
 
 end
