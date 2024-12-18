@@ -188,10 +188,19 @@ class GamingJob < ApplicationJob
     Rails.logger.debug "Fetching game activity via Nintendo API.."
     items =[]
     begin
-      # the session code may expire ocassionally, for details on how to
-      # generate a new one, see:
-      #   https://dev.to/mathewthe2/intro-to-nintendo-switch-rest-api-2cm7
-      # and comments in the credentials file
+      # to get new codes:
+      # 1. log out of the iOS Switch app
+      # 2. when logging back in, copy the authorization page (that shows
+      #    account) to a Notes app quick note
+      # 3. open the link from that note in Notes app on a computer, and copy
+      #    the url at the authorize button (it will start with
+      #    `npf71b963c1b7b6d119://`)
+      # that URL contains these parameters:
+      #    session_token_code (session_token_code)
+      #    state (session_token_code_verifier)
+      #    session_state
+      # also, the protocol (npf71b963c1b7b6d119://) has the client_id, after
+      # the `npf`
       client_id = Rails.application.credentials.nintendo[:client_id]
       session_token_code = Rails.application.credentials.nintendo[:session_token_code]
       session_token_code_verifier = Rails.application.credentials.nintendo[:session_token_code_verifier]
