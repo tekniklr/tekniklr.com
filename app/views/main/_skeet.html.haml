@@ -22,7 +22,7 @@
   - has_images         = skeet.post.has_key?('embed') && (skeet.post.embed.has_key?('images') || (skeet.post.embed.has_key?('media') && skeet.post.embed.media.has_key?('images')))
   - has_video          = skeet.post.has_key?('embed') && (skeet.post.embed.has_key?('playlist'))
   - has_quote_post     = skeet.post.has_key?('embed') && skeet.post.embed.has_key?('record')
-  - logger.debug "************ parsing skeet #{index}/#{@skeets.size-1}:\n#{skeet_text}"
+  - logger.debug "************ parsing skeet #{index}/#{@skeets.size}:\n#{skeet_text}"
       
   .user_pic
     - if !skeet_user_avatar.blank?
