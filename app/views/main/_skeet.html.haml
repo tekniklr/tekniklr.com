@@ -9,7 +9,7 @@
       reskeeted
   - skeet_handle       = skeet.post.author.handle
   - skeet_display_name = skeet.post.author.displayName
-  - skeet_user_avatar  = skeet.post.author.avatar
+  - skeet_user_avatar  = skeet.post.author.has_key?('avatar') ? skeet.post.author.avatar : ''
   - skeet_user_link    = "https://bsky.app/profile/#{skeet_handle}"
   - skeet_link         = "https://bsky.app/profile/#{skeet_handle}/post/#{skeet.post.uri.split('/').last}"
   - skeet_created      = Time.new(skeet.post.record.createdAt).localtime
