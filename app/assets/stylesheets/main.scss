@@ -54,6 +54,7 @@
   height: 18em;
   max-width: 100%;
   overflow-y: scroll;
+  overflow-x: hidden;
   background-image: image-url("scroll.png");
   background-repeat: no-repeat;
   background-position: bottom right;
@@ -106,10 +107,10 @@ ul#mastodon, ul#bluesky {
       margin: 0 0 .5em 0;
     }
     .user_pic {
-      width: 3em;
+      width: 2.75em;
       float: left;
       img {
-        max-width: 3em;
+        max-width: 2.75em;
       }
     }
     .spoiler {
@@ -120,7 +121,7 @@ ul#mastodon, ul#bluesky {
     .toot, .skeet {
       width: -webkit-calc(100% - 4em);
       width: -moz-calc(100% - 4em);
-      width: calc(100% - 4em);
+      width: calc(100% - 3.75em);
       float: right;
       margin: 0;
       padding: 0 .5em 0 .5em;
