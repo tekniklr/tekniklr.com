@@ -13,6 +13,7 @@
   - skeet_user_link    = "https://bsky.app/profile/#{skeet_handle}"
   - skeet_link         = "https://bsky.app/profile/#{skeet_handle}/post/#{skeet.post.uri.split('/').last}"
   - skeet_created      = Time.new(skeet.post.record.createdAt).localtime
+  - is_reply           = skeet.has_key?('reply')
   - has_facets         = skeet.post.record.has_key?('facets')
   - skeet_text         = skeet.post.record.text
   - reskeet_count      = skeet.post.repostCount
@@ -54,10 +55,11 @@
             - replacing_text = replacing_text[(replace_index+1)..]
           - replaced_text << replacing_text
           - skeet_text = replaced_text.join(' ')
-        - if skeet.has_key?('reply')
-          - reply_handle = skeet.reply.parent.author.handle
-          - reply_link = "https://bsky.app/profile/#{reply_handle}/post/#{skeet.reply.parent.uri.split('/').last}"
-          - skeet_text = "<a href='#{reply_link}' target='_blank'>@#{reply_handle}</a> #{skeet_text}"
+        - if is_reply
+          - if skeet.reply.parent.has_key?('author')
+            - reply_handle = skeet.reply.parent.author.handle
+            - reply_link = "https://bsky.app/profile/#{reply_handle}/post/#{skeet.reply.parent.uri.split('/').last}"
+            - skeet_text = "<a href='#{reply_link}' target='_blank'>@#{reply_handle}</a> #{skeet_text}"
         = simple_format sanitize(skeet_text, tags: %w(a), attributes: %w(href target)), {}, sanitize: false # simple format was double sanitizing
         - if has_previews
           - preview = skeet.post.embed.media.external
