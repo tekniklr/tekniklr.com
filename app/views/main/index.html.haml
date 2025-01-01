@@ -9,9 +9,9 @@
     = link_to 'Skeets', "https://bsky.app/profile/tekniklr.bsky.social"
   .skeet_block{class: 'show_scroll'}
     %ul#bluesky
-      - @skeets.each do |skeet|
+      - @skeets.each_with_index do |skeet, index|
         - begin
-          = render 'skeet', skeet: skeet
+          = render 'skeet', skeet: skeet, index: index
         - rescue => exception
           - logger.error exception
 
