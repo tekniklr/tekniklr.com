@@ -45,8 +45,9 @@
             - if facet.features.first['$type'] == 'app.bsky.richtext.facet#link'
               - facet_start = facet.index.byteStart
               - facet_end = facet.index.byteEnd
-              - newline_count = skeet_text[0..facet_start].lines.count-1
-              - facet_start = facet_start-newline_count
+              - initial_substring = skeet_text[(facet_start)..(facet_end)]
+              - full_match = skeet_text.match(/\s([-_.A-z]*#{initial_substring}.*)/)
+              - facet_start = skeet_text.index(full_match.to_s)+1
               - replacements << [skeet_text[(facet_start)..(facet_end)], facet.features.first.uri]
           - replacements.each do |replace|
             - logger.debug "************ processing replacement: #{replace}"
