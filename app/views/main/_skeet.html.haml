@@ -42,14 +42,20 @@
           - replaced_text = []
           - replacing_text = skeet_text
           - skeet.post.record.facets.each do |facet|
-            - if facet.features.first['$type'] == 'app.bsky.richtext.facet#link'
+            - facet_type = facet.features.first['$type']
+            - if ['app.bsky.richtext.facet#link', 'app.bsky.richtext.facet#mention'].include?(facet_type)
               - facet_start = facet.index.byteStart
               - facet_end = facet.index.byteEnd
               - initial_substring = skeet_text[(facet_start)..(facet_end)]
               - full_match = skeet_text.match(/\s([-_.A-z]*#{initial_substring}.*)/)
               - facet_start = skeet_text.index(full_match.to_s)+1
-              - replacements << [skeet_text[(facet_start)..(facet_end)], facet.features.first.uri]
-            - elsif facet.features.first['$type'] == 'app.bsky.richtext.facet#tag'
+              - replace_text = skeet_text[(facet_start)..(facet_end)].strip
+              - case facet_type
+                - when 'app.bsky.richtext.facet#link'
+                  - replacements << [replace_text, facet.features.first.uri]
+                - when 'app.bsky.richtext.facet#mention'
+                  - replacements << [replace_text, "https://bsky.app/profile/#{facet.features.first.did}"]
+            - elsif facet_type == 'app.bsky.richtext.facet#tag'
               - tag = facet.features.first.tag
               - replacements << ["##{tag}", "https://bsky.app/hashtag/#{tag}"]
           - replacements.each do |replace|
