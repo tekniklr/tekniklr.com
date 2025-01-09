@@ -18,7 +18,7 @@
   - skeet_text         = skeet.post.record.text
   - reskeet_count      = skeet.post.repostCount
   - fave_count         = skeet.post.likeCount
-  - has_previews       = skeet.post.has_key?('embed') && skeet.post.embed.has_key?('media') && skeet.post.embed.media.has_key?('external')
+  - has_previews       = skeet.post.has_key?('embed') && (skeet.post.embed.has_key?('external') || (skeet.post.embed.has_key?('media') && skeet.post.embed.media.has_key?('external')))
   - has_images         = skeet.post.has_key?('embed') && (skeet.post.embed.has_key?('images') || (skeet.post.embed.has_key?('media') && skeet.post.embed.media.has_key?('images')))
   - has_video          = skeet.post.has_key?('embed') && (skeet.post.embed.has_key?('playlist'))
   - has_quote_post     = skeet.post.has_key?('embed') && skeet.post.embed.has_key?('record')
@@ -63,7 +63,7 @@
             - skeet_text = "<a href='#{reply_link}' target='_blank'>@#{reply_handle}</a> #{skeet_text}"
         = simple_format sanitize(skeet_text, tags: %w(a), attributes: %w(href target)), {}, sanitize: false # simple format was double sanitizing
         - if has_previews
-          - preview = skeet.post.embed.media.external
+          - preview = skeet.post.embed.has_key?('external') ? skeet.post.embed.external : skeet.post.embed.media.external
           .link_preview
             - uri = preview.uri
             - title = preview.has_key?('title') ? preview.title : ''
