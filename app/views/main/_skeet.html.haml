@@ -49,6 +49,9 @@
               - full_match = skeet_text.match(/\s([-_.A-z]*#{initial_substring}.*)/)
               - facet_start = skeet_text.index(full_match.to_s)+1
               - replacements << [skeet_text[(facet_start)..(facet_end)], facet.features.first.uri]
+            - elsif facet.features.first['$type'] == 'app.bsky.richtext.facet#tag'
+              - tag = facet.features.first.tag
+              - replacements << ["##{tag}", "https://bsky.app/hashtag/#{tag}"]
           - replacements.each do |replace|
             - logger.debug "************ processing replacement: #{replace}"
             - replacing_text.sub! replace.first, "<a href=\"#{replace.last}\" target=\"_blank\">#{replace.first}</a>"
