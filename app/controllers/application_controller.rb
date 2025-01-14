@@ -9,7 +9,6 @@ class ApplicationController < ActionController::Base
   helper_method  :logged_in?
   
   before_action  :get_links
-  before_action  :is_admin?, only: :clean_cache
 
   # https://github.com/rails/rails/issues/671
   def routing_error
@@ -17,17 +16,6 @@ class ApplicationController < ActionController::Base
       format.html { render '404', status: 404 }
       format.any  { redirect_to action: 'routing_error', format: 'html' }
     end
-  end
-
-  def clean_cache
-    deleted = []
-    CACHED_ITEMS.each do |item|
-      if Rails.cache.delete(item)
-        deleted << item
-      end
-    end
-    flash[:notice] = "Baleeted the following cache items: #{deleted.to_sentence}"
-    redirect_to root_url
   end
 
   def redirect_wordpress

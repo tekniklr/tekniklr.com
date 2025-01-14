@@ -1,0 +1,23 @@
+ul#cached_items {
+  width: 80%;
+  max-width: 100%;
+  margin: auto;
+  padding: 0;
+  list-style-type: none;
+  li {
+    display: block;
+    margin: 0;
+    padding: 1em 0 1em 0;
+    clear: both;
+    .cache_name {
+      display: inline;
+      width: 20em;
+      font-weight: bold;
+    }
+    .cache_time {
+      display: inline;
+      font-style: italic;
+      font-size: 80%;
+    }
+  }
+}
