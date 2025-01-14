@@ -323,12 +323,6 @@ h1 {
     color: $hover_color;
   }
 }
-h1.less_space {
-  margin: 2em 0em 1.5em 0;
-}
-h1.link_only {
-  border: none;
-}
 
 h2 {
   font-weight: bold;
@@ -354,7 +348,7 @@ h2 {
   margin: 0;
   padding: 1em;
   max-width: 100%;
-  h1:first-child {
+  h1:first-of-type {
     margin-top: 1em;
   }
   #footnote {
