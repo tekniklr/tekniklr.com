@@ -2,6 +2,27 @@ class ApplicationJob < ActiveJob::Base
 
   protected
 
+  # sometimes querying a service has a temporary error - in this case we
+  # shoudn't clobber good but stale data
+  # useful for instances like with gaming services, which each get queried
+  # separately and combined into a single cambined cache object used elsewhere
+  # in the app
+  def cache_if_present(cache_key, value)
+    previous_value = Rails.cache.read(cache_key)
+    if previous_value.blank? && value.blank?
+       # trust that value was passed in as either [] or nil, and which should
+       # be returned depends on context
+      return value
+    elsif value.blank?
+      # don't clobber existing cache
+      return previous_value
+    else
+      # cache new value, and return it
+      Rails.cache.write(cache_key, value)
+      return value
+    end
+  end
+
   def get_xml(url, cache = false)
     items = []
     error = false
