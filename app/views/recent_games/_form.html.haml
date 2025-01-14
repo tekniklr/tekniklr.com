@@ -20,7 +20,7 @@
 = form_for(@recent_game) do |f|
   - if @recent_game.errors.any?
     #error_explanation
-      %h2 #{pluralize(@recent_game.errors.count, "error")} prohibited this game from being saved:
+      %h2 #{pluralize(@recent_game.errors.size, "error")} prohibited this game from being saved:
       %ul
         - @recent_game.errors.full_messages.each do |msg|
           %li #{msg}

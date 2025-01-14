@@ -1,7 +1,7 @@
 = form_for(@tabletop_game) do |f|
   - if @tabletop_game.errors.any?
     #error_explanation
-      %h2 #{pluralize(@tabletop_game.errors.count, "error")} prohibited this game from being saved:
+      %h2 #{pluralize(@tabletop_game.errors.size, "error")} prohibited this game from being saved:
       %ul
         - @tabletop_game.errors.full_messages.each do |msg|
           %li #{msg}

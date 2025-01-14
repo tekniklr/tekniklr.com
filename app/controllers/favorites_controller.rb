@@ -31,7 +31,7 @@ class FavoritesController < ApplicationController
   # GET /favorites/1/edit
   def edit
     @favorite = Favorite.find(params[:id])
-    things = @favorite.favorite_things.count
+    things = @favorite.favorite_things.size
     if things < NUM_FAVS
       (things+1).upto(NUM_FAVS) { |n| @favorite.favorite_things.build(:sort => n) }
     end
