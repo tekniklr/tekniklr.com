@@ -1,22 +1,3 @@
-:ruby
-  possible_platforms = [
-    'PS5',
-    'PS4',
-    'Switch',
-    '3DS',
-    'GBA',
-    'SNES',
-    'NES',
-    'Xbox Series X/S',
-    'Xbox One',
-    'Xbox 360',
-    'Xbox',
-    'Steam',
-    'Mac',
-    'the internet',
-    'iOS'
-  ]
-
 = form_for(@recent_game) do |f|
   - if @recent_game.errors.any?
     #error_explanation
@@ -36,7 +17,7 @@
     .left
       = f.label :platform
     .right
-      = f.select :platform, possible_platforms, include_blank: true
+      = f.select :platform, RecentGame::PLATFORMS, include_blank: true
     .clear
 
   .row
