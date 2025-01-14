@@ -1,4 +1,27 @@
 class RecentGame < ApplicationRecord
+
+  NINTENDO_PLATFORMS =  [
+                          'Switch',
+                          '3DS',
+                          'GBA',
+                          'SNES',
+                          'NES'
+                        ]
+  PSN_PLATFORMS =       [
+                          'PS5',
+                          'PS4'
+                        ]
+  STEAM_PLATFORMS =     [
+                          'Steam'
+                        ]
+  XBOX_PLATFORMS =      [
+                          'Xbox Series X/S',
+                          'Xbox One',
+                          'Xbox 360',
+                          'Xbox'
+                        ]
+  PLATFORMS = PSN_PLATFORMS + XBOX_PLATFORMS + NINTENDO_PLATFORMS + STEAM_PLATFORMS + ['Mac', 'the internet', 'iOS']
+
   has_attached_file     :image,
                         styles: {
                           thumb: ["100x100>", :png],
@@ -27,6 +50,19 @@ class RecentGame < ApplicationRecord
     clauses = ("name like ? and "*(name_parts.size)).gsub(/ and \z/, '')
     conditions = name_parts.map{|p| "%#{p}%"}
     where([clauses, conditions].flatten)
+  }
+  scope :on_platform, lambda { |platform|
+    platforms = case platform
+                when 'PlayStation'
+                  PSN_PLATFORMS
+                when 'Xbox'
+                  XBOX_PLATFORMS
+                when 'Steam'
+                  STEAM_PLATFORMS
+                when 'Switch'
+                  NINTENDO_PLATFORMS
+                end
+    where(platform: platforms)
   }
   scope :with_image, -> {
     where('image_file_name is not null')
