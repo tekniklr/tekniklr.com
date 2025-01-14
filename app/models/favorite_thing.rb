@@ -19,8 +19,9 @@ class FavoriteThing < ApplicationRecord
   validates_presence_of     :sort
   validates_numericality_of :sort
   
-  default_scope { order('sort asc, thing asc') }
-  
+  scope :sorted, -> {
+    order('sort asc, thing asc')
+  }
   scope :by_thing_with_image, lambda { |thing|
     where("thing like ?", "%#{thing}%").
     where('image_file_name is not null')

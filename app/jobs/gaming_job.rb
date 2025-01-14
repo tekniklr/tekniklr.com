@@ -14,7 +14,7 @@ class GamingJob < ApplicationJob
   def get_recent_games
     Rails.logger.debug "Parsing manually entered games..."
     items = []
-    RecentGame.first(12).each do |game|
+    RecentGame.sorted.first(12).each do |game|
       sort_time = Time.zone.local(game.started_playing.year, game.started_playing.month, game.started_playing.day, game.updated_at.hour, game.updated_at.min, game.updated_at.sec)
       items << {
         title:       game.name,

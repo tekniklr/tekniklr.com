@@ -18,9 +18,10 @@ class RecentGame < ApplicationRecord
   
   validates_length_of   :url, maximum: 75, allow_blank: true, allow_nil: true
   validates_format_of   :url, with: URI.regexp, allow_blank: true, allow_nil: true
-
-  default_scope { order('started_playing desc, updated_at desc') }
   
+  scope :sorted, -> {
+    order('updated_at desc, started_playing desc')
+  }
   scope :by_name, lambda { |name|
     name_parts = name.gsub(/[^A-z0-9 ]/, ' ').split(' ')
     clauses = ("name like ? and "*(name_parts.size)).gsub(/ and \z/, '')

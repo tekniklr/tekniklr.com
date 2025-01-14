@@ -23,7 +23,7 @@
       %dt #{favorite.favorite_type}
       %dd.spacey
         %ul
-          - favorite.favorite_things.each_with_index do |thing, index|
+          - favorite.favorite_things.sorted.each_with_index do |thing, index|
             %li
               = (!thing.link.blank? ? link_to(thing.thing, thing.link, target: '_blank', id: "opener_thing_#{thing.id}_text") : thing.thing)
               - if thing.image?

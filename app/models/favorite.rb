@@ -8,7 +8,9 @@ class Favorite < ApplicationRecord
   validates_presence_of     :sort
   validates_numericality_of :sort
   
-  default_scope { order("#{Favorite.table_name}.sort asc, #{Favorite.table_name}.favorite_type asc") }
+  scope :sorted, -> {
+    order("#{Favorite.table_name}.sort asc, #{Favorite.table_name}.favorite_type asc")
+  }
   scope :with_things, -> { includes(:favorite_things) }
   scope :with_type, lambda { |type|
     where(favorite_type: type)

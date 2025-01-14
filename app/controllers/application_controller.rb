@@ -50,11 +50,11 @@ class ApplicationController < ActionController::Base
   def get_links
     # config.cache_classes = false was causing this to barf in dev
     if Rails.env.development? || Rails.env.test?
-      @links        = Link.all
-      @social_media = Link.get_social
+      @links        = Link.sorted
+      @social_media = Link.sorted.get_social
     else
-      @links        = Rails.cache.fetch('links_all')    { Link.all }
-      @social_media = Rails.cache.fetch('links_social') { Link.get_social }
+      @links        = Rails.cache.fetch('links_all')    { Link.sorted }
+      @social_media = Rails.cache.fetch('links_social') { Link.sorted.get_social }
     end
   end
   

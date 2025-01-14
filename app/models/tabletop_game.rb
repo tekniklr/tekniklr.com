@@ -10,5 +10,9 @@ class TabletopGame < ApplicationRecord
   validates_attachment_content_type :image, :content_type => [ 'image/png', 'image/jpg', 'image/jpeg', 'image/gif']
 
   validates_presence_of :name
-  default_scope { order('name asc') }
+
+  scope :sorted, -> {
+    order('name asc')
+  }
+
 end
