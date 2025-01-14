@@ -2,9 +2,9 @@ class GamingJob < ApplicationJob
   
   def perform
     manual_items = get_recent_games
-    psn_items = get_psn_rss
-    xbox_items = get_xbox
-    steam_items = get_steam
+    psn_items = cache_if_present('gaming_psn', get_psn_rss)
+    xbox_items = cache_if_present('gaming_xbox', get_xbox)
+    steam_items = cache_if_present('gaming_steam', get_steam)
     all_items = (manual_items + psn_items + xbox_items + steam_items).sort_by{|i| i.published}.reverse.uniq{ |i| [normalize_title(i.title.downcase)] }
     Rails.cache.write('gaming', all_items[0..9])
   end
