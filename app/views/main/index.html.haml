@@ -36,34 +36,34 @@
             maxWidth: '90%'
           });
 
-- if !@gaming.blank? && @gaming.count > 1
+- if !@gaming.blank? && @gaming.size > 1
   - fade_games = 0
   .games_block
     %h1
       Games
     %ul#gaming
       - @gaming.each do |item|
-        = render 'gaming', item: item, fade: fade_level(@gaming.count, fade_games)
+        = render 'gaming', item: item, fade: fade_level(@gaming.size, fade_games)
         - fade_games += 1
 
-- if !@goodreads.blank? && @goodreads.count > 1
+- if !@goodreads.blank? && @goodreads.size > 1
   - fade_books = 0
   .books_block
     %h1
       = link_to 'Books', 'https://www.goodreads.com/user/show/10905654-tekniklr'
     %ul#goodreads
       - @goodreads.each do |book|
-        = render 'goodreads', book: book, fade: fade_level(@goodreads.count, fade_books)
+        = render 'goodreads', book: book, fade: fade_level(@goodreads.size, fade_books)
         - fade_books += 1
 
-- if !@lastfm.blank? && @lastfm.count > 1
+- if !@lastfm.blank? && @lastfm.size > 1
   - fade_songs = 0
   .music_block
     %h1
       = link_to 'Music', 'https://www.last.fm/user/tekniklr'
     %ul#lastfm
       - @lastfm.each do |song|
-        = render 'lastfm', song: song, fade: fade_level(@lastfm.count, fade_songs)
+        = render 'lastfm', song: song, fade: fade_level(@lastfm.size, fade_songs)
         - fade_songs += 1
 
 #footnote

@@ -1,6 +1,6 @@
 = stylesheet_link_tag 'facets'
 
-- if @facets && @facets.count > 0
+- if @facets && @facets.size > 0
   %h1 Current facets
   #facets
   - @facets.each do |facet|

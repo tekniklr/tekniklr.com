@@ -1,6 +1,6 @@
 = stylesheet_link_tag 'experiences'
 
-- if @experiences && @experiences.count > 0
+- if @experiences && @experiences.size > 0
   %h1 Current experiences
   #experiences
   - @experiences.each do |experience|
