@@ -4,7 +4,7 @@ class FavoritesController < ApplicationController
    
   # GET /favorites
   def index
-    @favorites = Favorite.with_things
+    @favorites = Favorite.sorted.with_things
     respond_to do |format|
       format.html # index.html.erb
     end

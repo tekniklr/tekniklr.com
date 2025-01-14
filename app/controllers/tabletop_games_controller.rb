@@ -4,7 +4,7 @@ class TabletopGamesController < ApplicationController
 
   # GET /tabletop_games
   def index
-    @tabletop_games   = TabletopGame.all
+    @tabletop_games   = TabletopGame.sorted
     respond_to do |format|
       format.html # index.html.erb
     end
@@ -12,7 +12,7 @@ class TabletopGamesController < ApplicationController
 
   # GET /tabletop_games
   def manage
-    @tabletop_games = TabletopGame.all
+    @tabletop_games = TabletopGame.sorted
     respond_to do |format|
       format.html # index.html.erb
     end

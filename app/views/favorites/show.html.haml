@@ -3,7 +3,7 @@
 %h1
   Favorite Type: #{@favorite.favorite_type}
 %ol#sort_things
-  - @favorite.favorite_things.each do |thing|
+  - @favorite.favorite_things.sorted.each do |thing|
     %li.item_drag{id: "thing_#{thing.id}", 'data-id': thing.id}
       %span.drag ↕️
       = thing.link ? link_to(thing.thing, thing.link) : thing.thing
