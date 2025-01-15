@@ -1,3 +1,5 @@
+@import "config.scss";
+
 .exp {
   @include rounded(1px, #999999, .5em, 1em, dotted);
   width: 80%;

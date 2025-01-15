@@ -12,5 +12,8 @@ class Experience < ApplicationRecord
   
   validates_presence_of :start_date
   
-  default_scope { order('start_date desc') }
+  scope :sorted, -> {
+    order('start_date desc')
+  }
+  
 end

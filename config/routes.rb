@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get    '/auth/failure',            to: 'sessions#failure'
   
   # clean cache items
-  get '/clean_cache',             to: 'application#clean_cache', as: :clean_cache
+  resources :cache, only: [:index, :update]
 
   # about page
   get '/about',        to: 'about#index'

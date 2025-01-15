@@ -2,9 +2,9 @@ class GamingJob < ApplicationJob
   
   def perform
     manual_items = get_recent_games
-    psn_items = get_psn_rss
-    xbox_items = get_xbox
-    steam_items = get_steam
+    psn_items = cache_if_present('gaming_psn', get_psn_rss)
+    xbox_items = cache_if_present('gaming_xbox', get_xbox)
+    steam_items = cache_if_present('gaming_steam', get_steam)
     all_items = (manual_items + psn_items + xbox_items + steam_items).sort_by{|i| i.published}.reverse.uniq{ |i| [normalize_title(i.title.downcase)] }
     Rails.cache.write('gaming', all_items[0..9])
   end
@@ -14,7 +14,7 @@ class GamingJob < ApplicationJob
   def get_recent_games
     Rails.logger.debug "Parsing manually entered games..."
     items = []
-    RecentGame.first(12).each do |game|
+    RecentGame.sorted.first(12).each do |game|
       sort_time = Time.zone.local(game.started_playing.year, game.started_playing.month, game.started_playing.day, game.updated_at.hour, game.updated_at.min, game.updated_at.sec)
       items << {
         title:       game.name,
@@ -28,6 +28,40 @@ class GamingJob < ApplicationJob
     return items
   end
 
+  def update_recent_game(title, platform, time, image = false)
+    Rails.logger.debug "Checking for RecentGame with #{title}..."
+    matching_game = RecentGame.by_name(title).on_platform(platform).sorted.first
+    if matching_game
+      matching_game.update_attribute(:updated_at, time)
+    else
+      set_platform =  case platform
+                      when 'psn'
+                        RecentGame::PSN_PLATFORMS.first
+                      when 'xbox'
+                        RecentGame::XBOX_PLATFORMS.first
+                      when 'steam'
+                        RecentGame::STEAM_PLATFORMS.first
+                      when 'switch'
+                        RecentGame::NINTENDO_PLATFORMS.first
+                      end
+      matching_game = RecentGame.create(
+        name:            title,
+        platform:        set_platform,
+        started_playing: time
+      )
+    end
+    if image
+      filename = "#{platform}_#{normalize_title(title)}"
+      file_path = File.join(Rails.public_path, 'remote_cache', filename)
+      if File.exist?(file_path) && !matching_game.image?
+        file = File.open(file_path)
+        matching_game.image = file
+        file.close
+        matching_game.save
+      end
+    end
+  end
+
   def find_game_image(title, thumb = false, platform: false)
     Rails.logger.debug "Looking for cached or uploaded image for #{title}..."
     if platform
@@ -36,7 +70,7 @@ class GamingJob < ApplicationJob
       web_path = Rails.application.routes.url_helpers.root_path+"remote_cache/"+filename
       File.exist?(file_path) and return web_path
     end
-    matching_game = RecentGame.by_name(title).with_image.first
+    matching_game = RecentGame.by_name(title).with_image.sorted.first
     if matching_game && matching_game.image?
       return thumb ? matching_game.image.url(:thumb) : matching_game.image.url(:default)
     end
@@ -59,6 +93,7 @@ class GamingJob < ApplicationJob
       achievement = $1
       title = $3
       title.gsub!(/ Trophies/, '')
+      update_recent_game(title, 'psn', item.published)
       items << {
             platform:         'PlayStation',
             title:            title,
@@ -90,6 +125,7 @@ class GamingJob < ApplicationJob
         newest_achievement = parsed_game_info.search('tr').css('.completed').last
         achievement_time = DateTime.parse("#{newest_achievement.search('td')[2].css('.typo-top-date').first.text} #{newest_achievement.search('td')[2].css('.typo-bottom-date').first.text}")
         image = store_local_copy(parsed_game_info.search('picture').css('.game').css('.lg').search('img').first['src'], 'psn', normalize_title(game_title))
+        update_recent_game(title, 'psn', achievement_time)
         items << {
             platform:         'PlayStation',
             title:            game_title,
@@ -114,6 +150,7 @@ class GamingJob < ApplicationJob
     begin
       games = make_request('https://xbl.io/api/v2/player/titleHistory', type: 'GET', headers: { 'x-authorization': Rails.application.credentials.xbox['api_key'] })
       games.titles.select{|g| g.type == 'Game' }.first(9).each do |game|
+        title = game.name.gsub(/ - Windows Edition/, '')
         begin
           if game.devices.include?('Xbox360')
             achievements = make_request("https://xbl.io/api/v2/achievements/x360/#{Rails.application.credentials.xbox['id']}/title/#{game.titleId}", type: 'GET', headers: { 'x-authorization': Rails.application.credentials.xbox['api_key'] })
@@ -128,15 +165,17 @@ class GamingJob < ApplicationJob
           newest_achievement = false
           newest_achievement_time = false
         end
-        image = store_local_copy(game.displayImage, 'xbox', game.name)
+        image = store_local_copy(game.displayImage, 'xbox', title)
+        time = Time.new(game.titleHistory.lastTimePlayed)
+        update_recent_game(title, 'xbox', time, image)
         items << {
             platform:         'Xbox',
-            title:            game.name,
+            title:            title,
             achievement:      newest_achievement ? newest_achievement.name : false,
             achievement_time: newest_achievement_time ? newest_achievement_time : false,
-            published:        Time.new(game.titleHistory.lastTimePlayed),
-            image_url:        image ? image : find_game_image(game.name),
-            thumb_url:        image ? image : find_game_image(game.name, true)
+            published:        time,
+            image_url:        image ? image : find_game_image(title),
+            thumb_url:        image ? image : find_game_image(title, true)
           }
       end
     rescue => exception
@@ -165,13 +204,16 @@ class GamingJob < ApplicationJob
           # wrong, just assume there are no achievements this run
           newest_achievement = false
         end
-        image = store_local_copy("https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/#{game.appid}/header.jpg", 'steam', game.name)
+        title = game.name
+        image = store_local_copy("https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/#{game.appid}/header.jpg", 'steam', title)
+        time = Time.at(game.rtime_last_played)
+        update_recent_game(title, 'steam', time, image)
         items << {
           platform:         'Steam',
-          title:            game.name,
+          title:            title,
           achievement:      (newest_achievement && newest_achievement.has_key?('name')) ? newest_achievement.name : (newest_achievement ? newest_achievement.apiname : false),
           achievement_time: newest_achievement ? Time.at(newest_achievement.unlocktime) : false,
-          published:        Time.at(game.rtime_last_played),
+          published:        time,
           url:              "https://store.steampowered.com/app/#{game.appid}/",
           image_url:        image ? image : find_game_image(game.name),
           thumb_url:        image ? image : find_game_image(game.name, true)

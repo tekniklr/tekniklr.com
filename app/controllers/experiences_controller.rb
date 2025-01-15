@@ -4,7 +4,7 @@ class ExperiencesController < ApplicationController
   
   # GET /experiences
   def index
-    @experiences = Experience.all
+    @experiences = Experience.sorted
     @experience ||= Experience.new
     respond_to do |format|
       format.html # index.html.erb

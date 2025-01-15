@@ -9,17 +9,20 @@
       reskeeted
   - skeet_handle       = skeet.post.author.handle
   - skeet_display_name = skeet.post.author.displayName
-  - skeet_user_avatar  = skeet.post.author.avatar
+  - skeet_user_avatar  = skeet.post.author.has_key?('avatar') ? skeet.post.author.avatar : ''
   - skeet_user_link    = "https://bsky.app/profile/#{skeet_handle}"
   - skeet_link         = "https://bsky.app/profile/#{skeet_handle}/post/#{skeet.post.uri.split('/').last}"
   - skeet_created      = Time.new(skeet.post.record.createdAt).localtime
+  - is_reply           = skeet.has_key?('reply')
   - has_facets         = skeet.post.record.has_key?('facets')
   - skeet_text         = skeet.post.record.text
   - reskeet_count      = skeet.post.repostCount
   - fave_count         = skeet.post.likeCount
-  - has_previews       = skeet.post.has_key?('embed') && skeet.post.embed.has_key?('media') && skeet.post.embed.media.has_key?('external')
+  - has_previews       = skeet.post.has_key?('embed') && (skeet.post.embed.has_key?('external') || (skeet.post.embed.has_key?('media') && skeet.post.embed.media.has_key?('external')))
   - has_images         = skeet.post.has_key?('embed') && (skeet.post.embed.has_key?('images') || (skeet.post.embed.has_key?('media') && skeet.post.embed.media.has_key?('images')))
+  - has_video          = skeet.post.has_key?('embed') && (skeet.post.embed.has_key?('playlist'))
   - has_quote_post     = skeet.post.has_key?('embed') && skeet.post.embed.has_key?('record')
+  - logger.debug "************ parsing skeet #{index}/#{@skeets.size}:\n#{skeet_text}"
       
   .user_pic
     - if !skeet_user_avatar.blank?
@@ -39,12 +42,22 @@
           - replaced_text = []
           - replacing_text = skeet_text
           - skeet.post.record.facets.each do |facet|
-            - if facet.features.first['$type'] == 'app.bsky.richtext.facet#link'
+            - facet_type = facet.features.first['$type']
+            - if ['app.bsky.richtext.facet#link', 'app.bsky.richtext.facet#mention'].include?(facet_type)
               - facet_start = facet.index.byteStart
               - facet_end = facet.index.byteEnd
-              - newline_count = skeet_text[0..facet_start].lines.count-1
-              - facet_start = facet_start-newline_count
-              - replacements << [skeet_text[(facet_start)..(facet_end)], facet.features.first.uri]
+              - initial_substring = skeet_text[(facet_start)..(facet_end)]
+              - full_match = skeet_text.match(/\s([-_.A-z]*#{initial_substring}.*)/)
+              - facet_start = skeet_text.index(full_match.to_s)+1
+              - replace_text = skeet_text[(facet_start)..(facet_end)].strip
+              - case facet_type
+                - when 'app.bsky.richtext.facet#link'
+                  - replacements << [replace_text, facet.features.first.uri]
+                - when 'app.bsky.richtext.facet#mention'
+                  - replacements << [replace_text, "https://bsky.app/profile/#{facet.features.first.did}"]
+            - elsif facet_type == 'app.bsky.richtext.facet#tag'
+              - tag = facet.features.first.tag
+              - replacements << ["##{tag}", "https://bsky.app/hashtag/#{tag}"]
           - replacements.each do |replace|
             - logger.debug "************ processing replacement: #{replace}"
             - replacing_text.sub! replace.first, "<a href=\"#{replace.last}\" target=\"_blank\">#{replace.first}</a>"
@@ -53,9 +66,14 @@
             - replacing_text = replacing_text[(replace_index+1)..]
           - replaced_text << replacing_text
           - skeet_text = replaced_text.join(' ')
+        - if is_reply
+          - if skeet.reply.parent.has_key?('author')
+            - reply_handle = skeet.reply.parent.author.handle
+            - reply_link = "https://bsky.app/profile/#{reply_handle}/post/#{skeet.reply.parent.uri.split('/').last}"
+            - skeet_text = "<a href='#{reply_link}' target='_blank'>@#{reply_handle}</a> #{skeet_text}"
         = simple_format sanitize(skeet_text, tags: %w(a), attributes: %w(href target)), {}, sanitize: false # simple format was double sanitizing
         - if has_previews
-          - preview = skeet.post.embed.media.external
+          - preview = skeet.post.embed.has_key?('external') ? skeet.post.embed.external : skeet.post.embed.media.external
           .link_preview
             - uri = preview.uri
             - title = preview.has_key?('title') ? preview.title : ''
@@ -78,52 +96,59 @@
             - images.each do |image|
               %p
                 = image_tag(image.thumb, alt: image.alt, title: image.alt)
+        - if has_video
+          .skeet_images
+            %p
+              = link_to image_tag(skeet.post.embed.thumbnail, alt: 'video preview'), skeet_link, target: '_blank'
         - if has_quote_post
           .nested
             - nested_record       = skeet.post.embed.record.has_key?('record') ? skeet.post.embed.record.record : skeet.post.embed.record
-            - nested_handle       = nested_record.author.handle
-            - nested_display_name = nested_record.author.displayName
-            - nested_user_avatar  = nested_record.author.avatar
-            - nested_user_link    = "https://bsky.app/profile/#{nested_handle}"
-            - nested_link         = "https://bsky.app/profile/#{nested_handle}/post/#{nested_record.uri.split('/').last}"
-            - nested_created      = Time.new(nested_record.value.createdAt).localtime
-            - nested_text         = nested_record.value.text
-            - nested_previews     = nested_record.has_key?('embeds') && !nested_record.embeds.empty? && nested_record.embeds.first.has_key?('external')
-            - nested_images       = nested_record.has_key?('embeds')  && !nested_record.embeds.empty? && nested_record.embeds.first.has_key?('images')
-            .user_pic
-              - if !nested_user_avatar.blank?
-                = link_to image_tag(nested_user_avatar, alt: nested_display_name, title: nested_display_name), nested_user_link, target: '_blank'
-            .skeet
-              .user_name
-                .display_name
-                  = nested_display_name
-                .handle
-                  = link_to "@#{nested_handle}", nested_user_link, target: '_blank'
-              .skeet_content
-                = simple_format sanitize(nested_text)
-              - if nested_previews
-                - preview = nested_record.embeds.first.external
-                .link_preview
-                  - uri = preview.uri
-                  - title = preview.has_key?('title') ? preview.title : ''
-                  - description = preview.has_key?('description') ? preview.description : ''
-                  - if preview.thumb
-                    .preview_image
-                      = link_to image_tag(preview.thumb, alt: title, title: title), uri, target: '_blank'
-                  - if title
-                    .preview_title
-                      = link_to title, uri, target: '_blank'
-                  - if description
-                    .preview_description
-                      = link_to description, uri, target: '_blank'
-                  .preview_link
-                    = link_to uri, uri, target: '_blank'
-              - if nested_images
-                - images = nested_record.embeds.first.images
-                .skeet_images
-                  - images.each do |image|
-                    %p
-                      = image_tag(image.thumb, alt: image.alt, title: image.alt)
+            - if nested_record.has_key?('notFound') && (nested_record.notFound == true)
+              %pre deleted skeet
+            - else
+              - nested_handle       = nested_record.author.handle
+              - nested_display_name = nested_record.author.displayName
+              - nested_user_avatar  = nested_record.author.avatar
+              - nested_user_link    = "https://bsky.app/profile/#{nested_handle}"
+              - nested_link         = "https://bsky.app/profile/#{nested_handle}/post/#{nested_record.uri.split('/').last}"
+              - nested_created      = Time.new(nested_record.value.createdAt).localtime
+              - nested_text         = nested_record.value.text
+              - nested_previews     = nested_record.has_key?('embeds') && !nested_record.embeds.empty? && nested_record.embeds.first.has_key?('external')
+              - nested_images       = nested_record.has_key?('embeds')  && !nested_record.embeds.empty? && nested_record.embeds.first.has_key?('images')
+              .user_pic
+                - if !nested_user_avatar.blank?
+                  = link_to image_tag(nested_user_avatar, alt: nested_display_name, title: nested_display_name), nested_user_link, target: '_blank'
+              .skeet
+                .user_name
+                  .display_name
+                    = nested_display_name
+                  .handle
+                    = link_to "@#{nested_handle}", nested_user_link, target: '_blank'
+                .skeet_content
+                  = simple_format sanitize(nested_text)
+                - if nested_previews
+                  - preview = nested_record.embeds.first.external
+                  .link_preview
+                    - uri = preview.uri
+                    - title = preview.has_key?('title') ? preview.title : ''
+                    - description = preview.has_key?('description') ? preview.description : ''
+                    - if preview.thumb
+                      .preview_image
+                        = link_to image_tag(preview.thumb, alt: title, title: title), uri, target: '_blank'
+                    - if title
+                      .preview_title
+                        = link_to title, uri, target: '_blank'
+                    - if description
+                      .preview_description
+                        = link_to description, uri, target: '_blank'
+                    .preview_link
+                      = link_to uri, uri, target: '_blank'
+                - if nested_images
+                  - images = nested_record.embeds.first.images
+                  .skeet_images
+                    - images.each do |image|
+                      %p
+                        = image_tag(image.thumb, alt: image.alt, title: image.alt)
             .nest_fix
 
 

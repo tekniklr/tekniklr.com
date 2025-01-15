@@ -1,0 +1,12 @@
+= stylesheet_link_tag 'cache'
+
+%h1 Cached items
+
+%ul#cached_items
+  - CACHED_ITEMS.each do |cache_item|
+    %li
+      .cache_name
+        = link_to cache_item.first, cache_path(id: cache_item.last), method: :put
+      .cache_time
+        - time = Rails.cache.read(cache_item.last)
+        expires: #{time ? time.localtime.to_formatted_s(:precise) : 'expired!'}

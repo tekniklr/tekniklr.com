@@ -4,7 +4,7 @@ class RecentGamesController < ApplicationController
 
   # GET /recent_games/new
   def new
-    @recent_games = RecentGame.all
+    @recent_games = RecentGame.sorted
     @recent_game = RecentGame.new
     respond_to do |format|
       format.html # new.html.erb
@@ -22,7 +22,7 @@ class RecentGamesController < ApplicationController
 
   # POST /recent_games
   def create
-    @recent_games = RecentGame.all
+    @recent_games = RecentGame.sorted
     @recent_game = RecentGame.new(recent_game_params)
     respond_to do |format|
       if @recent_game.save

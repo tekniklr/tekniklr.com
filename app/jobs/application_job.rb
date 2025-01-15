@@ -2,6 +2,27 @@ class ApplicationJob < ActiveJob::Base
 
   protected
 
+  # sometimes querying a service has a temporary error - in this case we
+  # shoudn't clobber good but stale data
+  # useful for instances like with gaming services, which each get queried
+  # separately and combined into a single cambined cache object used elsewhere
+  # in the app
+  def cache_if_present(cache_key, value)
+    previous_value = Rails.cache.read(cache_key)
+    if previous_value.blank? && value.blank?
+       # trust that value was passed in as either [] or nil, and which should
+       # be returned depends on context
+      return value
+    elsif value.blank?
+      # don't clobber existing cache
+      return previous_value
+    else
+      # cache new value, and return it
+      Rails.cache.write(cache_key, value)
+      return value
+    end
+  end
+
   def get_xml(url, cache = false)
     items = []
     error = false
@@ -127,17 +148,27 @@ class ApplicationJob < ActiveJob::Base
       end
     end
 
-    response.content_type == "application/json" ? JSON.parse(response.body) : response.body
+    if response.respond_to?('content_type') && response.respond_to?('body')
+      response.content_type == "application/json" ? JSON.parse(response.body) : response.body
+    elsif tries < MAX_TRIES
+      # retry in case this is a transient error
+      make_request(url, body: body, params: params, headers: headers, type: type, auth_token: auth_token, auth_type: auth_type, user_agent: user_agent, content_type: content_type, tries: tries+1)
+    else
+      raise net_http_error(response, tries: tries, additional_message: "got a malformed response lacking a content_type or a body")
+    end
   end
 
   private
 
-  def net_http_error(response, tries: false)
+  def net_http_error(response, tries: false, additional_message: false)
     message = "#{response.respond_to?('code') ? response.code : 'Unanticipated'} response"
     tries and message += " after #{tries} attempts"
-    if response.respond_to?('body')
-      message += ' - '
+    additional_message and message += "; #{additional_message}"
+    message += " - \n"
+    if response.respond_to?('content_type') && response.respond_to?('body')
       message += (response.content_type == "application/json") ? JSON.parse(response.body).inspect : response.body.inspect
+    else
+      message += response.inspect
     end
     message
   end
