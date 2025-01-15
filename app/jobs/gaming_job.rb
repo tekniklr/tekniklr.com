@@ -31,9 +31,9 @@ class GamingJob < ApplicationJob
   def update_recent_game(title, platform, time, image = false)
     Rails.logger.debug "Checking for RecentGame with #{title}..."
     matching_game = RecentGame.by_name(title).on_platform(platform).sorted.first
-    if matching_game
+    if matching_game && (matching_game.started_playing.to_date != time.to_date)
       matching_game.update_attribute(:started_playing, time)
-    else
+    elsif matching_game.blank?
       set_platform =  case platform
                       when 'psn'
                         RecentGame::PSN_PLATFORMS.first
@@ -50,10 +50,10 @@ class GamingJob < ApplicationJob
         started_playing: time
       )
     end
-    if image
+    if image && !matching_game.image?
       filename = "#{platform}_#{normalize_title(title)}"
       file_path = File.join(Rails.public_path, 'remote_cache', filename)
-      if File.exist?(file_path) && !matching_game.image?
+      if File.exist?(file_path)
         file = File.open(file_path)
         matching_game.image = file
         file.close
