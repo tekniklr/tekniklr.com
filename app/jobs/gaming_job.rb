@@ -104,44 +104,9 @@ class GamingJob < ApplicationJob
             achievement_time: item.published,
             published:        item.published,
             url:              item.url,
-            image_url:        find_game_image(title, platform: 'psn'),
+            image_url:        image,
             thumb_url:        find_game_image(title, true, platform: 'psn')
           }
-    end
-    return items
-  end
-
-  # using PSNProfiles.com - unfortunately, while this works locally DreamHost
-  # is blocked
-  def get_psn_profiles
-    Rails.logger.debug "Fetching PSN trophies from PSNProfiles..."
-    items = []
-    begin
-      games = make_request('https://psnprofiles.com/tekniklr', type: 'GET', params: { ajax: 1, completion: 'all', order: 'last-played', pf: 'all' }, content_type: 'text/html', user_agent: 'Mozilla/5.0')
-      parsed_games = Nokogiri::HTML.parse(games.html)
-      parsed_games.search('tr').select{|tr| tr.search('td').size > 3}.first(9).each do |game| # don't pull rows that are doing a colspan, because those rows probably don't contain games
-        sleep 1 # avoid rate limiting
-        game_info_link = game.search('a').first['href']
-        game_info = make_request("https://psnprofiles.com#{game_info_link}", type: 'GET', params: { order: 'date' }, content_type: 'text/html', user_agent: 'Mozilla/5.0')
-        parsed_game_info = Nokogiri::HTML.parse(game_info)
-        game_title = parsed_game_info.search('h3').first.children.last.text
-        newest_achievement = parsed_game_info.search('tr').css('.completed').last
-        achievement_time = DateTime.parse("#{newest_achievement.search('td')[2].css('.typo-top-date').first.text} #{newest_achievement.search('td')[2].css('.typo-bottom-date').first.text}")
-        image = store_local_copy(parsed_game_info.search('picture').css('.game').css('.lg').search('img').first['src'], 'psn', normalize_title(game_title))
-        update_recent_game(title, 'psn', achievement_time)
-        items << {
-            platform:         'PlayStation',
-            title:            game_title,
-            achievement:      newest_achievement.search('td')[1].children[3].text.strip.gsub(/\.\z/, ''),
-            achievement_time: achievement_time,
-            published:        achievement_time,
-            url:              "https://psnprofiles.com#{game_info_link}",
-            image_url:        image ? image : find_game_image(game_title),
-            thumb_url:        image ? image : find_game_image(game_title, true)
-          }
-      end
-    rescue => exception
-      ErrorMailer.background_error("fetching/parsing PSN activity via PSNProfiles", exception).deliver_now
     end
     return items
   end
