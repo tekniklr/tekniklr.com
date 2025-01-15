@@ -32,7 +32,7 @@ class GamingJob < ApplicationJob
     Rails.logger.debug "Checking for RecentGame with #{title}..."
     matching_game = RecentGame.by_name(title).on_platform(platform).sorted.first
     if matching_game
-      matching_game.update_attribute(:updated_at, time)
+      matching_game.update_attribute(:started_playing, time)
     else
       set_platform =  case platform
                       when 'psn'
