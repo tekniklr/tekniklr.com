@@ -97,6 +97,14 @@ class GamingJob < ApplicationJob
       title = $3
       title.gsub!(/ Trophies/, '')
       update_recent_game(title, 'psn', item.published)
+      image = find_game_image(title, platform: 'psn')
+      if image.blank?
+        game_info = make_request(item.url, type: 'GET', content_type: 'text/html', user_agent: 'Mozilla/5.0')
+        parsed_game_info = Nokogiri::HTML.parse(game_info)
+        image_url = "https://www.truetrophies.com"+parsed_game_info.css('.info').search('picture').search('source').last['srcset'].split(',').last.split(' ').first
+        image = store_local_copy(image_url, 'psn', normalize_title(title))
+      end
+      update_recent_game(title, 'psn', item.published, image)
       items << {
             platform:         'PlayStation',
             title:            title,
