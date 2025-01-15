@@ -262,13 +262,21 @@ dialog {
     max-width: 100% !important;
   }
   img {
-    max-height: 75% !important;
+    max-height: 80% !important;
   }
 }
 dialog.fixed {
   position: fixed;
-  top: 50%;
-  transform: translate(0, -33%);
+  @media screen and (min-width: $mobile_threshhold) {
+    /* regular layout */
+    top: 0;
+    transform: translate(0, 0);
+  }
+  @media screen and (max-width: $mobile_threshhold) {
+    /* mobile layout */
+    bottom: 0;
+    transform: translate(0, -25%);
+  }
 }
 
 .game_dialog {
@@ -284,7 +292,7 @@ dialog.fixed {
     text-align: right;
   }
   .cheevo {
-    margin: 1em 0 2em 0;
+    margin: 1em 0 0 0;
     .cheevo_title {
       font-weight: bold;
       text-align: left;
