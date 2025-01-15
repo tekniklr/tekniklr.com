@@ -28,6 +28,40 @@ class GamingJob < ApplicationJob
     return items
   end
 
+  def update_recent_game(title, platform, time, image = false)
+    Rails.logger.debug "Checking for RecentGame with #{title}..."
+    matching_game = RecentGame.by_name(title).on_platform(platform).sorted.first
+    if matching_game
+      matching_game.update_attribute(:updated_at, time)
+    else
+      set_platform =  case platform
+                      when 'psn'
+                        RecentGame::PSN_PLATFORMS.first
+                      when 'xbox'
+                        RecentGame::XBOX_PLATFORMS.first
+                      when 'steam'
+                        RecentGame::STEAM_PLATFORMS.first
+                      when 'switch'
+                        RecentGame::NINTENDO_PLATFORMS.first
+                      end
+      matching_game = RecentGame.create(
+        name:            title,
+        platform:        set_platform,
+        started_playing: time
+      )
+    end
+    if image
+      filename = "#{platform}_#{normalize_title(title)}"
+      file_path = File.join(Rails.public_path, 'remote_cache', filename)
+      if File.exist?(file_path) && !matching_game.image?
+        file = File.open(file_path)
+        matching_game.image = file
+        file.close
+        matching_game.save
+      end
+    end
+  end
+
   def find_game_image(title, thumb = false, platform: false)
     Rails.logger.debug "Looking for cached or uploaded image for #{title}..."
     if platform
@@ -59,6 +93,7 @@ class GamingJob < ApplicationJob
       achievement = $1
       title = $3
       title.gsub!(/ Trophies/, '')
+      update_recent_game(title, 'psn', item.published)
       items << {
             platform:         'PlayStation',
             title:            title,
@@ -90,6 +125,7 @@ class GamingJob < ApplicationJob
         newest_achievement = parsed_game_info.search('tr').css('.completed').last
         achievement_time = DateTime.parse("#{newest_achievement.search('td')[2].css('.typo-top-date').first.text} #{newest_achievement.search('td')[2].css('.typo-bottom-date').first.text}")
         image = store_local_copy(parsed_game_info.search('picture').css('.game').css('.lg').search('img').first['src'], 'psn', normalize_title(game_title))
+        update_recent_game(title, 'psn', achievement_time)
         items << {
             platform:         'PlayStation',
             title:            game_title,
@@ -130,12 +166,14 @@ class GamingJob < ApplicationJob
           newest_achievement_time = false
         end
         image = store_local_copy(game.displayImage, 'xbox', title)
+        time = Time.new(game.titleHistory.lastTimePlayed)
+        update_recent_game(title, 'xbox', time, image)
         items << {
             platform:         'Xbox',
             title:            title,
             achievement:      newest_achievement ? newest_achievement.name : false,
             achievement_time: newest_achievement_time ? newest_achievement_time : false,
-            published:        Time.new(game.titleHistory.lastTimePlayed),
+            published:        time,
             image_url:        image ? image : find_game_image(title),
             thumb_url:        image ? image : find_game_image(title, true)
           }
@@ -166,13 +204,16 @@ class GamingJob < ApplicationJob
           # wrong, just assume there are no achievements this run
           newest_achievement = false
         end
-        image = store_local_copy("https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/#{game.appid}/header.jpg", 'steam', game.name)
+        title = game.name
+        image = store_local_copy("https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/#{game.appid}/header.jpg", 'steam', title)
+        time = Time.at(game.rtime_last_played)
+        update_recent_game(title, 'steam', time, image)
         items << {
           platform:         'Steam',
-          title:            game.name,
+          title:            title,
           achievement:      (newest_achievement && newest_achievement.has_key?('name')) ? newest_achievement.name : (newest_achievement ? newest_achievement.apiname : false),
           achievement_time: newest_achievement ? Time.at(newest_achievement.unlocktime) : false,
-          published:        Time.at(game.rtime_last_played),
+          published:        time,
           url:              "https://store.steampowered.com/app/#{game.appid}/",
           image_url:        image ? image : find_game_image(game.name),
           thumb_url:        image ? image : find_game_image(game.name, true)

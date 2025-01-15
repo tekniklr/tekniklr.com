@@ -8,6 +8,7 @@ class RecentGame < ApplicationRecord
                           'NES'
                         ]
   PSN_PLATFORMS =       [
+                          'PlayStation',
                           'PS5',
                           'PS4'
                         ]
@@ -15,10 +16,10 @@ class RecentGame < ApplicationRecord
                           'Steam'
                         ]
   XBOX_PLATFORMS =      [
+                          'Xbox',
                           'Xbox Series X/S',
                           'Xbox One',
-                          'Xbox 360',
-                          'Xbox'
+                          'Xbox 360'
                         ]
   PLATFORMS = PSN_PLATFORMS + XBOX_PLATFORMS + NINTENDO_PLATFORMS + STEAM_PLATFORMS + ['Mac', 'the internet', 'iOS']
 
@@ -53,13 +54,13 @@ class RecentGame < ApplicationRecord
   }
   scope :on_platform, lambda { |platform|
     platforms = case platform
-                when 'PlayStation'
+                when 'psn'
                   PSN_PLATFORMS
-                when 'Xbox'
+                when 'xbox'
                   XBOX_PLATFORMS
-                when 'Steam'
+                when 'steam'
                   STEAM_PLATFORMS
-                when 'Switch'
+                when 'switch'
                   NINTENDO_PLATFORMS
                 end
     where(platform: platforms)
