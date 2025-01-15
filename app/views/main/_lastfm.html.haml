@@ -27,18 +27,12 @@
       - if song[:published]
         - the_time = (song[:published].to_time.to_i == song[:published].beginning_of_day.to_time.to_i) ? song[:published].end_of_day : song[:published]
         = time_ago_in_words(the_time)+' ago'
-    %p.centered
-      %button{id: "closer_#{song_id}"} close
   = javascript_tag nonce: true do
     :plain
       var dialog_song_#{song_id} = document.querySelector("#dialog_song_#{song_id}");
       dialogPolyfill.registerDialog(dialog_song_#{song_id});
       $('#opener_#{song_id}').click(function(e) {
         dialog_song_#{song_id}.showModal();
-        return false;
-      });
-      $('#closer_#{song_id}').click(function(e) {
-        dialog_song_#{song_id}.close();
         return false;
       });
       const updateBackdrop_song_#{song_id} = (ev) => {
