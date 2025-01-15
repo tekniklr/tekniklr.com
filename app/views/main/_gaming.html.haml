@@ -49,18 +49,12 @@
           .cheevo_time
             earned
             = time_ago_in_words(item[:achievement_time])+' ago'
-    %p.centered
-      %button{id: "closer_#{game_id}"} close
   = javascript_tag nonce: true do
     :plain
       var dialog_game_#{game_id} = document.querySelector("#dialog_game_#{game_id}");
       dialogPolyfill.registerDialog(dialog_game_#{game_id});
       $('#opener_#{game_id}').click(function(e) {
         dialog_game_#{game_id}.showModal();
-        return false;
-      });
-      $('#closer_#{game_id}').click(function(e) {
-        dialog_game_#{game_id}.close();
         return false;
       });
       const updateBackdrop_game_#{game_id} = (ev) => {

@@ -41,8 +41,6 @@
                     - else
                       = link_to(image_tag(thing.image.url(:default), alt: thing.thing), thing.link, target: '_blank')
                 = (!thing.link.blank? ? link_to(thing.thing, thing.link, target: '_blank') : thing.thing)
-                .centered
-                  %button{id: "closer_thing_#{thing.id}"} close
               = javascript_tag nonce: true do
                 :plain
                   var dialog_thing_#{thing.id} = document.querySelector("#dialog_thing_#{thing.id}");
@@ -53,10 +51,6 @@
                   });
                   $('#opener_thing_#{thing.id}_img').click(function(e) {
                     dialog_thing_#{thing.id}.showModal();
-                    return false;
-                  });
-                  $('#closer_thing_#{thing.id}').click(function(e) {
-                    dialog_thing_#{thing.id}.close();
                     return false;
                   });
                   const updateBackdrop_thing_#{thing.id} = (ev) => {

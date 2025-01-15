@@ -26,18 +26,12 @@
       - if book[:published]
         - the_time = (book[:published].to_time.to_i == book[:published].beginning_of_day.to_time.to_i) ? book[:published].end_of_day : book[:published]
         = time_ago_in_words(the_time)+' ago'
-    %p.centered
-      %button{id: "closer_#{book_id}"} close
   = javascript_tag nonce: true do
     :plain
       var dialog_book_#{book_id} = document.querySelector("#dialog_book_#{book_id}");
       dialogPolyfill.registerDialog(dialog_book_#{book_id});
       $('#opener_#{book_id}').click(function(e) {
         dialog_book_#{book_id}.showModal();
-        return false;
-      });
-      $('#closer_#{book_id}').click(function(e) {
-        dialog_book_#{book_id}.close();
         return false;
       });
       const updateBackdrop_book_#{book_id} = (ev) => {
