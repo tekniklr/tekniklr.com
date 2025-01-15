@@ -44,7 +44,7 @@ class RecentGame < ApplicationRecord
   validates_format_of   :url, with: URI.regexp, allow_blank: true, allow_nil: true
   
   scope :sorted, -> {
-    order('updated_at desc, started_playing desc')
+    order('started_playing desc, updated_at desc')
   }
   scope :by_name, lambda { |name|
     name_parts = name.gsub(/[^A-z0-9 ]/, ' ').split(' ')
