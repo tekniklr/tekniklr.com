@@ -37,10 +37,14 @@
         = item[:platform]
     - if item[:achievement]
       .cheevo{title: 'last achievement'}
-        - if !item[:url].blank?
-          = link_to item[:achievement], item[:url], target: '_blank'
-        - else
-          = item[:achievement]
+        .cheevo_title
+          - if !item[:url].blank?
+            = link_to item[:achievement], item[:url], target: '_blank'
+          - else
+            = item[:achievement]
+        - if !item[:achievement_desc].blank?
+          .cheevo_desc
+            = item[:achievement_desc]
         - if !item[:achievement_time].blank?
           .cheevo_time
             earned

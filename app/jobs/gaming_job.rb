@@ -149,6 +149,7 @@ class GamingJob < ApplicationJob
             title:            title,
             achievement:      newest_achievement ? newest_achievement.name : false,
             achievement_time: newest_achievement_time ? newest_achievement_time : false,
+            achievement_desc: newest_achievement ? newest_achievement.description : false,
             published:        time,
             image_url:        image ? image : find_game_image(title),
             thumb_url:        image ? image : find_game_image(title, true)
