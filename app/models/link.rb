@@ -14,12 +14,14 @@ class Link < ActiveRecord::Base
 
   validates_inclusion_of :visible, :in => [true, false], :allow_nil => true
 
-  default_scope { order('name asc') }
-
-  # will only return links where visible is set to true
-  scope :get_visible, -> { where('visible = ?', true)
+  scope :sorted, -> {
+    order('name asc')
+  }
+  scope :get_visible, -> {
+    where('visible = ?', true)
   }  
-  # will only return links where social_icon is set to true and an icon exists
-  scope :get_social, -> { where('social_icon = ? and icon_file_name is not null', true) }
+  scope :get_social, -> {
+    where('social_icon = ? and icon_file_name is not null', true)
+  }
   
 end

@@ -1,7 +1,7 @@
 = form_for(@favorite) do |f|
   - if @favorite.errors.any?
     #error_explanation
-      %h2 #{pluralize(@favorite.errors.count, "error")} prohibited this favorite from being saved:
+      %h2 #{pluralize(@favorite.errors.size, "error")} prohibited this favorite from being saved:
       %ul
         - @favorite.errors.full_messages.each do |msg|
           %li #{msg}
@@ -12,7 +12,7 @@
     = f.hidden_field :sort
 
   .things_edit
-    = f.fields_for :favorite_things do |ft|
+    = f.fields_for :favorite_things, @favorite.favorite_things.sorted do |ft|
       .thing_form
         .thing_image
           - if ft.object.image?

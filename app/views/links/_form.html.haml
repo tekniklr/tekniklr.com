@@ -3,7 +3,7 @@
 
   - if link.errors.any?
     #error_explanation
-      %h2 #{pluralize(link.errors.count, "error")} prohibited this link from being saved:
+      %h2 #{pluralize(link.errors.size, "error")} prohibited this link from being saved:
       %ul
         - link.errors.full_messages.each do |msg|
           %li #{msg}

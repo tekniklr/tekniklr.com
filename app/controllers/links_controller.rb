@@ -4,7 +4,7 @@ class LinksController < ApplicationController
   
   # GET /links
   def index
-    @links = Link.all
+    @links = Link.sorted
     @link ||= Link.new
     respond_to do |format|
       format.html # index.html.erb
@@ -22,7 +22,7 @@ class LinksController < ApplicationController
         errors << link.errors.full_messages
       end
     end
-    @links = Link.all
+    @links = Link.sorted
     if errors.empty?
       flash[:notice] = 'Links updated.'
       redirect_to(links_url)

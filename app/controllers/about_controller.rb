@@ -11,11 +11,11 @@ class AboutController < ApplicationController
   def collect_facets
     @gravatar_id ||= Digest::MD5::hexdigest(EMAIL).downcase
     @interests   ||= Facet.find_by_slug('interests')
-    @about_links ||= Link.get_visible
+    @about_links ||= Link.sorted.get_visible
   end
   
   def build_favorites
-    @favorites = Favorite.with_things
+    @favorites = Favorite.sorted.with_things
   end
   
 end

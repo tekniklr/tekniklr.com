@@ -9,7 +9,6 @@ class ApplicationController < ActionController::Base
   helper_method  :logged_in?
   
   before_action  :get_links
-  before_action  :is_admin?, only: :clean_cache
 
   # https://github.com/rails/rails/issues/671
   def routing_error
@@ -17,17 +16,6 @@ class ApplicationController < ActionController::Base
       format.html { render '404', status: 404 }
       format.any  { redirect_to action: 'routing_error', format: 'html' }
     end
-  end
-
-  def clean_cache
-    deleted = []
-    CACHED_ITEMS.each do |item|
-      if Rails.cache.delete(item)
-        deleted << item
-      end
-    end
-    flash[:notice] = "Baleeted the following cache items: #{deleted.to_sentence}"
-    redirect_to root_url
   end
 
   def redirect_wordpress
@@ -62,11 +50,11 @@ class ApplicationController < ActionController::Base
   def get_links
     # config.cache_classes = false was causing this to barf in dev
     if Rails.env.development? || Rails.env.test?
-      @links        = Link.all
-      @social_media = Link.get_social
+      @links        = Link.sorted
+      @social_media = Link.sorted.get_social
     else
-      @links        = Rails.cache.fetch('links_all')    { Link.all }
-      @social_media = Rails.cache.fetch('links_social') { Link.get_social }
+      @links        = Rails.cache.fetch('links_all')    { Link.sorted }
+      @social_media = Rails.cache.fetch('links_social') { Link.sorted.get_social }
     end
   end
   

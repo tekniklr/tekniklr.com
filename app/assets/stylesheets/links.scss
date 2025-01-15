@@ -1,3 +1,5 @@
+@import "config.scss";
+
 .link {
   @include rounded(1px, $faint_border_color, 1em, 1em, solid);
   clear: both;

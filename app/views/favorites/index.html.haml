@@ -1,3 +1,5 @@
+= stylesheet_link_tag 'favorites'
+
 %h1 Current favorites
 
 %ol#sort_favorites
@@ -6,7 +8,7 @@
       %span.drag ↕️
       %strong #{favorite.favorite_type}
       %ol
-        - favorite.favorite_things.each do |thing|
+        - favorite.favorite_things.sorted.each do |thing|
           %li 
             = thing.link ? link_to(thing.thing, thing.link) : thing.thing
       .list_manage

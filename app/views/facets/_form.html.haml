@@ -1,6 +1,6 @@
 - if facet.errors.any?
   #error_explanation
-    %h2 #{pluralize(facet.errors.count, "error")} prohibited this facet from being saved:
+    %h2 #{pluralize(facet.errors.size, "error")} prohibited this facet from being saved:
     %ul
       - facet.errors.full_messages.each do |msg|
         %li #{msg}

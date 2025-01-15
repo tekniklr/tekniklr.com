@@ -1,4 +1,6 @@
-- if @links && @links.count > 0
+= stylesheet_link_tag 'links'
+
+- if @links && @links.size > 0
   %h1 Current links
   = form_tag update_all_links_path, multipart: true, method: :patch do
     #links

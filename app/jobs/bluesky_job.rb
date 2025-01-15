@@ -42,7 +42,7 @@ class BlueskyJob < ApplicationJob
       ErrorMailer.background_error('caching skeets', exception).deliver_now
       skeets = []
     end
-    Rails.cache.write('skeets', skeets)
+    Rails.cache.write('skeets', skeets.first(40))
   end
 
   private
