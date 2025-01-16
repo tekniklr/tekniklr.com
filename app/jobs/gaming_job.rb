@@ -28,7 +28,7 @@ class GamingJob < ApplicationJob
     return items
   end
 
-  def update_recent_game(title, platform, time, image = false, url = false)
+  def update_recent_game(title, platform, time, image: false, url: false)
     Rails.logger.debug "Checking RecentGame #{title}..."
     matching_game = RecentGame.by_name(title).on_platform(platform).sorted.first
     if matching_game && (matching_game.started_playing.to_date < time.to_date)
@@ -104,7 +104,7 @@ class GamingJob < ApplicationJob
         image_url = "https://www.truetrophies.com"+parsed_game_info.css('.info').search('picture').search('source').last['srcset'].split(',').last.split(' ').first
         image = store_local_copy(image_url, 'psn', normalize_title(title))
       end
-      update_recent_game(title, 'psn', item.published, image)
+      update_recent_game(title, 'psn', item.published, image: image)
       items << {
             platform:         'PlayStation',
             title:            title,
@@ -143,7 +143,7 @@ class GamingJob < ApplicationJob
         end
         image = store_local_copy(game.displayImage, 'xbox', title)
         time = Time.new(game.titleHistory.lastTimePlayed)
-        update_recent_game(title, 'xbox', time, image)
+        update_recent_game(title, 'xbox', time, image: image)
         items << {
             platform:         'Xbox',
             title:            title,
@@ -185,7 +185,7 @@ class GamingJob < ApplicationJob
         image = store_local_copy("https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/#{game.appid}/header.jpg", 'steam', title)
         time = Time.at(game.rtime_last_played)
         url = "https://store.steampowered.com/app/#{game.appid}/"
-        update_recent_game(title, 'steam', time, image)
+        update_recent_game(title, 'steam', time, image: image)
         items << {
           platform:         'Steam',
           title:            title,
@@ -242,7 +242,7 @@ class GamingJob < ApplicationJob
         image = store_local_copy(item.imageUri.medium, 'switch', title)
         time = (index == 0) ? Time.at(daily_summary.items.first.lastPlayedAt) : item.firstPlayDate.to_date.beginning_of_day
         url = item.shopUri
-        update_recent_game(title, 'switch', time, image, url)
+        update_recent_game(title, 'switch', time, image: image, url: url)
         items << {
           platform:         'Switch',
           title:            title,
