@@ -5,7 +5,8 @@ class GamingJob < ApplicationJob
     psn_items = cache_if_present('gaming_psn', get_psn_rss)
     xbox_items = cache_if_present('gaming_xbox', get_xbox)
     steam_items = cache_if_present('gaming_steam', get_steam)
-    all_items = (manual_items + psn_items + xbox_items + steam_items).sort_by{|i| i.published}.reverse.uniq{ |i| [normalize_title(i.title.downcase)] }
+    nintendo_items = cache_if_present('gaming_nintendo', get_nintendo)
+    all_items = (manual_items + psn_items + xbox_items + steam_items + nintendo_items).sort_by{|i| i.published}.reverse.uniq{ |i| [normalize_title(i.title.downcase)] }
     Rails.cache.write('gaming', all_items[0..9])
   end
   
@@ -236,8 +237,20 @@ class GamingJob < ApplicationJob
                               'x-moon-smart-device-id': Rails.application.credentials.nintendo[:smart_device_id]
                             }
                           )
-
-
+      daily_summary.items.first.playedApps.each_with_index do |item, index|
+        title = item.title
+        image = store_local_copy(item.imageUri.medium, 'switch', title)
+        time = (index == 0) ? Time.at(daily_summary.items.first.lastPlayedAt) : item.firstPlayDate.to_date.beginning_of_day
+        update_recent_game(title, 'switch', time, image)
+        items << {
+          platform:         'Switch',
+          title:            title,
+          published:        time,
+          url:              item.shopUri,
+          image_url:        image ? image : find_game_image(title),
+          thumb_url:        image ? image : find_game_image(title, true)
+        }
+      end
     rescue => exception
       ErrorMailer.background_error("fetching/parsing Nintendo games via API", exception).deliver_now
     end
