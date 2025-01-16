@@ -21,6 +21,9 @@ gem 'rack'
 gem 'feedjira'
 gem 'iconv' # needed to parse some feeds
 
+# just scraping stuff
+gem 'nokogiri'
+
 # non-RSS external services/APIs
 gem 'lastfm'
 gem 'mastodon-api', require: 'mastodon', git: 'https://github.com/mastodon/mastodon-api'

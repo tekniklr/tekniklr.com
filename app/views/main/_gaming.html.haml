@@ -37,26 +37,24 @@
         = item[:platform]
     - if item[:achievement]
       .cheevo{title: 'last achievement'}
-        - if !item[:url].blank?
-          = link_to item[:achievement], item[:url], target: '_blank'
-        - else
-          = item[:achievement]
+        .cheevo_title
+          - if !item[:url].blank?
+            = link_to item[:achievement], item[:url], target: '_blank'
+          - else
+            = item[:achievement]
+        - if !item[:achievement_desc].blank?
+          .cheevo_desc
+            = item[:achievement_desc]
         - if !item[:achievement_time].blank?
           .cheevo_time
             earned
             = time_ago_in_words(item[:achievement_time])+' ago'
-    %p.centered
-      %button{id: "closer_#{game_id}"} close
   = javascript_tag nonce: true do
     :plain
       var dialog_game_#{game_id} = document.querySelector("#dialog_game_#{game_id}");
       dialogPolyfill.registerDialog(dialog_game_#{game_id});
       $('#opener_#{game_id}').click(function(e) {
         dialog_game_#{game_id}.showModal();
-        return false;
-      });
-      $('#closer_#{game_id}').click(function(e) {
-        dialog_game_#{game_id}.close();
         return false;
       });
       const updateBackdrop_game_#{game_id} = (ev) => {
