@@ -31,7 +31,7 @@ class GamingJob < ApplicationJob
   def update_recent_game(title, platform, time, image = false)
     Rails.logger.debug "Checking RecentGame #{title}..."
     matching_game = RecentGame.by_name(title).on_platform(platform).sorted.first
-    if matching_game && (matching_game.started_playing.to_date != time.to_date)
+    if matching_game && (matching_game.started_playing.to_date < time.to_date)
       Rails.logger.debug "Updating started_playing for RecentGame #{title}..."
       matching_game.update_attribute(:started_playing, time)
     elsif matching_game.blank?
