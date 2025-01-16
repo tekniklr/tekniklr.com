@@ -17,18 +17,21 @@ class GamingJob < ApplicationJob
     items = []
     RecentGame.sorted.first(12).each do |game|
       items << {
-        title:       game.name,
-        platform:    game.platform,
-        url:         game.url,
-        published:   game.started_playing.beginning_of_day,
-        thumb_url:   game.image.url(:thumb),
-        image_url:   game.image.url(:default)
+        title:            game.name,
+        platform:         game.platform,
+        url:              game.url,
+        published:        game.started_playing.beginning_of_day,
+        thumb_url:        game.image.url(:thumb),
+        image_url:        game.image.url(:default),
+        achievement:      game.achievement_name ? game.achievement_name : false,
+        achievement_time: game.achievement_time ? game.achievement_time : false,
+        achievement_desc: game.achievement_desc ? game.achievement_desc : false
       }
     end
     return items
   end
 
-  def update_recent_game(title, platform, time, image: false, url: false)
+  def update_recent_game(title, platform, time, image: false, url: false, achievement: false)
     Rails.logger.debug "Checking RecentGame #{title}..."
     matching_game = RecentGame.by_name(title).on_platform(platform).sorted.first
     if matching_game && (matching_game.started_playing.to_date < time.to_date)
@@ -63,6 +66,12 @@ class GamingJob < ApplicationJob
         matching_game.save
       end
     end
+    if achievement && (achievement.name != matching_game.achievement_name)
+      matching_game.achievement_name = achievement.name
+      matching_game.achievement_time = achievement.time ? achievement.time : nil
+      matching_game.achievement_desc = achievement.desc ? achievement.desc : nil
+      matching_game.save
+    end
   end
 
   def find_game_image(title, thumb = false, platform: false)
@@ -93,10 +102,9 @@ class GamingJob < ApplicationJob
         puts "Couldn't parse an achievement, type, or game title from \"#{item.title}\"! Skipping."
         next
       end
-      achievement = $1
+      achievement_name = $1
       title = $3
       title.gsub!(/ Trophies/, '')
-      update_recent_game(title, 'psn', item.published)
       image = find_game_image(title, platform: 'psn')
       if image.blank?
         game_info = make_request(item.url, type: 'GET', content_type: 'text/html', user_agent: 'Mozilla/5.0')
@@ -104,12 +112,19 @@ class GamingJob < ApplicationJob
         image_url = "https://www.truetrophies.com"+parsed_game_info.css('.info').search('picture').search('source').last['srcset'].split(',').last.split(' ').first
         image = store_local_copy(image_url, 'psn', normalize_title(title))
       end
-      update_recent_game(title, 'psn', item.published, image: image)
+      if achievement_name
+        achievement = {
+          name: achievement_name,
+          time: item.published,
+          desc: false
+        }
+      end
+      update_recent_game(title, 'psn', item.published, image: image, achievement: achievement)
       items << {
             platform:         'PlayStation',
             title:            title,
-            achievement:      achievement,
-            achievement_time: item.published,
+            achievement:      achievement ? achievement.name : false,
+            achievement_time: achievement ? achievement.time : false,
             published:        item.published,
             url:              item.url,
             image_url:        image,
@@ -143,13 +158,20 @@ class GamingJob < ApplicationJob
         end
         image = store_local_copy(game.displayImage, 'xbox', title)
         time = Time.new(game.titleHistory.lastTimePlayed)
-        update_recent_game(title, 'xbox', time, image: image)
+        if newest_achievement
+          achievement = {
+            name: newest_achievement ? newest_achievement.name : false,
+            time: newest_achievement_time ? newest_achievement_time : false,
+            desc: newest_achievement ? newest_achievement.description : false
+          }
+        end
+        update_recent_game(title, 'xbox', time, image: image, achievement: achievement)
         items << {
             platform:         'Xbox',
             title:            title,
-            achievement:      newest_achievement ? newest_achievement.name : false,
-            achievement_time: newest_achievement_time ? newest_achievement_time : false,
-            achievement_desc: newest_achievement ? newest_achievement.description : false,
+            achievement:      achievement ? achievement.name : false,
+            achievement_time: achievement ? achievement.time : false,
+            achievement_desc: achievement ? achievement.desc : false,
             published:        time,
             image_url:        image ? image : find_game_image(title),
             thumb_url:        image ? image : find_game_image(title, true)
@@ -185,12 +207,19 @@ class GamingJob < ApplicationJob
         image = store_local_copy("https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/#{game.appid}/header.jpg", 'steam', title)
         time = Time.at(game.rtime_last_played)
         url = "https://store.steampowered.com/app/#{game.appid}/"
-        update_recent_game(title, 'steam', time, image: image)
+        if newest_achievement
+          achievement = {
+            name: (newest_achievement && newest_achievement.has_key?('name')) ? newest_achievement.name : (newest_achievement ? newest_achievement.apiname : false),
+            time: newest_achievement ? Time.at(newest_achievement.unlocktime) : false,
+            desc: false
+          }
+        end
+        update_recent_game(title, 'steam', time, image: image, achievement: achievement)
         items << {
           platform:         'Steam',
           title:            title,
-          achievement:      (newest_achievement && newest_achievement.has_key?('name')) ? newest_achievement.name : (newest_achievement ? newest_achievement.apiname : false),
-          achievement_time: newest_achievement ? Time.at(newest_achievement.unlocktime) : false,
+          achievement:      achievement ? achievement.name : false,
+          achievement_time: achievement ? achievement.time : false,
           published:        time,
           url:              url,
           image_url:        image ? image : find_game_image(game.name),

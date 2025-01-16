@@ -14,9 +14,39 @@ ul#recent_games {
     @include rounded(1px, $med_border_color, 2em, 1.5em, dashed);
     .gaming_image {
       display: inline-block;
+      width: 7em;
+      margin: 0;
+      padding: 0;
+      img {
+        margin: 0;
+      }
     }
     .gaming_details {
       display: inline-block;
+    }
+    .gaming_achievement {
+      border-top : 1px solid $faint_border_color;
+      padding-top: .5em;
+      @media screen and (min-width: $mobile_threshhold) {
+        /* regular layout */
+        margin: 1em 0 0 7.5em;
+      }
+      @media screen and (max-width: $mobile_threshhold) {
+        /* mobile layout */
+        margin: 0;
+      }
+      .achievement_name {
+        display: inline;
+        font-weight: bold;
+      }
+      .achievement_time {
+        display: inline;
+        font-style: italic;
+        font-size: 80%;
+      }
+      .achievement_desc {
+        font-family: monospace, monospace;
+      }
     }
     .left {
       width: 80%;
