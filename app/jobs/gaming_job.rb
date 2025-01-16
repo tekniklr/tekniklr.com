@@ -5,7 +5,8 @@ class GamingJob < ApplicationJob
     psn_items = cache_if_present('gaming_psn', get_psn_rss)
     xbox_items = cache_if_present('gaming_xbox', get_xbox)
     steam_items = cache_if_present('gaming_steam', get_steam)
-    all_items = (manual_items + psn_items + xbox_items + steam_items).sort_by{|i| i.published}.reverse.uniq{ |i| [normalize_title(i.title.downcase)] }
+    nintendo_items = cache_if_present('gaming_nintendo', get_nintendo)
+    all_items = (manual_items + psn_items + xbox_items + steam_items + nintendo_items).sort_by{|i| i.published}.reverse.uniq{ |i| [normalize_title(i.title.downcase)] }
     Rails.cache.write('gaming', all_items[0..9])
   end
   
@@ -28,10 +29,10 @@ class GamingJob < ApplicationJob
     return items
   end
 
-  def update_recent_game(title, platform, time, image = false)
+  def update_recent_game(title, platform, time, image = false, url = false)
     Rails.logger.debug "Checking RecentGame #{title}..."
     matching_game = RecentGame.by_name(title).on_platform(platform).sorted.first
-    if matching_game && (matching_game.started_playing.to_date != time.to_date)
+    if matching_game && (matching_game.started_playing.to_date < time.to_date)
       Rails.logger.debug "Updating started_playing for RecentGame #{title}..."
       matching_game.update_attribute(:started_playing, time)
     elsif matching_game.blank?
@@ -184,6 +185,7 @@ class GamingJob < ApplicationJob
         title = game.name
         image = store_local_copy("https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/#{game.appid}/header.jpg", 'steam', title)
         time = Time.at(game.rtime_last_played)
+        url = "https://store.steampowered.com/app/#{game.appid}/"
         update_recent_game(title, 'steam', time, image)
         items << {
           platform:         'Steam',
@@ -191,13 +193,68 @@ class GamingJob < ApplicationJob
           achievement:      (newest_achievement && newest_achievement.has_key?('name')) ? newest_achievement.name : (newest_achievement ? newest_achievement.apiname : false),
           achievement_time: newest_achievement ? Time.at(newest_achievement.unlocktime) : false,
           published:        time,
-          url:              "https://store.steampowered.com/app/#{game.appid}/",
+          url:              url,
           image_url:        image ? image : find_game_image(game.name),
           thumb_url:        image ? image : find_game_image(game.name, true)
         }
       end
     rescue => exception
       ErrorMailer.background_error("fetching/parsing Steam achievements via API", exception).deliver_now
+    end
+    return items
+  end
+
+  # using Nintendo API
+  def get_nintendo
+    Rails.logger.debug "Fetching game activity via Nintendo API.."
+    items =[]
+    begin
+      access_token =  make_request(
+                              'https://accounts.nintendo.com/connect/1.0.0/api/token',
+                              type: 'POST',
+                              body: {
+                                client_id: Rails.application.credentials.nintendo[:client_id],
+                                session_token: Rails.application.credentials.nintendo[:session_token],
+                                grant_type: Rails.application.credentials.nintendo[:grant_type]
+                              }
+                            )
+      daily_summary = make_request(
+                          "https://api-lp1.pctl.srv.nintendo.net/moon/v1/devices/#{Rails.application.credentials.nintendo[:device_id]}/daily_summaries",
+                            type: 'GET',
+                            auth_token: access_token.access_token,
+                            headers: {
+                              'x-moon-os-language': 'en-US',
+                              'x-moon-app-language': 'en-US',
+                              'x-moon-app-internal-version': '361',
+                              'x-moon-app-display-version': '1.22.0',
+                              'x-moon-app-id': 'com.nintendo.znma',
+                              'x-moon-os': 'IOS',
+                              'x-moon-os-version': '18.2.1',
+                              'x-moon-model': 'iPhone17,1',
+                              'accept-encoding': 'gzip;q=1.0, compress;q=0.5',
+                              'accept-language': 'en-US;q=1.0',
+                              'user-agent': 'moon_ios/1.22.0 (com.nintendo.znma; build:361; iOS 18.2.1) Alamofire/5.9.0',
+                              'x-moon-timezone': 'America/Los_Angeles',
+                              'x-moon-smart-device-id': Rails.application.credentials.nintendo[:smart_device_id]
+                            }
+                          )
+      daily_summary.items.first.playedApps.each_with_index do |item, index|
+        title = item.title
+        image = store_local_copy(item.imageUri.medium, 'switch', title)
+        time = (index == 0) ? Time.at(daily_summary.items.first.lastPlayedAt) : item.firstPlayDate.to_date.beginning_of_day
+        url = item.shopUri
+        update_recent_game(title, 'switch', time, image, url)
+        items << {
+          platform:         'Switch',
+          title:            title,
+          published:        time,
+          url:              url,
+          image_url:        image ? image : find_game_image(title),
+          thumb_url:        image ? image : find_game_image(title, true)
+        }
+      end
+    rescue => exception
+      ErrorMailer.background_error("fetching/parsing Nintendo games via API", exception).deliver_now
     end
     return items
   end
