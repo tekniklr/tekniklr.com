@@ -13,8 +13,8 @@
         .right
           = link_to 'edit', edit_recent_game_path(game)
         .left
-          - if game.image?
-            .gaming_image
+          .gaming_image
+            - if game.image?
               = image_tag game.image.url(:thumb), alt: game.name, align: 'left', hspace: 10
           .gaming_details
             #{game.started_playing.to_formatted_s(:standard)}:
@@ -22,6 +22,16 @@
             #{game.name}
             %br
             %em #{game.platform}
+          - if game.achievement_name
+            .gaming_achievement
+              .achievement_name
+                = game.achievement_name
+              - if game.achievement_time
+                .achievement_time
+                  = game.achievement_time.to_formatted_s(:precise)
+              - if game.achievement_desc
+                .achievement_desc
+                  = game.achievement_desc
         .right
           %p
             = link_to 'remove', game, :method => :delete, :data => { :confirm => "Are you sure you want to remove #{game.name}?" }
