@@ -69,4 +69,12 @@ class RecentGame < ApplicationRecord
     where('image_file_name is not null')
   }
 
+  after_save  :expire_game_cache
+
+  private
+
+  def expire_game_cache
+    Rails.cache.delete('gaming_expiry')
+  end
+
 end
