@@ -29,7 +29,7 @@ class GamingJob < ApplicationJob
     return items
   end
 
-  def update_recent_game(title, platform, time, image = false)
+  def update_recent_game(title, platform, time, image = false, url = false)
     Rails.logger.debug "Checking RecentGame #{title}..."
     matching_game = RecentGame.by_name(title).on_platform(platform).sorted.first
     if matching_game && (matching_game.started_playing.to_date < time.to_date)
@@ -185,6 +185,7 @@ class GamingJob < ApplicationJob
         title = game.name
         image = store_local_copy("https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/#{game.appid}/header.jpg", 'steam', title)
         time = Time.at(game.rtime_last_played)
+        url = "https://store.steampowered.com/app/#{game.appid}/"
         update_recent_game(title, 'steam', time, image)
         items << {
           platform:         'Steam',
@@ -192,7 +193,7 @@ class GamingJob < ApplicationJob
           achievement:      (newest_achievement && newest_achievement.has_key?('name')) ? newest_achievement.name : (newest_achievement ? newest_achievement.apiname : false),
           achievement_time: newest_achievement ? Time.at(newest_achievement.unlocktime) : false,
           published:        time,
-          url:              "https://store.steampowered.com/app/#{game.appid}/",
+          url:              url,
           image_url:        image ? image : find_game_image(game.name),
           thumb_url:        image ? image : find_game_image(game.name, true)
         }
@@ -241,12 +242,13 @@ class GamingJob < ApplicationJob
         title = item.title
         image = store_local_copy(item.imageUri.medium, 'switch', title)
         time = (index == 0) ? Time.at(daily_summary.items.first.lastPlayedAt) : item.firstPlayDate.to_date.beginning_of_day
-        update_recent_game(title, 'switch', time, image)
+        url = item.shopUri
+        update_recent_game(title, 'switch', time, image, url)
         items << {
           platform:         'Switch',
           title:            title,
           published:        time,
-          url:              item.shopUri,
+          url:              url,
           image_url:        image ? image : find_game_image(title),
           thumb_url:        image ? image : find_game_image(title, true)
         }
