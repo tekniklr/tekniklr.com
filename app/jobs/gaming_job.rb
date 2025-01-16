@@ -16,12 +16,11 @@ class GamingJob < ApplicationJob
     Rails.logger.debug "Parsing manually entered games..."
     items = []
     RecentGame.sorted.first(12).each do |game|
-      sort_time = Time.zone.local(game.started_playing.year, game.started_playing.month, game.started_playing.day, game.updated_at.hour, game.updated_at.min, game.updated_at.sec)
       items << {
         title:       game.name,
         platform:    game.platform,
         url:         game.url,
-        published:   sort_time,
+        published:   game.started_playing.beginning_of_day,
         thumb_url:   game.image.url(:thumb),
         image_url:   game.image.url(:default)
       }
