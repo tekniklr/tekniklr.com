@@ -207,57 +207,36 @@ class GamingJob < ApplicationJob
     Rails.logger.debug "Fetching game activity via Nintendo API.."
     items =[]
     begin
-      # to get new codes:
-      # 1. log out of the iOS Switch app
-      # 2. when logging back in, copy the authorization page (that shows
-      #    account) to a Notes app quick note
-      # 3. open the link from that note in Notes app on a computer, and copy
-      #    the url at the authorize button (it will start with
-      #    `npf71b963c1b7b6d119://`)
-      # that URL contains these parameters:
-      #    session_token_code (session_token_code)
-      #    state (session_token_code_verifier)
-      #    session_state
-      # also, the protocol (npf71b963c1b7b6d119://) has the client_id, after
-      # the `npf`
-      client_id = Rails.application.credentials.nintendo[:client_id]
-      session_token_code = Rails.application.credentials.nintendo[:session_token_code]
-      session_token_code_verifier = Rails.application.credentials.nintendo[:session_token_code_verifier]
-
-      user_agent_version = 'unknown' # see https://github.com/frozenpandaman/splatnet2statink/commits/master
-
-      session_token_resp =  make_request(
-                              'https://accounts.nintendo.com/connect/1.0.0/api/session_token',
+      access_token =  make_request(
+                              'https://accounts.nintendo.com/connect/1.0.0/api/token',
                               type: 'POST',
-                              content_type: 'application/x-www-form-urlencoded',
-                              user_agent: "OnlineLounge/#{user_agent_version} NASDKAPI Android",
-                              headers: {
-                                'X-Platform': 'Android',
-                                'X-ProductVersion': user_agent_version,
-                              },
                               body: {
-                                client_id: client_id,
-                                session_token_code: session_token_code,
-                                session_token_code_verifier: session_token_code_verifier
+                                client_id: Rails.application.credentials.nintendo[:client_id],
+                                session_token: Rails.application.credentials.nintendo[:session_token],
+                                grant_type: Rails.application.credentials.nintendo[:grant_type]
                               }
                             )
-      session_token = session_token_resp.session_token
+      daily_summary = make_request(
+                          "https://api-lp1.pctl.srv.nintendo.net/moon/v1/devices/#{Rails.application.credentials.nintendo[:device_id]}/daily_summaries",
+                            type: 'GET',
+                            auth_token: access_token.access_token,
+                            headers: {
+                              'x-moon-os-language': 'en-US',
+                              'x-moon-app-language': 'en-US',
+                              'x-moon-app-internal-version': '361',
+                              'x-moon-app-display-version': '1.22.0',
+                              'x-moon-app-id': 'com.nintendo.znma',
+                              'x-moon-os': 'IOS',
+                              'x-moon-os-version': '18.2.1',
+                              'x-moon-model': 'iPhone17,1',
+                              'accept-encoding': 'gzip;q=1.0, compress;q=0.5',
+                              'accept-language': 'en-US;q=1.0',
+                              'user-agent': 'moon_ios/1.22.0 (com.nintendo.znma; build:361; iOS 18.2.1) Alamofire/5.9.0',
+                              'x-moon-timezone': 'America/Los_Angeles',
+                              'x-moon-smart-device-id': Rails.application.credentials.nintendo[:smart_device_id]
+                            }
+                          )
 
-      api_token_resp =  make_request(
-                          'https://accounts.nintendo.com/connect/1.0.0/api/token',
-                          type: 'POST',
-                          content_type: 'application/json; charset=utf-8',
-                          user_agent: "com.nintendo.znca/#{user_agent_version} (Android/7.1.2)",
-                          headers: {
-                            'X-Platform': 'Android',
-                            'X-ProductVersion': user_agent_version
-                          },
-                          body: {
-                            client_id: client_id,
-                            grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer-session-token',
-                            session_token: session_token
-                          }
-                        )
 
     rescue => exception
       ErrorMailer.background_error("fetching/parsing Nintendo games via API", exception).deliver_now
