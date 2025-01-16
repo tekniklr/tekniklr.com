@@ -262,27 +262,48 @@ dialog {
     max-width: 100% !important;
   }
   img {
-    max-height: 75% !important;
+    max-height: 80% !important;
   }
 }
 dialog.fixed {
   position: fixed;
-  top: 50%;
-  transform: translate(0, -33%);
+  @media screen and (min-width: $mobile_threshhold) {
+    /* regular layout */
+    top: 0;
+    transform: translate(0, 0);
+  }
+  @media screen and (max-width: $mobile_threshhold) {
+    /* mobile layout */
+    bottom: 0;
+    transform: translate(0, -25%);
+  }
 }
 
 .game_dialog {
   .game_name {
-    margin: .5em 0 .5em 0;
+    margin: .5em 0 0 0;
     font-size: 125%;
+    text-align: left;
   }
   .game_platform {
-    font-size: 75%;
+    font-size: 80%;
+    font-style: italic;
+    text-align: right;
   }
   .cheevo {
-    margin: .5em 0 .5em 0;
-    font-style: italic;
+    margin: 1em 0 0 0;
+    .cheevo_title {
+      text-align: left;
+    }
+    .cheevo_desc {
+      font-family: monospace, monospace;
+      text-align: left;
+      margin: 0 1em 0 1em;
+      @include transparent(0.50);
+    }
     .cheevo_time {
+      font-style: italic;
+      text-align: right;
       font-size: 80%;
     }
   }
