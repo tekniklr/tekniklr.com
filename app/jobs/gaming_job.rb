@@ -97,7 +97,11 @@ class GamingJob < ApplicationJob
     games = make_request('https://ps-timetracker.com/profile/tekniklr', type: 'GET', content_type: 'text/html', user_agent: 'Mozilla/5.0')
     parsed_games = Nokogiri::HTML.parse(games)
     parsed_games.search('table').css('#user-table').search('tbody').search('tr').each do |game|
-      last_played_times[normalize_title(game.search('td')[2].text)] = Time.at(game.search('td')[7].attr('data-sort').to_i)
+      title = game.search('td')[2].text
+      last_played_times[normalize_title(title)] = {
+        time:  Time.at(game.search('td')[7].attr('data-sort').to_i),
+        title: title
+      }
     end
 
     Rails.logger.debug "Fetching PSN trophies from truetrophies..."
@@ -127,7 +131,11 @@ class GamingJob < ApplicationJob
           desc: false
         }
       end
-      last_played = last_played_times.has_key?(normalize_title(title)) ? last_played_times[normalize_title(title)] : item.published
+      last_played = item.published
+      if last_played_times.has_key?(normalize_title(title))
+        last_played = last_played_times[normalize_title(title)].time
+        last_played_times.delete(normalize_title(title))
+      end
       update_recent_game(title, 'psn', last_played, image: image, achievement: achievement)
       items << {
             platform:         'PlayStation',
@@ -139,6 +147,13 @@ class GamingJob < ApplicationJob
             image_url:        image,
             thumb_url:        find_game_image(title, true, platform: 'psn')
           }
+
+      # any games that have been played recently but lack a recent trophy (thus
+      # they remain in the hash) need to have their last played time updated in
+      # RecentGames
+      last_played_times.each do |game, values|
+        update_recent_game(values.title, 'psn', values.time)
+      end
     end
     return items
   end
