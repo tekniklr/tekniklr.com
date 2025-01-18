@@ -31,29 +31,33 @@ class GamingJob < ApplicationJob
     return items
   end
 
-  def update_recent_game(title, platform, time, image: false, url: false, achievement: false)
+  def update_recent_game(title, platform, time, image: false, url: false, achievement: false, create: true)
     Rails.logger.debug "Checking RecentGame #{title}..."
     matching_game = RecentGame.by_name(title).on_platform(platform).sorted.first
     if matching_game && (matching_game.started_playing.to_date < time.to_date)
       Rails.logger.debug "Updating started_playing for RecentGame #{title}..."
       matching_game.update_attribute(:started_playing, time)
     elsif matching_game.blank?
-      Rails.logger.debug "Creating RecentGame #{title}..."
-      set_platform =  case platform
-                      when 'psn'
-                        RecentGame::PSN_PLATFORMS.first
-                      when 'xbox'
-                        RecentGame::XBOX_PLATFORMS.first
-                      when 'steam'
-                        RecentGame::STEAM_PLATFORMS.first
-                      when 'switch'
-                        RecentGame::NINTENDO_PLATFORMS.first
-                      end
-      matching_game = RecentGame.create(
-        name:            title,
-        platform:        set_platform,
-        started_playing: time
-      )
+      if create
+        Rails.logger.debug "Creating RecentGame #{title}..."
+        set_platform =  case platform
+                        when 'psn'
+                          RecentGame::PSN_PLATFORMS.first
+                        when 'xbox'
+                          RecentGame::XBOX_PLATFORMS.first
+                        when 'steam'
+                          RecentGame::STEAM_PLATFORMS.first
+                        when 'switch'
+                          RecentGame::NINTENDO_PLATFORMS.first
+                        end
+        matching_game = RecentGame.create(
+          name:            title,
+          platform:        set_platform,
+          started_playing: time
+        )
+      else
+        return
+      end
     end
     if image && !matching_game.image?
       filename = "#{platform}_#{normalize_title(title)}"
@@ -150,9 +154,10 @@ class GamingJob < ApplicationJob
 
       # any games that have been played recently but lack a recent trophy (thus
       # they remain in the hash) need to have their last played time updated in
-      # RecentGames
+      # RecentGames; don't create one though, as there won't be a game image
+      # available until the TrueTrophies RSS picks up an achievement
       last_played_times.each do |game, values|
-        update_recent_game(values.title, 'psn', values.time)
+        update_recent_game(values.title, 'psn', values.time, create: false)
       end
     end
     return items
