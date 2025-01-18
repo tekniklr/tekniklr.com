@@ -6,7 +6,7 @@ class GamingJob < ApplicationJob
     xbox_items = cache_if_present('gaming_xbox', get_xbox)
     steam_items = cache_if_present('gaming_steam', get_steam)
     nintendo_items = cache_if_present('gaming_nintendo', get_nintendo)
-    all_items = (manual_items + psn_items + xbox_items + steam_items + nintendo_items).sort_by{|i| i.published}.reverse.uniq{ |i| [normalize_title(i.title.downcase)] }
+    all_items = (manual_items + psn_items + xbox_items + steam_items + nintendo_items).sort_by{|i| i.published}.reverse.uniq{ |i| [normalize_title(i.title)] }
     Rails.cache.write('gaming', all_items[0..9])
   end
   
