@@ -2,7 +2,7 @@ class GamingJob < ApplicationJob
   
   def perform
     manual_items = get_recent_games
-    psn_items = cache_if_present('gaming_psn', get_psn_rss)
+    psn_items = cache_if_present('gaming_psn', get_psn)
     xbox_items = cache_if_present('gaming_xbox', get_xbox)
     steam_items = cache_if_present('gaming_steam', get_steam)
     nintendo_items = cache_if_present('gaming_nintendo', get_nintendo)
@@ -89,12 +89,20 @@ class GamingJob < ApplicationJob
     ''
   end
 
-  # using truetrophies which seems to be one of the only reliable ways to turn 
-  # PSN trophies into an RSS feed...
-  def get_psn_rss
+  # scrapes PS-Timetracker for PSN activity, and fetches truetrophies RSS for
+  # trophies and game images
+  def get_psn
+    Rails.logger.debug "Fetching PSN activity from PSN-timetracker..."
+    last_played_times = {}
+    games = make_request('https://ps-timetracker.com/profile/tekniklr', type: 'GET', content_type: 'text/html', user_agent: 'Mozilla/5.0')
+    parsed_games = Nokogiri::HTML.parse(games)
+    parsed_games.search('table').css('#user-table').search('tbody').search('tr').each do |game|
+      last_played_times[normalize_title(game.search('td')[2].text)] = Time.at(game.search('td')[7].attr('data-sort').to_i)
+    end
+
     Rails.logger.debug "Fetching PSN trophies from truetrophies..."
-    rss_items = get_xml('https://www.truetrophies.com/friendfeedrss.aspx?gamerid=26130', 'gaming_expiry')
     items = []
+    rss_items = get_xml('https://www.truetrophies.com/friendfeedrss.aspx?gamerid=26130', 'gaming_expiry')
     rss_items.each do |item|
       item.title.match?(/tekniklr (started|completed)/) and next
       item.title.match(/tekniklr won the (.*) (trophy|achievement) in (.*)\z/)
@@ -119,13 +127,14 @@ class GamingJob < ApplicationJob
           desc: false
         }
       end
-      update_recent_game(title, 'psn', item.published, image: image, achievement: achievement)
+      last_played = last_played_times.has_key?(normalize_title(title)) ? last_played_times[normalize_title(title)] : item.published
+      update_recent_game(title, 'psn', last_played, image: image, achievement: achievement)
       items << {
             platform:         'PlayStation',
             title:            title,
             achievement:      achievement ? achievement.name : false,
             achievement_time: achievement ? achievement.time : false,
-            published:        item.published,
+            published:        last_played,
             url:              item.url,
             image_url:        image,
             thumb_url:        find_game_image(title, true, platform: 'psn')
