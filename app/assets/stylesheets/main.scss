@@ -134,6 +134,10 @@ ul#mastodon, ul#bluesky {
         img {
           display: inline-block;
         }
+        .reply {
+          font-style: italic;
+          font-size: 80%;
+        }
         .nested, .link_preview {
           clear: both;
           @include rounded(1px, $faint_border_color, .75em, .5em, dashed);
