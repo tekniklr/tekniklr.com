@@ -38,34 +38,7 @@
     .skeet_content
       %div{id: "skeet_#{skeet.post.uri}"}
         - if has_facets
-          - replacements = []
-          - replaced_text = []
-          - replacing_text = skeet_text
-          - skeet.post.record.facets.each do |facet|
-            - facet_type = facet.features.first['$type']
-            - if ['app.bsky.richtext.facet#link', 'app.bsky.richtext.facet#mention'].include?(facet_type)
-              - facet_start = facet.index.byteStart
-              - facet_end = facet.index.byteEnd
-              - initial_substring = skeet_text[(facet_start)..(facet_end)]
-              - full_match = skeet_text.match(/\s([-_.A-z]*#{initial_substring}.*)/)
-              - facet_start = skeet_text.index(full_match.to_s)+1
-              - replace_text = skeet_text[(facet_start)..(facet_end)].strip
-              - case facet_type
-                - when 'app.bsky.richtext.facet#link'
-                  - replacements << [replace_text, facet.features.first.uri]
-                - when 'app.bsky.richtext.facet#mention'
-                  - replacements << [replace_text, "https://bsky.app/profile/#{facet.features.first.did}"]
-            - elsif facet_type == 'app.bsky.richtext.facet#tag'
-              - tag = facet.features.first.tag
-              - replacements << ["##{tag}", "https://bsky.app/hashtag/#{tag}"]
-          - replacements.each do |replace|
-            - logger.debug "************ processing replacement: #{replace}"
-            - replacing_text.sub! replace.first, "<a href=\"#{replace.last}\" target=\"_blank\">#{replace.first}</a>"
-            - replace_index = replacing_text.index(replace.first)+(replace.first.size+4)
-            - replaced_text << replacing_text[0..replace_index]
-            - replacing_text = replacing_text[(replace_index+1)..]
-          - replaced_text << replacing_text
-          - skeet_text = replaced_text.join(' ')
+          - skeet_facets(skeet_text, skeet.post.record.facets)
         - if is_reply
           - if skeet.reply.parent.has_key?('author')
             .reply
@@ -118,6 +91,7 @@
               - nested_text         = nested_record.value.text
               - nested_previews     = nested_record.has_key?('embeds') && !nested_record.embeds.empty? && nested_record.embeds.first.has_key?('external')
               - nested_images       = nested_record.has_key?('embeds')  && !nested_record.embeds.empty? && nested_record.embeds.first.has_key?('images')
+              - nested_facets       = nested_record.value.has_key?('facets')
               .user_pic
                 - if !nested_user_avatar.blank?
                   = link_to image_tag(nested_user_avatar, alt: nested_display_name, title: nested_display_name), nested_user_link, target: '_blank'
@@ -128,7 +102,9 @@
                   .handle
                     = link_to "@#{nested_handle}", nested_user_link, target: '_blank'
                 .skeet_content
-                  = simple_format sanitize(nested_text)
+                  - if nested_facets
+                    - skeet_facets(nested_text, nested_record.value.facets)
+                  = simple_format sanitize(nested_text, tags: %w(a), attributes: %w(href target)), {}, sanitize: false # simple format was double sanitizing
                 - if nested_previews
                   - preview = nested_record.embeds.first.external
                   .link_preview
