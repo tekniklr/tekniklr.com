@@ -86,6 +86,7 @@
                 = link_to title, uri, target: '_blank'
             - if description
               .preview_description
+                - description = truncate(strip_tags(description), length: 100, escape: false)
                 = link_to description, uri, target: '_blank'
             .preview_link
               = link_to uri, uri, target: '_blank'
@@ -140,6 +141,7 @@
                         = link_to title, uri, target: '_blank'
                     - if description
                       .preview_description
+                        - description = truncate(strip_tags(description), length: 100, escape: false)
                         = link_to description, uri, target: '_blank'
                     .preview_link
                       = link_to uri, uri, target: '_blank'
