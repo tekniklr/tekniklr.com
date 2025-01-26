@@ -68,9 +68,11 @@
           - skeet_text = replaced_text.join(' ')
         - if is_reply
           - if skeet.reply.parent.has_key?('author')
-            - reply_handle = skeet.reply.parent.author.handle
-            - reply_link = "https://bsky.app/profile/#{reply_handle}/post/#{skeet.reply.parent.uri.split('/').last}"
-            - skeet_text = "<a href='#{reply_link}' target='_blank'>@#{reply_handle}</a> #{skeet_text}"
+            .reply
+              - reply_handle = skeet.reply.parent.author.handle
+              - reply_link = "https://bsky.app/profile/#{reply_handle}/post/#{skeet.reply.parent.uri.split('/').last}"
+              = "replied to "
+              = link_to "@#{reply_handle}:", reply_link, target: '_blank'
         = simple_format sanitize(skeet_text, tags: %w(a), attributes: %w(href target)), {}, sanitize: false # simple format was double sanitizing
         - if has_previews
           - preview = skeet.post.embed.has_key?('external') ? skeet.post.embed.external : skeet.post.embed.media.external
