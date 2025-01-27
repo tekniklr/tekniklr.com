@@ -3,7 +3,8 @@
 - skeet_display_name = skeet.post.author.displayName
 - skeet_user_avatar  = skeet.post.author.has_key?('avatar') ? skeet.post.author.avatar : ''
 - skeet_user_link    = "https://bsky.app/profile/#{skeet_handle}"
-- skeet_link         = "https://bsky.app/profile/#{skeet_handle}/post/#{skeet.post.uri.split('/').last}"
+- skeet_id           = skeet.post.uri.split('/').last
+- skeet_link         = "https://bsky.app/profile/#{skeet_handle}/post/#{skeet_id}"
 - skeet_created      = Time.new(skeet.post.record.createdAt).localtime
 - is_reply           = skeet.has_key?('reply')
 - has_facets         = skeet.post.record.has_key?('facets')
@@ -16,7 +17,7 @@
 - has_quote_post     = skeet.post.has_key?('embed') && skeet.post.embed.has_key?('record')
 - logger.debug "************ parsing skeet #{index}/#{@skeets.size}:\n#{skeet_text}"
 
-%li{id: "skeet_#{skeet.post.uri}"}
+%li{id: "skeet_#{skeet_id}"}
 
   - if skeet_is_repost
     .reskeet
@@ -43,7 +44,8 @@
         - if skeet.reply.parent.has_key?('author')
           .reply
             - reply_handle = skeet.reply.parent.author.handle
-            - reply_link = "https://bsky.app/profile/#{reply_handle}/post/#{skeet.reply.parent.uri.split('/').last}"
+            - reply_id = skeet.reply.parent.uri.split('/').last
+            - reply_link = "https://bsky.app/profile/#{reply_handle}/post/#{reply_id}"
             = "replied to "
             = link_to "@#{reply_handle}:", reply_link, target: '_blank'
       = simple_format sanitize(skeet_text, tags: %w(a), attributes: %w(href target)), {}, sanitize: false # simple format was double sanitizing
@@ -86,7 +88,8 @@
             - nested_display_name = nested_record.author.displayName
             - nested_user_avatar  = nested_record.author.avatar
             - nested_user_link    = "https://bsky.app/profile/#{nested_handle}"
-            - nested_link         = "https://bsky.app/profile/#{nested_handle}/post/#{nested_record.uri.split('/').last}"
+            - nested_id           = nested_record.uri.split('/').last
+            - nested_link         = "https://bsky.app/profile/#{nested_handle}/post/#{nested_id}"
             - nested_created      = Time.new(nested_record.value.createdAt).localtime
             - nested_text         = nested_record.value.text
             - nested_previews     = nested_record.has_key?('embeds') && !nested_record.embeds.empty? && nested_record.embeds.first.has_key?('external')
