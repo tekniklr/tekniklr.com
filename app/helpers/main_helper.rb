@@ -33,16 +33,18 @@ module MainHelper
         tag = facet.features.first.tag
         replacements << ["##{tag}", "https://bsky.app/hashtag/#{tag}"]
       end
-      replacements.each do |replace|
-        logger.debug "************ processing replacement: #{replace}"
-        replacing_text.sub! replace.first, "<a href=\"#{replace.last}\" target=\"_blank\">#{replace.first}</a>"
-        replace_index = replacing_text.index(replace.first)+(replace.first.size+4)
-        replaced_text << replacing_text[0..replace_index]
-        replacing_text = replacing_text[(replace_index+1)..]
-      end
-      replaced_text << replacing_text
-      skeet_text = replaced_text.join(' ')
     end
+    replacements.each do |replace|
+      logger.debug "************ processing replacement: #{replace}"
+      replacing_text.sub! replace.first, "<a href=\"#{replace.last}\" target=\"_blank\">#{replace.first}</a>"
+      replace_index = replacing_text.index(replace.first)+(replace.first.size+4)
+      replaced_text << replacing_text[0..replace_index]
+      replacing_text = replacing_text[(replace_index+1)..]
+    end
+    replaced_text << replacing_text
+    skeet_text = replaced_text.join(' ')
+    logger.debug "************ final skeet text: #{skeet_text}"
+    return skeet_text
   end
 
 end
