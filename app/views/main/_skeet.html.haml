@@ -39,7 +39,7 @@
 
     .skeet_content
       - if has_facets
-        - skeet_facets(skeet_text, skeet.post.record.facets)
+        - skeet_text = skeet_facets(skeet_text, skeet.post.record.facets)
       - if is_reply
         - if skeet.reply.parent.has_key?('author')
           .reply
@@ -106,7 +106,7 @@
                   = link_to "@#{nested_handle}", nested_user_link, target: '_blank'
               .skeet_content
                 - if nested_facets
-                  - skeet_facets(nested_text, nested_record.value.facets)
+                  - nested_text = skeet_facets(nested_text, nested_record.value.facets)
                 = simple_format sanitize(nested_text, tags: %w(a), attributes: %w(href target)), {}, sanitize: false # simple format was double sanitizing
               - if nested_previews
                 - preview = nested_record.embeds.first.external
