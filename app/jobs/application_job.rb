@@ -39,11 +39,11 @@ class ApplicationJob < ActiveJob::Base
     end
     if error && cache
       # if something is wrong with the external XML feed, don't keep trying it
-      # on the normal schedule. wait a day.
+      # on the normal schedule. wait longer.
       # this is necessary because sometimes the Dreamhost server IPs get banned
       # on CloudFlare and I'll get emails about it every few hours until it
       # gets fixed. I'd like fewer error emails.
-      Rails.cache.write(cache, (Time.now + 1.day))
+      Rails.cache.write(cache, (Time.now + 6.hours))
     end
     return items
   end
