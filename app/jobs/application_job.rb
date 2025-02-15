@@ -51,7 +51,7 @@ class ApplicationJob < ActiveJob::Base
   # removes all non-alphanumeric characters and whitespace, to hopefully be
   # more able to compare matching titles from different sources
   def normalize_title(title)
-    title.downcase.gsub(/[^A-z0-9]/, '')
+    title.downcase.gsub(/[^A-Za-z0-9]/, '')
   end
 
   def http_status_good(url)

@@ -15,7 +15,7 @@ class GoodreadsJob < ApplicationJob
       orig_image_url = Nokogiri::HTML(item.summary).css("img")[0]['src']
       thumb_url = orig_image_url.gsub(/_S[A-Z][0-9]+_\.jpg/, '_SY100_.jpg')
       image_url = orig_image_url.gsub(/_S[A-Z][0-9]+_\.jpg/, '_SY300_.jpg')
-      file_title = title.gsub(/[^A-z]/, '')
+      file_title = title.gsub(/[^A-Za-z]/, '')
       parsed_items << {
         title:     title,
         url:       item.url,
