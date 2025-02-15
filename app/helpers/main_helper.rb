@@ -14,24 +14,16 @@ module MainHelper
     replaced_text = []
     replacing_text = skeet_text
     facets.each do |facet|
-      facet_type = facet.features.first['$type']
-      if ['app.bsky.richtext.facet#link', 'app.bsky.richtext.facet#mention'].include?(facet_type)
-        facet_start = facet.index.byteStart
-        facet_end = facet.index.byteEnd
-        initial_substring = skeet_text[(facet_start)..(facet_end)].split(/\s/).first
-        full_match = skeet_text.match(/\s([-_.A-z@\/]*#{initial_substring}.*)/)
-        facet_start = skeet_text.index(full_match.to_s)+1
-        facet_end = skeet_text[(facet_start)..].index(' ') ? (facet_start+skeet_text[(facet_start)..].index(' ')-1) : facet_end
-        replace_text = skeet_text[(facet_start)..(facet_end)].strip
-        case facet_type
-        when 'app.bsky.richtext.facet#link'
-          replacements << [replace_text, facet.features.first.uri]
-        when 'app.bsky.richtext.facet#mention'
-          replacements << [replace_text, "https://bsky.app/profile/#{facet.features.first.did}"]
-        end
-      elsif facet_type == 'app.bsky.richtext.facet#tag'
-        tag = facet.features.first.tag
-        replacements << ["##{tag}", "https://bsky.app/hashtag/#{tag}"]
+      facet_start = facet.index.byteStart
+      facet_end = facet.index.byteEnd
+      replace_text = skeet_text.byteslice(facet_start, (facet_end-facet_start))
+      case facet.features.first['$type']
+      when 'app.bsky.richtext.facet#link'
+        replacements << [replace_text, facet.features.first.uri]
+      when 'app.bsky.richtext.facet#mention'
+        replacements << [replace_text, "https://bsky.app/profile/#{facet.features.first.did}"]
+      when 'app.bsky.richtext.facet#tag'
+        replacements << [replace_text, "https://bsky.app/hashtag/#{facet.features.first.tag}"]
       end
     end
     replacements.each do |replace|
