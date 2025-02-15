@@ -19,7 +19,7 @@ module MainHelper
         facet_start = facet.index.byteStart
         facet_end = facet.index.byteEnd
         initial_substring = skeet_text[(facet_start)..(facet_end)].split(/\s/).first
-        full_match = skeet_text.match(/\s([-_.A-z@]*#{initial_substring}.*)/)
+        full_match = skeet_text.match(/\s([-_.A-z@\/]*#{initial_substring}.*)/)
         facet_start = skeet_text.index(full_match.to_s)+1
         facet_end = skeet_text[(facet_start)..].index(' ') ? (facet_start+skeet_text[(facet_start)..].index(' ')-1) : facet_end
         replace_text = skeet_text[(facet_start)..(facet_end)].strip
