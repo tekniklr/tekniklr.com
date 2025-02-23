@@ -95,9 +95,9 @@ class ApplicationJob < ActiveJob::Base
     uri = URI.parse(url)
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = (uri.scheme == "https")
-    http.open_timeout = 4
-    http.read_timeout = 4
-    http.write_timeout = 4
+    http.open_timeout = 10
+    http.read_timeout = 60
+    http.write_timeout = 60
 
     params.present? and uri.query = URI.encode_www_form(params)
 
