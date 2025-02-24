@@ -417,7 +417,7 @@ GEM
       concurrent-ruby (~> 1.0)
     uri (1.0.2)
     useragent (0.16.11)
-    version_gem (1.1.5)
+    version_gem (1.1.6)
     websocket-driver (0.7.7)
       base64
       websocket-extensions (>= 0.1.0)
