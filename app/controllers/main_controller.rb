@@ -14,14 +14,14 @@ class MainController < ApplicationController
     @skeets          = Rails.cache.read('skeets')
     if @skeet_expiry.nil? || Time.now > @skeet_expiry
       @skeet_expiry  = Rails.cache.write('skeet_expiry', (Time.now + 12.minutes))
-      Delayed::Job.enqueue(BlueskyJob.new)
+      BlueskyJob.perform_later
     end
 
     @toot_expiry    = Rails.cache.read('toot_expiry')
     @toots          = Rails.cache.read('toots')
     if @toot_expiry.nil? || Time.now > @toot_expiry
       @toot_expiry  = Rails.cache.write('toot_expiry', (Time.now + 12.minutes))
-      Delayed::Job.enqueue(MastodonJob.new)
+      MastodonJob.perform_later
     end
 
     @gaming_expiry   = Rails.cache.read('gaming_expiry')
