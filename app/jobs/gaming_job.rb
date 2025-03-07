@@ -94,7 +94,7 @@ class GamingJob < ApplicationJob
       File.exist?(file_path) and return web_path
     end
     matching_game = matching_recent_game(title, image_only: true)
-    if matching_game && matching_game.image?
+    if matching_game && matching_game.image? && File.exist?(matching_game.image.path)
       return thumb ? matching_game.image.url(:thumb) : matching_game.image.url(:default)
     end
     ''
