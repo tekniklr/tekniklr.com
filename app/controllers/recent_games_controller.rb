@@ -41,6 +41,7 @@ class RecentGamesController < ApplicationController
     respond_to do |format|
       if @recent_game.update(recent_game_params)
         flash[:notice] = 'Recent game was successfully updated.'
+        Rails.cache.delete('gaming_expiry')
         format.html { redirect_to new_recent_game_url }
         format.js
       else
