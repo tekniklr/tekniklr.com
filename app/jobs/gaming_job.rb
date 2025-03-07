@@ -109,14 +109,17 @@ class GamingJob < ApplicationJob
     parsed_games = Nokogiri::HTML.parse(games)
     parsed_games.search('table').css('#user-table').search('tbody').search('tr').each do |game|
       title = game.search('td')[2].text
+      time = Time.at(game.search('td')[7].attr('data-sort').to_i)
       last_played_times[normalize_title(title)] = {
-        time:  Time.at(game.search('td')[7].attr('data-sort').to_i),
+        time:  time,
         title: title
       }
+      update_recent_game(title, 'psn', time, create: false) # this will update last played time for all existing RecentGames, but will not add any RecentGames- that will only be done when there is at least one trophy in the TrueTrophies RSS
     end
 
     Rails.logger.debug "Fetching PSN trophies from truetrophies..."
     items = []
+    parsed_cheevs = []
     rss_items = get_xml('https://www.truetrophies.com/friendfeedrss.aspx?gamerid=26130', 'gaming_expiry')
     rss_items.each do |item|
       item.title.match?(/tekniklr (started|completed)/) and next
@@ -128,44 +131,55 @@ class GamingJob < ApplicationJob
       achievement_name = $1
       title = $3
       title.gsub!(/ Trophies/, '')
+      parsed_cheevs.include?(normalize_title(title)) and next # we only need to look at the newest achievement, per game
+
+      # to get a game image or achievement description, we need to look a the
+      # truetrophies details page from the RSS, for the achievement
       image = find_game_image(title, platform: 'psn')
-      if image.blank?
+      matching_game = matching_recent_game(title, platform: 'psn')
+      needs_cheev_desc = !achievement_name.blank? && (matching_game.blank? || (!matching_game.blank? && ((matching_game.achievement_name != achievement_name) || matching_game.achievement_desc.blank?)))
+      if image.blank? || needs_cheev_desc
         game_info = make_request(item.url, type: 'GET', content_type: 'text/html', user_agent: 'Mozilla/5.0')
         parsed_game_info = Nokogiri::HTML.parse(game_info)
+      end
+      if image.blank?
         image_url = "https://www.truetrophies.com"+parsed_game_info.css('.info').search('picture').search('source').last['srcset'].split(',').last.split(' ').first
         image = store_local_copy(image_url, 'psn', normalize_title(title))
       end
       if achievement_name
+        achievement_desc = needs_cheev_desc ? parsed_game_info.search('.ach-panel').search('p').text : false
         achievement = {
           name: achievement_name,
           time: item.published,
-          desc: false
+          desc: achievement_desc
         }
       end
+
+      # for games that are in the trophy list but have been played more
+      # recently - use the last played time from ps-timetracker
       last_played = item.published
       if last_played_times.has_key?(normalize_title(title))
         last_played = last_played_times[normalize_title(title)].time
         last_played_times.delete(normalize_title(title))
       end
+
+      # update RecentGames with everything we've determined
       update_recent_game(title, 'psn', last_played, image: image, achievement: achievement)
       items << {
             platform:         'PlayStation',
             title:            title,
             achievement:      achievement ? achievement.name : false,
             achievement_time: achievement ? achievement.time : false,
+            achievement_desc: achievement ? achievement.desc : false,
             published:        last_played,
             url:              item.url,
             image_url:        image,
             thumb_url:        find_game_image(title, thumb: true, platform: 'psn')
           }
 
-      # any games that have been played recently but lack a recent trophy (thus
-      # they remain in the hash) need to have their last played time updated in
-      # RecentGames; don't create one though, as there won't be a game image
-      # available until the TrueTrophies RSS picks up an achievement
-      last_played_times.each do |game, values|
-        update_recent_game(values.title, 'psn', values.time, create: false)
-      end
+      # mark this game as parsed to other achievements for it in the RSS will
+      # be skipped
+      parsed_cheevs << normalize_title(title)
     end
     return items
   end
