@@ -31,9 +31,16 @@ class GamingJob < ApplicationJob
     return items
   end
 
+  def matching_recent_game(title, platform: false, image_only: false)
+    matching_game = RecentGame.by_name(title)
+    matching_game = matching_game.on_platform(platform) if platform
+    matching_game = matching_game.with_image if image_only
+    matching_game.sorted.first
+  end
+
   def update_recent_game(title, platform, time, image: false, url: false, achievement: false, create: true)
     Rails.logger.debug "Checking RecentGame #{title}..."
-    matching_game = RecentGame.by_name(title).on_platform(platform).sorted.first
+    matching_game = matching_recent_game(title, platform: platform)
     if matching_game && (matching_game.started_playing.to_date < time.to_date)
       Rails.logger.debug "Updating started_playing for RecentGame #{title}..."
       matching_game.update_attribute(:started_playing, time)
@@ -86,7 +93,7 @@ class GamingJob < ApplicationJob
       web_path = Rails.application.routes.url_helpers.root_path+"remote_cache/"+filename
       File.exist?(file_path) and return web_path
     end
-    matching_game = RecentGame.by_name(title).with_image.sorted.first
+    matching_game = matching_recent_game(title, image_only: true)
     if matching_game && matching_game.image?
       return thumb ? matching_game.image.url(:thumb) : matching_game.image.url(:default)
     end
