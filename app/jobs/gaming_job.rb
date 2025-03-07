@@ -79,7 +79,7 @@ class GamingJob < ApplicationJob
         matching_game.save
       end
     end
-    if achievement && ((achievement.name != matching_game.achievement_name) || (achievement.desc != matching_game.achievement_desc))
+    if achievement && ((achievement.name != matching_game.achievement_name) || (!achievement.desc.blank? && matching_game.achievement_desc.blank?))
       Rails.logger.debug "Updating Achievement: #{achievement.name}..."
       matching_game.achievement_name = achievement.name
       matching_game.achievement_time = achievement.time ? achievement.time : nil
