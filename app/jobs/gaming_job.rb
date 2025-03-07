@@ -160,11 +160,11 @@ class GamingJob < ApplicationJob
       last_played = item.published
       if last_played_times.has_key?(normalize_title(title))
         last_played = last_played_times[normalize_title(title)].time
-        last_played_times.delete(normalize_title(title))
       end
 
       # update RecentGames with everything we've determined
       update_recent_game(title, 'psn', last_played, image: image, achievement: achievement)
+
       items << {
             platform:         'PlayStation',
             title:            title,
