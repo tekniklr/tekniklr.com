@@ -45,6 +45,7 @@ class GamingJob < ApplicationJob
       Rails.logger.debug "Updating started_playing for RecentGame #{title}..."
       matching_game.update_attribute(:started_playing, time)
     elsif matching_game.blank?
+      Rails.logger.debug "No game found matching #{title}!"
       if create
         Rails.logger.debug "Creating RecentGame #{title}..."
         set_platform =  case platform
@@ -63,6 +64,7 @@ class GamingJob < ApplicationJob
           started_playing: time
         )
       else
+        Rails.logger.debug "'create' is false. Exiting."
         return
       end
     end
@@ -77,7 +79,8 @@ class GamingJob < ApplicationJob
         matching_game.save
       end
     end
-    if achievement && (achievement.name != matching_game.achievement_name)
+    if achievement && ((achievement.name != matching_game.achievement_name) || (achievement.desc != matching_game.achievement_desc))
+      Rails.logger.debug "Updating Achievement: #{achievement.name}..."
       matching_game.achievement_name = achievement.name
       matching_game.achievement_time = achievement.time ? achievement.time : nil
       matching_game.achievement_desc = achievement.desc ? achievement.desc : nil
