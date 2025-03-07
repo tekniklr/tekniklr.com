@@ -85,7 +85,7 @@ class GamingJob < ApplicationJob
     end
   end
 
-  def find_game_image(title, thumb = false, platform: false)
+  def find_game_image(title, thumb: false, platform: false)
     Rails.logger.debug "Looking for cached or uploaded image for #{title}..."
     if platform
       filename = "#{platform}_#{normalize_title(title)}"
@@ -156,7 +156,7 @@ class GamingJob < ApplicationJob
             published:        last_played,
             url:              item.url,
             image_url:        image,
-            thumb_url:        find_game_image(title, true, platform: 'psn')
+            thumb_url:        find_game_image(title, thumb: true, platform: 'psn')
           }
 
       # any games that have been played recently but lack a recent trophy (thus
@@ -210,7 +210,7 @@ class GamingJob < ApplicationJob
             achievement_desc: achievement ? achievement.desc : false,
             published:        time,
             image_url:        image ? image : find_game_image(title),
-            thumb_url:        image ? image : find_game_image(title, true)
+            thumb_url:        image ? image : find_game_image(title, thumb: true)
           }
       end
     rescue => exception
@@ -259,7 +259,7 @@ class GamingJob < ApplicationJob
           published:        time,
           url:              url,
           image_url:        image ? image : find_game_image(game.name),
-          thumb_url:        image ? image : find_game_image(game.name, true)
+          thumb_url:        image ? image : find_game_image(game.name, thumb: true)
         }
       end
     rescue => exception
@@ -314,7 +314,7 @@ class GamingJob < ApplicationJob
           published:        time,
           url:              url,
           image_url:        image ? image : find_game_image(title),
-          thumb_url:        image ? image : find_game_image(title, true)
+          thumb_url:        image ? image : find_game_image(title, thumb: true)
         }
       end
     rescue => exception
