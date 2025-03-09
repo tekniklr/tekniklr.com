@@ -168,12 +168,16 @@ class GamingJob < ApplicationJob
       # update RecentGames with everything we've determined
       update_recent_game(title, 'psn', last_played, image: image, achievement: achievement)
 
+      # get matching RecentGame after all updates to it have run, because
+      # achievement desc will not be in the achievement object unless it is new
+      recent_game = matching_recent_game(title, platform: 'psn')
+
       items << {
             platform:         'PlayStation',
             title:            title,
-            achievement:      achievement ? achievement.name : false,
-            achievement_time: achievement ? achievement.time : false,
-            achievement_desc: achievement ? achievement.desc : false,
+            achievement:      recent_game.achievement_name ? recent_game.achievement_name : false,
+            achievement_time: recent_game.achievement_time ? recent_game.achievement_time : false,
+            achievement_desc: recent_game.achievement_desc ? recent_game.achievement_desc : false,
             published:        last_played,
             url:              item.url,
             image_url:        image,
