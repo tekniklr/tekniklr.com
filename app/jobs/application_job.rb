@@ -60,6 +60,7 @@ class ApplicationJob < ActiveJob::Base
 
   # useful when a job references a remote image which should be served locally
   def store_local_copy(url, platform, filename)
+    Rails.logger.debug "Storing locally cached file: #{filename} for #{platform} from #{url}..."
     unless File.exist?(File.join(Rails.public_path, 'remote_cache'))
       Dir.mkdir(File.join(Rails.public_path, 'remote_cache'))
     end
