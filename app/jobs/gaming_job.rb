@@ -31,6 +31,7 @@ class GamingJob < ApplicationJob
   end
 
   def matching_recent_game(title, platform: false, image_only: false)
+    Rails.logger.debug "Looking for recent game #{title}#{platform ? ' on '+platform : ''}..."
     matching_game = RecentGame.by_name(title)
     matching_game = matching_game.on_platform(platform) if platform
     matching_game = matching_game.with_image if image_only
@@ -67,7 +68,7 @@ class GamingJob < ApplicationJob
         return
       end
     end
-    if image && !matching_game.image?
+    if image && (!matching_game.image? || !File.exist?(matching_game.image.path))
       filename = "#{platform}_#{normalize_title(title)}"
       file_path = File.join(Rails.public_path, 'remote_cache', filename)
       if File.exist?(file_path)
@@ -88,18 +89,13 @@ class GamingJob < ApplicationJob
   end
 
   def find_game_image(title, thumb: false, platform: false)
-    Rails.logger.debug "Looking for cached or uploaded image for #{title}..."
-    if platform
-      filename = "#{platform}_#{normalize_title(title)}"
-      file_path = File.join(Rails.public_path, 'remote_cache', filename)
-      web_path = Rails.application.routes.url_helpers.root_path+"remote_cache/"+filename
-      File.exist?(file_path) and return web_path
-    end
-    matching_game = matching_recent_game(title, image_only: true)
+    Rails.logger.debug "Looking for existing image for #{title}#{platform ? ' on '+platform : ''}..."
+    matching_game = matching_recent_game(title, platform: platform, image_only: true)
     if matching_game && matching_game.image? && File.exist?(matching_game.image.path)
+      Rails.logger.debug "Found matching game, with image!"
       return thumb ? matching_game.image.url(:thumb) : matching_game.image.url(:default)
     end
-    ''
+    false
   end
 
   # scrapes PS-Timetracker for PSN activity, and fetches truetrophies RSS for
@@ -139,11 +135,11 @@ class GamingJob < ApplicationJob
       image = find_game_image(title, platform: 'psn')
       matching_game = matching_recent_game(title, platform: 'psn')
       needs_cheev_desc = !achievement_name.blank? && (matching_game.blank? || (!matching_game.blank? && ((matching_game.achievement_name != achievement_name) || matching_game.achievement_desc.blank?)))
-      if image.blank? || needs_cheev_desc
+      if !image || needs_cheev_desc
         game_info = make_request(item.url, type: 'GET', content_type: 'text/html', user_agent: 'Mozilla/5.0')
         parsed_game_info = Nokogiri::HTML.parse(game_info)
       end
-      if image.blank?
+      if !image
         image_url = "https://www.truetrophies.com"+parsed_game_info.css('.info').search('picture').search('source').last['srcset'].split(',').last.split(' ').first
         image = store_local_copy(image_url, 'psn', normalize_title(title))
       end
@@ -174,6 +170,7 @@ class GamingJob < ApplicationJob
       # be skipped
       parsed_cheevs << normalize_title(title)
     end
+    clear_local_copies('psn')
   end
 
   # using the OpenXBL API at https://xbl.io/
@@ -197,7 +194,10 @@ class GamingJob < ApplicationJob
           newest_achievement = false
           newest_achievement_time = false
         end
-        image = store_local_copy(game.displayImage, 'xbox', title)
+        image = find_game_image(title, platform: 'xbox')
+        if !image
+          image = store_local_copy(game.displayImage, 'xbox', title)
+        end
         time = Time.new(game.titleHistory.lastTimePlayed)
         if newest_achievement
           achievement = {
@@ -211,6 +211,7 @@ class GamingJob < ApplicationJob
     rescue => exception
       ErrorMailer.background_error("fetching/parsing Xbox activity via API", exception).deliver_now
     end
+    clear_local_copies('xbox')
   end
 
   # using Steam API
@@ -233,7 +234,10 @@ class GamingJob < ApplicationJob
           newest_achievement = false
         end
         title = game.name
-        image = store_local_copy("https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/#{game.appid}/header.jpg", 'steam', title)
+        image = find_game_image(title, platform: 'steam')
+        if !image
+          image = store_local_copy("https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/#{game.appid}/header.jpg", 'steam', title)
+        end
         time = Time.at(game.rtime_last_played)
         url = "https://store.steampowered.com/app/#{game.appid}/"
         if newest_achievement
@@ -248,6 +252,7 @@ class GamingJob < ApplicationJob
     rescue => exception
       ErrorMailer.background_error("fetching/parsing Steam achievements via API", exception).deliver_now
     end
+    clear_local_copies('steam')
   end
 
   # using Nintendo API
@@ -285,7 +290,10 @@ class GamingJob < ApplicationJob
                           )
       daily_summary.items.first.playedApps.each_with_index do |item, index|
         title = item.title
-        image = store_local_copy(item.imageUri.medium, 'switch', title)
+        image = find_game_image(title, platform: 'switch')
+        if !image
+          image = store_local_copy(item.imageUri.medium, 'switch', title)
+        end
         time = (index == 0) ? Time.at(daily_summary.items.first.lastPlayedAt) : item.firstPlayDate.to_date.beginning_of_day
         url = item.shopUri
         update_recent_game(title, 'switch', time, image: image, url: url)
@@ -293,6 +301,7 @@ class GamingJob < ApplicationJob
     rescue => exception
       ErrorMailer.background_error("fetching/parsing Nintendo games via API", exception).deliver_now
     end
+    clear_local_copies('switch')
   end
 
 end
