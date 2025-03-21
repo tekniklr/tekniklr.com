@@ -180,25 +180,29 @@ class GamingJob < ApplicationJob
       games = make_request('https://xbl.io/api/v2/player/titleHistory', type: 'GET', headers: { 'x-authorization': Rails.application.credentials.xbox['api_key'] })
       games.titles.select{|g| g.type == 'Game' }.first(9).each do |game|
         title = game.name.gsub(/ - Windows Edition/, '')
-        begin
-          if game.devices.include?('Xbox360')
-            achievements = make_request("https://xbl.io/api/v2/achievements/x360/#{Rails.application.credentials.xbox['id']}/title/#{game.titleId}", type: 'GET', headers: { 'x-authorization': Rails.application.credentials.xbox['api_key'] })
-            newest_achievement = achievements.achievements.select{|a| a.unlocked }.sort_by{|a| a.timeUnlocked}.last
-            newest_achievement_time = newest_achievement ? Time.new(newest_achievement.timeUnlocked) : false
-          else
-            achievements = make_request("https://xbl.io/api/v2/achievements/player/#{Rails.application.credentials.xbox['id']}/#{game.titleId}", type: 'GET', headers: { 'x-authorization': Rails.application.credentials.xbox['api_key'] })
-            newest_achievement = achievements.achievements.select{|a| a.progressState == 'Achieved'}.sort_by{|a| a.progression.timeUnlocked}.last
-            newest_achievement_time = newest_achievement ? Time.new(newest_achievement.progression.timeUnlocked) : false
-          end
-        rescue
-          newest_achievement = false
-          newest_achievement_time = false
-        end
+        time = Time.new(game.titleHistory.lastTimePlayed)
+
         image = find_game_image(title, platform: 'xbox')
         if !image
           image = store_local_copy(game.displayImage, 'xbox', title)
         end
-        time = Time.new(game.titleHistory.lastTimePlayed)
+
+        newest_achievement = false
+        newest_achievement_time = false
+        matching_game = matching_recent_game(title, platform: 'xbox')
+        if matching_game.blank? || (matching_game.started_playing > time)
+          begin
+            if game.devices.include?('Xbox360')
+              achievements = make_request("https://xbl.io/api/v2/achievements/x360/#{Rails.application.credentials.xbox['id']}/title/#{game.titleId}", type: 'GET', headers: { 'x-authorization': Rails.application.credentials.xbox['api_key'] })
+              newest_achievement = achievements.achievements.select{|a| a.unlocked }.sort_by{|a| a.timeUnlocked}.last
+              newest_achievement_time = newest_achievement ? Time.new(newest_achievement.timeUnlocked) : false
+            else
+              achievements = make_request("https://xbl.io/api/v2/achievements/player/#{Rails.application.credentials.xbox['id']}/#{game.titleId}", type: 'GET', headers: { 'x-authorization': Rails.application.credentials.xbox['api_key'] })
+              newest_achievement = achievements.achievements.select{|a| a.progressState == 'Achieved'}.sort_by{|a| a.progression.timeUnlocked}.last
+              newest_achievement_time = newest_achievement ? Time.new(newest_achievement.progression.timeUnlocked) : false
+            end
+          end
+        end
         if newest_achievement
           achievement = {
             name: newest_achievement ? newest_achievement.name : false,
@@ -206,6 +210,7 @@ class GamingJob < ApplicationJob
             desc: newest_achievement ? newest_achievement.description : false
           }
         end
+
         update_recent_game(title, 'xbox', time, image: image, achievement: achievement)
       end
     rescue => exception
@@ -223,23 +228,23 @@ class GamingJob < ApplicationJob
       steam_games = make_request('https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/', type: 'GET', params: { key: steam_api_key, steamid: steam_id, format: 'json', include_appinfo: 'true', include_played_free_games: 'true' }).response
       recent_steam_games = steam_games.games.sort_by{|g| g.rtime_last_played}.reverse.first(9)
       recent_steam_games.each do |game|
-        begin
-          game_achievements = make_request('https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/', type: 'GET', params: { key: steam_api_key, steamid: steam_id, appid: game.appid, format: 'json' })
-          newest_achievement = game_achievements.playerstats.has_key?('achievements') ? game_achievements.playerstats.achievements.select{|a| a.achieved == 1}.sort_by{|a| a.unlocktime}.last : false
-        rescue
-          # the steam API returns a `Net::HTTPBadRequest 400 Bad Request` error
-          # for games that have no achievements
-          # regardless of if the exception is that, or something else went
-          # wrong, just assume there are no achievements this run
-          newest_achievement = false
-        end
         title = game.name
+        time = Time.at(game.rtime_last_played)
+        url = "https://store.steampowered.com/app/#{game.appid}/"
+
         image = find_game_image(title, platform: 'steam')
         if !image
           image = store_local_copy("https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/#{game.appid}/header.jpg", 'steam', title)
         end
-        time = Time.at(game.rtime_last_played)
-        url = "https://store.steampowered.com/app/#{game.appid}/"
+
+        newest_achievement = false
+        matching_game = matching_recent_game(title, platform: 'steam')
+        if matching_game.blank? || (matching_game.started_playing > time)
+          begin
+            game_achievements = make_request('https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/', type: 'GET', params: { key: steam_api_key, steamid: steam_id, appid: game.appid, format: 'json' })
+            newest_achievement = game_achievements.playerstats.has_key?('achievements') ? game_achievements.playerstats.achievements.select{|a| a.achieved == 1}.sort_by{|a| a.unlocktime}.last : false
+          end
+        end
         if newest_achievement
           achievement = {
             name: (newest_achievement && newest_achievement.has_key?('name')) ? newest_achievement.name : (newest_achievement ? newest_achievement.apiname : false),
@@ -247,6 +252,7 @@ class GamingJob < ApplicationJob
             desc: false
           }
         end
+
         update_recent_game(title, 'steam', time, image: image, achievement: achievement)
       end
     rescue => exception
