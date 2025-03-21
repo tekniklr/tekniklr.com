@@ -86,6 +86,22 @@ class ApplicationJob < ActiveJob::Base
     return web_path
   end
 
+  # will remove all locally cached remote files for a platform, unless they
+  # match any filenams provided in keep_filenames
+  def clear_local_copies(platform, keep_filenames = [])
+    exclude_files = keep_filenames.collect do |filename|
+      platform+'_'+normalize_title(filename)
+    end
+    remote_cache_dir = Rails.root.join(Rails.public_path, 'remote_cache')
+    remote_cache_dir.children.each do |file|
+      file.file? or next
+      (file.basename.to_s =~ /\A#{platform}_/) or next
+      exclude_files.include?(file.basename.to_s) and next
+      Rails.logger.debug "Deleting cached file: #{file.basename}"
+      File.delete(file)
+    end
+  end
+
   # Makes a request to an API - originally from talking to Bluesky API, but
   # easily more general purpose
   MAX_TRIES = 5
