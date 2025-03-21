@@ -12,7 +12,7 @@ class GamingJob < ApplicationJob
   private
 
   def get_recent_games
-    Rails.logger.debug "Parsing manually entered games..."
+    Rails.logger.debug "Parsing RecentGames..."
     items = []
     RecentGame.sorted.first(12).each do |game|
       items << {
