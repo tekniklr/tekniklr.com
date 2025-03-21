@@ -1,13 +1,12 @@
 class GamingJob < ApplicationJob
   
   def perform
-    psn_items = cache_if_present('gaming_psn', get_psn)
-    xbox_items = cache_if_present('gaming_xbox', get_xbox)
-    steam_items = cache_if_present('gaming_steam', get_steam)
-    nintendo_items = cache_if_present('gaming_nintendo', get_nintendo)
-    manual_items = get_recent_games
-    all_items = (manual_items + psn_items + xbox_items + steam_items + nintendo_items).sort_by{|i| i.published}.reverse.uniq{ |i| [normalize_title(i.title)] }
-    Rails.cache.write('gaming', all_items[0..9])
+    get_nintendo
+    get_psn
+    get_steam
+    get_xbox
+    recent_games = get_recent_games
+    Rails.cache.write('gaming', recent_games[0..9])
   end
   
   private
@@ -121,7 +120,6 @@ class GamingJob < ApplicationJob
     end
 
     Rails.logger.debug "Fetching PSN trophies from truetrophies..."
-    items = []
     parsed_cheevs = []
     rss_items = get_xml('https://www.truetrophies.com/friendfeedrss.aspx?gamerid=26130', 'gaming_expiry')
     rss_items.each do |item|
@@ -172,29 +170,15 @@ class GamingJob < ApplicationJob
       # achievement desc will not be in the achievement object unless it is new
       recent_game = matching_recent_game(title, platform: 'psn')
 
-      items << {
-            platform:         'PlayStation',
-            title:            title,
-            achievement:      recent_game.achievement_name ? recent_game.achievement_name : false,
-            achievement_time: recent_game.achievement_time ? recent_game.achievement_time : false,
-            achievement_desc: recent_game.achievement_desc ? recent_game.achievement_desc : false,
-            published:        last_played,
-            url:              item.url,
-            image_url:        image,
-            thumb_url:        find_game_image(title, thumb: true, platform: 'psn')
-          }
-
       # mark this game as parsed to other achievements for it in the RSS will
       # be skipped
       parsed_cheevs << normalize_title(title)
     end
-    return items
   end
 
   # using the OpenXBL API at https://xbl.io/
   def get_xbox
     Rails.logger.debug "Fetching Xbox activity via OpenXBL API.."
-    items = []
     begin
       games = make_request('https://xbl.io/api/v2/player/titleHistory', type: 'GET', headers: { 'x-authorization': Rails.application.credentials.xbox['api_key'] })
       games.titles.select{|g| g.type == 'Game' }.first(9).each do |game|
@@ -223,27 +207,15 @@ class GamingJob < ApplicationJob
           }
         end
         update_recent_game(title, 'xbox', time, image: image, achievement: achievement)
-        items << {
-            platform:         'Xbox',
-            title:            title,
-            achievement:      achievement ? achievement.name : false,
-            achievement_time: achievement ? achievement.time : false,
-            achievement_desc: achievement ? achievement.desc : false,
-            published:        time,
-            image_url:        image ? image : find_game_image(title),
-            thumb_url:        image ? image : find_game_image(title, thumb: true)
-          }
       end
     rescue => exception
       ErrorMailer.background_error("fetching/parsing Xbox activity via API", exception).deliver_now
     end
-    return items
   end
 
   # using Steam API
   def get_steam
     Rails.logger.debug "Fetching steam achievements and games via Steam API.."
-    items =[]
     begin
       steam_api_key = Rails.application.credentials.steam[:api_key]
       steam_id = Rails.application.credentials.steam[:id]
@@ -272,27 +244,15 @@ class GamingJob < ApplicationJob
           }
         end
         update_recent_game(title, 'steam', time, image: image, achievement: achievement)
-        items << {
-          platform:         'Steam',
-          title:            title,
-          achievement:      achievement ? achievement.name : false,
-          achievement_time: achievement ? achievement.time : false,
-          published:        time,
-          url:              url,
-          image_url:        image ? image : find_game_image(game.name),
-          thumb_url:        image ? image : find_game_image(game.name, thumb: true)
-        }
       end
     rescue => exception
       ErrorMailer.background_error("fetching/parsing Steam achievements via API", exception).deliver_now
     end
-    return items
   end
 
   # using Nintendo API
   def get_nintendo
     Rails.logger.debug "Fetching game activity via Nintendo API.."
-    items =[]
     begin
       access_token =  make_request(
                               'https://accounts.nintendo.com/connect/1.0.0/api/token',
@@ -329,19 +289,10 @@ class GamingJob < ApplicationJob
         time = (index == 0) ? Time.at(daily_summary.items.first.lastPlayedAt) : item.firstPlayDate.to_date.beginning_of_day
         url = item.shopUri
         update_recent_game(title, 'switch', time, image: image, url: url)
-        items << {
-          platform:         'Switch',
-          title:            title,
-          published:        time,
-          url:              url,
-          image_url:        image ? image : find_game_image(title),
-          thumb_url:        image ? image : find_game_image(title, thumb: true)
-        }
       end
     rescue => exception
       ErrorMailer.background_error("fetching/parsing Nintendo games via API", exception).deliver_now
     end
-    return items
   end
 
 end
