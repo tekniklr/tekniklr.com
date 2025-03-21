@@ -15,16 +15,18 @@ class GoodreadsJob < ApplicationJob
       orig_image_url = Nokogiri::HTML(item.summary).css("img")[0]['src']
       thumb_url = orig_image_url.gsub(/_S[A-Z][0-9]+_\.jpg/, '_SY100_.jpg')
       image_url = orig_image_url.gsub(/_S[A-Z][0-9]+_\.jpg/, '_SY300_.jpg')
-      file_title = title.gsub(/[^A-Za-z]/, '')
       parsed_items << {
         title:     title,
         url:       item.url,
         published: item.published,
-        thumb_url: store_local_copy(thumb_url, 'goodreads_thumb', normalize_title(file_title)),
-        image_url: store_local_copy(image_url, 'goodreads_big', normalize_title(file_title))
+        thumb_url: store_local_copy(thumb_url, 'goodreads_thumb', normalize_title(title)),
+        image_url: store_local_copy(image_url, 'goodreads_big', normalize_title(title))
       }
     end
     Rails.cache.write('goodreads', parsed_items)
+    keep_titles = parsed_items.collect{|item| normalize_title(item.title)}
+    clear_local_copies('goodreads_thumb', keep_titles)
+    clear_local_copies('goodreads_big', keep_titles)
   end
   
 end
