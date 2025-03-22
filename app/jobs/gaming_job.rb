@@ -133,7 +133,7 @@ class GamingJob < ApplicationJob
                   grant_type:   'authorization_code',
                   token_format: 'jwt'
                 },
-                content_type:   'application/x-www-form-urlencoded',
+                url_encoded:    true,
                 auth_type:      'Basic',
                 auth_token:     'MDk1MTUxNTktNzIzNy00MzcwLTliNDAtMzgwNmU2N2MwODkxOnVjUGprYTV0bnRCMktxc1A='
               )
