@@ -106,7 +106,7 @@ class ApplicationJob < ActiveJob::Base
   # Makes a request to an API - originally from talking to Bluesky API, but
   # easily more general purpose
   MAX_TRIES = 5
-  def make_request(url, body: {}, params: {}, headers: {}, type: 'POST', auth_token: false, auth_type: 'Bearer', user_agent: 'Ruby', content_type: "application/json", tries: 1)
+  def make_request(url, body: {}, params: {}, headers: {}, type: 'POST', auth_token: false, auth_type: 'Bearer', user_agent: 'Mozilla/5.0 (Macintosh; Darwin 24.3.0 Darwin Kernel Version 24.3.0: Thu Jan  2 20:24:16 PST 2025; root:xnu-11215.81.4~3/RELEASE_ARM64_T6000; en-US) Gecko/20100401 Firefox/4.0', content_type: "application/json", tries: 1)
     Rails.logger.debug "Attempt #{tries}/#{MAX_TRIES}: #{type} request to #{url}..."
 
     uri = URI.parse(url)
