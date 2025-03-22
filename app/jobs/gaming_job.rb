@@ -187,6 +187,7 @@ class GamingJob < ApplicationJob
           image = store_local_copy(game.displayImage, 'xbox', title)
         end
 
+        achievement = false
         newest_achievement = false
         newest_achievement_time = false
         matching_game = matching_recent_game(title, platform: 'xbox')
@@ -237,6 +238,7 @@ class GamingJob < ApplicationJob
           image = store_local_copy("https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/#{game.appid}/header.jpg", 'steam', title)
         end
 
+        achievement = false
         newest_achievement = false
         matching_game = matching_recent_game(title, platform: 'steam')
         if matching_game.blank? || (matching_game.started_playing < time)
