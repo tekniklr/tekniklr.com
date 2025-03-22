@@ -98,77 +98,106 @@ class GamingJob < ApplicationJob
     false
   end
 
-  # scrapes PS-Timetracker for PSN activity, and fetches truetrophies RSS for
-  # trophies and game images
   def get_psn
-    Rails.logger.debug "Fetching PSN activity from PSN-timetracker..."
-    last_played_times = {}
-    games = make_request('https://ps-timetracker.com/profile/tekniklr', type: 'GET', content_type: 'text/html', user_agent: 'Mozilla/5.0')
-    parsed_games = Nokogiri::HTML.parse(games)
-    parsed_games.search('table').css('#user-table').search('tbody').search('tr').each do |game|
-      title = game.search('td')[2].text
-      time = Time.at(game.search('td')[7].attr('data-sort').to_i)
-      last_played_times[normalize_title(title)] = {
-        time:  time,
-        title: title
-      }
-      update_recent_game(title, 'psn', time, create: false) # this will update last played time for all existing RecentGames, but will not add any RecentGames- that will only be done when there is at least one trophy in the TrueTrophies RSS
-    end
+    Rails.logger.debug "Fetching PSN activity from PSN API..."
+    begin
+      account_id = Rails.application.credentials.psn['account_id']
+      npsso = Rails.application.credentials.psn['npsso']
 
-    Rails.logger.debug "Fetching PSN trophies from truetrophies..."
-    parsed_cheevs = []
-    rss_items = get_xml('https://www.truetrophies.com/friendfeedrss.aspx?gamerid=26130', 'gaming_expiry')
-    rss_items.each do |item|
-      item.title.match?(/tekniklr (started|completed)/) and next
-      item.title.match(/tekniklr won the (.*) (trophy|achievement) in (.*)\z/)
-      if ($1.blank? || $2.blank? || $3.blank?)
-        puts "Couldn't parse an achievement, type, or game title from \"#{item.title}\"! Skipping."
-        next
+      auth =  make_request(
+                'https://ca.account.sony.com/api/authz/v3/oauth/authorize',
+                type: 'GET',
+                params: {
+                  access_type:   'offline',
+                  client_id:     '09515159-7237-4370-9b40-3806e67c0891',
+                  response_type: 'code',
+                  scope:         'psn:mobile.v2.core psn:clientapp',
+                  redirect_uri:  'com.scee.psxandroid.scecompcall://redirect'
+                },
+                headers: {
+                  Cookie:        "npsso=#{npsso}"
+                }
+              )
+      auth_uri = URI.parse(auth)
+      auth_params = {}
+      auth_uri.query.split('&').each do |param|
+        key,value = param.split('=')
+        auth_params[key] = value
       end
-      achievement_name = $1
-      title = $3
-      title.gsub!(/ Trophies/, '')
-      parsed_cheevs.include?(normalize_title(title)) and next # we only need to look at the newest achievement, per game
+      token = make_request(
+                'https://ca.account.sony.com/api/authz/v3/oauth/token',
+                type: 'POST',
+                body: {
+                  code:         auth_params['code'],
+                  redirect_uri: 'com.scee.psxandroid.scecompcall://redirect',
+                  grant_type:   'authorization_code',
+                  token_format: 'jwt'
+                },
+                content_type:   'application/x-www-form-urlencoded',
+                auth_type:      'Basic',
+                auth_token:     'MDk1MTUxNTktNzIzNy00MzcwLTliNDAtMzgwNmU2N2MwODkxOnVjUGprYTV0bnRCMktxc1A='
+              )
+      secure_token = token.access_token
 
-      # to get a game image or achievement description, we need to look a the
-      # truetrophies details page from the RSS, for the achievement
-      image = find_game_image(title, platform: 'psn')
-      matching_game = matching_recent_game(title, platform: 'psn')
-      needs_cheev_desc = !achievement_name.blank? && (matching_game.blank? || (!matching_game.blank? && ((matching_game.achievement_name != achievement_name) || matching_game.achievement_desc.blank?)))
-      if !image || needs_cheev_desc
-        game_info = make_request(item.url, type: 'GET', content_type: 'text/html', user_agent: 'Mozilla/5.0')
-        parsed_game_info = Nokogiri::HTML.parse(game_info)
+      games = make_request(
+                          "https://m.np.playstation.com/api/gamelist/v2/users/#{account_id}/titles",
+                          type: 'GET',
+                          auth_token:  secure_token,
+                          params: {
+                            limit:     9
+                          }
+                        )
+      games.titles.first(9).each do |game|
+        title = game.name
+        time = Time.new(game.lastPlayedDateTime)
+
+        image = find_game_image(title, platform: 'psn')
+        if !image
+          image = store_local_copy(game.imageUrl, 'psn', title)
+        end
+
+        achievement = false
+        newest_achievement = false
+        matching_game = matching_recent_game(title, platform: 'psn')
+        begin
+          if matching_game.blank? || (matching_game.started_playing < time)
+            # this request is mostly useless, as it just returns details for the
+            # rarest trophy, but we do need to get the npCommunicationId for the
+            # game
+            newest_achievement =  make_request(
+                                    "https://m.np.playstation.com/api/trophy/v1/users/#{account_id}/titles/trophyTitles?npTitleIds=#{game.titleId}",
+                                    type: 'GET',
+                                    auth_token: secure_token
+                                  )
+          end
+          if newest_achievement
+            ps5_game = (game.category == 'ps5_native_game')
+            np_communication_id = newest_achievement.titles.first.trophyTitles.first.npCommunicationId
+            game_trophies = make_request(
+                              "https://m.np.playstation.com/api/trophy/v1/users/#{account_id}/npCommunicationIds/#{np_communication_id}/trophyGroups/all/#{ps5_game ? '' : 'npServiceName/trophy/'}trophies",
+                              type: 'GET',
+                              auth_token: secure_token
+                            )
+            newest_trophy = game_trophies.trophies.select{|t| t.earned}.sort_by{|t| Time.new(t['earnedDateTime']).to_i}.last
+            all_trophy_details =  make_request(
+                                    "https://m.np.playstation.com/api/trophy/v1/npCommunicationIds/#{np_communication_id}/trophyGroups/all/trophies",
+                                    type: 'GET',
+                                    auth_token: secure_token
+                                  )
+            trophy_details = all_trophy_details.trophies.select{|t| t.trophyId == newest_trophy.trophyId}.first
+            achievement = {
+              name: trophy_details.trophyName,
+              time: Time.new(newest_trophy.earnedDateTime),
+              desc: trophy_details.trophyDetail
+            }
+          end
+        end
+
+        update_recent_game(title, 'psn', time, image: image, achievement: achievement)
       end
-      if !image
-        image_url = "https://www.truetrophies.com"+parsed_game_info.css('.info').search('picture').search('source').last['srcset'].split(',').last.split(' ').first
-        image = store_local_copy(image_url, 'psn', normalize_title(title))
-      end
-      if achievement_name
-        achievement_desc = needs_cheev_desc ? parsed_game_info.search('.ach-panel').search('p').text : false
-        achievement = {
-          name: achievement_name,
-          time: item.published,
-          desc: achievement_desc
-        }
-      end
 
-      # for games that are in the trophy list but have been played more
-      # recently - use the last played time from ps-timetracker
-      last_played = item.published
-      if last_played_times.has_key?(normalize_title(title))
-        last_played = last_played_times[normalize_title(title)].time
-      end
-
-      # update RecentGames with everything we've determined
-      update_recent_game(title, 'psn', last_played, image: image, achievement: achievement)
-
-      # get matching RecentGame after all updates to it have run, because
-      # achievement desc will not be in the achievement object unless it is new
-      recent_game = matching_recent_game(title, platform: 'psn')
-
-      # mark this game as parsed to other achievements for it in the RSS will
-      # be skipped
-      parsed_cheevs << normalize_title(title)
+    rescue => exception
+      ErrorMailer.background_error("fetching/parsing PSN games via API", exception).deliver_now
     end
     clear_local_copies('psn')
   end
