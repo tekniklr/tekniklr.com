@@ -106,7 +106,7 @@ class ApplicationJob < ActiveJob::Base
   # Makes a request to an API - originally from talking to Bluesky API, but
   # easily more general purpose
   MAX_TRIES = 5
-  def make_request(url, body: {}, params: {}, headers: {}, type: 'POST', auth_token: false, auth_type: 'Bearer', user_agent: 'Mozilla/5.0 (Macintosh; Darwin 24.3.0 Darwin Kernel Version 24.3.0: Thu Jan  2 20:24:16 PST 2025; root:xnu-11215.81.4~3/RELEASE_ARM64_T6000; en-US) Gecko/20100401 Firefox/4.0', content_type: "application/json", tries: 1)
+  def make_request(url, body: {}, params: {}, headers: {}, type: 'POST', auth_token: false, auth_type: 'Bearer', user_agent: 'Mozilla/5.0 (Macintosh; Darwin 24.3.0 Darwin Kernel Version 24.3.0: Thu Jan  2 20:24:16 PST 2025; root:xnu-11215.81.4~3/RELEASE_ARM64_T6000; en-US) Gecko/20100401 Firefox/4.0', content_type: "application/json", url_encoded: false, tries: 1)
     Rails.logger.debug "Attempt #{tries}/#{MAX_TRIES}: #{type} request to #{url}..."
 
     uri = URI.parse(url)
@@ -119,6 +119,10 @@ class ApplicationJob < ActiveJob::Base
     params.present? and uri.query = URI.encode_www_form(params)
 
     headers["Content-Type"] = content_type
+    if url_encoded
+      headers["Content-Type"] = 'application/x-www-form-urlencoded'
+    end
+
     if auth_token
       headers["Authorization"] = "#{auth_type} #{auth_token}"
     end
@@ -127,14 +131,22 @@ class ApplicationJob < ActiveJob::Base
     request = (type == 'POST') ? Net::HTTP::Post.new(uri.request_uri, headers) : Net::HTTP::Get.new(uri.request_uri, headers)
 
     if body.present?
-      request.body = URI.encode_www_form(body)
+      request.body =  if body.is_a?(Hash)
+                        if url_encoded
+                          URI.encode_www_form(body)
+                        else
+                          body.to_json
+                        end
+                      else
+                        body
+                      end
     end
 
     begin
       response = http.request(request)
     rescue Net::ReadTimeout => exception
       if tries < MAX_TRIES
-        response = make_request(url, body: body, params: params, headers: headers, type: type, auth_token: auth_token, auth_type: auth_type, user_agent: user_agent, content_type: content_type, tries: tries+1)
+        response = make_request(url, body: body, params: params, headers: headers, type: type, auth_token: auth_token, auth_type: auth_type, user_agent: user_agent, content_type: content_type, url_encoded: url_encoded, tries: tries+1)
       else
         raise exception
       end
@@ -160,7 +172,7 @@ class ApplicationJob < ActiveJob::Base
         raise net_http_error(response, tries: tries)
       elsif tries < MAX_TRIES
         # otherwise, retry in case this is a transient error
-        response = make_request(url, body: body, params: params, headers: headers, type: type, auth_token: auth_token, auth_type: auth_type, user_agent: user_agent, content_type: content_type, tries: tries+1)
+        response = make_request(url, body: body, params: params, headers: headers, type: type, auth_token: auth_token, auth_type: auth_type, user_agent: user_agent, content_type: content_type, url_encoded: url_encoded, tries: tries+1)
       else
         # other otherwise, give up
         raise net_http_error(response, tries: tries)
@@ -171,7 +183,7 @@ class ApplicationJob < ActiveJob::Base
       response.content_type == "application/json" ? JSON.parse(response.body) : response.body
     elsif tries < MAX_TRIES
       # retry in case this is a transient error
-      make_request(url, body: body, params: params, headers: headers, type: type, auth_token: auth_token, auth_type: auth_type, user_agent: user_agent, content_type: content_type, tries: tries+1)
+      make_request(url, body: body, params: params, headers: headers, type: type, auth_token: auth_token, auth_type: auth_type, user_agent: user_agent, content_type: content_type, url_encoded: url_encoded, tries: tries+1)
     else
       raise net_http_error(response, tries: tries, additional_message: "got a malformed response lacking a content_type or a body")
     end
