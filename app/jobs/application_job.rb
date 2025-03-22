@@ -118,7 +118,7 @@ class ApplicationJob < ActiveJob::Base
 
     params.present? and uri.query = URI.encode_www_form(params)
 
-    headers["content-type"] = content_type
+    headers["Content-Type"] = content_type
     if auth_token
       headers["Authorization"] = "#{auth_type} #{auth_token}"
     end
@@ -126,7 +126,9 @@ class ApplicationJob < ActiveJob::Base
 
     request = (type == 'POST') ? Net::HTTP::Post.new(uri.request_uri, headers) : Net::HTTP::Get.new(uri.request_uri, headers)
 
-    request.body = body.is_a?(Hash) ? body.to_json : body if body.present?
+    if body.present?
+      request.body = URI.encode_www_form(body)
+    end
 
     begin
       response = http.request(request)
