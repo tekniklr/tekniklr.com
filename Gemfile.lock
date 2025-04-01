@@ -10,7 +10,7 @@ GIT
 
 GIT
   remote: https://github.com/seuros/capistrano-puma.git
-  revision: dd9b8b7653f8eebc6bf2c96804303169da7cede8
+  revision: 18c5303e162135a0011fb0aee34e3a1d7c917ae1
   specs:
     capistrano3-puma (6.0.0)
       capistrano (~> 3.7)
@@ -144,9 +144,9 @@ GEM
     domain_name (0.6.20240107)
     drb (2.2.1)
     erubi (1.13.1)
-    exception_notification (4.6.0)
-      actionmailer (>= 5.2, < 9)
-      activesupport (>= 5.2, < 9)
+    exception_notification (5.0.0)
+      actionmailer (>= 7.1, < 9)
+      activesupport (>= 7.1, < 9)
     execjs (2.10.0)
     factory_bot (6.5.1)
       activesupport (>= 6.1.0)
@@ -203,7 +203,7 @@ GEM
     http-form_data (2.3.0)
     http-parser (1.2.3)
       ffi-compiler (>= 1.0, < 2.0)
-    httparty (0.22.0)
+    httparty (0.23.1)
       csv
       mini_mime (>= 1.0.0)
       multi_xml (>= 0.5.2)
@@ -231,7 +231,7 @@ GEM
     lastfm (1.27.4)
       httparty
       xml-simple
-    logger (1.6.6)
+    logger (1.7.0)
     loofah (2.24.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -242,10 +242,10 @@ GEM
       net-smtp
     marcel (1.0.4)
     method_source (1.1.0)
-    mime-types (3.6.1)
+    mime-types (3.6.2)
       logger
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2025.0318)
+    mime-types-data (3.2025.0325)
     mini_mime (1.1.5)
     minitest (5.25.5)
     multi_xml (0.7.1)
@@ -267,9 +267,9 @@ GEM
       net-protocol
     net-ssh (7.3.0)
     nio4r (2.7.4)
-    nokogiri (1.18.5-x86_64-darwin)
+    nokogiri (1.18.7-x86_64-darwin)
       racc (~> 1.4)
-    nokogiri (1.18.5-x86_64-linux-gnu)
+    nokogiri (1.18.7-x86_64-linux-gnu)
       racc (~> 1.4)
     oauth (1.1.0)
       oauth-tty (~> 1.0, >= 1.0.1)
@@ -364,7 +364,7 @@ GEM
       thor (~> 1.0, >= 1.2.2)
       zeitwerk (~> 2.6)
     rake (13.2.1)
-    rdoc (6.12.0)
+    rdoc (6.13.1)
       psych (>= 4.0.0)
     reline (0.6.0)
       io-console (~> 0.5)
@@ -404,9 +404,9 @@ GEM
       net-sftp (>= 2.1.2)
       net-ssh (>= 2.8.0)
       ostruct
-    stringio (3.1.5)
+    stringio (3.1.6)
     temple (0.10.3)
-    terrapin (1.0.1)
+    terrapin (1.1.0)
       climate_control
     terser (1.2.5)
       execjs (>= 0.3.0, < 3)
