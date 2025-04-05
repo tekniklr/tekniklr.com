@@ -219,16 +219,14 @@ class GamingJob < ApplicationJob
         newest_achievement_time = false
         matching_game = matching_recent_game(title, platform: 'xbox')
         if matching_game.blank? || (matching_game.started_playing.to_i < time.to_i)
-          begin
-            if game.devices.include?('Xbox360')
-              achievements = make_request("https://xbl.io/api/v2/achievements/x360/#{Rails.application.credentials.xbox['id']}/title/#{game.titleId}", type: 'GET', headers: { 'x-authorization': Rails.application.credentials.xbox['api_key'] })
-              newest_achievement = achievements.achievements.select{|a| a.unlocked }.sort_by{|a| a.timeUnlocked}.last
-              newest_achievement_time = newest_achievement ? Time.new(newest_achievement.timeUnlocked) : false
-            else
-              achievements = make_request("https://xbl.io/api/v2/achievements/player/#{Rails.application.credentials.xbox['id']}/#{game.titleId}", type: 'GET', headers: { 'x-authorization': Rails.application.credentials.xbox['api_key'] })
-              newest_achievement = achievements.achievements.select{|a| a.progressState == 'Achieved'}.sort_by{|a| a.progression.timeUnlocked}.last
-              newest_achievement_time = newest_achievement ? Time.new(newest_achievement.progression.timeUnlocked) : false
-            end
+          if game.devices.include?('Xbox360')
+            achievements = make_request("https://xbl.io/api/v2/achievements/x360/#{Rails.application.credentials.xbox['id']}/title/#{game.titleId}", type: 'GET', headers: { 'x-authorization': Rails.application.credentials.xbox['api_key'] })
+            newest_achievement = achievements.achievements.select{|a| a.unlocked }.sort_by{|a| a.timeUnlocked}.last
+            newest_achievement_time = newest_achievement ? Time.new(newest_achievement.timeUnlocked) : false
+          else
+            achievements = make_request("https://xbl.io/api/v2/achievements/player/#{Rails.application.credentials.xbox['id']}/#{game.titleId}", type: 'GET', headers: { 'x-authorization': Rails.application.credentials.xbox['api_key'] })
+            newest_achievement = achievements.achievements.select{|a| a.progressState == 'Achieved'}.sort_by{|a| a.progression.timeUnlocked}.last
+            newest_achievement_time = newest_achievement ? Time.new(newest_achievement.progression.timeUnlocked) : false
           end
         end
         if newest_achievement
@@ -269,10 +267,8 @@ class GamingJob < ApplicationJob
         newest_achievement = false
         matching_game = matching_recent_game(title, platform: 'steam')
         if matching_game.blank? || (matching_game.started_playing.to_i < time.to_i)
-          begin
-            game_achievements = make_request('https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/', type: 'GET', params: { key: steam_api_key, steamid: steam_id, appid: game.appid, format: 'json' })
-            newest_achievement = game_achievements.playerstats.has_key?('achievements') ? game_achievements.playerstats.achievements.select{|a| a.achieved == 1}.sort_by{|a| a.unlocktime}.last : false
-          end
+          game_achievements = make_request('https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/', type: 'GET', params: { key: steam_api_key, steamid: steam_id, appid: game.appid, format: 'json' })
+          newest_achievement = game_achievements.playerstats.has_key?('achievements') ? game_achievements.playerstats.achievements.select{|a| a.achieved == 1}.sort_by{|a| a.unlocktime}.last : false
         end
         if newest_achievement
           achievement = {
