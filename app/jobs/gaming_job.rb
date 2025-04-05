@@ -157,37 +157,35 @@ class GamingJob < ApplicationJob
         end
 
         achievement = false
-        newest_achievement = false
+        rarest_achievement = false
         matching_game = matching_recent_game(title, platform: 'psn')
-        begin
-          if matching_game.blank? || (matching_game.started_playing.to_i < time.to_i)
-            # this request is mostly useless, as it just returns details for the
-            # rarest trophy, but we do need to get the npCommunicationId for the
-            # game
-            newest_achievement =  make_request(
-                                    "https://m.np.playstation.com/api/trophy/v1/users/#{account_id}/titles/trophyTitles?npTitleIds=#{game.titleId}",
-                                    type: 'GET',
-                                    auth_token: secure_token
-                                  )
-          end
-          if newest_achievement
+        if matching_game.blank? || (matching_game.started_playing.to_i < time.to_i)
+          # this request is mostly useless, as it just returns details for the
+          # rarest trophy, but we do need to get the npCommunicationId for the
+          # game
+          rarest_trophy =  make_request(
+                                  "https://m.np.playstation.com/api/trophy/v1/users/#{account_id}/titles/trophyTitles?npTitleIds=#{game.titleId}",
+                                  type: 'GET',
+                                  auth_token: secure_token
+                                )
+          if rarest_trophy
             ps5_game = (game.category == 'ps5_native_game')
-            np_communication_id = newest_achievement.titles.first.trophyTitles.first.npCommunicationId
-            game_trophies = make_request(
+            np_communication_id = rarest_trophy.titles.first.trophyTitles.first.npCommunicationId
+            all_game_trophies = make_request(
                               "https://m.np.playstation.com/api/trophy/v1/users/#{account_id}/npCommunicationIds/#{np_communication_id}/trophyGroups/all/#{ps5_game ? '' : 'npServiceName/trophy/'}trophies",
                               type: 'GET',
                               auth_token: secure_token
                             )
-            newest_trophy = game_trophies.trophies.select{|t| t.earned}.sort_by{|t| Time.new(t['earnedDateTime']).to_i}.last
+            newest_earned_trophy = all_game_trophies.trophies.select{|t| t.earned}.sort_by{|t| Time.new(t['earnedDateTime']).to_i}.last
             all_trophy_details =  make_request(
                                     "https://m.np.playstation.com/api/trophy/v1/npCommunicationIds/#{np_communication_id}/trophyGroups/all/trophies",
                                     type: 'GET',
                                     auth_token: secure_token
                                   )
-            trophy_details = all_trophy_details.trophies.select{|t| t.trophyId == newest_trophy.trophyId}.first
+            trophy_details = all_trophy_details.trophies.select{|t| t.trophyId == newest_earned_trophy.trophyId}.first
             achievement = {
               name: trophy_details.trophyName,
-              time: Time.new(newest_trophy.earnedDateTime),
+              time: Time.new(newest_earned_trophy.earnedDateTime),
               desc: trophy_details.trophyDetail
             }
           end
