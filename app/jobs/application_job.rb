@@ -3,23 +3,22 @@ class ApplicationJob < ActiveJob::Base
   protected
 
   # sometimes querying a service has a temporary error - in this case we
-  # shoudn't clobber good but stale data
-  # useful for instances like with gaming services, which each get queried
-  # separately and combined into a single cambined cache object used elsewhere
-  # in the app
-  def cache_if_present(cache_key, value)
-    previous_value = Rails.cache.read(cache_key)
-    if previous_value.blank? && value.blank?
-       # trust that value was passed in as either [] or nil, and which should
-       # be returned depends on context
-      return value
-    elsif value.blank?
-      # don't clobber existing cache
-      return previous_value
+  # should defer the next retry until a later time than normal
+  def defer_retry(cache_key, defer_hours, &method)
+    raise "No method provided" if method.nil?
+    next_check = Rails.cache.read(cache_key)
+    if next_check.blank? || (Time.now >= next_check)
+      Rails.logger.debug "No previous error on #{cache_key} task, or past retry limit..."
+      begin
+        method.call
+      rescue => exception
+        Rails.logger.debug "Error running task in #{cache_key}!"
+        next_time = Time.now+defer_hours.hours
+        Rails.cache.write(cache_key, next_time)
+        ErrorMailer.background_error("running #{cache_key} task; deferring next run until #{next_time.to_fs(:precise)}", exception).deliver_now
+      end
     else
-      # cache new value, and return it
-      Rails.cache.write(cache_key, value)
-      return value
+      Rails.logger.debug "#{cache_key} task deferred until at least #{next_check.to_fs(:precise)}"
     end
   end
 
