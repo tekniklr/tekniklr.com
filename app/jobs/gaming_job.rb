@@ -39,7 +39,7 @@ class GamingJob < ApplicationJob
   end
 
   def update_recent_game(title, platform, time, image: false, url: false, achievement: false, create: true)
-    Rails.logger.debug "Checking RecentGame #{title}..."
+    Rails.logger.debug "Updating RecentGame #{title}..."
     matching_game = matching_recent_game(title, platform: platform)
     if matching_game && (matching_game.started_playing.to_i < time.to_i)
       Rails.logger.debug "Updating started_playing for RecentGame #{title}..."
@@ -88,12 +88,12 @@ class GamingJob < ApplicationJob
     end
   end
 
-  def find_game_image(title, thumb: false, platform: false)
-    Rails.logger.debug "Looking for existing image for #{title}#{platform ? ' on '+platform : ''}..."
-    matching_game = matching_recent_game(title, platform: platform, image_only: true)
-    if matching_game && matching_game.image? && File.exist?(matching_game.image.path)
-      Rails.logger.debug "Found matching game, with image!"
-      return thumb ? matching_game.image.url(:thumb) : matching_game.image.url(:default)
+  def find_game_image(game, thumb: false)
+    game or return false
+    Rails.logger.debug "Looking for immage for RecentGame #{game.name}..."
+    if game.image? && File.exist?(game.image.path)
+      Rails.logger.debug "Found game image!"
+      return thumb ? game.image.url(:thumb) : game.image.url(:default)
     end
     false
   end
@@ -150,14 +150,15 @@ class GamingJob < ApplicationJob
       title = game.name
       time = Time.new(game.lastPlayedDateTime)
 
-      image = find_game_image(title, platform: 'psn')
+      matching_game = matching_recent_game(title, platform: 'psn')
+
+      image = find_game_image(matching_game)
       if !image
         image = store_local_copy(game.imageUrl, 'psn', title)
       end
 
       achievement = false
       rarest_achievement = false
-      matching_game = matching_recent_game(title, platform: 'psn')
       if matching_game.blank? || (matching_game.started_playing.to_i < time.to_i)
         # this request is mostly useless, as it just returns details for the
         # rarest trophy, but we do need to get the npCommunicationId for the
@@ -203,7 +204,9 @@ class GamingJob < ApplicationJob
       title = game.name.gsub(/ - Windows Edition/, '')
       time = Time.new(game.titleHistory.lastTimePlayed)
 
-      image = find_game_image(title, platform: 'xbox')
+      matching_game = matching_recent_game(title, platform: 'xbox')
+
+      image = find_game_image(matching_game)
       if !image
         image = store_local_copy(game.displayImage, 'xbox', title)
       end
@@ -211,7 +214,6 @@ class GamingJob < ApplicationJob
       achievement = false
       newest_achievement = false
       newest_achievement_time = false
-      matching_game = matching_recent_game(title, platform: 'xbox')
       if matching_game.blank? || (matching_game.started_playing.to_i < time.to_i)
         if game.devices.include?('Xbox360')
           achievements = make_request("https://xbl.io/api/v2/achievements/x360/#{Rails.application.credentials.xbox['id']}/title/#{game.titleId}", type: 'GET', headers: { 'x-authorization': Rails.application.credentials.xbox['api_key'] })
@@ -248,14 +250,15 @@ class GamingJob < ApplicationJob
       time = Time.at(game.rtime_last_played)
       url = "https://store.steampowered.com/app/#{game.appid}/"
 
-      image = find_game_image(title, platform: 'steam')
+      matching_game = matching_recent_game(title, platform: 'steam')
+
+      image = find_game_image(matching_game)
       if !image
         image = store_local_copy("https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/#{game.appid}/header.jpg", 'steam', title)
       end
 
       achievement = false
       newest_achievement = false
-      matching_game = matching_recent_game(title, platform: 'steam')
       if matching_game.blank? || (matching_game.started_playing.to_i < time.to_i)
         game_achievements = make_request('https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/', type: 'GET', params: { key: steam_api_key, steamid: steam_id, appid: game.appid, format: 'json' })
         newest_achievement = game_achievements.playerstats.has_key?('achievements') ? game_achievements.playerstats.achievements.select{|a| a.achieved == 1}.sort_by{|a| a.unlocktime}.last : false
@@ -307,12 +310,16 @@ class GamingJob < ApplicationJob
                         )
     daily_summary.items.first.playedApps.each_with_index do |item, index|
       title = item.title
-      image = find_game_image(title, platform: 'switch')
+      time = (index == 0) ? Time.at(daily_summary.items.first.lastPlayedAt) : item.firstPlayDate.to_date.beginning_of_day
+      url = item.shopUri
+
+      matching_game = matching_recent_game(title, platform: 'switch')
+
+      image = find_game_image(matching_game)
       if !image
         image = store_local_copy(item.imageUri.medium, 'switch', title)
       end
-      time = (index == 0) ? Time.at(daily_summary.items.first.lastPlayedAt) : item.firstPlayDate.to_date.beginning_of_day
-      url = item.shopUri
+
       update_recent_game(title, 'switch', time, image: image, url: url)
     end
     clear_local_copies('switch')
