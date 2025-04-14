@@ -43,7 +43,6 @@ class GamingJob < ApplicationJob
       Rails.logger.debug "Updating RecentGame #{matching_game.name}..."
     else
       Rails.logger.debug "Creating RecentGame #{details.title}..."
-      matching_game = matching_recent_game(details.title, platform: details.platform)
       set_platform =  case details.platform
                         when 'psn'
                           RecentGame::PSN_PLATFORMS.first
