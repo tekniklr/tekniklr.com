@@ -38,17 +38,13 @@ class GamingJob < ApplicationJob
     matching_game.sorted.first
   end
 
-  def update_recent_game(title, platform, time, image: false, url: false, achievement: false, create: true)
-    Rails.logger.debug "Updating RecentGame #{title}..."
-    matching_game = matching_recent_game(title, platform: platform)
-    if matching_game && (matching_game.started_playing.to_i < time.to_i)
-      Rails.logger.debug "Updating started_playing for RecentGame #{title}..."
-      matching_game.update_attribute(:started_playing, time)
-    elsif matching_game.blank?
-      Rails.logger.debug "No game found matching #{title}!"
-      if create
-        Rails.logger.debug "Creating RecentGame #{title}..."
-        set_platform =  case platform
+  def update_recent_game(matching_game: false, details: {title: title, platform: platform, time: time, image: false, url: false, achievement: false})
+    if matching_game
+      Rails.logger.debug "Updating RecentGame #{matching_game.name}..."
+    else
+      Rails.logger.debug "Creating RecentGame #{details.title}..."
+      matching_game = matching_recent_game(details.title, platform: details.platform)
+      set_platform =  case details.platform
                         when 'psn'
                           RecentGame::PSN_PLATFORMS.first
                         when 'xbox'
@@ -59,31 +55,31 @@ class GamingJob < ApplicationJob
                           RecentGame::NINTENDO_PLATFORMS.first
                         end
         matching_game = RecentGame.create(
-          name:            title,
+          name:            details.title,
           platform:        set_platform,
-          started_playing: time
+          started_playing: details.time
         )
-      else
-        Rails.logger.debug "'create' is false. Exiting."
-        return
-      end
     end
-    if image && (!matching_game.image? || !File.exist?(matching_game.image.path))
-      filename = "#{platform}_#{normalize_title(title)}"
+    if matching_game.started_playing.to_i < details.time.to_i
+      Rails.logger.debug "Updating started_playing for RecentGame #{details.title}..."
+      matching_game.update_attribute(:started_playing, details.time)
+    end
+    if details.has_key?(:image) && !details.image.blank? && (!matching_game.image? || !File.exist?(matching_game.image.path))
+      filename = "#{details.platform}_#{normalize_title(details.title)}"
       file_path = File.join(Rails.public_path, 'remote_cache', filename)
       if File.exist?(file_path)
-        Rails.logger.debug "Updating RecentGame image for #{title}..."
+        Rails.logger.debug "Updating RecentGame image for #{matching_game.name}..."
         file = File.open(file_path)
         matching_game.image = file
         file.close
         matching_game.save
       end
     end
-    if achievement && ((achievement.name != matching_game.achievement_name) || (!achievement.desc.blank? && matching_game.achievement_desc.blank?))
-      Rails.logger.debug "Updating Achievement: #{achievement.name}..."
-      matching_game.achievement_name = achievement.name
-      matching_game.achievement_time = achievement.time ? achievement.time : nil
-      matching_game.achievement_desc = achievement.desc ? achievement.desc : nil
+    if details.has_key?(:achievement) && !details.achievement.blank? && ((details.achievement.name != matching_game.achievement_name) || (!details.achievement.desc.blank? && matching_game.achievement_desc.blank?))
+      Rails.logger.debug "Updating Achievement: #{details.achievement.name}..."
+      matching_game.achievement_name = details.achievement.name
+      matching_game.achievement_time = details.achievement.time ? details.achievement.time : nil
+      matching_game.achievement_desc = details.achievement.desc ? details.achievement.desc : nil
       matching_game.save
     end
   end
@@ -191,7 +187,7 @@ class GamingJob < ApplicationJob
         end
       end
 
-      update_recent_game(title, 'psn', time, image: image, achievement: achievement)
+      update_recent_game(matching_game: matching_game, details: { title: title, platform: 'psn', time: time, image: image, achievement: achievement })
     end
     clear_local_copies('psn')
   end
@@ -233,7 +229,7 @@ class GamingJob < ApplicationJob
         }
       end
 
-      update_recent_game(title, 'xbox', time, image: image, achievement: achievement)
+      update_recent_game(matching_game: matching_game, details: { title: title, platform: 'xbox', time: time, image: image, achievement: achievement })
     end
     clear_local_copies('xbox')
   end
@@ -271,7 +267,7 @@ class GamingJob < ApplicationJob
         }
       end
 
-      update_recent_game(title, 'steam', time, image: image, achievement: achievement)
+      update_recent_game(matching_game: matching_game, details: { title: title, platform: 'steam', time: time, image: image, achievement: achievement })
     end
     clear_local_copies('steam')
   end
@@ -320,7 +316,7 @@ class GamingJob < ApplicationJob
         image = store_local_copy(item.imageUri.medium, 'switch', title)
       end
 
-      update_recent_game(title, 'switch', time, image: image, url: url)
+      update_recent_game(matching_game: matching_game, details: { title: title, platform: 'switch', time: time, image: image, url: url })
     end
     clear_local_copies('switch')
   end
