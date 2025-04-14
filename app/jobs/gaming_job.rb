@@ -153,9 +153,9 @@ class GamingJob < ApplicationJob
         image = store_local_copy(game.imageUrl, 'psn', title)
       end
 
-      achievement = false
-      rarest_achievement = false
       if matching_game.blank? || (matching_game.started_playing.to_i < time.to_i)
+        achievement = false
+
         # this request is mostly useless, as it just returns details for the
         # rarest trophy, but we do need to get the npCommunicationId for the
         # game
@@ -185,9 +185,9 @@ class GamingJob < ApplicationJob
             desc: trophy_details.trophyDetail
           }
         end
-      end
 
-      update_recent_game(matching_game: matching_game, details: { title: title, platform: 'psn', time: time, image: image, achievement: achievement })
+        update_recent_game(matching_game: matching_game, details: { title: title, platform: 'psn', time: time, image: image, achievement: achievement })
+      end
     end
     clear_local_copies('psn')
   end
@@ -207,10 +207,11 @@ class GamingJob < ApplicationJob
         image = store_local_copy(game.displayImage, 'xbox', title)
       end
 
-      achievement = false
-      newest_achievement = false
-      newest_achievement_time = false
       if matching_game.blank? || (matching_game.started_playing.to_i < time.to_i)
+        achievement = false
+        newest_achievement = false
+        newest_achievement_time = false
+
         if game.devices.include?('Xbox360')
           achievements = make_request("https://xbl.io/api/v2/achievements/x360/#{Rails.application.credentials.xbox['id']}/title/#{game.titleId}", type: 'GET', headers: { 'x-authorization': Rails.application.credentials.xbox['api_key'] })
           newest_achievement = achievements.achievements.select{|a| a.unlocked }.sort_by{|a| a.timeUnlocked}.last
@@ -220,16 +221,17 @@ class GamingJob < ApplicationJob
           newest_achievement = achievements.achievements.select{|a| a.progressState == 'Achieved'}.sort_by{|a| a.progression.timeUnlocked}.last
           newest_achievement_time = newest_achievement ? Time.new(newest_achievement.progression.timeUnlocked) : false
         end
-      end
-      if newest_achievement
-        achievement = {
-          name: newest_achievement ? newest_achievement.name : false,
-          time: newest_achievement_time ? newest_achievement_time : false,
-          desc: newest_achievement ? newest_achievement.description : false
-        }
-      end
 
-      update_recent_game(matching_game: matching_game, details: { title: title, platform: 'xbox', time: time, image: image, achievement: achievement })
+        if newest_achievement
+          achievement = {
+            name: newest_achievement ? newest_achievement.name : false,
+            time: newest_achievement_time ? newest_achievement_time : false,
+            desc: newest_achievement ? newest_achievement.description : false
+          }
+        end
+
+        update_recent_game(matching_game: matching_game, details: { title: title, platform: 'xbox', time: time, image: image, achievement: achievement })
+      end
     end
     clear_local_copies('xbox')
   end
@@ -253,21 +255,22 @@ class GamingJob < ApplicationJob
         image = store_local_copy("https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/#{game.appid}/header.jpg", 'steam', title)
       end
 
-      achievement = false
-      newest_achievement = false
       if matching_game.blank? || (matching_game.started_playing.to_i < time.to_i)
+        achievement = false
+
         game_achievements = make_request('https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/', type: 'GET', params: { key: steam_api_key, steamid: steam_id, appid: game.appid, format: 'json' })
         newest_achievement = game_achievements.playerstats.has_key?('achievements') ? game_achievements.playerstats.achievements.select{|a| a.achieved == 1}.sort_by{|a| a.unlocktime}.last : false
-      end
-      if newest_achievement
-        achievement = {
-          name: (newest_achievement && newest_achievement.has_key?('name')) ? newest_achievement.name : (newest_achievement ? newest_achievement.apiname : false),
-          time: newest_achievement ? Time.at(newest_achievement.unlocktime) : false,
-          desc: false
-        }
-      end
 
-      update_recent_game(matching_game: matching_game, details: { title: title, platform: 'steam', time: time, image: image, achievement: achievement })
+        if newest_achievement
+          achievement = {
+            name: (newest_achievement && newest_achievement.has_key?('name')) ? newest_achievement.name : (newest_achievement ? newest_achievement.apiname : false),
+            time: newest_achievement ? Time.at(newest_achievement.unlocktime) : false,
+            desc: false
+          }
+        end
+
+        update_recent_game(matching_game: matching_game, details: { title: title, platform: 'steam', time: time, image: image, achievement: achievement })
+      end
     end
     clear_local_copies('steam')
   end
@@ -316,7 +319,9 @@ class GamingJob < ApplicationJob
         image = store_local_copy(item.imageUri.medium, 'switch', title)
       end
 
-      update_recent_game(matching_game: matching_game, details: { title: title, platform: 'switch', time: time, image: image, url: url })
+      if matching_game.blank? || (matching_game.started_playing.to_i < time.to_i)
+        update_recent_game(matching_game: matching_game, details: { title: title, platform: 'switch', time: time, image: image, url: url })
+      end
     end
     clear_local_copies('switch')
   end
