@@ -172,17 +172,19 @@ class GamingJob < ApplicationJob
                             auth_token: secure_token
                           )
           newest_earned_trophy = all_game_trophies.trophies.select{|t| t.earned}.sort_by{|t| Time.new(t['earnedDateTime']).to_i}.last
-          all_trophy_details =  make_request(
-                                  "https://m.np.playstation.com/api/trophy/v1/npCommunicationIds/#{np_communication_id}/trophyGroups/all/trophies",
-                                  type: 'GET',
-                                  auth_token: secure_token
-                                )
-          trophy_details = all_trophy_details.trophies.select{|t| t.trophyId == newest_earned_trophy.trophyId}.first
-          achievement = {
-            name: trophy_details.trophyName,
-            time: Time.new(newest_earned_trophy.earnedDateTime),
-            desc: trophy_details.trophyDetail
-          }
+          if newest_earned_trophy
+            all_trophy_details =  make_request(
+                                    "https://m.np.playstation.com/api/trophy/v1/npCommunicationIds/#{np_communication_id}/trophyGroups/all/trophies",
+                                    type: 'GET',
+                                    auth_token: secure_token
+                                  )
+            trophy_details = all_trophy_details.trophies.select{|t| t.trophyId == newest_earned_trophy.trophyId}.first
+            achievement = {
+              name: trophy_details.trophyName,
+              time: Time.new(newest_earned_trophy.earnedDateTime),
+              desc: trophy_details.trophyDetail
+            }
+          end
         end
 
         update_recent_game(matching_game: matching_game, details: { title: title, platform: 'psn', time: time, image: image, achievement: achievement })
