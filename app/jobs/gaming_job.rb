@@ -152,12 +152,16 @@ class GamingJob < ApplicationJob
         image = store_local_copy(game.imageUrl, 'psn', title)
       end
 
-      if matching_game.blank? || (matching_game.started_playing.to_i < time.to_i)
+      # since the last played time is when a game was last started, any
+      # trophies earned during that session won't be looked up. so, look up
+      # trophies for all new games and all games where the last played is
+      # within the last 24 hours
+      if matching_game.blank? || ((Time.now-24.hours).to_i < time.to_i)
         achievement = false
 
         # this request is mostly useless, as it just returns details for the
         # rarest trophy, but we do need to get the npCommunicationId for the
-        # game
+        # game to get trophy details
         rarest_trophy =  make_request(
                                 "https://m.np.playstation.com/api/trophy/v1/users/#{account_id}/titles/trophyTitles?npTitleIds=#{game.titleId}",
                                 type: 'GET',
@@ -172,7 +176,8 @@ class GamingJob < ApplicationJob
                             auth_token: secure_token
                           )
           newest_earned_trophy = all_game_trophies.trophies.select{|t| t.earned}.sort_by{|t| Time.new(t['earnedDateTime']).to_i}.last
-          if newest_earned_trophy
+          trophy_time = newest_earned_trophy ? Time.new(newest_earned_trophy.earnedDateTime) : false
+          if trophy_time && (trophy_time.to_i > matching_game.started_playing.to_i)
             all_trophy_details =  make_request(
                                     "https://m.np.playstation.com/api/trophy/v1/npCommunicationIds/#{np_communication_id}/trophyGroups/all/trophies",
                                     type: 'GET',
@@ -181,7 +186,7 @@ class GamingJob < ApplicationJob
             trophy_details = all_trophy_details.trophies.select{|t| t.trophyId == newest_earned_trophy.trophyId}.first
             achievement = {
               name: trophy_details.trophyName,
-              time: Time.new(newest_earned_trophy.earnedDateTime),
+              time: trophy_time,
               desc: trophy_details.trophyDetail
             }
           end
