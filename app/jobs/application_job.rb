@@ -160,7 +160,7 @@ class ApplicationJob < ActiveJob::Base
       # possible there are additional metadata in the location params to do
       # something else with [this is true for the PlayStation API, apparently])
       return response['location']
-    when Net::HTTPTooManyRequests, Net::HTTPForbidden, Net::HTTPNotFound then
+    when Net::HTTPUnauthorized, Net::HTTPTooManyRequests, Net::HTTPForbidden, Net::HTTPNotFound then
       raise net_http_error(response, tries: tries)
     else
       if response.is_a?(Net::HTTPBadRequest) && JSON.parse(response.body).has_key?('playerstats')
