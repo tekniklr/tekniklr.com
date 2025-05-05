@@ -194,12 +194,19 @@ class ApplicationJob < ActiveJob::Base
     message = "#{response.respond_to?('code') ? response.code : 'Unanticipated'} response"
     tries and message += " after #{tries} attempts"
     additional_message and message += "; #{additional_message}"
-    message += " - \n"
+    message += " - \n\n"
     if response.respond_to?('content_type') && response.respond_to?('body')
       message += (response.content_type == "application/json") ? JSON.parse(response.body).inspect : response.body.inspect
     else
       message += response.inspect
     end
+    if response.respond_to?(:each_header)
+      message += "\n\nHeaders:\n"
+      response.each_header.to_h.each do |key, value|
+        message += "\t#{key}: #{value}\n"
+      end
+    end
+    message += "\n\n"
     message
   end
 
