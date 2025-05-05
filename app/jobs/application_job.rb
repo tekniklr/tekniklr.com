@@ -158,7 +158,7 @@ class ApplicationJob < ActiveJob::Base
       # for a redirect, don't process automatically here (while it would be
       # easy enough to call make_request() again with this location, it's
       # possible there are additional metadata in the location params to do
-      # something else with [this is true for the PlayStation API, apparently])
+      # something else with [this is true for the PlayStation API])
       return response['location']
     when Net::HTTPUnauthorized, Net::HTTPTooManyRequests, Net::HTTPForbidden, Net::HTTPNotFound then
       raise net_http_error(response, tries: tries)
