@@ -9,7 +9,7 @@ class ErrorMailer < ApplicationMailer
     @extra_message = extra_message
     mail(
       to:      'rails@tekniklr.com',
-      subject: "[tekniklr.com] background error"
+      subject: "[tekniklr.com] background error #{@message}"
     )
   end
   
