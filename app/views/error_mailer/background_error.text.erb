@@ -1,5 +1,9 @@
 There was a background error <%= @message %> on tekniklr.com.
 
+<%- unless @defer_time.blank? -%>
+Deferring next run until <%= @defer_time.to_fs(:precise) %>.
+
+<%- end -%>
 The specific error was: <%= truncate(@exception.message, length: 500, escape: false) %> (<%= @exception.class %>)
 
 <%- unless @extra_message.blank? -%>

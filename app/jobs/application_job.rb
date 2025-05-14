@@ -15,7 +15,7 @@ class ApplicationJob < ActiveJob::Base
         Rails.logger.debug "Error running task in #{cache_key}!"
         next_time = Time.now+defer_hours.hours
         Rails.cache.write(cache_key, next_time)
-        ErrorMailer.background_error("running #{cache_key} task; deferring next run until #{next_time.to_fs(:precise)}", exception).deliver_now
+        ErrorMailer.background_error("running #{cache_key} task", exception, defer_time: next_time).deliver_now
       end
     else
       Rails.logger.debug "#{cache_key} task deferred until at least #{next_check.to_fs(:precise)}"
