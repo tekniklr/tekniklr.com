@@ -16,15 +16,15 @@ class CacheController < ApplicationController
     end
     descriptor = (clean_caches.size == 1) ? 'cached item' : 'cached items'
 
-    deleted = 0
+    deleted = []
     clean_caches.each do |cache_item|
-      Rails.cache.delete(cache_item) and deleted+=1
+      Rails.cache.delete(cache_item) and deleted<<cache_item
     end
 
-    if deleted == clean_caches.size
-      flash[:notice] = "Baleeted the following #{descriptor}: #{clean_caches.to_sentence}"
+    if deleted.size == clean_caches.size
+      flash[:notice] = "Baleeted the following #{descriptor}: #{deleted.to_sentence}"
     else
-      flash[:error] = "Unable to remove all #{descriptor}: #{clean_caches.to_sentence} (#{deleted} removed)"
+      flash[:error] = "Unable to remove all #{descriptor}: #{clean_caches.to_sentence} (#{deleted.empty? ? 'none' : deleted.to_sentence} removed)"
     end
     redirect_to cache_index_path
   end
