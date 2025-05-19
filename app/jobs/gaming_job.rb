@@ -177,7 +177,7 @@ class GamingJob < ApplicationJob
                           )
           newest_earned_trophy = all_game_trophies.trophies.select{|t| t.earned}.sort_by{|t| Time.new(t['earnedDateTime']).to_i}.last
           trophy_time = newest_earned_trophy ? Time.new(newest_earned_trophy.earnedDateTime) : false
-          if trophy_time && (trophy_time.to_i > matching_game.started_playing.to_i)
+          if trophy_time && (matching_game.blank? || (trophy_time.to_i > matching_game.started_playing.to_i))
             all_trophy_details =  make_request(
                                     "https://m.np.playstation.com/api/trophy/v1/npCommunicationIds/#{np_communication_id}/trophyGroups/all/trophies",
                                     type: 'GET',
