@@ -143,6 +143,7 @@ GEM
       delayed_job (>= 3.0, < 5)
     domain_name (0.6.20240107)
     drb (2.2.1)
+    erb (5.0.1)
     erubi (1.13.1)
     exception_notification (5.0.0)
       actionmailer (>= 7.1, < 9)
@@ -365,7 +366,8 @@ GEM
       thor (~> 1.0, >= 1.2.2)
       zeitwerk (~> 2.6)
     rake (13.2.1)
-    rdoc (6.13.1)
+    rdoc (6.14.0)
+      erb
       psych (>= 4.0.0)
     reline (0.6.1)
       io-console (~> 0.5)
