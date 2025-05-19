@@ -6,11 +6,25 @@ class CacheController < ApplicationController
   end
 
   def update
+    clean_caches = []
     cache_key = params[:id]
-    if Rails.cache.delete(cache_key)
-      flash[:notice] = "Baleeted the following cache item: #{cache_key}"
+    case cache_key
+    when 'gaming_expiry'
+      clean_caches = ['fetch_nintendo', 'fetch_psn', 'fetch_steam', 'fetch_xbox', cache_key]
     else
-      flash[:error] = "Unable to remove cache item: #{cache_key}!"
+      clean_caches = [cache_key]
+    end
+    descriptor = (clean_caches.size == 1) ? 'cached item' : 'cached items'
+
+    deleted = 0
+    clean_caches.each do |cache_item|
+      Rails.cache.delete(cache_item) and deleted+=1
+    end
+
+    if deleted == clean_caches.size
+      flash[:notice] = "Baleeted the following #{descriptor}: #{clean_caches.to_sentence}"
+    else
+      flash[:error] = "Unable to remove all #{descriptor}: #{clean_caches.to_sentence} (#{deleted} removed)"
     end
     redirect_to cache_index_path
   end
