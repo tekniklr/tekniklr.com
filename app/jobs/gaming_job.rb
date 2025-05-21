@@ -2,7 +2,7 @@ class GamingJob < ApplicationJob
   
   def perform
     defer_retry('fetch_nintendo', 12) { get_nintendo }
-    defer_retry('fetch_psn', 6) { get_psn }
+    defer_retry('fetch_psn', 24) { get_psn }
     defer_retry('fetch_steam', 12) { get_steam }
     defer_retry('fetch_xbox', 6) { get_xbox }
     recent_games = get_recent_games
