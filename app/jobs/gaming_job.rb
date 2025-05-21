@@ -118,6 +118,14 @@ class GamingJob < ApplicationJob
       key,value = param.split('=')
       auth_params[key] = value
     end
+    unless auth_params.has_key?('code')
+      message = "No 'code' parameter returned after trying to authenticate - probably need to refresh NPSSO."
+      message += "\n\n\t1. In a private browser window, log into https://store.playstation.com"
+      message += "\n\t2. After logging in, in the same window, go to https://ca.account.sony.com/api/v1/ssocookie"
+      message += "\n\t3. Update rails credentials with new npsso"
+      message += "\n\nSee https://andshrew.github.io/PlayStation-Trophies/#/APIv2?id=obtaining-an-authentication-token for more details"
+      raise message
+    end
     token = make_request(
               'https://ca.account.sony.com/api/authz/v3/oauth/token',
               type: 'POST',
