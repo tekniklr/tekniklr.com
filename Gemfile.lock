@@ -142,7 +142,7 @@ GEM
       activerecord (>= 3.0, < 9.0)
       delayed_job (>= 3.0, < 5)
     domain_name (0.6.20240107)
-    drb (2.2.1)
+    drb (2.2.3)
     erb (5.0.1)
     erubi (1.13.1)
     exception_notification (5.0.0)
@@ -246,7 +246,7 @@ GEM
     mime-types (3.7.0)
       logger
       mime-types-data (~> 3.2025, >= 3.2025.0507)
-    mime-types-data (3.2025.0514)
+    mime-types-data (3.2025.0520)
     mini_mime (1.1.5)
     minitest (5.25.5)
     multi_xml (0.7.2)
@@ -350,7 +350,7 @@ GEM
       actionpack (>= 5.0.1.rc1)
       actionview (>= 5.0.1.rc1)
       activesupport (>= 5.0.1.rc1)
-    rails-dom-testing (2.2.0)
+    rails-dom-testing (2.3.0)
       activesupport (>= 5.0.0)
       minitest
       nokogiri (>= 1.6)
@@ -428,7 +428,7 @@ GEM
     websocket-extensions (0.1.5)
     xml-simple (1.1.9)
       rexml
-    zeitwerk (2.7.2)
+    zeitwerk (2.7.3)
 
 PLATFORMS
   x86_64-darwin-22
