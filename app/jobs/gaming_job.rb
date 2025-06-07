@@ -1,7 +1,7 @@
 class GamingJob < ApplicationJob
   
   def perform
-    #defer_retry('fetch_nintendo', 12) { get_nintendo }
+    defer_retry('fetch_nintendo', 12) { get_nintendo }
     defer_retry('fetch_psn', 24) { get_psn }
     defer_retry('fetch_steam', 12) { get_steam }
     defer_retry('fetch_xbox', 6) { get_xbox }
@@ -302,35 +302,33 @@ class GamingJob < ApplicationJob
                             }
                           )
     daily_summary = make_request(
-                        "https://api-lp1.pctl.srv.nintendo.net/moon/v1/devices/#{Rails.application.credentials.nintendo[:device_id]}/daily_summaries",
+                          'https://app.lp1.znma.srv.nintendo.net/v2/actions/playSummary/fetchDailySummaries',
                           type: 'GET',
-                          auth_token: access_token.access_token,
+                          params: {
+                            deviceId: Rails.application.credentials.nintendo[:device_id]
+                          },
+                          auth_token: access_token.id_token,
+                          user_agent: 'Znma/501 CFNetwork/3826.500.131 Darwin/24.5.0',
                           headers: {
-                            'x-moon-os-language': 'en-US',
-                            'x-moon-app-language': 'en-US',
-                            'x-moon-app-internal-version': '361',
-                            'x-moon-app-display-version': '1.22.0',
-                            'x-moon-app-id': 'com.nintendo.znma',
-                            'x-moon-os': 'IOS',
-                            'x-moon-os-version': '18.2.1',
-                            'x-moon-model': 'iPhone17,1',
-                            'accept-encoding': 'gzip;q=1.0, compress;q=0.5',
-                            'accept-language': 'en-US;q=1.0',
-                            'user-agent': 'moon_ios/1.22.0 (com.nintendo.znma; build:361; iOS 18.2.1) Alamofire/5.9.0',
-                            'x-moon-timezone': 'America/Los_Angeles',
-                            'x-moon-smart-device-id': Rails.application.credentials.nintendo[:smart_device_id]
+                            'X-Moon-App-Internal-Version': '501',
+                            'X-Moon-Os': 'IOS',
+                            'Accept': '*/*',
+                            'Accept-Encoding': 'gzip, deflate, br',
+                            'Accept-Language': 'en-US,en;q=0.9'
                           }
                         )
-    daily_summary.items.first.playedApps.each_with_index do |item, index|
-      title = item.title
-      time = (index == 0) ? Time.at(daily_summary.items.first.lastPlayedAt) : item.firstPlayDate.to_date.beginning_of_day
-      url = item.shopUri
+    players = daily_summary.dailySummaries.first.players
+    me = players.select{|p| p.profile.playerId == Rails.application.credentials.nintendo[:player_id]}.first
+    me.playedGames.each_with_index do |item, index|
+      title = item.meta.title
+      time = (index == 0) ? Time.at(daily_summary.lastUpdatedAt) : Time.at(daily_summary.lastUpdatedAt).beginning_of_day # we can only get the last time that parental control data was updated, which I *think* is the last time the console 'phoned home' - for the most recent/first game played in a day this is probably the same as the last time it was played, for subequent games in that day, just pick an earlier time, and hope that that game was first in an earlier check-in (that way a RecentGame entry with a newer time will exist already)
+      url = item.meta.shopUri
 
       matching_game = matching_recent_game(title, platform: 'switch')
 
       image = find_game_image(matching_game)
       if !image
-        image = store_local_copy(item.imageUri.medium, 'switch', title)
+        image = store_local_copy(item.meta.imageUri.large, 'switch', title)
       end
 
       if matching_game.blank? || (matching_game.started_playing.to_i < time.to_i)
