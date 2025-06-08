@@ -317,22 +317,24 @@ class GamingJob < ApplicationJob
                             'Accept-Language': 'en-US,en;q=0.9'
                           }
                         )
-    players = daily_summary.dailySummaries.first.players
+    players = daily_summary.dailySummaries.first.players # only looking at today's summaries
     me = players.select{|p| p.profile.playerId == Rails.application.credentials.nintendo[:player_id]}.first
-    me.playedGames.each_with_index do |item, index|
-      title = item.meta.title
-      time = (index == 0) ? Time.at(daily_summary.lastUpdatedAt) : Time.at(daily_summary.lastUpdatedAt).beginning_of_day # we can only get the last time that parental control data was updated, which I *think* is the last time the console 'phoned home' - for the most recent/first game played in a day this is probably the same as the last time it was played, for subequent games in that day, just pick an earlier time, and hope that that game was first in an earlier check-in (that way a RecentGame entry with a newer time will exist already)
-      url = item.meta.shopUri
+    if me # if I have played today
+      me.playedGames.each_with_index do |item, index|
+        title = item.meta.title
+        time = Time.at(daily_summary.lastUpdatedAt) # the new API doesn't report last played time anymore, this is probably as close as we will get
+        url = item.meta.shopUri
 
-      matching_game = matching_recent_game(title, platform: 'switch')
+        matching_game = matching_recent_game(title, platform: 'switch')
 
-      image = find_game_image(matching_game)
-      if !image
-        image = store_local_copy(item.meta.imageUri.large, 'switch', title)
-      end
+        image = find_game_image(matching_game)
+        if !image
+          image = store_local_copy(item.meta.imageUri.large, 'switch', title)
+        end
 
-      if matching_game.blank? || (matching_game.started_playing.to_i < time.to_i)
-        update_recent_game(matching_game: matching_game, details: { title: title, platform: 'switch', time: time, image: image, url: url })
+        if matching_game.blank? || (matching_game.started_playing.end_of_day < time) # since we don't have a precise last played time, only update RecentGame if it has not yet been updated today
+          update_recent_game(matching_game: matching_game, details: { title: title, platform: 'switch', time: time, image: image, url: url })
+        end
       end
     end
     clear_local_copies('switch')
