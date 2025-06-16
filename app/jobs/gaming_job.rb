@@ -178,9 +178,14 @@ class GamingJob < ApplicationJob
         if rarest_trophy
           ps5_game = (game.category == 'ps5_native_game')
           np_communication_id = rarest_trophy.titles.first.trophyTitles.first.npCommunicationId
+          params = {}
+          unless ps5_game
+            params['npServiceName'] = 'trophy'
+          end
           all_game_trophies = make_request(
-                            "https://m.np.playstation.com/api/trophy/v1/users/#{account_id}/npCommunicationIds/#{np_communication_id}/trophyGroups/all/#{ps5_game ? '' : 'npServiceName/trophy/'}trophies",
+                            "https://m.np.playstation.com/api/trophy/v1/users/#{account_id}/npCommunicationIds/#{np_communication_id}/trophyGroups/all/trophies",
                             type: 'GET',
+                            params: params,
                             auth_token: secure_token
                           )
           newest_earned_trophy = all_game_trophies.trophies.select{|t| t.earned}.sort_by{|t| Time.new(t['earnedDateTime']).to_i}.last
