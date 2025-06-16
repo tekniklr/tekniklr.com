@@ -47,10 +47,7 @@ class RecentGame < ApplicationRecord
     order('started_playing desc, updated_at desc')
   }
   scope :by_name, lambda { |name|
-    name_parts = name.gsub(/[^A-Za-z0-9 ]/, ' ').split(' ')
-    clauses = ("name like ? and "*(name_parts.size)).gsub(/ and \z/, '')
-    conditions = name_parts.map{|p| "%#{p}%"}
-    where([clauses, conditions].flatten)
+    where(name: name)
   }
   scope :on_platform, lambda { |platform|
     platforms = case platform
