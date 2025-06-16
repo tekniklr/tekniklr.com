@@ -1,7 +1,7 @@
 %li
   :ruby
     description = song[:artist] + ' - ' + song[:title]
-    song_id = "#{description} - #{song[:published].to_fs(:published)}"
+    song_id = "#{description} - #{song[:published].to_fs(:published)} - #{rand(10000)}"
     song_id = song_id.downcase.gsub(/[^a-z0-9]/, '_').gsub(/_+/, '_').gsub(/_\z/, '')
     hover_text = "#{song[:artist]} - #{song[:title]}"
   - if song[:image_url]
