@@ -188,8 +188,17 @@ class GamingJob < ApplicationJob
                             params: params,
                             auth_token: secure_token
                           )
-          newest_earned_trophy = all_game_trophies.trophies.select{|t| t.earned}.sort_by{|t| Time.new(t['earnedDateTime']).to_i}.last
-          trophy_time = newest_earned_trophy ? Time.new(newest_earned_trophy.earnedDateTime) : false
+          earned_trophies = all_game_trophies.trophies.select{|t| t.earned}
+          newest_earned_trophy = false
+          trophy_time = false
+          unless earned_trophies.empty?
+            # sometimes when trophies are awarded in bulk many will have the
+            # same timestamp, if that happens, return the rarest trophy awarded
+            # at that timestamp
+            trophy_timestamp = earned_trophies.sort_by{|t| Time.new(t['earnedDateTime']).to_i}.last.earnedDateTime
+            newest_earned_trophy = earned_trophies.select{|t| t['earnedDateTime'] == trophy_timestamp}.sort_by{|t| t['trophyEarnedRate'].to_i}.first
+            trophy_time = Time.new(trophy_timestamp)
+          end
           if trophy_time && (matching_game.blank? || (trophy_time.to_i > matching_game.started_playing.to_i))
             all_trophy_details =  make_request(
                                     "https://m.np.playstation.com/api/trophy/v1/npCommunicationIds/#{np_communication_id}/trophyGroups/all/trophies",
