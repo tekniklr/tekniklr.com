@@ -322,9 +322,9 @@ class GamingJob < ApplicationJob
                             deviceId: Rails.application.credentials.nintendo[:device_id]
                           },
                           auth_token: access_token.id_token,
-                          user_agent: 'Znma/501 CFNetwork/3826.500.131 Darwin/24.5.0',
+                          user_agent: 'znma_ios/2.1.1 (com.nintendo.znma; build:540; iOS Version 18.5 (Build 22F76)',
                           headers: {
-                            'X-Moon-App-Internal-Version': '501',
+                            'X-Moon-App-Internal-Version': '540',
                             'X-Moon-Os': 'IOS',
                             'Accept': '*/*',
                             'Accept-Encoding': 'gzip, deflate, br',
