@@ -235,7 +235,12 @@ class GamingJob < ApplicationJob
         image = store_local_copy(game.displayImage, 'xbox', title)
       end
 
-      if matching_game.blank? || (matching_game.started_playing.to_i < time.to_i)
+      # previously this compared matching_game.started_playing to the time last
+      # played in the API, but depending on when the API was last queried and
+      # when an achievement was last earned it was sometimes possible to not
+      # query/update acheivements when they should be. so, look up achievements
+      # for all new games and all games played within the last 24 hours
+      if matching_game.blank? || ((Time.now-24.hours).to_i < time.to_i)
         achievement = false
         newest_achievement = false
         newest_achievement_time = false
@@ -283,7 +288,12 @@ class GamingJob < ApplicationJob
         image = store_local_copy("https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/#{game.appid}/header.jpg", 'steam', title)
       end
 
-      if matching_game.blank? || (matching_game.started_playing.to_i < time.to_i)
+      # previously this compared matching_game.started_playing to the time last
+      # played in the API, but depending on when the API was last queried and
+      # when an achievement was last earned it was sometimes possible to not
+      # query/update acheivements when they should be. so, look up achievements
+      # for all new games and all games played within the last 24 hours
+      if matching_game.blank? || ((Time.now-24.hours).to_i < time.to_i)
         achievement = false
 
         game_achievements = make_request('https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/', type: 'GET', params: { key: steam_api_key, steamid: steam_id, appid: game.appid, format: 'json' })
