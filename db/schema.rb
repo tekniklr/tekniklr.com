@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_16_194346) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_14_194303) do
   create_table "delayed_jobs", id: :integer, charset: "utf8mb3", force: :cascade do |t|
     t.integer "priority", default: 0
     t.integer "attempts", default: 0
@@ -84,7 +84,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_16_194346) do
     t.index ["visible"], name: "index_links_on_visible"
   end
 
-  create_table "recent_games", id: :integer, charset: "latin1", force: :cascade do |t|
+  create_table "recent_games", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.string "platform"
     t.datetime "started_playing", precision: nil
@@ -97,7 +97,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_16_194346) do
     t.datetime "updated_at", precision: nil
     t.string "achievement_name"
     t.datetime "achievement_time"
-    t.text "achievement_desc"
+    t.text "achievement_desc", size: :medium
+    t.boolean "hidden", default: false
   end
 
   create_table "tabletop_games", id: :integer, charset: "utf8mb3", force: :cascade do |t|

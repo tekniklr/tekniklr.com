@@ -36,6 +36,13 @@
 
   .row
     .left
+      = f.label :hidden, 'Hidden?'
+    .right
+      = f.check_box :hidden
+    .clear
+
+  .row
+    .left
       = f.label :image
     .right
       = f.file_field :image

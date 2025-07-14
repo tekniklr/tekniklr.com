@@ -14,7 +14,7 @@ class GamingJob < ApplicationJob
   def get_recent_games
     Rails.logger.debug "Parsing RecentGames..."
     items = []
-    RecentGame.sorted.first(12).each do |game|
+    RecentGame.visible.sorted.first(12).each do |game|
       items << {
         title:            game.name,
         platform:         game.platform,
