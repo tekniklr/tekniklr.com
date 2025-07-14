@@ -46,6 +46,9 @@ class RecentGame < ApplicationRecord
   scope :sorted, -> {
     order('started_playing desc, updated_at desc')
   }
+  scope :visible, -> {
+    where(hidden: false)
+  }
   scope :by_name, lambda { |name|
     where(name: name)
   }

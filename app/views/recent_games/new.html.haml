@@ -9,7 +9,7 @@
 - if @recent_games
   %ul#recent_games
     - @recent_games.each do |game|
-      %li
+      %li{class: game.hidden? ? 'hidden' : ''}
         .right
           = link_to 'edit', edit_recent_game_path(game)
         .left
