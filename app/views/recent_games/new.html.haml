@@ -17,11 +17,12 @@
             - if game.image?
               = image_tag game.image.url(:thumb), alt: game.name, align: 'left', hspace: 10
           .gaming_details
-            #{game.started_playing.to_formatted_s(:precise)}:
-            %br
-            #{game.name}
-            %br
-            %em #{game.platform}
+            .time
+              = game.started_playing.to_formatted_s(:precise)
+            .name
+              = game.name
+            .platform
+              = game.platform
           - if game.achievement_name
             .gaming_achievement
               .achievement_name

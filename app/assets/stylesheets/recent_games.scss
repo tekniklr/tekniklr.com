@@ -23,6 +23,17 @@ ul#recent_games {
     }
     .gaming_details {
       display: inline-block;
+      vertical-align: top;
+      .time {
+        font-style: italic;
+      }
+      .name {
+        font-weight: bold;
+      }
+      .platform {
+        font-style: italic;
+        font-size: 80%;
+      }
     }
     .gaming_achievement {
       border-top : 1px solid $faint_border_color;
