@@ -164,7 +164,7 @@ class GamingJob < ApplicationJob
       # trophies earned during that session won't be looked up. so, look up
       # trophies for all new games and all games where the last played is
       # within the last 24 hours
-      if matching_game.blank? || ((Time.now-24.hours).to_i < time.to_i)
+      if matching_game.blank? || (Time.now-24.hours < time)
         achievement = false
 
         # this request is mostly useless, as it just returns details for the
@@ -240,7 +240,7 @@ class GamingJob < ApplicationJob
       # when an achievement was last earned it was sometimes possible to not
       # query/update acheivements when they should be. so, look up achievements
       # for all new games and all games played within the last 24 hours
-      if matching_game.blank? || ((Time.now-24.hours).to_i < time.to_i)
+      if matching_game.blank? || (Time.now-24.hours < time)
         achievement = false
         newest_achievement = false
         newest_achievement_time = false
@@ -293,7 +293,7 @@ class GamingJob < ApplicationJob
       # when an achievement was last earned it was sometimes possible to not
       # query/update acheivements when they should be. so, look up achievements
       # for all new games and all games played within the last 24 hours
-      if matching_game.blank? || ((Time.now-24.hours).to_i < time.to_i)
+      if matching_game.blank? || (Time.now-24.hours < time)
         achievement = false
 
         game_achievements = make_request('https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/', type: 'GET', params: { key: steam_api_key, steamid: steam_id, appid: game.appid, format: 'json' })
