@@ -356,7 +356,7 @@ class GamingJob < ApplicationJob
           image = store_local_copy(item.meta.imageUri.large, 'switch', title)
         end
 
-        if matching_game.blank? || (matching_game.started_playing.end_of_day < time) # since we don't have a precise last played time, only update RecentGame if it has not yet been updated today
+        if matching_game.blank? || ((Time.now-24.hours < daily_summary.dailySummaries.first.date.to_time) && (matching_game.started_playing.end_of_day < time)) # since we don't have a precise last played time, only update RecentGame if it has not yet been updated today
           update_recent_game(matching_game: matching_game, details: { title: title, platform: 'switch', time: time, image: image, url: url })
         end
       end
