@@ -24,7 +24,7 @@
     .left
       = f.label :started_playing, 'Started'
     .right
-      = f.date_select :started_playing, default: Date.today
+      = f.datetime_select :started_playing, default: Time.now
     .clear
 
   .row
