@@ -1,6 +1,7 @@
 class RecentGame < ApplicationRecord
 
   NINTENDO_PLATFORMS =  [
+                          'Switch 2',
                           'Switch',
                           '3DS',
                           'GBA',
