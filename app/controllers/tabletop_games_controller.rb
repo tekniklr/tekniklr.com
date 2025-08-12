@@ -1,5 +1,5 @@
 class TabletopGamesController < ApplicationController
-  before_action   :is_admin?, :except => :index
+  before_action   :is_admin?, except: :index
   before_action   { |c| c.page_title 'tabletop games' }
 
   # GET /tabletop_games
@@ -37,9 +37,9 @@ class TabletopGamesController < ApplicationController
     respond_to do |format|
       if @tabletop_game.save
         Rails.cache.delete('tabletop_fetched')
-        format.html { redirect_to manage_tabletop_games_url, :notice => 'TableTop game was successfully created.' }
+        format.html { redirect_to manage_tabletop_games_url, notice: 'TableTop game was successfully created.' }
       else
-        format.html { render :action => "new" }
+        format.html { render action: "new" }
       end
     end
   end
@@ -50,9 +50,9 @@ class TabletopGamesController < ApplicationController
     respond_to do |format|
       if @tabletop_game.update(tabletop_game_params)
         Rails.cache.delete('tabletop_fetched')
-        format.html { redirect_to manage_tabletop_games_url, :notice => 'TableTop game was successfully updated.' }
+        format.html { redirect_to manage_tabletop_games_url, notice: 'TableTop game was successfully updated.' }
       else
-        format.html { render :action => "edit" }
+        format.html { render action: "edit" }
       end
     end
   end
@@ -62,7 +62,7 @@ class TabletopGamesController < ApplicationController
     @tabletop_game = TabletopGame.find(params[:id])
     @tabletop_game.destroy
     respond_to do |format|
-      format.html { redirect_to manage_tabletop_games_url, :notice => 'TableTop game was successfully baleeted.' }
+      format.html { redirect_to manage_tabletop_games_url, notice: 'TableTop game was successfully baleeted.' }
     end
   end
 

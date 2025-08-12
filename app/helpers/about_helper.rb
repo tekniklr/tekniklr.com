@@ -7,7 +7,7 @@ module AboutHelper
       logger.debug "Printing facet: " + facet.slug
       dd_attr = dd_class ? "class='#{dd_class}'" : ''
       out = "<dt>#{facet.name}</dt>\n<dd #{dd_attr}>#{facet_value facet.value}</dd>\n"
-      sanitize out, :tags => %w(a strong em u br cite span ol ul li dd dt), attributes: %w(href target name title src alt class)
+      sanitize out, tags: %w(a strong em u br cite span ol ul li dd dt), attributes: %w(href target name title src alt class)
     else
       ''
     end

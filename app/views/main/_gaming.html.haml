@@ -13,7 +13,7 @@
     = link_to image_tag(game[:thumb_url], alt: hover_text, title: hover_text), game[:url], id: "opener_#{game_id}"
   - else
     = link_to hover_text, game[:url], id: "opener_#{game_id}"
-  %p{:class => "when fade#{fade}"}
+  %p{class: "when fade#{fade}"}
     - if game[:published]
       = time_ago_in_words(game[:published])+' ago'
   %dialog.game_dialog.fixed{id: "dialog_game_#{game_id}"}

@@ -8,13 +8,13 @@ class FavoriteThing < ApplicationRecord
                         },
                         path: ":rails_root/public/favorite_things/:attachment/:id/:style/:filename",
                         url: "/favorite_things/:attachment/:id/:style/:filename"
-  validates_attachment_content_type :image, :content_type => [ 'image/png', 'image/jpg', 'image/jpeg', 'image/gif']
+  validates_attachment_content_type :image, content_type: [ 'image/png', 'image/jpg', 'image/jpeg', 'image/gif']
   
   validates_presence_of :thing
-  validates_length_of   :thing, :maximum => 60
+  validates_length_of   :thing, maximum: 60
   
-  validates_length_of   :link, :maximum => 90,      :allow_nil => true, :allow_blank => true
-  validates_format_of   :link, :with => URI.regexp, :allow_nil => true, :allow_blank => true
+  validates_length_of   :link, maximum: 90,      allow_nil: true, allow_blank: true
+  validates_format_of   :link, with: URI.regexp, allow_nil: true, allow_blank: true
   
   validates_presence_of     :sort
   validates_numericality_of :sort

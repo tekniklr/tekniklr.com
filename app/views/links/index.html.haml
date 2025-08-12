@@ -5,7 +5,7 @@
   = form_tag update_all_links_path, multipart: true, method: :patch do
     #links
       - @links.each do |link|
-        = render 'link', :link => link
+        = render 'link', link: link
     .centered
       = submit_tag "Update all"
 
@@ -15,6 +15,6 @@
   = form_for :link, html: {id: 'new_link', multipart: true}, remote: true do
     %div.link#link
       = fields_for @link do |create|
-        = render 'form', :f => create, :link => @link  
+        = render 'form', f: create, link: @link
     .centered
       = submit_tag "Add"

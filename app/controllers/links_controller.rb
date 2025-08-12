@@ -42,8 +42,8 @@ class LinksController < ApplicationController
         format.js   
       else
         flash[:error] = 'Link not valid: '+@link.errors.full_messages.join(', ')
-        format.html { render :action => "index" }
-        format.js   { render :action => "error" }
+        format.html { render action: "index" }
+        format.js   { render action: "error" }
       end
     end
   end

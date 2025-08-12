@@ -39,8 +39,8 @@ class ExperiencesController < ApplicationController
         format.js
       else
         flash[:error] = 'Experience not valid: '+@experience.errors.full_messages.join(', ')
-        format.html { render :action => "index" }
-        format.js   { render :action => "error" }
+        format.html { render action: "index" }
+        format.js   { render action: "error" }
       end
     end
   end
@@ -56,8 +56,8 @@ class ExperiencesController < ApplicationController
         format.js
       else
         flash[:error] = 'Experience not saved: '+@experience.errors.full_messages.join(', ')
-        format.html { render :action => "edit" }
-        format.js   { render :action => "update_error" }
+        format.html { render action: "edit" }
+        format.js   { render action: "update_error" }
       end
     end
   end

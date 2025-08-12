@@ -5,4 +5,4 @@
 = render 'form', submit_label: "Update game"
 
 .right
-  = link_to 'remove this game', @recent_game, :method => :delete, :data => { :confirm => "Are you sure you want to remove #{@recent_game.name}?" }
+  = link_to 'remove this game', @recent_game, method: :delete, data: { confirm: "Are you sure you want to remove #{@recent_game.name}?" }
