@@ -22,7 +22,7 @@ class FavoritesController < ApplicationController
   def new
     @favorite = Favorite.new
     @favorite.sort = Favorite.last.sort + 1
-    1.upto(NUM_FAVS) { |n| @favorite.favorite_things.build(:sort => n) }
+    1.upto(NUM_FAVS) { |n| @favorite.favorite_things.build(sort: n) }
     respond_to do |format|
       format.html # new.html.erb
     end
@@ -33,7 +33,7 @@ class FavoritesController < ApplicationController
     @favorite = Favorite.find(params[:id])
     things = @favorite.favorite_things.size
     if things < NUM_FAVS
-      (things+1).upto(NUM_FAVS) { |n| @favorite.favorite_things.build(:sort => n) }
+      (things+1).upto(NUM_FAVS) { |n| @favorite.favorite_things.build(sort: n) }
     end
   end
 
@@ -43,9 +43,9 @@ class FavoritesController < ApplicationController
     respond_to do |format|
       if @favorite.save
         Rails.cache.delete('things_fetched')
-        format.html { redirect_to @favorite, :notice => 'Favorite was successfully created.' }
+        format.html { redirect_to @favorite, notice: 'Favorite was successfully created.' }
       else
-        format.html { render :action => "new" }
+        format.html { render action: "new" }
       end
     end
   end
@@ -59,8 +59,8 @@ class FavoritesController < ApplicationController
       Favorite.update(id, sort: index)
     end
     respond_to do |format|
-      format.html { redirect_to favorites_url, :notice => 'Favorites re-ordered.' }
-      format.js   { render :nothing => true }
+      format.html { redirect_to favorites_url, notice: 'Favorites re-ordered.' }
+      format.js   { render nothing: true }
     end
   end
 
@@ -73,8 +73,8 @@ class FavoritesController < ApplicationController
       FavoriteThing.update(id, sort: index)
     end
     respond_to do |format|
-      format.html { redirect_to favorites_url, :notice => 'Favorite things re-ordered.' }
-      format.js   { render :nothing => true }
+      format.html { redirect_to favorites_url, notice: 'Favorite things re-ordered.' }
+      format.js   { render nothing: true }
     end
   end
 
@@ -84,9 +84,9 @@ class FavoritesController < ApplicationController
     respond_to do |format|
       if @favorite.update(favorite_params)
         Rails.cache.delete('things_fetched')
-        format.html { redirect_to @favorite, :notice => 'Favorite was successfully updated.' }
+        format.html { redirect_to @favorite, notice: 'Favorite was successfully updated.' }
       else
-        format.html { render :action => "edit" }
+        format.html { render action: "edit" }
       end
     end
   end

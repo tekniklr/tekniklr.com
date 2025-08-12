@@ -7,7 +7,7 @@
     = link_to image_tag(movie[:thumb_url], alt: movie[:title], title: movie[:title]), movie[:url], id: "opener_#{movie_id}"
   - else
     = link_to movie[:title], movie[:url], id: "opener_#{movie_id}"
-  %p{:class => "when fade#{fade}"}
+  %p{class: "when fade#{fade}"}
     - if movie[:published]
       = time_ago_in_words(movie[:published])+' ago'
   %dialog.fixed{id: "dialog_movie_#{movie_id}", title: movie[:title]}

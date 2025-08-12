@@ -27,9 +27,9 @@ class RecentGamesController < ApplicationController
     respond_to do |format|
       if @recent_game.save
         Rails.cache.delete('gaming_expiry')
-        format.html { redirect_to new_recent_game_url, :notice => 'Recent game was successfully added.' }
+        format.html { redirect_to new_recent_game_url, notice: 'Recent game was successfully added.' }
       else
-        format.html { render :action => "new" }
+        format.html { render action: "new" }
       end
     end
   end
@@ -46,8 +46,8 @@ class RecentGamesController < ApplicationController
         format.js
       else
         flash[:error] = 'Recent game not saved: '+@recent_game.errors.full_messages.join(', ')
-        format.html { render :action => "edit" }
-        format.js   { render :action => "update_error" }
+        format.html { render action: "edit" }
+        format.js   { render action: "update_error" }
       end
     end
   end
@@ -58,7 +58,7 @@ class RecentGamesController < ApplicationController
     @recent_game.destroy
     respond_to do |format|
       Rails.cache.delete('gaming_expiry')
-      format.html { redirect_to new_recent_game_url, :notice => 'Recent game was successfully baleeted.' }
+      format.html { redirect_to new_recent_game_url, notice: 'Recent game was successfully baleeted.' }
     end
   end
 

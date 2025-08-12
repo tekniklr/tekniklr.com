@@ -9,47 +9,47 @@
   .left
     = f.label :title
   .right
-    = f.text_field :title, :size => 48
+    = f.text_field :title, size: 48
   .clear
   
 .row
   .left
     = f.label :affiliation
   .right
-    = f.text_field :affiliation, :size => 48
+    = f.text_field :affiliation, size: 48
   .clear
 
 .row
   .left
     = f.label :affiliation_link
   .right
-    = f.text_field :affiliation_link, :size => 48
+    = f.text_field :affiliation_link, size: 48
   .clear
 
 .row
   .left
     = f.label :location
   .right
-    = f.text_field :location, :size => 48
+    = f.text_field :location, size: 48
   .clear
   
 .row
   .left
     = f.label :start_date
   .right
-    = date_select :experience, :start_date, :start_year => 2000, :discard_day => true
+    = date_select :experience, :start_date, start_year: 2000, discard_day: true
   .clear
    
 .row
   .left
     = f.label :end_date
   .right
-    = date_select :experience, :end_date, :start_year => 2000, :discard_day => true, :include_blank => true
+    = date_select :experience, :end_date, start_year: 2000, discard_day: true, include_blank: true
   .clear
   
 .row
   .left
     = f.label :tasks
   .right
-    = f.text_area :tasks, :cols => 46, :rows => 13
+    = f.text_area :tasks, cols: 46, rows: 13
   .clear

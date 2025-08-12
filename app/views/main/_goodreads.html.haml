@@ -7,7 +7,7 @@
     = link_to image_tag(book[:thumb_url], alt: book[:title], title: book[:title]), book[:url], id: "opener_#{book_id}"
   - else
     = link_to book[:title], book[:url], id: "opener_#{book_id}"
-  %p{:class => "when fade#{fade}"}
+  %p{class: "when fade#{fade}"}
     - if book[:published]
       = time_ago_in_words(book[:published])+' ago'
   %dialog.fixed{id: "dialog_book_#{book_id}", title: book[:title]}

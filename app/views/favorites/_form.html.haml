@@ -8,7 +8,7 @@
 
   %p
     = f.label :favorite_type
-    = f.text_field :favorite_type, :size => 36
+    = f.text_field :favorite_type, size: 36
     = f.hidden_field :sort
 
   .things_edit
@@ -20,7 +20,7 @@
 
         .thing_fields
           = ft.label :thing, 'Thing name'
-          = ft.text_field :thing, :size => 20
+          = ft.text_field :thing, size: 20
 
           = ft.label :sort, 'Sort order'
           = ft.number_field :sort
@@ -28,7 +28,7 @@
           %br
 
           = ft.label :link
-          = ft.text_field :link, :size => 30
+          = ft.text_field :link, size: 30
 
           %br
 

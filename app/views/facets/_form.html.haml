@@ -9,7 +9,7 @@
   .left
     = f.label :name
   .right
-    = f.text_field :name, :size => 48
+    = f.text_field :name, size: 48
   .clear
 
 .row
@@ -19,12 +19,12 @@
     - if facet.slug
       %strong #{facet.slug}
     - else
-      = f.text_field :slug, :size => 48, :maxlength => 12
+      = f.text_field :slug, size: 48, maxlength: 12
   .clear
 
 .row
   .left
     = f.label :value
   .right
-    = f.text_area :value, :cols => 46, :rows => 13
+    = f.text_area :value, cols: 46, rows: 13
   .clear

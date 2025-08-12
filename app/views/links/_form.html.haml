@@ -9,11 +9,11 @@
           %li #{msg}
 
   - if link.icon?
-    = image_tag(link.icon.url(:default), :alt => link.name, :class => 'icon')
+    = image_tag(link.icon.url(:default), alt: link.name, class: 'icon')
   
   %div 
     = f.label  :name
-    = f.text_field :name, :size => 20
+    = f.text_field :name, size: 20
     
     = f.label :social_icon, 'Show in nav?'
     = f.check_box :social_icon
@@ -23,7 +23,7 @@
 
   %div
     = f.label :url
-    = f.text_field :url, :size => 20
+    = f.text_field :url, size: 20
 
     = f.label :icon
     = f.file_field :icon

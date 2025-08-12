@@ -35,6 +35,6 @@
                   = game.achievement_desc
         .right
           %p
-            = link_to 'remove', game, :method => :delete, :data => { :confirm => "Are you sure you want to remove #{game.name}?" }
+            = link_to 'remove', game, method: :delete, data: { confirm: "Are you sure you want to remove #{game.name}?" }
 - else
   %p There haven't been any recent games added yet.

@@ -79,7 +79,7 @@ class FavoritesControllerTest < ActionController::TestCase
   end
 
   should "update favorite" do
-    put :update, params: {id: @favorite.id, :favorite => FactoryBot.attributes_for(:favorite)}, session: {user_id: @user.id}
+    put :update, params: {id: @favorite.id, favorite: FactoryBot.attributes_for(:favorite)}, session: {user_id: @user.id}
     assert_redirected_to favorite_path(assigns(:favorite))
   end
 
