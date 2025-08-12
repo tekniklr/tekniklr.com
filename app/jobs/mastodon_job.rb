@@ -2,6 +2,7 @@ class MastodonJob < ApplicationJob
   
   def perform
     Rails.logger.debug "Fetching mastodon via API..."
+    toots = []
     # begin
     #   client = Mastodon::REST::Client.new(base_url: Rails.application.credentials.mastodon[MASTODON][:url], bearer_token: Rails.application.credentials.mastodon[MASTODON][:access_token])
     #   account = client.verify_credentials
@@ -12,9 +13,11 @@ class MastodonJob < ApplicationJob
     #   end
     # rescue => exception
     #   ErrorMailer.background_error('caching toots', exception).deliver_now
-      toots = []
+    #   toots = []
     # end
-    Rails.cache.write('toots', toots)
+    unless toots.blank?
+      Rails.cache.write('toots', toots)
+    end
   end
   
 end
