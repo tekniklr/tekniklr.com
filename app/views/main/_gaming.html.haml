@@ -1,54 +1,54 @@
 %li
   :ruby
-    game_id = !item[:achievement].blank? ? "#{item[:title]} #{item[:achievement]}" : "#{item[:title]} #{item.published.to_fs(:published)}"
+    game_id = !game[:achievement].blank? ? "#{game[:title]} #{game[:achievement]}" : "#{game[:title]} #{game.published.to_fs(:published)}"
     game_id = game_id.downcase.gsub(/[^a-z0-9]/, '_').gsub(/_+/, '_').gsub(/_\z/, '')
-    hover_text = "#{item[:title]}"
-    if item[:platform]
-      hover_text << "\n(#{item[:platform]})"
+    hover_text = "#{game[:title]}"
+    if game[:platform]
+      hover_text << "\n(#{game[:platform]})"
     end
-    unless item[:achievement].blank?
-      hover_text << "\n\n#{item[:achievement]}"
+    unless game[:achievement].blank?
+      hover_text << "\n\n#{game[:achievement]}"
     end
-  - if !item[:thumb_url].blank?
-    = link_to image_tag(item[:thumb_url], alt: hover_text, title: hover_text), item[:url], id: "opener_#{game_id}"
+  - if !game[:thumb_url].blank?
+    = link_to image_tag(game[:thumb_url], alt: hover_text, title: hover_text), game[:url], id: "opener_#{game_id}"
   - else
-    = link_to hover_text, item[:url], id: "opener_#{game_id}"
+    = link_to hover_text, game[:url], id: "opener_#{game_id}"
   %p{:class => "when fade#{fade}"}
-    - if item[:published]
-      = time_ago_in_words(item[:published])+' ago'
+    - if game[:published]
+      = time_ago_in_words(game[:published])+' ago'
   %dialog.game_dialog.fixed{id: "dialog_game_#{game_id}"}
-    - if item[:image_url]
-      %p.centered{title: item[:title]}
-        - if !item[:url].blank?
-          = link_to image_tag(item[:image_url]), item[:url], target: '_blank'
+    - if game[:image_url]
+      %p.centered{title: game[:title]}
+        - if !game[:url].blank?
+          = link_to image_tag(game[:image_url]), game[:url], target: '_blank'
         - else
-          = image_tag item[:image_url]
+          = image_tag game[:image_url]
     .game_name
-      - if !item[:url].blank?
-        = link_to item[:title], item[:url], target: '_blank'
+      - if !game[:url].blank?
+        = link_to game[:title], game[:url], target: '_blank'
       - else
-        = item[:title]
+        = game[:title]
     .game_platform
-      - if item[:published]
+      - if game[:published]
         played
-        = time_ago_in_words(item[:published])+' ago'
-      -if item[:platform]
+        = time_ago_in_words(game[:published])+' ago'
+      -if game[:platform]
         on
-        = item[:platform]
-    - if item[:achievement]
+        = game[:platform]
+    - if game[:achievement]
       .cheevo{title: 'last achievement'}
         .cheevo_title
-          - if !item[:url].blank?
-            = link_to item[:achievement], item[:url], target: '_blank'
+          - if !game[:url].blank?
+            = link_to game[:achievement], game[:url], target: '_blank'
           - else
-            = item[:achievement]
-        - if !item[:achievement_desc].blank?
+            = game[:achievement]
+        - if !game[:achievement_desc].blank?
           .cheevo_desc
-            = item[:achievement_desc]
-        - if !item[:achievement_time].blank?
+            = game[:achievement_desc]
+        - if !game[:achievement_time].blank?
           .cheevo_time
             earned
-            = time_ago_in_words(item[:achievement_time])+' ago'
+            = time_ago_in_words(game[:achievement_time])+' ago'
   = javascript_tag nonce: true do
     :plain
       var dialog_game_#{game_id} = document.querySelector("#dialog_game_#{game_id}");

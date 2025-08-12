@@ -44,7 +44,7 @@
       Games
     %ul#gaming
       - games.each do |game|
-        = render 'gaming', item: game, fade: fade_level(games.size, fade_games)
+        = render 'gaming', game: game, fade: fade_level(games.size, fade_games)
         - fade_games += 1
 
 - if !@letterboxd.blank? && @letterboxd.size > 1
