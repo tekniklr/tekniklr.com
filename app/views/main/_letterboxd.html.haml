@@ -1,0 +1,49 @@
+%li
+  :ruby
+    movie_id = "#{movie[:title]} #{movie[:published].to_fs(:published)}"
+    movie_id = movie_id.downcase.gsub(/[^a-z0-9]/, '_').gsub(/_+/, '_').gsub(/_\z/, '')
+    hover_text = "#{movie[:title]}"
+  - if movie[:thumb_url]
+    = link_to image_tag(movie[:thumb_url], alt: movie[:title], title: movie[:title]), movie[:url], id: "opener_#{movie_id}"
+  - else
+    = link_to movie[:title], movie[:url], id: "opener_#{movie_id}"
+  %p{:class => "when fade#{fade}"}
+    - if movie[:published]
+      = time_ago_in_words(movie[:published])+' ago'
+  %dialog.fixed{id: "dialog_movie_#{movie_id}", title: movie[:title]}
+    - if movie[:image_url]
+      %p.centered
+        - if !movie[:url].blank?
+          = link_to image_tag(movie[:image_url]), movie[:url], target: '_blank'
+        - else
+          = image_tag movie[:image_url]
+    %p
+      - if !movie[:url].blank?
+        = link_to movie[:title], movie[:url], target: '_blank'
+      - else
+        = movie[:title]
+    - if movie[:year]
+      %p
+        (#{movie[:year]})
+    - if movie[:rating]
+      %p
+        = movie[:rating]
+    - if movie[:published]
+      %p.clear.centered.when.fade60
+        - the_time = (movie[:published].to_time.to_i == movie[:published].beginning_of_day.to_time.to_i) ? movie[:published].end_of_day : movie[:published]
+        = time_ago_in_words(the_time)+' ago'
+  = javascript_tag nonce: true do
+    :plain
+      var dialog_movie_#{movie_id} = document.querySelector("#dialog_movie_#{movie_id}");
+      dialogPolyfill.registerDialog(dialog_movie_#{movie_id});
+      $('#opener_#{movie_id}').click(function(e) {
+        dialog_movie_#{movie_id}.showModal();
+        return false;
+      });
+      const updateBackdrop_movie_#{movie_id} = (ev) => {
+        if (ev && ev.target !== dialog_movie_#{movie_id}) {
+          return;
+        }
+        dialog_movie_#{movie_id}.close();
+      };
+      dialog_movie_#{movie_id}.addEventListener('click', updateBackdrop_movie_#{movie_id});

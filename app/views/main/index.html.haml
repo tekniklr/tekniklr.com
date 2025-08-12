@@ -46,6 +46,16 @@
         = render 'gaming', item: item, fade: fade_level(@gaming.size, fade_games)
         - fade_games += 1
 
+- if !@letterboxd.blank? && @letterboxd.size > 1
+  - fade_movies = 0
+  .movies_block
+    %h1
+      = link_to 'movies', 'https://letterboxd.com/tekniklr/'
+    %ul#letterboxd
+      - @letterboxd.each do |movie|
+        = render 'letterboxd', movie: movie, fade: fade_level(@letterboxd.size, fade_movies)
+        - fade_movies += 1
+
 - if !@goodreads.blank? && @goodreads.size > 1
   - fade_books = 0
   .books_block

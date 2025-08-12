@@ -11,6 +11,7 @@ CACHED_ITEMS = [
                   ['skeets', 'skeet_expiry'],
                   ['toots', 'toot_expiry'],
                   ['gaming', 'gaming_expiry'],
+                  ['letterboxd', 'letterboxd_expiry'],
                   ['goodreads', 'goodreads_expiry'],
                   ['lastfm', 'lastfm_expiry']
                 ]
