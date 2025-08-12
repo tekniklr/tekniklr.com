@@ -30,8 +30,10 @@ class LastfmJob < ApplicationJob
         image_url:  store_local_copy(image_url, 'lastfm', image_name),
       }
     end
-    Rails.cache.write('lastfm', parsed_items)
-    clear_local_copies('lastfm', keep_images)
+    unless parsed_items.blank?
+      Rails.cache.write('lastfm', parsed_items)
+      clear_local_copies('lastfm', keep_images)
+    end
   end
   
 end

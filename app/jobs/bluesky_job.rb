@@ -6,8 +6,8 @@ class BlueskyJob < ApplicationJob
     Rails.logger.debug "Fetching BlueSky via API..."
     @base_url = 'https://bsky.social/xrpc'
     @token_cache = 'bluesky_token_cache'
+    skeets = []
     begin
-
       # authenticate
       token_data = Rails.cache.read(@token_cache)
       process_tokens(token_data) if token_data.present?
@@ -18,7 +18,6 @@ class BlueskyJob < ApplicationJob
 
       # iterate through all retrieved posts, adding onew beneath the delete 
       # limit to cache for later display, and deleting ones above the limit
-      skeets = []
       newest_skeet = nil
       posts.feed.each do |post|
         post_is_reskeet = (post.post.viewer.has_key?('repost'))
@@ -35,14 +34,14 @@ class BlueskyJob < ApplicationJob
           # is less old - keep
           skeets << post
         end
-
       end
-
     rescue => exception
       ErrorMailer.background_error('caching skeets', exception).deliver_now
       skeets = []
     end
-    Rails.cache.write('skeets', skeets.first(40))
+    unless skeets.blank?
+      Rails.cache.write('skeets', skeets.first(40))
+    end
   end
 
   private

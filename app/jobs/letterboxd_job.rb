@@ -27,10 +27,12 @@ class LetterboxdJob < ApplicationJob
         image_url: store_local_copy(image_url, 'letterboxd_big', normalize_title(title))
       }
     end
-    Rails.cache.write('letterboxd', parsed_items)
-    keep_titles = parsed_items.collect{|item| normalize_title(item.title)}
-    clear_local_copies('letterboxd_thumb', keep_titles)
-    clear_local_copies('letterboxd_big', keep_titles)
+    unless parsed_items.blank?
+      Rails.cache.write('letterboxd', parsed_items)
+      keep_titles = parsed_items.collect{|item| normalize_title(item.title)}
+      clear_local_copies('letterboxd_thumb', keep_titles)
+      clear_local_copies('letterboxd_big', keep_titles)
+    end
   end
   
 end
