@@ -18,7 +18,7 @@
               = image_tag game.image.url(:thumb), alt: game.name, align: 'left', hspace: 10
           .gaming_details
             .time
-              = game.started_playing.to_formatted_s(:precise)
+              = game.started_playing.to_fs(:precise)
             .name
               = game.name
             .platform
@@ -29,7 +29,7 @@
                 = game.achievement_name
               - if game.achievement_time
                 .achievement_time
-                  = game.achievement_time.to_formatted_s(:precise)
+                  = game.achievement_time.to_fs(:precise)
               - if game.achievement_desc
                 .achievement_desc
                   = game.achievement_desc
