@@ -18,7 +18,7 @@ class ResumeController < ApplicationController
     @resume_loc   ||= Facet.find_by_slug('resume_loc')
     @resume_email ||= Facet.find_by_slug('resume_email')
     @resume_url   ||= Facet.find_by_slug('resume_url')
-    @experiences  ||= Experience.limit(4)
+    @experiences  ||= Experience.sorted.limit(4)
     @tech         ||= Facet.find_by_slug('tech')
     @fun_dev      ||= Facet.find_by_slug('fun_dev')
     @publications ||= Facet.find_by_slug('publications')
