@@ -1,6 +1,6 @@
 %li
   :ruby
-    game_id = !game[:achievement].blank? ? "#{game[:title]} #{game[:achievement]}" : "#{game[:title]} #{game.published.to_fs(:published)}"
+    game_id = !game[:achievement].blank? ? "#{game[:platform]} #{game[:title]} #{game[:achievement]}" : "#{game[:platform]} #{game[:title]} #{game.published.to_fs(:published)}"
     game_id = game_id.downcase.gsub(/[^a-z0-9]/, '_').gsub(/_+/, '_').gsub(/_\z/, '')
     hover_text = "#{game[:title]}"
     if game[:platform]
