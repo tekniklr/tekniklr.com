@@ -175,7 +175,7 @@ class GamingJob < ApplicationJob
                                 type: 'GET',
                                 auth_token: secure_token
                               )
-        if rarest_trophy
+        if rarest_trophy && !rarest_trophy.titles.first.trophyTitles.empty?
           ps5_game = (game.category == 'ps5_native_game')
           np_communication_id = rarest_trophy.titles.first.trophyTitles.first.npCommunicationId
           params = {}
