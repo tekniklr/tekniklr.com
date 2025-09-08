@@ -297,10 +297,13 @@ dialog.fixed {
   .cheevo {
     margin: 1em 0 0 0;
     .cheevo_title {
+      font-family: monospace, monospace;
+      font-size: 90%;
       text-align: left;
     }
     .cheevo_desc {
       font-family: monospace, monospace;
+      font-size: 85%;
       text-align: left;
       margin: 0 1em 0 1em;
       @include transparent(0.50);
