@@ -8,12 +8,15 @@ class CacheController < ApplicationController
   def update
     clean_caches = []
     cache_key = params[:id]
-    case cache_key
-    when 'gaming_expiry'
-      clean_caches = ['fetch_nintendo', 'fetch_psn', 'fetch_steam', 'fetch_xbox', cache_key]
-    else
-      clean_caches = [cache_key]
+    clean_caches = [cache_key]
+    CACHED_ITEMS.each do |cache_item|
+      item_key = cache_item[1]
+      (cache_key == item_key) or next
+      if cache_item[2]
+        clean_caches << cache_item[2]
+      end
     end
+    clean_caches.flatten!
     descriptor = (clean_caches.size == 1) ? 'cached item' : 'cached items'
 
     deleted = []

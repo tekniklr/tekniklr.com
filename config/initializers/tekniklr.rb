@@ -10,7 +10,7 @@ CACHED_ITEMS = [
                   ['blog_posts', 'blog_expiry'],
                   ['skeets', 'skeet_expiry'],
                   ['toots', 'toot_expiry'],
-                  ['gaming', 'gaming_expiry'],
+                  ['gaming', 'gaming_expiry', ['fetch_nintendo', 'fetch_psn', 'fetch_steam', 'fetch_xbox']],
                   ['letterboxd', 'letterboxd_expiry'],
                   ['goodreads', 'goodreads_expiry'],
                   ['lastfm', 'lastfm_expiry']
