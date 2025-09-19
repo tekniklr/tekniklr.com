@@ -5,19 +5,34 @@ ul#cached_items {
   padding: 0;
   list-style-type: none;
   li {
-    display: block;
+    display: list-item;
     margin: 0;
     padding: 1em 0 1em 0;
     clear: both;
     .cache_name {
-      display: inline;
-      width: 20em;
+      display: inline-block;
+      width: 10em;
       font-weight: bold;
     }
     .cache_time {
       display: inline;
       font-style: italic;
       font-size: 80%;
+    }
+  }
+  ul.subcache {
+    list-style-type: circle;
+    padding: 0;
+    margin: .25em 0 0 2em;
+    li {
+      margin: 0;
+      padding: .25em 0 .25em 0;
+      .cache_name, .cache_time {
+        font-size: 80%;
+      }
+      .cache_name {
+        width: 10em;
+      }
     }
   }
 }

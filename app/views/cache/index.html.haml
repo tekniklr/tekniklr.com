@@ -4,9 +4,25 @@
 
 %ul#cached_items
   - CACHED_ITEMS.each do |cache_item|
+    :ruby
+      cache_name = cache_item.first
+      cache_key = cache_item[1]
+      cache_subkeys = []
+      if cache_item[2]
+        cache_subkeys = cache_item[2]
+      end
     %li
       .cache_name
-        = link_to cache_item.first, cache_path(id: cache_item.last), method: :put
+        = link_to cache_name, cache_path(id: cache_key), method: :put
       .cache_time
-        - time = Rails.cache.read(cache_item.last)
+        - time = Rails.cache.read(cache_key)
         expires: #{time ? time.localtime.to_fs(:precise) : 'expired!'}
+      - unless cache_subkeys.empty?
+        %ul.subcache
+          - cache_subkeys.each do |subcache|
+            %li
+              .cache_name
+                = subcache
+              .cache_time
+                - time = Rails.cache.read(subcache)
+                expires: #{time ? time.localtime.to_fs(:precise) : 'expired!'}
