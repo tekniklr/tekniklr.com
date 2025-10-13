@@ -4,6 +4,8 @@ gem 'rails', '~>8.0.0'
 gem 'mysql2'
 gem 'puma'
 
+gem 'openssl', '3.3.1' # manually require newer OpenSSL as a temporary kludge; see: https://github.com/ruby/openssl/issues/949
+
 gem 'haml'
 gem 'sassc-rails'
 gem "sprockets-rails"
