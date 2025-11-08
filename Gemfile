@@ -14,7 +14,6 @@ gem 'kt-paperclip'
 # needed for authentication
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
-gem 'omniauth-rails_csrf_protection'
 gem 'rack'
 
 # rss fetcher/parser that actually works
