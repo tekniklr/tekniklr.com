@@ -200,9 +200,14 @@ class GamingJob < ApplicationJob
             trophy_time = Time.new(trophy_timestamp)
           end
           if trophy_time && (matching_game.blank? || (trophy_time.to_i > matching_game.started_playing.to_i))
+            params = {}
+            unless ps5_game
+              params['npServiceName'] = 'trophy'
+            end
             all_trophy_details =  make_request(
                                     "https://m.np.playstation.com/api/trophy/v1/npCommunicationIds/#{np_communication_id}/trophyGroups/all/trophies",
                                     type: 'GET',
+                                    params: params,
                                     auth_token: secure_token
                                   )
             trophy_details = all_trophy_details.trophies.select{|t| t.trophyId == newest_earned_trophy.trophyId}.first
