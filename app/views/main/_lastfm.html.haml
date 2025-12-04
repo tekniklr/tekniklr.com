@@ -15,9 +15,9 @@
     - if song[:image_url]
       %p.centered
         - if !song[:lastfm_url].blank?
-          = link_to image_tag(song[:image_url]), song[:lastfm_url], target: '_blank'
+          = link_to image_tag(song[:image_url], alt: description), song[:lastfm_url], target: '_blank'
         - else
-          = image_tag song[:image_url]
+          = image_tag song[:image_url], alt: description
     %p
       - if !song[:lastfm_url].blank?
         #{link_to description, song[:lastfm_url], target: '_blank'}

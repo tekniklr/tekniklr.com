@@ -14,9 +14,9 @@
     - if book[:image_url]
       %p.centered
         - if !book[:url].blank?
-          = link_to image_tag(book[:image_url]), book[:url], target: '_blank'
+          = link_to image_tag(book[:image_url], alt: book[:title]), book[:url], target: '_blank'
         - else
-          = image_tag book[:image_url]
+          = image_tag book[:image_url], alt: book[:title]
     %p
       - if !book[:url].blank?
         #{link_to book[:title], book[:url], target: '_blank'}
