@@ -5,7 +5,8 @@
 %ol#sort_favorites
   - @favorites.each do |favorite|
     %li.item_drag{id: "favorite_#{favorite.id}", 'data-id': favorite.id}
-      %span.drag ↕️
+      %span.drag
+        = image_tag 'drag-indicator.svg', alt: 'drag to reorder', width: 50, height: 50
       %strong #{favorite.favorite_type}
       %ol
         - favorite.favorite_things.sorted.each do |thing|

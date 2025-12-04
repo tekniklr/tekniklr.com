@@ -1,3 +1,5 @@
+@import "config.scss";
+
 // to stop 'Section offsets must be ordered and non-overlapping.' errors, move
 // all styling that had been on html or body tags here
 #container, #simple {
