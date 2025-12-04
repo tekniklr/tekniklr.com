@@ -1,3 +1,12 @@
+//= require Sortable
+//= require jquery-sortable
+
+$.ajaxSetup({
+  headers: {
+    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+  }
+});
+
 $('#sort_favorites').sortable({
   draggable: 'li',
   handle: '.drag',
@@ -7,11 +16,7 @@ $('#sort_favorites').sortable({
   dataIdAttr: 'data-id',
   onUpdate: function(evt) {
     var sorted_ids = $('#sort_favorites').sortable('toArray');
-    return $.post('/favorites/sort_favorites', { favorite_ids: sorted_ids }, {
-      complete: function(request) {
-        return $('#sort_favorites').effect('highlight');
-      }
-    });
+    $.post('/favorites/sort_favorites', { favorite_ids: sorted_ids });
   }
 });
 
@@ -24,10 +29,6 @@ $('#sort_things').sortable({
   dataIdAttr: 'data-id',
   onUpdate: function(evt) {
     var sorted_ids = $('#sort_things').sortable('toArray');
-    return $.post('/favorites/sort_things', { thing_ids: sorted_ids }, {
-      complete: function(request) {
-        return $('#sort_things').effect('highlight');
-      }
-    });
+    $.post('/favorites/sort_things', { thing_ids: sorted_ids });
   }
 });

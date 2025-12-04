@@ -196,6 +196,11 @@ GEM
       temple (>= 0.8.2)
       thor
       tilt
+    haml-rails (3.0.0)
+      actionpack (>= 5.1)
+      activesupport (>= 5.1)
+      haml (>= 4.0.6)
+      railties (>= 5.1)
     hashie (5.0.0)
     http (4.4.1)
       addressable (~> 2.3)
@@ -456,6 +461,7 @@ DEPENDENCIES
   factory_bot_rails
   feedjira
   haml
+  haml-rails
   iconv
   jquery-rails
   kt-paperclip

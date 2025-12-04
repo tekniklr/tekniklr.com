@@ -5,7 +5,8 @@
 %ol#sort_things
   - @favorite.favorite_things.sorted.each do |thing|
     %li.item_drag{id: "thing_#{thing.id}", 'data-id': thing.id}
-      %span.drag ↕️
+      %span.drag
+        = image_tag 'drag-indicator.svg', alt: 'drag to reorder', width: 50, height: 50
       = thing.link ? link_to(thing.thing, thing.link) : thing.thing
 
 .centered
