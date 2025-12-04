@@ -61,7 +61,7 @@
           - if title
             .preview_title
               = link_to title, uri, target: '_blank'
-          - if description
+          - unless description.empty?
             .preview_description
               - description = truncate(strip_tags(description), length: 100, escape: false)
               = link_to description, uri, target: '_blank'
