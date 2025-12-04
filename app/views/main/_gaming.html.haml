@@ -20,9 +20,9 @@
     - if game[:image_url]
       %p.centered{title: game[:title]}
         - if !game[:url].blank?
-          = link_to image_tag(game[:image_url]), game[:url], target: '_blank'
+          = link_to image_tag(game[:image_url], alt: game[:title]), game[:url], target: '_blank'
         - else
-          = image_tag game[:image_url]
+          = image_tag game[:image_url], alt: game[:title]
     .game_name
       - if !game[:url].blank?
         = link_to game[:title], game[:url], target: '_blank'
