@@ -329,7 +329,7 @@ class GamingJob < ApplicationJob
                               session_token: Rails.application.credentials.nintendo[:session_token],
                               grant_type: Rails.application.credentials.nintendo[:grant_type]
                             },
-                            user_agent: 'Znma/2.2.0 (com.nintendo.znma; build:560; iOS 26.0.1) NASDK/2.2.0',
+                            user_agent: 'Znma/2.3.0 (com.nintendo.znma; build:600; iOS 26.1.0) NASDK/2.3.0',
                             headers: {
                               'Accept': 'application/json',
                               'Accept-Encoding': 'gzip, deflate, br',
@@ -343,11 +343,11 @@ class GamingJob < ApplicationJob
                             deviceId: Rails.application.credentials.nintendo[:device_id]
                           },
                           auth_token: access_token.id_token,
-                          user_agent: 'znma_ios/2.2.0 (com.nintendo.znma; build:560; iOS Version 26.0.1 (Build 23A355)',
+                          user_agent: 'znma_ios/2.3.0 (com.nintendo.znma; build:600; iOS Version 26.1 (Build 23B85)',
                           headers: {
-                            'X-Moon-App-Internal-Version': '560',
+                            'X-Moon-App-Internal-Version': '600',
                             'X-Moon-Os': 'IOS',
-                            'X-Moon-Os-Version': '26.0',
+                            'X-Moon-Os-Version': '26.1',
                             'Accept': '*/*',
                             'Accept-Encoding': 'gzip, deflate, br',
                             'Accept-Language': 'en-US,en;q=0.9'
