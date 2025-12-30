@@ -37,14 +37,14 @@
   .left
     = f.label :start_date
   .right
-    = date_select :experience, :start_date, start_year: 2000, discard_day: true
+    = f.date_field :start_date
   .clear
    
 .row
   .left
     = f.label :end_date
   .right
-    = date_select :experience, :end_date, start_year: 2000, discard_day: true, include_blank: true
+    = f.date_field :end_date
   .clear
   
 .row
