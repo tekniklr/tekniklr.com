@@ -21,6 +21,9 @@
               = game.started_playing.to_fs(:precise)
             .name
               = game.name
+              - if game.release_year
+                .year
+                  (#{game.release_year})
             .platform
               = game.platform
           - if game.achievement_name

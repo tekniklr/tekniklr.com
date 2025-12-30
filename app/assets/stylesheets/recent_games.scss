@@ -29,6 +29,11 @@ ul#recent_games {
       }
       .name {
         font-weight: bold;
+        .year {
+          display: inline;
+          font-weight: normal;
+          font-style: italic;
+        }
       }
       .platform {
         font-style: italic;
