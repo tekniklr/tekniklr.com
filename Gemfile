@@ -36,7 +36,7 @@ gem 'daemons'
 
 group :test do
   gem 'factory_bot_rails',       require: false
-  gem 'minitest',                require: false
+  gem 'minitest', '<6.0',        require: false # apparently you currently have to either use minitest <6 or a specific branch of rails for tests to actually run - see https://github.com/rails/rails/issues/56406 and https://github.com/minitest/minitest/issues/1040
   gem 'shoulda',                 require: false
   gem 'rails-controller-testing'
 end
