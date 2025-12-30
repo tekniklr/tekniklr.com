@@ -29,6 +29,13 @@
 
   .row
     .left
+      = f.label :release_year, 'Release year'
+    .right
+      = f.number_field :release_year, size: 8
+    .clear
+
+  .row
+    .left
       = f.label :url
     .right
       = f.text_field :url, size: 36
