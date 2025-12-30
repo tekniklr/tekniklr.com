@@ -19,27 +19,25 @@
             = image_tag ft.object.image.url(:thumb), alt: ft.object.thing
 
         .thing_fields
-          = ft.label :thing, 'Thing name'
-          = ft.text_field :thing, size: 20
+          .row
+            = ft.label :thing, 'Thing name'
+            = ft.text_field :thing, size: 20
 
-          = ft.label :sort, 'Sort order'
-          = ft.number_field :sort, class: 'sort'
+            = ft.label :sort, 'Sort order'
+            = ft.number_field :sort, class: 'sort'
 
-          %br
+          .row
+            = ft.label :link
+            = ft.text_field :link, size: 30
 
-          = ft.label :link
-          = ft.text_field :link, size: 30
+          .row
+            = ft.label :image
+            = ft.file_field :image
 
-          %br
-
-          = ft.label :image
-          = ft.file_field :image
-
-        .thing_destroy
           - unless ft.object.new_record?
-            = ft.label '_destroy', 'Remove'
-            = ft.check_box '_destroy'
-
+            .row
+              = ft.label '_destroy', 'Remove'
+              = ft.check_box '_destroy'
           
   .centered
     = f.submit
