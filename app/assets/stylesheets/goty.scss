@@ -51,6 +51,15 @@ ol.goty_edit , ol.goty_show {
       text-align: left;
       margin: 0 0 0 1em;
       @include transparent(0.75);
+      textarea {
+        @media screen and (min-width: $mobile_threshhold) {
+          width: 35em;
+        }
+        @media screen and (max-width: $mobile_threshhold) {
+          width: 20em;
+        }
+        height: 15em;
+      }
     }
     .goty_played {
       font-size: 75%;
