@@ -7,7 +7,9 @@ class GotyController < ApplicationController
       render '404', status: 404
       return
     end
-    page_title "#{@goty.year} GOTY"
+    @top_num = 10
+    @page_title = "tekniklr's top #{@top_num} games of #{@goty.year}"
+    page_title @page_title
   end
 
   def edit
