@@ -21,7 +21,7 @@ FactoryBot.define do
     sequence(:thing) {|n| "Thing #{n}"}
     link             { 'http://google.com' }
     sort             { 1 }
-    favorite         {|f| f.association(:favorite)}
+    association(:favorite)
   end
 
   factory :link do
