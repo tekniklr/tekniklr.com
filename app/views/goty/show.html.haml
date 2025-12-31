@@ -1,12 +1,23 @@
+:ruby
+  meta_description = ""
+  image_urls = []
+  @goty.goty_games.sorted.first(3).each_with_index do |gg, index|
+    meta_description += "\##{index+1}: #{gg.game.name}\r\n&#x0A;"
+    image_urls << URI.join(request.url, gg.game.image.url(:default))
+  end
+
+= content_for :meta do
+  %meta{property: 'og:description', content: meta_description}/
+  - image_urls.each do |image|
+    %meta{property: 'og:image', content: image}/
+
 = stylesheet_link_tag 'goty'
 
-- top_num = 10
-
 %h1
-  tekniklr's top #{top_num} games of #{@goty.year}
+  = @page_title
 
 %ol.goty_show
-  - @goty.goty_games.sorted.first(top_num).each do |gg|
+  - @goty.goty_games.sorted.first(@top_num).each do |gg|
     - gg.game.hidden? and next
     %li
       .goty_game{title: gg.game.name}
