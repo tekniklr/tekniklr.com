@@ -3,7 +3,7 @@ class GotyController < ApplicationController
 
   def show
     @goty = Goty.find_by_year(params[:year])
-    if @goty.blank? || (!logged_in?  && !@goty.published?)
+    if @goty.blank? || @goty.goty_games.empty? || (!logged_in?  && !@goty.published?)
       render '404', status: 404
       return
     end
