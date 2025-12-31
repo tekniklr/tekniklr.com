@@ -4,6 +4,10 @@
   %p
     No #{@goty.year} releases have been played yet!
 - else
+
+  .right
+    = best_in_place @goty, :published, as: :checkbox, collection: ["click to publish", "click to unpublish"], url: update_goty_published_path(goty_id: @goty.id)
+
   .right
     = link_to 'view', goty_path(year: @goty.year)
 
