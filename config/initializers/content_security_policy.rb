@@ -5,7 +5,8 @@ Rails.application.configure do
     policy.img_src     :self, :https, :data, 'https://lastfm.freetls.fastly.net', 'https://*.media.tumblr.com', 'https://gravatar.com/avatar/*', 'https://cdn.bsky.app', 'https://cdn.masto.host'
     policy.object_src  :none
     policy.script_src  :self, :https
-    policy.style_src   :self, :https, 'https://fonts.googleapis.com'
+    policy.style_src   :self, :https, 'https://fonts.googleapis.com', :unsafe_hashes, "'sha256-dsU/1vqKDGkqSAJVJCzaxo3alnWrTU/iQqFREt5QB+g='"
+
     # policy.report_uri "/csp-violation-report-endpoint"
   end
 
