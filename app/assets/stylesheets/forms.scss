@@ -2,13 +2,13 @@
 
 label {
   font-weight: bold;
-  padding: 0 1em 0 1em;
+  padding: 0 .5em 0 0;
 }
 
 input, textarea {
   @include rounded(1px, #cccccc, .5em, .2em, solid);
   background-color: $field_bg;
-  margin: .25em 0 .25em 0;
+  margin: 0 2em 0 0;
 }
 
 input.sort[type=number] {
@@ -23,5 +23,5 @@ input[type=submit] {
   background-color: $field_bg;
   color: #333333;
   padding: .2em 1em .2em 1em;
-  margin: .5em 0 .5em 0;
+  margin: 0;
 }
