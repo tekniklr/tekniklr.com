@@ -1,5 +1,12 @@
 = stylesheet_link_tag 'goty'
 
+- unless @goty.goty_games.empty?
+  .right
+    = best_in_place @goty, :published, as: :checkbox, collection: ["click to publish", "click to unpublish"], url: update_goty_published_path(goty_id: @goty.id)
+    .spacer
+      |
+    = link_to 'view', goty_path(year: @goty.year)
+
 %h1
   Top games of #{@goty.year}
 
@@ -7,12 +14,6 @@
   %p
     No #{@goty.year} releases have been played yet!
 - else
-
-  .right
-    = best_in_place @goty, :published, as: :checkbox, collection: ["click to publish", "click to unpublish"], url: update_goty_published_path(goty_id: @goty.id)
-
-  .right
-    = link_to 'view', goty_path(year: @goty.year)
 
   %ol.goty_edit
     - @goty.goty_games.sorted.each do |gg|
