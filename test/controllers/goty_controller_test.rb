@@ -6,6 +6,9 @@ class GotyControllerTest < ActionController::TestCase
     @gg1 = FactoryBot.create(:goty_game, goty: @goty)
     @gg2 = FactoryBot.create(:goty_game, goty: @goty)
     @unpublished_goty = FactoryBot.create(:goty, year: 2026, published: false)
+    @ugg1 = FactoryBot.create(:goty_game, goty: @unpublished_goty)
+    @ugg2 = FactoryBot.create(:goty_game, goty: @unpublished_goty)
+    @empty_goty = FactoryBot.create(:goty, year: 2027, published: true)
     @user = FactoryBot.create(:user)
   end
 
@@ -14,6 +17,9 @@ class GotyControllerTest < ActionController::TestCase
     assert_response :success
 
     get :show, params: {year: '2026'}
+    assert_response :not_found
+
+    get :show, params: {year: '2027'}
     assert_response :not_found
 
     get :edit
