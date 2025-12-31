@@ -3,11 +3,11 @@ class GotyController < ApplicationController
 
   def show
     @goty = Goty.find_by_year(params[:year])
-    page_title "#{@goty.year} GOTY"
     if @goty.blank?
       render '404', status: 404
       return
     end
+    page_title "#{@goty.year} GOTY"
   end
 
   def edit
