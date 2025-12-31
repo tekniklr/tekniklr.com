@@ -1,0 +1,60 @@
+@import "config.scss";
+
+ol.goty_links {
+  text-align: right;
+  padding: 0;
+  margin: -2em 0 -2em 0;
+  list-style-type: none;
+  li {
+    display: inline;
+    padding: 0;
+    margin: 0 0 1em 0;
+  }
+  li:not(:last-child)::after {
+    content: '🎊'
+  }
+}
+
+ol.goty_edit , ol.goty_show {
+  padding: 0;
+  margin: 0 0 0 3em;
+}
+
+.goty_game {
+  display: inline-block;
+  padding: 1em;
+  margin: 1em 0 1em 0;
+  text-align: left;
+  vertical-align: middle;
+  .goty_image {
+    width: 100px;
+    height: 100%;
+    vertical-align: top;
+    margin: 0 2em 0 0;
+    padding: 0;
+    display: inline-block;
+    img {
+      @include rounded(0px, $page_bg, 2em, 0, none);
+    }
+  }
+  .goty_info {
+    display: inline-block;
+    max-width: 80%;
+    .goty_name {
+      font-weight: bold;
+      width: 100%;
+      border-bottom: 1px $med_border_color solid;
+    }
+    .goty_explanation {
+      font-family: monospace, monospace;
+      font-size: 85%;
+      text-align: left;
+      margin: 0 0 0 1em;
+      @include transparent(0.75);
+    }
+    .goty_played {
+      font-size: 75%;
+      font-style: italic;
+    }
+  }
+}

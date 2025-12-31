@@ -1,0 +1,21 @@
+= stylesheet_link_tag 'goty'
+
+%ol.goty_show
+  - @goty.goty_games.sorted.first(10).each do |gg|
+    - gg.game.hidden? and next
+    %li
+      .goty_game{title: gg.game.name}
+        .goty_image
+          - if gg.game.image.url(:thumb)
+            = image_tag gg.game.image.url(:thumb), alt: gg.game.name
+        .goty_info
+          .goty_name
+            = gg.game.name
+          .goty_explanation
+            = simple_format gg.explanation
+          .goty_played
+            Played:
+            - if gg.game.started_playing.to_date > gg.game.created_at.to_date
+              = gg.game.created_at.to_fs(:goty)
+              \-
+            = gg.game.started_playing.to_fs(:goty)

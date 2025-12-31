@@ -1,0 +1,32 @@
+= stylesheet_link_tag 'goty'
+
+- if @goty.goty_games.empty?
+  %p
+    No #{@goty.year} releases have been played yet!
+- else
+  .right
+    = link_to 'view', goty_path(year: @goty.year)
+
+  %ol.goty_edit
+    - @goty.goty_games.sorted.each do |gg|
+      - gg.game.hidden? and next
+      %li.item_drag{id: "goty_game_#{gg.id}", 'data-id': gg.id}
+        .goty_game
+          .goty_image.drag{title: "#{gg.game.name} - drag to re-order"}
+            - if gg.game.image.url(:thumb)
+              = image_tag gg.game.image.url(:thumb), alt: gg.game.name
+            - else
+              = image_tag("tiny_octoflourish.png", alt: 'placeholder image', width: 100, height: 72)
+          .goty_info
+            .goty_name
+              = gg.game.name
+            .goty_explanation
+              = best_in_place gg, :explanation, as: :textarea, display_with: :simple_format, place_holder: 'click to add explanation', url: update_goty_game_path(goty_game_id: gg.id)
+            .goty_played
+              Played:
+              - if gg.game.started_playing.to_date > gg.game.created_at.to_date
+                = gg.game.created_at.to_fs(:goty)
+                \-
+              = gg.game.started_playing.to_fs(:goty)
+
+  = javascript_include_tag :goty
