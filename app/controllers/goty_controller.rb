@@ -3,7 +3,7 @@ class GotyController < ApplicationController
 
   def show
     @goty = Goty.find_by_year(params[:year])
-    if @goty.blank?
+    if @goty.blank? || (!logged_in?  && !@goty.published?)
       render '404', status: 404
       return
     end
@@ -48,6 +48,15 @@ class GotyController < ApplicationController
       head :ok
     else
       render json: goty_game.errors.full_messages, status: :unprocessable_entity
+    end
+  end
+
+  def update_published
+    goty = Goty.find(params[:goty_id])
+    if goty.update_attribute(:published, !goty.published?)
+      head :ok
+    else
+      render json: goty.errors.full_messages, status: :unprocessable_entity
     end
   end
 

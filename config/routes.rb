@@ -54,6 +54,7 @@ Rails.application.routes.draw do
   get  '/goty/:year',                to: 'goty#show',               as: 'goty'
   post '/goty/sort',                 to: 'goty#sort',               as: 'sort_goty'
   put  '/goty/update/:goty_game_id', to: 'goty#update_explanation', as: 'update_goty_game'
+  put  '/goty/publish/:goty_id',     to: 'goty#update_published',   as: 'update_goty_published'
 
   get '/wpblog(/:blog_params)',           to: 'application#redirect_wordpress'
 
