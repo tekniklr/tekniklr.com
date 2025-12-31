@@ -11,6 +11,10 @@
 
 %meta{name: "viewport", content: "width=device-width, initial-scale=1.0"}/
 
+%meta{property: 'og:site_name', content: DOMAIN}/
+%meta{property: 'og:type', content: 'website'}/
+= yield :meta
+
 %link{rel: "shortcut icon", href: "/favicon.ico"}/
 %link{rel: "apple-touch-icon", href: "/apple-touch-icon.png"}/
 
