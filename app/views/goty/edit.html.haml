@@ -1,5 +1,8 @@
 = stylesheet_link_tag 'goty'
 
+%h1
+  Top games of #{@goty.year}
+
 - if @goty.goty_games.empty?
   %p
     No #{@goty.year} releases have been played yet!

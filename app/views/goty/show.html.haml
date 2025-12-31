@@ -1,7 +1,12 @@
 = stylesheet_link_tag 'goty'
 
+- top_num = 10
+
+%h1
+  tekniklr's top #{top_num} games of #{@goty.year}
+
 %ol.goty_show
-  - @goty.goty_games.sorted.first(10).each do |gg|
+  - @goty.goty_games.sorted.first(top_num).each do |gg|
     - gg.game.hidden? and next
     %li
       .goty_game{title: gg.game.name}
