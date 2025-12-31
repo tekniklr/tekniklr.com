@@ -72,7 +72,7 @@ class RecentGame < ApplicationRecord
   scope :goty_eligible, -> {
     year = Date.today.year
     where(release_year: year).
-    where('created_at >= ? and created_at <= ?', Time.new(2025,1,1,0,0), Time.new(2025,12,31,23,59))
+    where('created_at <= ?', Time.new(2025,12,31,23,59))
   }
 
 end
