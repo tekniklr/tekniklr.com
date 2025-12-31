@@ -2,7 +2,7 @@
   meta_description = ""
   image_urls = []
   @goty.goty_games.sorted.first(3).each_with_index do |gg, index|
-    meta_description += "\##{index+1}: #{gg.game.name}\r\n&#x0A;"
+    meta_description += "\##{index+1}: #{gg.game.name} \r\n"
     image_urls << URI.join(request.url, gg.game.image.url(:default))
   end
 
