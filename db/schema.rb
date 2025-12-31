@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_30_231342) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_31_011333) do
   create_table "delayed_jobs", id: :integer, charset: "utf8mb3", force: :cascade do |t|
     t.integer "attempts", default: 0
     t.datetime "created_at", precision: nil, null: false
@@ -67,6 +67,21 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_30_231342) do
     t.string "favorite_type"
     t.integer "sort"
     t.datetime "updated_at", precision: nil
+  end
+
+  create_table "goty", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "year"
+  end
+
+  create_table "goty_games", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.text "explanation"
+    t.integer "game_id"
+    t.integer "goty_id"
+    t.integer "sort"
+    t.datetime "updated_at", null: false
   end
 
   create_table "links", id: :integer, charset: "latin1", force: :cascade do |t|

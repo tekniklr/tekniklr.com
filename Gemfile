@@ -11,6 +11,7 @@ gem "sprockets-rails"
 gem 'jquery-rails'
 
 gem 'kt-paperclip'
+gem 'best_in_place'
 
 # needed for authentication
 gem 'omniauth'
@@ -36,8 +37,14 @@ gem 'daemons'
 
 group :test do
   gem 'factory_bot_rails',       require: false
+
   gem 'minitest', '<6.0',        require: false # apparently you currently have to either use minitest <6 or a specific branch of rails for tests to actually run - see https://github.com/rails/rails/issues/56406 and https://github.com/minitest/minitest/issues/1040
-  gem 'shoulda',                 require: false
+
+  # a bug in should-context causes tests to stop after the first failure with a "undefined local variable or method `executable' for an instance of Rails::TestUnitReporter (NameError)" - see https://github.com/thoughtbot/shoulda-context/issues/109
+  #gem 'shoulda',                 require: false
+  gem "shoulda-context", "~> 3.0.0.rc1",  require: false
+  gem "shoulda-matchers",                 require: false
+
   gem 'rails-controller-testing'
 end
 

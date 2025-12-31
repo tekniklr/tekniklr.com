@@ -2,6 +2,7 @@
 //= require rails-ujs
 //= require navigation
 //= require dialog-polyfill
+//= require best_in_place
 
 // force scrollbars to always be displayed
 // from https://stackoverflow.com/questions/18317634/force-visible-scrollbar-in-firefox-on-mac-os-x#
@@ -26,3 +27,8 @@ function scrollDown(){
     }
   }
 }
+
+$(document).ready(function() {
+  /* Activating Best In Place */
+  jQuery(".best_in_place").best_in_place();
+});

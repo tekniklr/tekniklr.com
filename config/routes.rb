@@ -50,6 +50,11 @@ Rails.application.routes.draw do
 
   resources :recent_games, only: [:new, :create,  :edit, :update, :destroy]
 
+  get  '/goty/edit',                 to: 'goty#edit',               as: 'edit_goty'
+  get  '/goty/:year',                to: 'goty#show',               as: 'goty'
+  post '/goty/sort',                 to: 'goty#sort',               as: 'sort_goty'
+  put  '/goty/update/:goty_game_id', to: 'goty#update_explanation', as: 'update_goty_game'
+
   get '/wpblog(/:blog_params)',           to: 'application#redirect_wordpress'
 
 

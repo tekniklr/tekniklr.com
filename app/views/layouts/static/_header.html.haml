@@ -5,14 +5,12 @@
         .mobile
           %ul
             %li
-              Logged in as #{current_user.name}
+              Admin menu
               %a#toggle_admin_navigation{href: '#'} ☰
           %ul#single_column_admin_navigation
             = render partial: 'layouts/static/admin_nav_items'
         .regular
           %ul
-            %li
-              Logged in as #{current_user.name}
             = render partial: 'layouts/static/admin_nav_items'
           .break
 %header#pagehead{role: 'banner'}

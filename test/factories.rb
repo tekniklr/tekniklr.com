@@ -51,4 +51,14 @@ FactoryBot.define do
     handle          { 'tekniklr' }
   end
 
+  factory :goty do
+    year            { Date.today.year }
+  end
+
+  factory :goty_game do
+    association(:goty)
+    association(:game, factory: :recent_game)
+    sort            { 0 }
+  end
+
 end
