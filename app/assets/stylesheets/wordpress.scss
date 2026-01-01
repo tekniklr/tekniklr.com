@@ -2,13 +2,15 @@
 
 #wp_search {
   input {
-    @include rounded(1px, #888888, 1em, .1em, solid);
+    @include rounded(1px, $navigation_border_color, 1em, .1em, solid);
     width: 8em;
     background-color: $field_bg;
-    background-image: image-url("search.png");
+    color: $navigation_font_color;
+    text-align: left;
+    padding: .25em .5em .25em 2.25em;
+    background-image: image-url("search.svg");
     background-repeat: no-repeat;
-    background-position: center left;
-    padding: 0 0 0 1.5em;
+    background-position: center left 10px;
     margin: 0;
     font-size: 80%;
   }
@@ -333,7 +335,7 @@ ol#current_comments {
     padding: 0 1em 0 1em;
   }
   input, textarea {
-    @include rounded(1px, #cccccc, .5em, .2em, solid);
+    @include rounded(1px, $med_border_color, .5em, .2em, solid);
     background-color: $field_bg;
     margin: .25em 0 .25em 0;
     font-family: 'Comic Sans MS', cursive;
@@ -342,11 +344,10 @@ ol#current_comments {
     width: 75%;
   }
   input[type=submit] {
-    @include rounded(1px, #555555, .5em, .2em, solid);
-    background-color: $field_bg;
-    color: #333333;
+    @include rounded(1px, $navigation_border_color, .5em, .2em, solid);
+    background-color: $navigation_bg;
+    color: $navigation_font_color;
     padding: .2em 1em .2em 1em;
-    margin: .5em 0 .5em 0;
-    font-family: $content_font_family;
+    margin: 0;
   }
 }

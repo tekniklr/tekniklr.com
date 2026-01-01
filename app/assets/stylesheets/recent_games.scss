@@ -74,7 +74,7 @@ ul#recent_games {
     }
   }
   .hidden_game {
-    background-color: #eeeeee;
+    background-color: darken($the_color, 65%);
     opacity: .6;
   }
 }

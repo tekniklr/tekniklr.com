@@ -2,14 +2,14 @@
 
 .things_edit {
   margin: 0 2em 3em 3em;
-  border-left: 1px solid #999999;
+  border-left: 1px solid $faint_border_color;
 }
 
 .thing_form {
   clear: both;
   margin: 1em 0 1em 0;
   padding: 1em 0 1em 0;
-  border-bottom: 1px dashed #aaaaaa;
+  border-bottom: 1px dashed $faint_border_color;
   .thing_image {
     padding: 0 .5em 0 .5em;
     display: inline-block;
