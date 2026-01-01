@@ -265,30 +265,6 @@ ul#lastfm {
   }
 }
 
-dialog {
-  max-height: 100% !important;
-  * {
-    width: 300px !important;
-    max-width: 100% !important;
-  }
-  img {
-    max-height: 80% !important;
-  }
-}
-dialog.fixed {
-  position: fixed;
-  @media screen and (min-width: $mobile_threshhold) {
-    /* regular layout */
-    top: 0;
-    transform: translate(0, 0);
-  }
-  @media screen and (max-width: $mobile_threshhold) {
-    /* mobile layout */
-    bottom: 0;
-    transform: translate(0, -25%);
-  }
-}
-
 .game_dialog {
   .game_name {
     margin: .5em 0 0 0;
@@ -312,7 +288,7 @@ dialog.fixed {
       font-size: 85%;
       text-align: left;
       margin: 0 1em 0 1em;
-      @include transparent(0.50);
+      @include transparent(0.6);
     }
     .cheevo_time {
       font-style: italic;
