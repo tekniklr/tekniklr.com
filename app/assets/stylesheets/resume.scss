@@ -27,7 +27,7 @@
       font-weight: bold;
       font-size: 120%;
       text-transform: lowercase;
-      border-bottom: 2px solid $med_border_color;
+      border-bottom: 2px solid #777777;
       break-after: avoid;
     }
     dd {
@@ -74,6 +74,4 @@
       }
     }
   }
-  a:link, a:visited, a:active { }
-  a:hover { }
 }
