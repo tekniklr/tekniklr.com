@@ -3,5 +3,6 @@
 %li
   = link_to 'blog', "https://#{WPDOMAIN}/"
 %li
-  = form_tag "https://#{WPDOMAIN}/", method: 'get', id: 'wp_search', role: 'search' do
-    = text_field_tag :s, '', placeholder: 'search blog', title: 'search blog'
+  .nav_search
+    = form_tag "https://#{WPDOMAIN}/", method: 'get', id: 'wp_search', role: 'search' do
+      = text_field_tag :s, '', placeholder: 'search blog', title: 'search blog'
