@@ -4,6 +4,48 @@ body {
   background-color: $page_bg;
 }
 
+@import "dialog-polyfill";
+// make sure that modal dialog overlays look consistent
+dialog::backdrop, dialog + .backdrop {
+  background: image-url('colorbox-overlay.png') repeat 0 0;
+  opacity: 0.9;
+  filter: alpha(opacity = 90);
+}
+dialog {
+  max-height: 100% !important;
+  background-color: $page_bg;
+  color: $base_font_color;
+  border: 2px solid $navigation_border_color;
+  * {
+    width: 300px !important;
+    max-width: 100% !important;
+  }
+  h2 {
+    font-size: 125%;
+    margin: 0em 0em .5em 0;
+    padding: 0.25em 0 0.25em 0;
+  }
+  p {
+    max-width: 300px;
+  }
+  img {
+    max-height: 80% !important;
+  }
+}
+dialog.fixed {
+  position: fixed;
+  @media screen and (min-width: $mobile_threshhold) {
+    /* regular layout */
+    top: 0;
+    transform: translate(0, 0);
+  }
+  @media screen and (max-width: $mobile_threshhold) {
+    /* mobile layout */
+    bottom: 0;
+    transform: translate(0, -25%);
+  }
+}
+
 // to stop 'Section offsets must be ordered and non-overlapping.' errors, move
 // all styling that had been on html or body tags here
 #container, #simple {
