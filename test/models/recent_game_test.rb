@@ -32,13 +32,13 @@ class RecentGameTest < ActiveSupport::TestCase
       assert !@game.valid?
     end
 
-    should "validate presence of started_playing" do
-      @game.started_playing = nil
+    should "validate presence of last_played" do
+      @game.last_played = nil
       assert !@game.valid?
     end
     
-    should "validate type of started_playing" do
-      @game.started_playing = '0123456789012'
+    should "validate type of last_played" do
+      @game.last_played = '0123456789012'
       assert !@game.valid?
     end
     

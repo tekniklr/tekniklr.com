@@ -19,7 +19,7 @@ class GamingJob < ApplicationJob
         title:            game.name,
         platform:         game.platform,
         url:              game.url,
-        published:        game.started_playing,
+        published:        game.last_played,
         thumb_url:        game.image.url(:thumb),
         image_url:        game.image.url(:default),
         achievement:      game.achievement_name ? game.achievement_name : false,
@@ -56,12 +56,12 @@ class GamingJob < ApplicationJob
         matching_game = RecentGame.create(
           name:            details.title,
           platform:        set_platform,
-          started_playing: details.time
+          last_played:     details.time
         )
     end
-    if matching_game.started_playing.to_i < details.time.to_i
-      Rails.logger.debug "Updating started_playing for RecentGame #{details.title}..."
-      matching_game.update_attribute(:started_playing, details.time)
+    if matching_game.last_played.to_i < details.time.to_i
+      Rails.logger.debug "Updating last_played for RecentGame #{details.title}..."
+      matching_game.update_attribute(:last_played, details.time)
     end
     if details.has_key?(:image) && !details.image.blank? && (!matching_game.image? || !File.exist?(matching_game.image.path))
       filename = "#{details.platform}_#{normalize_title(details.title)}"
@@ -199,7 +199,7 @@ class GamingJob < ApplicationJob
             newest_earned_trophy = earned_trophies.select{|t| t['earnedDateTime'] == trophy_timestamp}.sort_by{|t| t['trophyEarnedRate'].to_i}.first
             trophy_time = Time.new(trophy_timestamp)
           end
-          if trophy_time && (matching_game.blank? || (trophy_time.to_i > matching_game.started_playing.to_i))
+          if trophy_time && (matching_game.blank? || (trophy_time.to_i > matching_game.last_played.to_i))
             params = {}
             unless ps5_game
               params['npServiceName'] = 'trophy'
@@ -240,7 +240,7 @@ class GamingJob < ApplicationJob
         image = store_local_copy(game.displayImage, 'xbox', title)
       end
 
-      # previously this compared matching_game.started_playing to the time last
+      # previously this compared matching_game.last_played to the time last
       # played in the API, but depending on when the API was last queried and
       # when an achievement was last earned it was sometimes possible to not
       # query/update acheivements when they should be. so, look up achievements
@@ -293,7 +293,7 @@ class GamingJob < ApplicationJob
         image = store_local_copy("https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/#{game.appid}/header.jpg", 'steam', title)
       end
 
-      # previously this compared matching_game.started_playing to the time last
+      # previously this compared matching_game.last_played to the time last
       # played in the API, but depending on when the API was last queried and
       # when an achievement was last earned it was sometimes possible to not
       # query/update acheivements when they should be. so, look up achievements
@@ -368,7 +368,7 @@ class GamingJob < ApplicationJob
           image = store_local_copy(item.meta.imageUri.large, 'switch', title)
         end
 
-        if matching_game.blank? || ((Time.now-24.hours < daily_summary.dailySummaries.first.date.to_time) && (matching_game.started_playing.end_of_day < time)) # since we don't have a precise last played time, only update RecentGame if it has not yet been updated today
+        if matching_game.blank? || ((Time.now-24.hours < daily_summary.dailySummaries.first.date.to_time) && (matching_game.last_played.end_of_day < time)) # since we don't have a precise last played time, only update RecentGame if it has not yet been updated today
           update_recent_game(matching_game: matching_game, details: { title: title, platform: 'switch', time: time, image: image, url: url })
         end
       end

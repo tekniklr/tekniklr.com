@@ -39,13 +39,13 @@ class RecentGame < ApplicationRecord
   validates_presence_of :platform
   validates_length_of   :platform, maximum: 15
 
-  validates_presence_of :started_playing
+  validates_presence_of :last_played
   
   validates_length_of   :url, maximum: 75, allow_blank: true, allow_nil: true
   validates_format_of   :url, with: URI.regexp, allow_blank: true, allow_nil: true
   
   scope :sorted, -> {
-    order('started_playing desc, updated_at desc')
+    order('last_played desc, updated_at desc')
   }
   scope :visible, -> {
     where(hidden: false)

@@ -22,9 +22,9 @@
 
   .row
     .left
-      = f.label :started_playing, 'Started'
+      = f.label :last_played, 'Played'
     .right
-      = f.datetime_field :started_playing, default: Time.now
+      = f.datetime_field :last_played, default: Time.now
     .clear
 
   .row

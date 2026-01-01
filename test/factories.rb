@@ -41,7 +41,7 @@ FactoryBot.define do
     sequence(:name) {|n| "Game #{n}"}
     platform        { 'Wii U' }
     url             { 'http://google.com' }
-    started_playing { Date.yesterday }
+    last_played     { Date.yesterday }
   end
 
   factory :user do
