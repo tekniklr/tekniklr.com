@@ -59,9 +59,6 @@
   max-width: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
-  background-image: image-url("scroll.png");
-  background-repeat: no-repeat;
-  background-position: bottom right;
   @include rounded(1px, $faint_border_color, .75em, 0em, solid);
   @media screen and (min-width: $mobile_threshhold) {
     /* regular layout */
@@ -71,6 +68,15 @@
     /* mobile layout */
     width: 100%;
   }
+}
+.toot_block::-webkit-scrollbar, .skeet_block::-webkit-scrollbar  {
+  -webkit-appearance: none;
+  width: 7px;
+}
+.toot_block::-webkit-scrollbar-thumb, .skeet_block::-webkit-scrollbar-thumb  {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, .5);
+  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
 }
 ul#mastodon, ul#bluesky {
   width: 96%;
