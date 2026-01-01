@@ -12,3 +12,5 @@ Date::DATE_FORMATS[:precise] = '%Y-%m-%d'
 
 Time::DATE_FORMATS[:goty] = '%B %e'
 Date::DATE_FORMATS[:goty] = '%B %e'
+Time::DATE_FORMATS[:goty_w_year] = '%B %Y'
+Date::DATE_FORMATS[:goty_w_year] = '%B %Y'
