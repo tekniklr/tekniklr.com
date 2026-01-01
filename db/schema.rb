@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_31_202904) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_01_210706) do
   create_table "delayed_jobs", id: :integer, charset: "utf8mb3", force: :cascade do |t|
     t.integer "attempts", default: 0
     t.datetime "created_at", precision: nil, null: false
@@ -112,10 +112,10 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_31_202904) do
     t.string "image_file_name"
     t.integer "image_file_size"
     t.datetime "image_updated_at", precision: nil
+    t.datetime "last_played", precision: nil
     t.string "name"
     t.string "platform"
     t.integer "release_year"
-    t.datetime "started_playing", precision: nil
     t.datetime "updated_at", precision: nil
     t.string "url"
   end

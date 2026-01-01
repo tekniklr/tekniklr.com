@@ -30,7 +30,7 @@
               = image_tag game.image.url(:thumb), alt: game.name, align: 'left', hspace: 10
           .gaming_details
             .time
-              = game.started_playing.to_fs(:precise)
+              = game.last_played.to_fs(:precise)
             .name
               = game.name
               - if game.release_year

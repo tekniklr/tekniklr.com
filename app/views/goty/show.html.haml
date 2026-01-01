@@ -33,8 +33,8 @@
             = simple_format gg.explanation
           .goty_played
             Played:
-            - if gg.game.started_playing.to_date > gg.game.created_at.to_date
+            - if gg.game.last_played.to_date > gg.game.created_at.to_date
               - strf = (gg.game.created_at.year == @goty.year) ? :goty : :goty_w_year
               = gg.game.created_at.to_fs(strf)
               \-
-            = gg.game.started_playing.to_fs(:goty)
+            = gg.game.last_played.to_fs(:goty)

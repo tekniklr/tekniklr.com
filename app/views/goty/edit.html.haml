@@ -32,9 +32,9 @@
               = best_in_place gg, :explanation, as: :textarea, display_with: :simple_format, place_holder: 'click to add explanation', url: update_goty_game_path(goty_game_id: gg.id)
             .goty_played
               Played:
-              - if gg.game.started_playing.to_date > gg.game.created_at.to_date
+              - if gg.game.last_played.to_date > gg.game.created_at.to_date
                 = gg.game.created_at.to_fs(:goty)
                 \-
-              = gg.game.started_playing.to_fs(:goty)
+              = gg.game.last_played.to_fs(:goty)
 
   = javascript_include_tag :goty
