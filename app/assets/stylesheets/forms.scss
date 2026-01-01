@@ -6,9 +6,16 @@ label {
 }
 
 input, textarea {
-  @include rounded(1px, #cccccc, .5em, .2em, solid);
+  @include rounded(1px, $med_border_color, .5em, .2em, solid);
   background-color: $field_bg;
+  color: $base_font_color;
   margin: 0 2em 0 0;
+}
+
+select {
+  @include rounded(1px, $med_border_color, .5em, .2em, solid);
+  background-color: $field_bg;
+  color: $base_font_color;
 }
 
 input.sort[type=number] {
@@ -18,10 +25,16 @@ input.year[type=number] {
   width: 4em;
 }
 
+input[type="file"]::file-selector-button {
+    background-color: $navigation_bg;
+    color: $navigation_font_color;
+    cursor: pointer;
+}
+
 input[type=submit] {
-  @include rounded(1px, #555555, .5em, .2em, solid);
-  background-color: $field_bg;
-  color: #333333;
+  @include rounded(1px, $navigation_border_color, .5em, .2em, solid);
+  background-color: $navigation_bg;
+  color: $navigation_font_color;
   padding: .2em 1em .2em 1em;
   margin: 0;
 }
