@@ -34,7 +34,8 @@
           .goty_played
             Played:
             - if gg.game.last_played.to_date > gg.game.created_at.to_date
-              - strf = (gg.game.created_at.year == @goty.year) ? :goty : :goty_w_year
-              = gg.game.created_at.to_fs(strf)
+              - strfs = (gg.game.created_at.year == @goty.year) ? :goty : :goty_w_year
+              = gg.game.created_at.to_fs(strfs)
               \-
-            = gg.game.last_played.to_fs(:goty)
+            - strfse = (gg.game.last_played.year == @goty.year) ? :goty : :goty_w_year
+            = gg.game.last_played.to_fs(strfse)
