@@ -7,7 +7,16 @@ class GotyController < ApplicationController
       render '404', status: 404
       return
     end
-    @top_num = 10
+    @top_num =  case @goty.goty_games.size
+                when 10..Float::INFINITY
+                  10
+                when 5..9
+                  5
+                when 3,4
+                  3
+                else
+                  @goty.goty_games.size
+                end
     @page_title = "tekniklr's top #{@top_num} games of #{@goty.year}"
     page_title @page_title
   end
