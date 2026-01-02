@@ -20,8 +20,8 @@ class GamingJob < ApplicationJob
         platform:         game.platform,
         url:              game.url,
         published:        game.last_played,
-        thumb_url:        game.image.url(:thumb),
-        image_url:        game.image.url(:default),
+        thumb_url:        game.image? ? game.image.url(:thumb) : "game-controller.png",
+        image_url:        game.image? ? game.image.url(:default) : "game-controller.png",
         achievement:      game.achievement_name ? game.achievement_name : false,
         achievement_time: game.achievement_time ? game.achievement_time : false,
         achievement_desc: game.achievement_desc ? game.achievement_desc : false
