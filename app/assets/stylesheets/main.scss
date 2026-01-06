@@ -218,6 +218,8 @@ ul#gaming, ul#letterboxd, ul#goodreads, ul#lastfm {
     padding: 5px 7px;
     img {
       max-height: 100px;
+      width: auto;
+      height: auto;
       overflow: hidden;
     }
     p {
