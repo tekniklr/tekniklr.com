@@ -152,6 +152,9 @@ class ApplicationJob < ActiveJob::Base
       end
     end
 
+    # to get the Net::HTTPResponse subclass for a specific HTTP code, use
+    #    Net::HTTPResponse::CODE_TO_OBJ['XXX']
+    # some cloudflare codes are not supported (521, etc)
     case response
     when Net::HTTPSuccess then
       # all good
