@@ -265,7 +265,7 @@ GEM
     mime-types-data (3.2025.0924)
     mini_mime (1.1.5)
     minitest (5.27.0)
-    multi_xml (0.8.0)
+    multi_xml (0.8.1)
       bigdecimal (>= 3.1, < 5)
     multipart-post (2.4.1)
     mysql2 (0.5.7)
@@ -430,7 +430,7 @@ GEM
       climate_control
     terser (1.2.6)
       execjs (>= 0.3.0, < 3)
-    thor (1.4.0)
+    thor (1.5.0)
     tilt (2.6.1)
     timeout (0.6.0)
     tsort (0.2.0)
