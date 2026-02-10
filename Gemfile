@@ -28,7 +28,7 @@ gem 'nokogiri'
 # non-RSS external services/APIs
 gem 'lastfm'
 gem 'mastodon-api', require: 'mastodon', git: 'https://github.com/mastodon/mastodon-api'
-gem 'tumblr_client', git: 'https://github.com/tumblr/tumblr_client.git'
+gem 'tumblr_client', git: 'https://github.com/tekniklr/tumblr_client.git'
 
 # run processes in the background
 gem 'delayed_job'
