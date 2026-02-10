@@ -18,12 +18,13 @@ GIT
       puma (>= 6.1, < 8.0)
 
 GIT
-  remote: https://github.com/tumblr/tumblr_client.git
-  revision: a72b7f4636cb0ea75cb65ce90df902c3cb7d96b7
+  remote: https://github.com/tekniklr/tumblr_client.git
+  revision: a8934918ebb4edf3459ef13f0ed705cec4381f7b
   specs:
-    tumblr_client (0.8.6)
-      faraday (~> 1.0)
-      faraday_middleware (~> 1.0)
+    tumblr_client (0.8.7)
+      faraday
+      faraday-multipart
+      faraday-oauth1
       json
       mime-types
       oauth
@@ -163,31 +164,17 @@ GEM
     factory_bot_rails (6.5.1)
       factory_bot (~> 6.5)
       railties (>= 6.1.0)
-    faraday (1.10.4)
-      faraday-em_http (~> 1.0)
-      faraday-em_synchrony (~> 1.0)
-      faraday-excon (~> 1.1)
-      faraday-httpclient (~> 1.0)
-      faraday-multipart (~> 1.0)
-      faraday-net_http (~> 1.0)
-      faraday-net_http_persistent (~> 1.0)
-      faraday-patron (~> 1.0)
-      faraday-rack (~> 1.0)
-      faraday-retry (~> 1.0)
-      ruby2_keywords (>= 0.0.4)
-    faraday-em_http (1.0.0)
-    faraday-em_synchrony (1.0.1)
-    faraday-excon (1.1.0)
-    faraday-httpclient (1.0.1)
+    faraday (2.14.1)
+      faraday-net_http (>= 2.0, < 3.5)
+      json
+      logger
     faraday-multipart (1.2.0)
       multipart-post (~> 2.0)
-    faraday-net_http (1.0.2)
-    faraday-net_http_persistent (1.2.0)
-    faraday-patron (1.0.0)
-    faraday-rack (1.0.0)
-    faraday-retry (1.0.3)
-    faraday_middleware (1.2.1)
-      faraday (~> 1.0)
+    faraday-net_http (3.4.2)
+      net-http (~> 0.5)
+    faraday-oauth1 (0.1.1)
+      faraday (>= 1.10, < 3)
+      simple_oauth
     feedjira (4.0.1)
       logger (>= 1.0, < 2)
       loofah (>= 2.3.1, < 3)
@@ -273,6 +260,8 @@ GEM
     multipart-post (2.4.1)
     mysql2 (0.5.7)
       bigdecimal
+    net-http (0.9.1)
+      uri (>= 0.11.1)
     net-imap (0.6.2)
       date
       net-protocol
@@ -395,7 +384,6 @@ GEM
     reline (0.6.3)
       io-console (~> 0.5)
     rexml (3.4.4)
-    ruby2_keywords (0.0.5)
     sassc (2.4.0)
       ffi (~> 1.9)
     sassc-rails (2.1.2)

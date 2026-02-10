@@ -15,7 +15,7 @@ class TumblrJob < ApplicationJob
       # grab just 30 old posts at a time to avoid hitting any API limits
       old_posts = client.posts('tekniklr.tumblr.com', before: (Time.now-BLOG_HISTORY).to_i, sort: 'asc', limit: 30)
       old_posts["posts"].each do |post|
-        old_posts = client.delete('tekniklr.tumblr.com', post["id"])
+        client.delete('tekniklr.tumblr.com', post["id"])
       end
     rescue => exception
       ErrorMailer.background_error('removing old tumblr posts', exception).deliver_now
