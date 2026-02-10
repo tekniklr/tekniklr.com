@@ -10,7 +10,7 @@ GIT
 
 GIT
   remote: https://github.com/seuros/capistrano-puma.git
-  revision: f0d43f22fa731368424330fed3fdbd12adb01fe6
+  revision: 75e0be447085428c484e7d2b51347d9be01dc074
   specs:
     capistrano3-puma (7.1.0)
       capistrano (~> 3.7)
@@ -117,7 +117,7 @@ GEM
       actionpack (>= 7.0)
       railties (>= 7.0)
     bigdecimal (4.0.1)
-    brakeman (7.1.2)
+    brakeman (8.0.2)
       racc
     buftok (0.3.0)
     builder (3.3.0)
@@ -134,6 +134,7 @@ GEM
     capistrano-rvm (0.1.2)
       capistrano (~> 3.0)
       sshkit (~> 1.2)
+    cgi (0.5.1)
     climate_control (1.2.0)
     coderay (1.1.3)
     concurrent-ruby (1.3.6)
@@ -227,18 +228,19 @@ GEM
       concurrent-ruby (~> 1.0)
     iconv (1.1.1)
     io-console (0.8.2)
-    irb (1.16.0)
+    irb (1.17.0)
       pp (>= 0.6.0)
+      prism (>= 1.3.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
     jquery-rails (4.6.1)
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
-    json (2.18.0)
+    json (2.18.1)
     jwt (3.1.2)
       base64
-    kt-paperclip (7.2.2)
+    kt-paperclip (7.3.0)
       activemodel (>= 4.2.0)
       activesupport (>= 4.2.0)
       marcel (~> 1.0.1)
@@ -262,9 +264,10 @@ GEM
     mime-types (3.7.0)
       logger
       mime-types-data (~> 3.2025, >= 3.2025.0507)
-    mime-types-data (3.2026.0113)
+    mime-types-data (3.2026.0203)
     mini_mime (1.1.5)
-    minitest (5.27.0)
+    minitest (6.0.1)
+      prism (~> 1.5)
     multi_xml (0.8.1)
       bigdecimal (>= 3.1, < 5)
     multipart-post (2.4.1)
@@ -304,7 +307,7 @@ GEM
       rack (>= 1.2, < 4)
       snaky_hash (~> 2.0, >= 2.0.3)
       version_gem (~> 1.1, >= 1.1.9)
-    oj (3.16.13)
+    oj (3.16.15)
       bigdecimal (>= 3.0)
       ostruct (>= 0.2)
     omniauth (2.1.4)
@@ -324,6 +327,7 @@ GEM
     pp (0.6.3)
       prettyprint
     prettyprint (0.2.0)
+    prism (1.9.0)
     pry (0.16.0)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -334,7 +338,7 @@ GEM
       date
       stringio
     public_suffix (7.0.2)
-    puma (7.1.0)
+    puma (7.2.0)
       nio4r (~> 2.0)
     racc (1.8.1)
     rack (3.2.4)
@@ -384,7 +388,7 @@ GEM
       tsort (>= 0.2)
       zeitwerk (~> 2.6)
     rake (13.3.1)
-    rdoc (7.1.0)
+    rdoc (7.2.0)
       erb
       psych (>= 4.0.0)
       tsort
@@ -405,7 +409,9 @@ GEM
     shoulda-context (3.0.0.rc1)
     shoulda-matchers (7.0.1)
       activesupport (>= 7.1)
-    simple_oauth (0.3.1)
+    simple_oauth (0.4.0)
+      base64
+      cgi
     snaky_hash (2.0.3)
       hashie (>= 0.1.0, < 6)
       version_gem (>= 1.1.8, < 3)
@@ -473,7 +479,7 @@ DEPENDENCIES
   kt-paperclip
   lastfm
   mastodon-api!
-  minitest (< 6.0)
+  minitest
   mysql2
   nokogiri
   omniauth
@@ -491,4 +497,4 @@ DEPENDENCIES
   tumblr_client!
 
 BUNDLED WITH
-   2.7.2
+  4.0.6
