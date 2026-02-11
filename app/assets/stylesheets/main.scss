@@ -22,28 +22,50 @@
 .fade160 {@include transparent(0.36);}
 
 /* wrap around blog post to keep it to size */
-#single_post {
+#tumblr {
   max-width: 100%;
   overflow: hidden;
-  p {
-    max-width: 50em;
-  }
-  @media screen and (min-width: $mobile_threshhold) {
-    /* regular layout */
-    .entry-content {
-      margin: 0 5em 0 5em;
+  article {
+    width: 90%;
+    margin: auto;
+    .meta {
+      text-align: right;
+      margin: 0 0 1em 0;
     }
-  }
-  @media screen and (max-width: $mobile_threshhold) {
-    /* mobile layout */
-    .entry-content {
-      margin: 0 .25em 0 .25em;
-      max-width: 100%;
+    .content {
+      max-width: 50em;
+      h1, h2, h3, h4, h5 {
+        border: none !important;
+        margin: 1em 0 .5em 0 !important;
+        padding: 0 !important;
+        font-size: 110% !important;
+        text-align: left;
+      }
+      .images {
+        margin: auto;
+        .image {
+          max-width: 640px;
+          display: inline-block;
+        }
+      }
     }
-    blockquote {
-      margin: .5em 0 1em .5em;
-      padding: 0 0 0 .25em;
-      max-width: 100%;
+    @media screen and (min-width: $mobile_threshhold) {
+      /* regular layout */
+      .entry-content {
+        margin: 0 5em 0 5em;
+      }
+    }
+    @media screen and (max-width: $mobile_threshhold) {
+      /* mobile layout */
+      .entry-content {
+        margin: 0 .25em 0 .25em;
+        max-width: 100%;
+      }
+      blockquote {
+        margin: .5em 0 1em .5em;
+        padding: 0 0 0 .25em;
+        max-width: 100%;
+      }
     }
   }
 }

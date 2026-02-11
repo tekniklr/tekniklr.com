@@ -22,12 +22,6 @@ set :puma_systemctl_bin, '/usr/bin/systemctl'
 set :puma_service_unit_name, "puma"
 set :puma_systemctl_user, :user
 
-namespace :deploy do
-  after :publishing, :tekniklr_com do
-    invoke "tekniklr_com:wptheme"
-  end
-end
-
 before 'deploy:updated', 'deploy:stop'
 namespace :deploy do
   task :stop do

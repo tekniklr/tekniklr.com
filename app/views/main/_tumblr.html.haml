@@ -1,0 +1,10 @@
+%article
+  .meta
+    = link_to "#{post.reblog ? "Reblogged #{post.reblog}" : 'Posted'} #{time_ago_in_words(post.time)} ago", post.url
+  .content
+    - unless post.photos.empty?
+      .images
+        - post.photos.each do |photo|
+          .image
+            = image_tag photo
+    = raw post.body

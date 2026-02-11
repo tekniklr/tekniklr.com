@@ -20,17 +20,6 @@ Rails.application.routes.draw do
   get '/resume',       to: 'resume#index'
   get '/resume/clean', to: 'resume#clean'
   
-  # make sure only the html format works for various things
-  constraints format: "html" do
-    # these are so that wordpress will use the layout generated
-    # by rails
-    get '/static/headincmeta', to: 'static#headincmeta_partial'
-    get '/static/header',      to: 'static#header_partial'
-    get '/static/navigation',  to: 'static#navigation_partial'
-    get '/static/footer',      to: 'static#footer_partial'
-    get '/static/pageend',     to: 'static#pageend_partial'
-  end
-  
   resources :links, only: [:index, :create, :destroy] do
     patch 'update_all', on: :collection
   end
@@ -55,8 +44,6 @@ Rails.application.routes.draw do
   post '/goty/sort',                 to: 'goty#sort',               as: 'sort_goty'
   put  '/goty/update/:goty_game_id', to: 'goty#update_explanation', as: 'update_goty_game'
   put  '/goty/publish/:goty_id',     to: 'goty#update_published',   as: 'update_goty_published'
-
-  get '/wpblog(/:blog_params)',           to: 'application#redirect_wordpress'
 
 
   # https://github.com/rails/rails/issues/671

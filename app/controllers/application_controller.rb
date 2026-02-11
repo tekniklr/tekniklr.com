@@ -17,10 +17,6 @@ class ApplicationController < ActionController::Base
       format.any  { redirect_to action: 'routing_error', format: 'html' }
     end
   end
-
-  def redirect_wordpress
-    redirect_to "https://blog.tekniklr.com/#{params[:blog_params]}", status: 301, allow_other_host: true
-  end
   
   protected
 
