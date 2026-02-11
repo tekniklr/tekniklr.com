@@ -4,7 +4,10 @@
   %h1
     = link_to 'tumblr', "https://tekniklr.tumblr.com"
   #tumblr
-    = render 'tumblr', post: @tumblr_post
+    - begin
+      = render 'tumblr', post: @tumblr_post
+    - rescue => exception
+      - logger.error exception
 
 - unless @skeets.blank?
   %h1
