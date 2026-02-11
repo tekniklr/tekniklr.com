@@ -27,7 +27,7 @@ module MainHelper
     end
     replacements.each do |replace|
       logger.debug "************ processing replacement: #{replace}"
-      replacing_text.sub! replace.first, "<a href=\"#{replace.last}\" target=\"_blank\">#{replace.first}</a>"
+      replacing_text.sub! replace.first, "<a href=\"#{replace.last}\">#{replace.first}</a>"
     end
     logger.debug "************ final skeet text: #{replacing_text}"
     return replacing_text

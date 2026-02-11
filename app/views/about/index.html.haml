@@ -15,7 +15,7 @@
       - cache @about_links do
         - @about_links.each do |link|
           - link == @about_links.last ? sep = '' : sep = ', '
-          = link_to(link.name, link.url, target: '_blank') + sep
+          = link_to(link.name, link.url) + sep
   
   %h1 Stuff I like
   %dl.favorites
@@ -25,13 +25,13 @@
         %ul
           - favorite.favorite_things.sorted.each_with_index do |thing, index|
             %li
-              = (!thing.link.blank? ? link_to(thing.thing, thing.link, target: '_blank', id: "opener_thing_#{thing.id}_text") : thing.thing)
+              = (!thing.link.blank? ? link_to(thing.thing, thing.link, id: "opener_thing_#{thing.id}_text") : thing.thing)
               - if thing.image?
                 %br
                 - if thing.link.blank?
                   = image_tag(thing.image.url(:thumb), alt: thing.thing)
                 - else
-                  = link_to image_tag(thing.image.url(:thumb), alt: thing.thing), thing.link, target: '_blank', id: "opener_thing_#{thing.id}_img"
+                  = link_to image_tag(thing.image.url(:thumb), alt: thing.thing), thing.link, id: "opener_thing_#{thing.id}_img"
               %dialog.fixed{id: "dialog_thing_#{thing.id}", title: thing.thing}
                 %h2 ##{index+1} favorite #{favorite.favorite_type.singularize}:
                 - if thing.image?
@@ -39,8 +39,8 @@
                     - if thing.link.blank?
                       = image_tag(thing.image.url(:default), alt: thing.thing)
                     - else
-                      = link_to(image_tag(thing.image.url(:default), alt: thing.thing), thing.link, target: '_blank')
-                = (!thing.link.blank? ? link_to(thing.thing, thing.link, target: '_blank') : thing.thing)
+                      = link_to(image_tag(thing.image.url(:default), alt: thing.thing), thing.link)
+                = (!thing.link.blank? ? link_to(thing.thing, thing.link) : thing.thing)
               = javascript_tag nonce: true do
                 :plain
                   var dialog_thing_#{thing.id} = document.querySelector("#dialog_thing_#{thing.id}");

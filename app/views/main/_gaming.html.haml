@@ -16,12 +16,12 @@
   %dialog.game_dialog.fixed{id: "dialog_game_#{game_id}"}
     %p.centered{title: game[:title]}
       - if !game[:url].blank?
-        = link_to image_tag(game[:image_url], alt: game[:title], height: 300, width: 300), game[:url], target: '_blank'
+        = link_to image_tag(game[:image_url], alt: game[:title], height: 300, width: 300), game[:url]
       - else
         = image_tag game[:image_url], alt: game[:title], height: 300, width: 300
     .game_name
       - if !game[:url].blank?
-        = link_to game[:title], game[:url], target: '_blank'
+        = link_to game[:title], game[:url]
       - else
         = game[:title]
     .game_platform
@@ -35,7 +35,7 @@
       .cheevo{title: 'last achievement'}
         .cheevo_title
           - if !game[:url].blank?
-            = link_to game[:achievement], game[:url], target: '_blank'
+            = link_to game[:achievement], game[:url]
           - else
             = game[:achievement]
         - if !game[:achievement_desc].blank?

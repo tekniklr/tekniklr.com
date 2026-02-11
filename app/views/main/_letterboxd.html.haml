@@ -14,12 +14,12 @@
     - if movie[:image_url]
       %p.centered
         - if !movie[:url].blank?
-          = link_to image_tag(movie[:image_url], alt: movie[:title]), movie[:url], target: '_blank'
+          = link_to image_tag(movie[:image_url], alt: movie[:title]), movie[:url]
         - else
           = image_tag movie[:image_url], alt: movie[:title]
     %p
       - if !movie[:url].blank?
-        = link_to movie[:title], movie[:url], target: '_blank'
+        = link_to movie[:title], movie[:url]
       - else
         = movie[:title]
     - if movie[:year]
