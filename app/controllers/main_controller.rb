@@ -3,7 +3,7 @@ class MainController < ApplicationController
   def index
 
     @tumblr_expiry   = Rails.cache.read('tumblr_expiry')
-    @tumblr_post     = Rails.cache.read('tumblr_post')
+    @tumblr          = Rails.cache.read('tumblr')
     if @tumblr_expiry.nil? || Time.now > @tumblr_expiry
       @tumblr_expiry = Rails.cache.write('tumblr_expiry', (Time.now + 12.minutes))
       TumblrJob.perform_later
