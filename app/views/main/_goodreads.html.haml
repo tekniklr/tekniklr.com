@@ -14,14 +14,14 @@
     - if book[:image_url]
       %p.centered
         - if !book[:url].blank?
-          = link_to image_tag(book[:image_url], alt: book[:title]), book[:url], target: '_blank'
+          = link_to image_tag(book[:image_url], alt: book[:title]), book[:url]
         - else
           = image_tag book[:image_url], alt: book[:title]
     %p
       - if !book[:url].blank?
-        #{link_to book[:title], book[:url], target: '_blank'}
+        = link_to book[:title], book[:url]
       - else
-        #{book[:title]}
+        = book[:title]
     %p.clear.centered.when.fade60
       - if book[:published]
         - the_time = (book[:published].to_time.to_i == book[:published].beginning_of_day.to_time.to_i) ? book[:published].end_of_day : book[:published]

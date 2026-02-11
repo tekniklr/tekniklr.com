@@ -28,14 +28,14 @@
 
   .user_pic
     - if !skeet_user_avatar.blank?
-      = link_to image_tag(skeet_user_avatar, alt: skeet_display_name, title: skeet_display_name), skeet_user_link, target: '_blank'
+      = link_to image_tag(skeet_user_avatar, alt: skeet_display_name, title: skeet_display_name), skeet_user_link
 
   .skeet
     .user_name
       .display_name
         = skeet_display_name
       .handle
-        = link_to "@#{skeet_handle}", skeet_user_link, target: '_blank'
+        = link_to "@#{skeet_handle}", skeet_user_link
 
     .skeet_content
       - if has_facets
@@ -47,7 +47,7 @@
             - reply_id = skeet.reply.parent.uri.split('/').last
             - reply_link = "https://bsky.app/profile/#{reply_handle}/post/#{reply_id}"
             = "replied to "
-            = link_to "@#{reply_handle}:", reply_link, target: '_blank'
+            = link_to "@#{reply_handle}:", reply_link
       = simple_format sanitize(skeet_text, tags: %w(a), attributes: %w(href target)), {}, sanitize: false # simple format was double sanitizing
       - if has_previews
         - preview = skeet.post.embed.has_key?('external') ? skeet.post.embed.external : skeet.post.embed.media.external
@@ -57,16 +57,16 @@
           - description = preview.has_key?('description') ? preview.description : ''
           - if preview.has_key?('thumb')
             .preview_image
-              = link_to image_tag(preview.thumb, alt: title, title: title), uri, target: '_blank'
+              = link_to image_tag(preview.thumb, alt: title, title: title), uri
           - if title
             .preview_title
-              = link_to title, uri, target: '_blank'
+              = link_to title, uri
           - unless description.empty?
             .preview_description
               - description = truncate(strip_tags(description), length: 100, escape: false)
-              = link_to description, uri, target: '_blank'
+              = link_to description, uri
           .preview_link
-            = link_to uri, uri, target: '_blank'
+            = link_to uri, uri
 
       - if has_images
         - images = skeet.post.embed.has_key?('images') ? skeet.post.embed.images : ((skeet.post.embed.has_key?('media') && skeet.post.embed.media.has_key?('images')) ? skeet.post.embed.media.images : [])
@@ -77,7 +77,7 @@
       - if has_video
         .skeet_images
           %p
-            = link_to image_tag(skeet.post.embed.thumbnail, alt: 'video preview'), skeet_link, target: '_blank'
+            = link_to image_tag(skeet.post.embed.thumbnail, alt: 'video preview'), skeet_link
       - if has_quote_post
         .nested
           - nested_record       = skeet.post.embed.record.has_key?('record') ? skeet.post.embed.record.record : skeet.post.embed.record
@@ -97,13 +97,13 @@
             - nested_facets       = nested_record.value.has_key?('facets')
             .user_pic
               - if !nested_user_avatar.blank?
-                = link_to image_tag(nested_user_avatar, alt: nested_display_name, title: nested_display_name), nested_user_link, target: '_blank'
+                = link_to image_tag(nested_user_avatar, alt: nested_display_name, title: nested_display_name), nested_user_link
             .skeet
               .user_name
                 .display_name
                   = nested_display_name
                 .handle
-                  = link_to "@#{nested_handle}", nested_user_link, target: '_blank'
+                  = link_to "@#{nested_handle}", nested_user_link
               .skeet_content
                 - if nested_facets
                   - nested_text = skeet_facets(nested_text, nested_record.value.facets)
@@ -116,16 +116,16 @@
                   - description = preview.has_key?('description') ? preview.description : ''
                   - if preview.thumb
                     .preview_image
-                      = link_to image_tag(preview.thumb, alt: title, title: title), uri, target: '_blank'
+                      = link_to image_tag(preview.thumb, alt: title, title: title), uri
                   - if title
                     .preview_title
-                      = link_to title, uri, target: '_blank'
+                      = link_to title, uri
                   - if description
                     .preview_description
                       - description = truncate(strip_tags(description), length: 100, escape: false)
-                      = link_to description, uri, target: '_blank'
+                      = link_to description, uri
                   .preview_link
-                    = link_to uri, uri, target: '_blank'
+                    = link_to uri, uri
               - if nested_images
                 - images = nested_record.embeds.first.images
                 .skeet_images
@@ -141,4 +141,4 @@
         = "☆ #{fave_count}"
 
   .time_ago
-    = link_to time_ago_in_words(skeet_created)+' ago', skeet_link, target: '_blank'
+    = link_to time_ago_in_words(skeet_created)+' ago', skeet_link
