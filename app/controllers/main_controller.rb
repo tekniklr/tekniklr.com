@@ -2,11 +2,10 @@ class MainController < ApplicationController
 
   def index
 
-    @blog_expiry   = Rails.cache.read('blog_expiry')
-    @blog_post     = Rails.cache.read('blog_posts')
-    if @blog_expiry.nil? || Time.now > @blog_expiry
-      @blog_expiry = Rails.cache.write('blog_expiry', (Time.now + 12.minutes))
-      BlogJob.perform_later
+    @tumblr_expiry   = Rails.cache.read('tumblr_expiry')
+    @tumblr_post     = Rails.cache.read('tumblr_post')
+    if @tumblr_expiry.nil? || Time.now > @tumblr_expiry
+      @tumblr_expiry = Rails.cache.write('tumblr_expiry', (Time.now + 12.minutes))
       TumblrJob.perform_later
     end
 
