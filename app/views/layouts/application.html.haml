@@ -51,21 +51,12 @@
             .regular
               %ul
                 = render 'layouts/admin_nav_items'
-              .break
       %header#pagehead{role: 'banner'}
         #banner
           = link_to image_tag("tekniklr.png", alt: DOMAIN, width: 178, height: 35), root_url
       %nav#navigation{role: 'navigation'}
-        .mobile
-          %ul
-            %li
-              %a#toggle_navigation{href: '#'} navigation
-          %ul#single_column_navigation
-            = render 'layouts/nav_items'
-        .regular
-          %ul
-            = render 'layouts/nav_items'
-          .break
+        %ul
+          = render 'layouts/nav_items'
       #main{role: 'main'}
         - if flash[:error]
           #flash.error
