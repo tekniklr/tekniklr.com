@@ -1,10 +1,22 @@
-%article
+- spoiler_tags = post.tags.select{|t| t =~ /spoilers/}
+%article{id: post.id}
   .meta
     = link_to "#{post.reblog ? "Reblogged #{post.reblog}" : 'Posted'} #{time_ago_in_words(post.time)} ago", post.url
-  .content
+  - unless spoiler_tags.empty?
+    .spoiler
+      %p
+        This post is tagged with:
+        = sanitize spoiler_tags.collect{|t| "<strong>#{t}</strong>"}.join(', '), tags: %w(strong)
+      %p
+        = button_tag('show post', type: 'button', 'data-id': post.id)
+  .content{class: spoiler_tags.empty? ? '' : 'hidden'}
     - unless post.photos.empty?
       .images
         - post.photos.each do |photo|
           .image
             = image_tag photo
-    = raw post.body
+    = sanitize post.body, tags: %w(a p blockquote img), attributes: %w(href target class src)
+  - unless post.tags.empty?
+    .tagged
+      Tagged:
+      = sanitize post.tags.collect{|t| link_to(t, "https://tumblr.com/tagged/#{t}")}.join(', '), tags: %w(a), attributes: %w(href target)

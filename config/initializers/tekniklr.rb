@@ -6,7 +6,7 @@ SIMILAR_THRESHOLD = 50
 POST_HISTORY = 3.months # for skeets/etc (mastodon configured natively)
 TUMBLR_HISTORY = 18.months
 CACHED_ITEMS = [
-                  ['tumblr_post', 'tumblr_expiry'],
+                  ['tumblr', 'tumblr_expiry'],
                   ['skeets', 'skeet_expiry'],
                   ['toots', 'toot_expiry'],
                   ['gaming', 'gaming_expiry', ['fetch_nintendo', 'fetch_psn', 'fetch_steam', 'fetch_xbox']],

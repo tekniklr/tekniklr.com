@@ -18,6 +18,12 @@ select {
   color: $base_font_color;
 }
 
+button {
+  @include rounded(1px, $navigation_border_color, .5em, .5em, solid);
+  background-color: $navigation_bg;
+  color: $navigation_font_color;
+}
+
 input.sort[type=number] {
   width: 3em;
 }
@@ -26,9 +32,9 @@ input.year[type=number] {
 }
 
 input[type="file"]::file-selector-button {
-    background-color: $navigation_bg;
-    color: $navigation_font_color;
-    cursor: pointer;
+  background-color: $navigation_bg;
+  color: $navigation_font_color;
+  cursor: pointer;
 }
 
 input[type=submit] {

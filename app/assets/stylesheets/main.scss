@@ -30,7 +30,15 @@
     margin: auto;
     .meta {
       text-align: right;
+      font-size: 80%;
       margin: 0 0 1em 0;
+      @include transparent(0.9);
+    }
+    .spoiler {
+      text-align: center;
+      button {
+        margin: 1.5em 0 1.5em 0;;
+      }
     }
     .content {
       max-width: 50em;
@@ -41,6 +49,13 @@
         font-size: 110% !important;
         text-align: left;
       }
+      blockquote {
+        margin: 0;
+        padding: .25em 0 0 .75em;
+        border-left: 1px dashed $faint_border_color;
+        p a.tumblr_blog { }
+        blockquote { }
+      }
       .images {
         margin: auto;
         .image {
@@ -48,6 +63,11 @@
           display: inline-block;
         }
       }
+    }
+    .tagged {
+      text-align: right;
+      font-size: 80%;
+      margin: 1em 0 0 0;
     }
     @media screen and (min-width: $mobile_threshhold) {
       /* regular layout */
@@ -67,6 +87,13 @@
         max-width: 100%;
       }
     }
+  }
+  article:not(:first-child) {
+    margin-top: 2em;
+  }
+  article:not(:last-child) {
+    border-bottom: 1px solid $faint_border_color;
+    padding-bottom: 2em;
   }
 }
 

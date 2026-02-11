@@ -1,13 +1,15 @@
 = stylesheet_link_tag 'main'
+= javascript_include_tag :main
 
-- unless @tumblr_post.blank?
+- unless @tumblr.blank?
   %h1
     = link_to 'tumblr', "https://tekniklr.tumblr.com"
   #tumblr
-    - begin
-      = render 'tumblr', post: @tumblr_post
-    - rescue => exception
-      - logger.error exception
+    - @tumblr.each do |post|
+      - begin
+        = render 'tumblr', post: post
+      - rescue => exception
+        - logger.error exception
 
 - unless @skeets.blank?
   %h1
