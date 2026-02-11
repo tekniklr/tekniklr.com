@@ -32,14 +32,6 @@
           = render 'toot', toot: toot
         - rescue => exception
           - logger.error exception
-      = javascript_tag nonce: true do
-        :plain
-          $('a.toot_thumbnail').colorbox({
-            scalePhotos: true,
-            opacity: 0.9,
-            maxHeight: '90%',
-            maxWidth: '90%'
-          });
 
 - if !@gaming.blank? && @gaming.size > 1
   - fade_games = 0
