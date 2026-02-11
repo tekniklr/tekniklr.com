@@ -236,38 +236,8 @@ a:hover { color: $hover_color; }
 }
 
 #navigation {
-  // navigation will switch to mobile @ given size
-  @media screen and (min-width: $mobile_threshhold) {
-    /* regular layout */
-    .mobile {
-      display: none;
-    }
-    .regular {
-      display: block;
-      ul {
-        width: $navigation_width;
-        li {
-          width: $navigation_width/$nav_items;
-        }
-      }
-    }
-  }
-  @media screen and (max-width: $mobile_threshhold) {
-    /* mobile layout */
-    .mobile {
-      display: block;
-      margin: auto;
-      ul {
-        width: $max_page_width/$nav_items;
-        li {
-          width: $max_page_width/$nav_items;
-        }
-      }
-    }
-    .regular {
-      display: none;
-    }
-  }
+  display: block;
+  margin: auto;
   max-width: $navigation_width;
   color: $navigation_font_color;
   font-family: $navigation_font_family;
@@ -275,14 +245,15 @@ a:hover { color: $hover_color; }
   border-top: 2px solid $navigation_border_color;
   border-bottom: 2px solid $navigation_border_color;
   margin: 0;
-  padding: 0;
+  padding: .5em;
   overflow: hidden;
+  text-align: center;
+  line-height: 0;
   ul {
-    clear: both;
-    display: block;
+    display: inline-block;
     list-style-type: none;
     padding: 0;
-    margin: auto;
+    margin: 0 auto;
     overflow: hidden;
     li {
       display: inline;
@@ -290,6 +261,7 @@ a:hover { color: $hover_color; }
       margin: 0;
       float: left;
       padding: 0.75em 0em 0.75em 0em;
+      width: $navigation_item_width;
     }
   }
   a:link, a:active, a:visited {
