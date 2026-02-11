@@ -26,8 +26,6 @@ $head_width: 100%;
 $navigation_width: 100%;
 $navigation_item_width: 10em;
 $foot_width: 100%;
-$social_media_width: $max_page_width/3; // used to get fixed positioning correct; too big and social media can float off the right of the layout, too small and there may be multiple social media rows
-$social_media_threshhold: 800px; // where the social media goes from fixed on bottom right to fixed on bottom center
 $contact_width: $max_page_width/5;
 
 /* fonts */

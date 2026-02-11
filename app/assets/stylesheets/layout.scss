@@ -288,48 +288,40 @@ a:hover { color: $hover_color; }
     }
   }
 }
-.nav_search {
-  @media screen and (min-width: $social_media_threshhold) {
-    /* regular layout */
-    text-align: right;
-    padding: 0 1em 0 0;
-  }
-  @media screen and (max-width: $social_media_threshhold) {
-    /* mobile layout */
-  }
-}
 
 #social {
-  @media screen and (min-width: $social_media_threshhold) {
+  margin: auto;
+  @media screen and (min-width: $mobile_threshhold) {
     /* regular layout */
-    width: $social_media_width;
+    position: fixed;
+    bottom: 0;
+    right: 0;
     text-align: right;
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    margin: 0 0 0 ($max_page_width/2)-$social_media_width;
+    ul {
+      margin: 0 10px 5px 0;
+    }
   }
-  @media screen and (max-width: $social_media_threshhold) {
+  @media screen and (max-width: $mobile_threshhold) {
     /* mobile layout */
-    width: 90%;
-    text-align: center;
     position: fixed;
     bottom: 0;
-    left: 50%;
-    margin: 0 0 0 -45%;
+    width: 100%;
+    text-align: center;
+    ul {
+      margin: 0 auto 5px auto;
+    }
   }
   ul {
     padding: 0;
-    margin: 0;
     list-style-type: none;
     overflow: hidden;
     li {
       display: inline;
       text-align: center;
-      margin: 0 .1em 0 .1em;
+      margin: 0 2px 0 2px;
       padding: 0;
+      width: 32px;
       img {
-        background-color: $page_bg;
         @include rounded(0px, $page_bg, .75em, 0, none);
         @include transparent(0.8);
         max-width: 32px;
@@ -417,10 +409,10 @@ h2 {
   div {
     margin: 0;
   }
-  @media screen and (min-width: $social_media_threshhold) {
+  @media screen and (min-width: $mobile_threshhold) {
     /* regular layout */
   }
-  @media screen and (max-width: $social_media_threshhold) {
+  @media screen and (max-width: $mobile_threshhold) {
     /* mobile layout */
     margin-bottom: 35px; // make room for social media links when page is scrolled all the way down
   }
