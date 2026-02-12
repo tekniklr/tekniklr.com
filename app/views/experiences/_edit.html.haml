@@ -1,7 +1,7 @@
 = form_for @experience, remote: true do |f|
-  %div.exp#experience
+  #experience
     = render 'form', f: f, experience: @experience
   .centered
-    = submit_tag "Update"
+    = submit_tag "Update", class: 'btn btn-primary'
     %p
       = link_to 'Cancel', @experience, remote: true

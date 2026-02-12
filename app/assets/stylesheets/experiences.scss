@@ -1,12 +1,5 @@
 @use "config";
 
-.exp {
-  @include config.rounded(1px, config.$med_border_color, .5em, 1em, dotted);
-  width: 80%;
-  margin: auto;
-  margin-bottom: 2em;
-}
-
 .exp_metadata {
   p {
     margin: 0;

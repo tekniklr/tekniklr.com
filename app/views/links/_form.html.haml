@@ -1,29 +1,42 @@
-.edit_link
-  = hidden_field_tag :authenticity_token, form_authenticity_token
+= hidden_field_tag :authenticity_token, form_authenticity_token
 
-  - if link.errors.any?
-    #error_explanation
-      %h2 #{pluralize(link.errors.size, "error")} prohibited this link from being saved:
-      %ul
-        - link.errors.full_messages.each do |msg|
-          %li #{msg}
+- if link.errors.any?
+  #error_explanation
+    %h2 #{pluralize(link.errors.size, "error")} prohibited this link from being saved:
+    %ul
+      - link.errors.full_messages.each do |msg|
+        %li #{msg}
 
-  - if link.icon?
-    = image_tag(link.icon.url(:default), alt: link.name, class: 'icon')
-  
-  %div 
-    = f.label  :name
-    = f.text_field :name, size: 20
-    
-    = f.label :social_icon, 'Show in nav?'
-    = f.check_box :social_icon
+.row.mb-3
+  .col-11
 
-    = f.label :visible, 'Show on bio?'
-    = f.check_box :visible
+    .row.mb-2
+      .col-sm-1
+        = f.label  :name, class: 'form-label'
+      .col-sm-3
+        = f.text_field :name, class: 'form-control', required: true, autocomplete: 'off', data: {'1p-ignore': true}
+      
+      .col-sm-4
+        .form-check.form-switch
+          = f.label :social_icon, 'Show in nav?', class: 'form-check-label'
+          = f.check_box :social_icon, class: 'form-check-input', role: 'switch'
 
-  %div
-    = f.label :url
-    = f.text_field :url, size: 20
+      .col-sm-4
+        .form-check.form-switch
+          = f.label :visible, 'Show on bio?', class: 'form-check-label'
+          = f.check_box :visible, class: 'form-check-input', role: 'switch'
 
-    = f.label :icon
-    = f.file_field :icon
+    .row
+      .col-sm-1
+        = f.label :url, class: 'form-label'
+      .col-sm-3
+        = f.text_field :url, class: 'form-control', required: true
+
+      .col-sm-2
+        = f.label :icon, class: 'form-label'
+      .col-sm-5
+        = f.file_field :icon, class: 'form-control'
+
+  .col-1
+    - if link.icon?
+      = image_tag(link.icon.url(:default), alt: link.name)

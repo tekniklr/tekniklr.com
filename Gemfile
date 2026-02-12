@@ -9,6 +9,7 @@ gem 'haml-rails'
 gem "dartsass-rails"
 gem "sprockets-rails"
 gem 'jquery-rails'
+gem 'bootstrap'
 
 gem 'kt-paperclip'
 gem 'best_in_place'

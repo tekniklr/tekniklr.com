@@ -6,49 +6,43 @@
         - @tabletop_game.errors.full_messages.each do |msg|
           %li #{msg}
 
-  .row
-    .left
-      = f.label :image
-    .right
-      = f.file_field :image
+  .row.mb-3
+    .col-sm-3
+      = f.label :image, class: 'form-label'
+    .col-sm-9
+      = f.file_field :image, class: 'form-control'
       - if f.object.image?
         = image_tag f.object.image.url(:default), alt: f.object.name
-    .clear
 
-  .row
-    .left
-      = f.label :name
-    .right
-      = f.text_field :name, size: 48
-    .clear
+  .row.mb-3
+    .col-sm-3
+      = f.label :name, class: 'form-label'
+    .col-sm-9
+      = f.text_field :name, class: 'form-control'
 
-  .row
-    .left
-      = f.label :players
-    .right
-      = f.text_field :players, size: 48
-    .clear
+  .row.mb-3
+    .col-sm-3
+      = f.label :players, class: 'form-label'
+    .col-sm-9
+      = f.text_field :players, class: 'form-control'
 
-  .row
-    .left
-      = f.label :bgg_url, 'BoardGameGeek'
-    .right
-      = f.text_field :bgg_url, size: 48
-    .clear
+  .row.mb-3
+    .col-sm-3
+      = f.label :bgg_url, 'BoardGameGeek', class: 'form-label'
+    .col-sm-9
+      = f.text_field :bgg_url, class: 'form-control'
 
-  .row
-    .left
-      = f.label :other_info
-    .right
-      = f.text_area :other_info, rows: 5
-    .clear
+  .row.mb-3
+    .col-sm-3
+      = f.label :other_info, class: 'form-label'
+    .col-sm-9.large_textarea
+      = f.text_area :other_info, class: 'form-control'
 
-  .row
-    .left
-      = f.label :expansions
-    .right
-      = f.text_area :expansions, rows: 5
-    .clear
+  .row.mb-3
+    .col-sm-3
+      = f.label :expansions, class: 'form-label'
+    .col-sm-9.large_textarea
+      = f.text_area :expansions, class: 'form-control'
 
   .centered
-    = f.submit
+    = f.submit (f.object.new_record? ? 'Add' : 'Update')+" tabletop game", class: 'btn btn-primary'

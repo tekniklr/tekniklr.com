@@ -6,57 +6,51 @@
         - @recent_game.errors.full_messages.each do |msg|
           %li #{msg}
 
-  .row
-    .left
-      = f.label :name
-    .right
-      = f.text_field :name, size: 36
-    .clear
+  .row.mb-3
+    .col-sm-2
+      = f.label :name, class: 'form-label'
+    .col-sm-10
+      = f.text_field :name, class: 'form-control', required: true, autocomplete: 'off', data: {'1p-ignore': true}
 
-  .row
-    .left
-      = f.label :platform
-    .right
-      = f.select :platform, RecentGame::PLATFORMS, include_blank: true
-    .clear
+  .row.mb-3
+    .col-sm-2
+      = f.label :platform, class: 'form-label'
+    .col-sm-10
+      = f.select :platform, RecentGame::PLATFORMS, {}, class: 'form-select', required: true
 
-  .row
-    .left
-      = f.label :last_played, 'Played'
-    .right
-      = f.datetime_field :last_played, default: Time.now
-    .clear
+  .row.mb-3
+    .col-sm-2
+      = f.label :last_played, 'Played', class: 'form-label'
+    .col-sm-10
+      = f.datetime_field :last_played, default: Time.now, class: 'form-control', required: true
 
-  .row
-    .left
-      = f.label :release_year, 'Release year'
-    .right
-      = f.number_field :release_year, class: 'year'
-    .clear
+  .row.mb-3
+    .col-sm-2
+      = f.label :release_year, 'Release year', class: 'form-label'
+    .col-sm-10
+      = f.number_field :release_year, class: 'year', class: 'form-control'
 
-  .row
-    .left
-      = f.label :url
-    .right
-      = f.text_field :url, size: 36
-    .clear
+  .row.mb-3
+    .col-sm-2
+      = f.label :url, class: 'form-label'
+    .col-sm-10
+      = f.text_field :url, class: 'form-control'
 
-  .row
-    .left
-      = f.label :hidden, 'Hidden?'
-    .right
-      = f.check_box :hidden
-    .clear
+  .row.mb-3
+    .col-sm-2
+      = f.label :hidden, 'Hidden?', class: 'form-check-label'
+    .col-sm-10
+      .form-switch
+        = f.check_box :hidden, class: 'form-check-input', role: 'switch'
 
-  .row
-    .left
-      = f.label :image
-    .right
-      = f.file_field :image
+  .row.mb-3
+    .col-sm-2
+      = f.label :image, class: 'form-label'
+    .col-sm-10
+      = f.file_field :image, class: 'form-control'
       %br
       - if @recent_game.image?
         = image_tag @recent_game.image.url(:default), alt: @recent_game.name
-    .clear
 
   .centered
-    = f.submit submit_label
+    = f.submit submit_label, class: 'btn btn-primary'

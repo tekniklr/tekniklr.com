@@ -1,5 +1,9 @@
 @use "config";
-@use "html5bp";
 @use "layout";
 @use "scaffolds";
-@use "forms";
+
+.large_textarea {
+  textarea {
+    height: 250px;
+  }
+}

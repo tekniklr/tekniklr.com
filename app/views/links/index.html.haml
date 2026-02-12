@@ -6,8 +6,8 @@
     #links
       - @links.each do |link|
         = render 'link', link: link
-    .centered
-      = submit_tag "Update all"
+    .centered.mt-2
+      = submit_tag "Update all", class: 'btn btn-primary'
 
 - if @link
   %h1 New Link
@@ -16,5 +16,5 @@
     %div.link#link
       = fields_for @link do |create|
         = render 'form', f: create, link: @link
-    .centered
-      = submit_tag "Add"
+    .centered.mt-2
+      = submit_tag "Add", class: 'btn btn-primary'

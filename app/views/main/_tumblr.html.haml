@@ -8,7 +8,7 @@
         This post is tagged with:
         = sanitize spoiler_tags.collect{|t| "<strong>#{t}</strong>"}.join(', '), tags: %w(strong)
       %p
-        = button_tag('show post', type: 'button', 'data-id': post.id)
+        = button_tag 'show post', type: 'button', 'data-id': post.id, class: 'btn btn-secondary'
   .content{class: spoiler_tags.empty? ? '' : 'hidden'}
     - unless post.photos.empty?
       .images

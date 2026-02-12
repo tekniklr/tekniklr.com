@@ -1,33 +1,10 @@
 @use "config";
 
-.things_edit {
-  margin: 0 2em 3em 3em;
-  border-left: 1px solid config.$faint_border_color;
-}
-
 .thing_form {
-  clear: both;
-  margin: 1em 0 1em 0;
-  padding: 1em 0 1em 0;
   border-bottom: 1px dashed config.$faint_border_color;
-  .thing_image {
-    padding: 0 .5em 0 .5em;
-    display: inline-block;
-    width: 7em;
-    vertical-align: top;
-    img {
-      margin-top: .5em;
-      max-width: 100px;
-      max-height: 100px;
-    }
-  }
-  .thing_fields {
-    display: inline-block;
-    width: 35em;
-    label {
-      display: inline-block;
-      width: 6em;
-    }
+  img {
+    max-width: 100px;
+    max-height: 100px;
   }
 }
 

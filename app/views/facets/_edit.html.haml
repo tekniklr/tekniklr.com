@@ -2,6 +2,6 @@
   %div.facet#facet
     = render 'form', f: f, facet: @facet
   .centered
-    = submit_tag "Update"
+    = submit_tag "Update", class: 'btn btn-primary'
     %p
       = link_to 'Cancel', @facet, remote: true

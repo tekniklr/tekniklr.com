@@ -21,42 +21,41 @@
   %dl.favorites
     - @favorites.each do |favorite|
       %dt #{favorite.favorite_type}
-      %dd.spacey
-        %ul
-          - favorite.favorite_things.sorted.each_with_index do |thing, index|
-            %li
-              = (!thing.link.blank? ? link_to(thing.thing, thing.link, id: "opener_thing_#{thing.id}_text") : thing.thing)
+      %dd.d-flex.flex-wrap
+        - favorite.favorite_things.sorted.each_with_index do |thing, index|
+          .favorite_thing.card.m-2.p-3
+            = (!thing.link.blank? ? link_to(thing.thing, thing.link, id: "opener_thing_#{thing.id}_text") : thing.thing)
+            - if thing.image?
+              %br
+              - if thing.link.blank?
+                = image_tag(thing.image.url(:thumb), alt: thing.thing)
+              - else
+                = link_to image_tag(thing.image.url(:thumb), alt: thing.thing), thing.link, id: "opener_thing_#{thing.id}_img"
+            %dialog.fixed{id: "dialog_thing_#{thing.id}", title: thing.thing}
+              %h2 ##{index+1} favorite #{favorite.favorite_type.singularize}:
               - if thing.image?
-                %br
-                - if thing.link.blank?
-                  = image_tag(thing.image.url(:thumb), alt: thing.thing)
-                - else
-                  = link_to image_tag(thing.image.url(:thumb), alt: thing.thing), thing.link, id: "opener_thing_#{thing.id}_img"
-              %dialog.fixed{id: "dialog_thing_#{thing.id}", title: thing.thing}
-                %h2 ##{index+1} favorite #{favorite.favorite_type.singularize}:
-                - if thing.image?
-                  .centered
-                    - if thing.link.blank?
-                      = image_tag(thing.image.url(:default), alt: thing.thing)
-                    - else
-                      = link_to(image_tag(thing.image.url(:default), alt: thing.thing), thing.link)
-                = (!thing.link.blank? ? link_to(thing.thing, thing.link) : thing.thing)
-              = javascript_tag nonce: true do
-                :plain
-                  var dialog_thing_#{thing.id} = document.querySelector("#dialog_thing_#{thing.id}");
-                  dialogPolyfill.registerDialog(dialog_thing_#{thing.id});
-                  $('#opener_thing_#{thing.id}_text').click(function(e) {
-                    dialog_thing_#{thing.id}.showModal();
-                    return false;
-                  });
-                  $('#opener_thing_#{thing.id}_img').click(function(e) {
-                    dialog_thing_#{thing.id}.showModal();
-                    return false;
-                  });
-                  const updateBackdrop_thing_#{thing.id} = (ev) => {
-                    if (ev && ev.target !== dialog_thing_#{thing.id}) {
-                      return;
-                    }
-                    dialog_thing_#{thing.id}.close();
-                  };
-                  dialog_thing_#{thing.id}.addEventListener('click', updateBackdrop_thing_#{thing.id});
+                .centered
+                  - if thing.link.blank?
+                    = image_tag(thing.image.url(:default), alt: thing.thing)
+                  - else
+                    = link_to(image_tag(thing.image.url(:default), alt: thing.thing), thing.link)
+              = (!thing.link.blank? ? link_to(thing.thing, thing.link) : thing.thing)
+            = javascript_tag nonce: true do
+              :plain
+                var dialog_thing_#{thing.id} = document.querySelector("#dialog_thing_#{thing.id}");
+                dialogPolyfill.registerDialog(dialog_thing_#{thing.id});
+                $('#opener_thing_#{thing.id}_text').click(function(e) {
+                  dialog_thing_#{thing.id}.showModal();
+                  return false;
+                });
+                $('#opener_thing_#{thing.id}_img').click(function(e) {
+                  dialog_thing_#{thing.id}.showModal();
+                  return false;
+                });
+                const updateBackdrop_thing_#{thing.id} = (ev) => {
+                  if (ev && ev.target !== dialog_thing_#{thing.id}) {
+                    return;
+                  }
+                  dialog_thing_#{thing.id}.close();
+                };
+                dialog_thing_#{thing.id}.addEventListener('click', updateBackdrop_thing_#{thing.id});
