@@ -26,6 +26,13 @@ module ApplicationHelper
     end
   end
   
+  def scaffold_navigation(links: [], additional_class: '', label: 'Contextul navigation')
+    links.empty? and return
+    content_tag :ul, class: "scaffold_navigation #{additional_class}", role: 'navigation', 'aria-label': label do
+      links.collect { |link| concat(content_tag(:li, link)) }
+    end
+  end
+
   private
 
   def add_class(name, attrs)

@@ -1,10 +1,14 @@
 = stylesheet_link_tag 'tabletop_games'
 
+:ruby
+  links = [
+    link_to('admin view', manage_tabletop_games_path),
+    link_to('public view', tabletop_games_path)
+  ]
+= scaffold_navigation(links: links, additional_class: 'mb-3', label: 'Tabletop navigation')
+
 %h1 Editing TableTop game
 
 = render 'form'
 
-.centered
-  = link_to 'Show', @tabletop_game
-  |
-  = link_to 'Back', manage_tabletop_games_path
+= scaffold_navigation(links: links, additional_class: 'mt-3', label: 'Tabletop navigation')

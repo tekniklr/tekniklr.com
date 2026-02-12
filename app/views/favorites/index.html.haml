@@ -1,5 +1,9 @@
 = stylesheet_link_tag 'favorites'
 
+:ruby
+  links = [link_to('add favorite', new_favorite_path)]
+= scaffold_navigation(links: links, additional_class: 'mb-3', label: 'Favorites navigation')
+
 %h1 Current favorites
 
 %ol#sort_favorites
@@ -12,14 +16,14 @@
         - favorite.favorite_things.sorted.each do |thing|
           %li 
             = thing.link ? link_to(thing.thing, thing.link) : thing.thing
-      .list_manage
-        = link_to 'Sort', favorite
-        |
-        = link_to 'Change', edit_favorite_path(favorite)
-        |
-        = link_to('Destroy', favorite, data: { confirm: "Are you sure you want to delete your #{favorite.favorite_type} favorites?" }, method: :delete, remote: true)
+      %ul.item_navigation
+        %li
+          = link_to 'sort things', favorite
+        %li
+          = link_to 'edit things', edit_favorite_path(favorite)
+        %li
+          = link_to('destroy', favorite, data: { confirm: "Are you sure you want to delete your #{favorite.favorite_type} favorites?" }, method: :delete, remote: true)
 
-.centered
-  = link_to 'New Favorite', new_favorite_path
+= scaffold_navigation(links: links, additional_class: 'mt-3', label: 'Favorites navigation')
 
 = javascript_include_tag :favorites

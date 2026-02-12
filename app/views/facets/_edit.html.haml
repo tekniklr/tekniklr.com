@@ -3,5 +3,6 @@
     = render 'form', f: f, facet: @facet
   .centered
     = submit_tag "Update", class: 'btn btn-primary'
-    %p
-      = link_to 'Cancel', @facet, remote: true
+  %ul.item_navigation
+    %li
+      = link_to 'cancel', @facet, remote: true
