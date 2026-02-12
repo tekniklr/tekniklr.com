@@ -1,4 +1,4 @@
-@import "config.scss";
+@use "config";
 
 ol.goty_links {
   text-align: right;
@@ -34,7 +34,7 @@ ol.goty_edit , ol.goty_show {
     padding: 0;
     display: inline-block;
     img {
-      @include rounded(0px, $page_bg, 2em, 0, none);
+      @include config.rounded(0px, config.$page_bg, 2em, 0, none);
     }
   }
   .goty_info {
@@ -43,19 +43,19 @@ ol.goty_edit , ol.goty_show {
     .goty_name {
       font-weight: bold;
       width: 100%;
-      border-bottom: 1px $med_border_color solid;
+      border-bottom: 1px config.$med_border_color solid;
     }
     .goty_explanation {
       font-family: monospace, monospace;
       font-size: 85%;
       text-align: left;
       margin: 0 0 0 1em;
-      @include transparent(0.75);
+      @include config.transparent(0.75);
       textarea {
-        @media screen and (min-width: $mobile_threshhold) {
+        @media screen and (min-width: config.$mobile_threshhold) {
           width: 35em;
         }
-        @media screen and (max-width: $mobile_threshhold) {
+        @media screen and (max-width: config.$mobile_threshhold) {
           width: 20em;
         }
         height: 15em;

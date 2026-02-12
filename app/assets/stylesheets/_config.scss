@@ -1,3 +1,5 @@
+@use "sass:color";
+
 /* ******************************************************** */
 /* configuration for all stylesheets                        */
 /* ******************************************************** */
@@ -8,16 +10,16 @@ $page_bg: #292929;
 $field_bg: $page_bg;
 $content_bg: $page_bg;
 $navigation_border_color: $the_color;
-$navigation_bg: fade-out($the_color, .9);
-$faint_border_color: adjust_color($the_color, $lightness: +10);
-$med_border_color: adjust_color($the_color, $lightness: +5);
-$border_color: adjust_color($the_color, $lightness: +0);
+$navigation_bg: color.adjust($the_color, $alpha: -.9);
+$faint_border_color: color.adjust($the_color, $lightness: +10%);
+$med_border_color: color.adjust($the_color, $lightness: +5%);
+$border_color: $the_color;
 $heading_border_color: $navigation_border_color;
 $base_font_color: #a9bbc6;
 $navigation_font_color: $navigation_border_color;
 $link_color: $the_color;
-$hover_color: adjust_color($the_color, $lightness: +10);
-$visited_link_color: adjust_color($link_color, $lightness: -30);
+$hover_color: color.adjust($the_color, $lightness: +10%);
+$visited_link_color: color.adjust($link_color, $lightness: -30%);
 
 /* widths */
 $mobile_threshhold: 550px;
@@ -26,7 +28,6 @@ $head_width: 100%;
 $navigation_width: 100%;
 $navigation_item_width: 10em;
 $foot_width: 100%;
-$contact_width: $max_page_width/5;
 
 /* fonts */
 $base_font_size: 18px; // maybe override boilerplate default (13px)

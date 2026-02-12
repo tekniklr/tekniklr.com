@@ -1,7 +1,7 @@
-@import "config.scss";
+@use "config";
 
 .exp {
-  @include rounded(1px, $med_border_color, .5em, 1em, dotted);
+  @include config.rounded(1px, config.$med_border_color, .5em, 1em, dotted);
   width: 80%;
   margin: auto;
   margin-bottom: 2em;
@@ -31,7 +31,7 @@
 }
 
 .tasks {
-  border-top: 1px $med_border_color dotted;
+  border-top: 1px config.$med_border_color dotted;
   margin: 0;
   padding: .5em 2em .5em 2em;
   text-align: justify;

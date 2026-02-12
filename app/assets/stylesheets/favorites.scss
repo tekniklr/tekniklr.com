@@ -1,15 +1,15 @@
-@import "config.scss";
+@use "config";
 
 .things_edit {
   margin: 0 2em 3em 3em;
-  border-left: 1px solid $faint_border_color;
+  border-left: 1px solid config.$faint_border_color;
 }
 
 .thing_form {
   clear: both;
   margin: 1em 0 1em 0;
   padding: 1em 0 1em 0;
-  border-bottom: 1px dashed $faint_border_color;
+  border-bottom: 1px dashed config.$faint_border_color;
   .thing_image {
     padding: 0 .5em 0 .5em;
     display: inline-block;
@@ -40,5 +40,5 @@
   padding: .2em;
 }
 .item_dragging {
-  background-color: $faint_border_color;
+  background-color: config.$faint_border_color;
 }
