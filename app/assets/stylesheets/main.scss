@@ -1,25 +1,25 @@
-@import "config.scss";
+@use "config";
 
 /* 
  * can be applied to say, list items, to make progressive items more faint
  */
-.fade0 {}
-.fade10 {@include transparent(0.96);}
-.fade20 {@include transparent(0.92);}
-.fade30 {@include transparent(0.88);}
-.fade40 {@include transparent(0.84);}
-.fade50 {@include transparent(0.80);}
-.fade60 {@include transparent(0.76);}
-.fade70 {@include transparent(0.72);}
-.fade80 {@include transparent(0.68);}
-.fade90 {@include transparent(0.64);}
-.fade100 {@include transparent(0.60);}
-.fade110 {@include transparent(0.56);}
-.fade120 {@include transparent(0.52);}
-.fade130 {@include transparent(0.48);}
-.fade140 {@include transparent(0.44);}
-.fade150 {@include transparent(0.40);}
-.fade160 {@include transparent(0.36);}
+.fade0   {}
+.fade10  {@include config.transparent(0.96);}
+.fade20  {@include config.transparent(0.92);}
+.fade30  {@include config.transparent(0.88);}
+.fade40  {@include config.transparent(0.84);}
+.fade50  {@include config.transparent(0.80);}
+.fade60  {@include config.transparent(0.76);}
+.fade70  {@include config.transparent(0.72);}
+.fade80  {@include config.transparent(0.68);}
+.fade90  {@include config.transparent(0.64);}
+.fade100 {@include config.transparent(0.60);}
+.fade110 {@include config.transparent(0.56);}
+.fade120 {@include config.transparent(0.52);}
+.fade130 {@include config.transparent(0.48);}
+.fade140 {@include config.transparent(0.44);}
+.fade150 {@include config.transparent(0.40);}
+.fade160 {@include config.transparent(0.36);}
 
 /* wrap around blog post to keep it to size */
 #tumblr {
@@ -32,7 +32,7 @@
       text-align: right;
       font-size: 80%;
       margin: 0 0 1em 0;
-      @include transparent(0.9);
+      @include config.transparent(0.9);
     }
     .spoiler {
       text-align: center;
@@ -52,7 +52,7 @@
       blockquote {
         margin: 0;
         padding: .25em 0 0 .75em;
-        border-left: 1px dashed $faint_border_color;
+        border-left: 1px dashed config.$faint_border_color;
         p a.tumblr_blog { }
         blockquote { }
       }
@@ -69,13 +69,13 @@
       font-size: 80%;
       margin: 1em 0 0 0;
     }
-    @media screen and (min-width: $mobile_threshhold) {
+    @media screen and (min-width: config.$mobile_threshhold) {
       /* regular layout */
       .entry-content {
         margin: 0 5em 0 5em;
       }
     }
-    @media screen and (max-width: $mobile_threshhold) {
+    @media screen and (max-width: config.$mobile_threshhold) {
       /* mobile layout */
       .entry-content {
         margin: 0 .25em 0 .25em;
@@ -92,7 +92,7 @@
     margin-top: 2em;
   }
   article:not(:last-child) {
-    border-bottom: 1px solid $faint_border_color;
+    border-bottom: 1px solid config.$faint_border_color;
     padding-bottom: 2em;
   }
 }
@@ -108,12 +108,12 @@
   max-width: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
-  @include rounded(1px, $faint_border_color, .75em, 0em, solid);
-  @media screen and (min-width: $mobile_threshhold) {
+  @include config.rounded(1px, config.$faint_border_color, .75em, 0em, solid);
+  @media screen and (min-width: config.$mobile_threshhold) {
     /* regular layout */
     width: 80%;
   }
-  @media screen and (max-width: $mobile_threshhold) {
+  @media screen and (max-width: config.$mobile_threshhold) {
     /* mobile layout */
     width: 100%;
   }
@@ -138,7 +138,7 @@ ul#mastodon, ul#bluesky {
     display: block;
     margin: 0;
     padding: 1em 0 1em 0;
-    border-bottom: 1px $med_border_color solid;
+    border-bottom: 1px config.$med_border_color solid;
     clear: both;
     a:link, a:visited, a:active {
       text-decoration: none;
@@ -152,7 +152,7 @@ ul#mastodon, ul#bluesky {
     }
     .metadata, .reach, .time_ago {
       font-size: 75%;
-      @include transparent(0.35);
+      @include config.transparent(0.35);
     }
     .display_name {
       display: inline;
@@ -174,7 +174,7 @@ ul#mastodon, ul#bluesky {
     }
     .spoiler {
       font-weight: bold;
-      color: $link_color;
+      color: config.$link_color;
       cursor: pointer;
     }
     .toot, .skeet {
@@ -197,7 +197,7 @@ ul#mastodon, ul#bluesky {
         }
         .nested, .link_preview {
           clear: both;
-          @include rounded(1px, $faint_border_color, .75em, .5em, dashed);
+          @include config.rounded(1px, config.$faint_border_color, .75em, .5em, dashed);
         }
         .nest_fix {
           clear: both;
@@ -218,7 +218,7 @@ ul#mastodon, ul#bluesky {
             font-size: 75%;
           }
           .preview_link {
-            border-top: 1px $faint_border_color solid;
+            border-top: 1px config.$faint_border_color solid;
             font-size: 60%;
           }
         }
@@ -242,7 +242,7 @@ ul#mastodon, ul#bluesky {
 }
 ul#bluesky .user_pic {
   img {
-    @include rounded(0px, $page_bg, 2em, 0, none);
+    @include config.rounded(0px, config.$page_bg, 2em, 0, none);
   }
 }
 
@@ -266,7 +266,7 @@ ul#gaming, ul#letterboxd, ul#goodreads, ul#lastfm {
     height: 155px;
     padding: 5px 7px;
     img {
-      @include rounded(0px, transparent, .75em, 0, none);
+      @include config.rounded(0px, transparent, .75em, 0, none);
       max-height: 100px;
       width: auto;
       height: auto;
@@ -276,7 +276,7 @@ ul#gaming, ul#letterboxd, ul#goodreads, ul#lastfm {
       font-size: 80%;
     }
   }
-  @media screen and (min-width: $mobile_threshhold) {
+  @media screen and (min-width: config.$mobile_threshhold) {
     /* regular layout */
     li {
       width: 85px;
@@ -288,7 +288,7 @@ ul#gaming, ul#letterboxd, ul#goodreads, ul#lastfm {
       }
     }
   }
-  @media screen and (max-width: $mobile_threshhold) {
+  @media screen and (max-width: config.$mobile_threshhold) {
     /* mobile layout */
     li {
       width: 80px;
@@ -340,7 +340,7 @@ ul#lastfm {
       font-size: 85%;
       text-align: left;
       margin: 0 1em 0 1em;
-      @include transparent(0.6);
+      @include config.transparent(0.6);
     }
     .cheevo_time {
       font-style: italic;

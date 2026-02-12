@@ -1,6 +1,5 @@
-/*
- *= require html5bp
- *= require layout
- *= require scaffolds
- *= require forms
- */
+@use "config";
+@use "html5bp";
+@use "layout";
+@use "scaffolds";
+@use "forms";

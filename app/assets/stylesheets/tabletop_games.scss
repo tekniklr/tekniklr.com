@@ -1,4 +1,4 @@
-@import "config.scss";
+@use "config";
 
 table#manage_tabletop {
   width: 90%;
@@ -7,7 +7,7 @@ table#manage_tabletop {
   margin: 0 auto 2em auto;
   th, td {
     padding: 1em;
-    border: 1px solid $faint_border_color;
+    border: 1px solid config.$faint_border_color;
   }
   th {
     font-size: 110%;
@@ -32,7 +32,7 @@ ul#tabletop_list {
     display: block;
     margin: 3em 0 3em 0;
     padding: 0 0 1em 0;
-    border-bottom: 1px solid $faint_border_color;
+    border-bottom: 1px solid config.$faint_border_color;
     .game_basic {
       width: 45%;
       display: inline-block;

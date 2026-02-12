@@ -1,4 +1,5 @@
-@import "config.scss";
+@use "config";
+@use "sass:color";
 
 /* flash notices / errors */
 #flash, .flash, #error_explanation {
@@ -7,7 +8,7 @@
   margin: auto;
   text-align: center;
   font-family: monospace;
-  @include rounded(1px, $border_color, .5em, 1em, dotted);
+  @include config.rounded(1px, config.$border_color, .5em, 1em, dotted);
   padding-top: .5em;
   ul {
     text-align: left;
@@ -22,10 +23,10 @@
   }
 }
 .notice, #notice {
-  background-color: adjust_color($content_bg, $red: -36, $blue: -36);
+  background-color: color.adjust(config.$content_bg, $red: -36, $blue: -36);
 }
 .error, #error_explanation {
-  background-color: adjust_color($content_bg, $green: -36, $blue: -36);
+  background-color: color.adjust(config.$content_bg, $green: -36, $blue: -36);
 }
 
 /* used for static error pages */
@@ -38,7 +39,7 @@
   padding: 0;
   display: inline;
   input {
-    background-color: adjust_color($content_bg, $green: -36, $blue: -36);
+    background-color: color.adjust(config.$content_bg, $green: -36, $blue: -36);
     border: 1px solid red;
   }
 }
@@ -50,7 +51,7 @@ table.manage {
   tr {
     th, td {
       padding: .25em;
-      border: 1px dotted $border_color;
+      border: 1px dotted config.$border_color;
     }
   }
 }

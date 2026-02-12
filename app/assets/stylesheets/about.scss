@@ -1,11 +1,11 @@
-@import "config.scss";
+@use "config";
 
 .gravatar {
   float: right;
   margin: 1em 1em 1.5em 2em;
   max-width: 30%;
   img {
-    @include rounded(0px, transparent, .75em, 0, none);
+    @include config.rounded(0px, transparent, .75em, 0, none);
   }
 }
 
@@ -38,7 +38,7 @@ dl.favorites {
     padding: 0;
     text-align: center;
     li {
-      border-right: 1px solid $faint_border_color;
+      border-right: 1px solid config.$faint_border_color;
       height: 11em;
       display: inline;
       margin: 0;
@@ -52,7 +52,7 @@ dl.favorites {
       border: none;
     }
     img {
-      @include rounded(0px, transparent, .75em, 0, none);
+      @include config.rounded(0px, transparent, .75em, 0, none);
       margin-top: .5em;
       max-width: 100px;
       max-height: 100px;

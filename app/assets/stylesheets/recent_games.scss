@@ -1,4 +1,5 @@
-@import "config.scss";
+@use "config";
+@use "sass:color";
 
 ul#recent_games {
   width: 90%;
@@ -11,7 +12,7 @@ ul#recent_games {
     clear: both;
     display: block;
     margin: 3em 0 3em 0;
-    @include rounded(1px, $med_border_color, 2em, 1.5em, dashed);
+    @include config.rounded(1px, config.$med_border_color, 2em, 1.5em, dashed);
     .gaming_image {
       display: inline-block;
       width: 7em;
@@ -41,13 +42,13 @@ ul#recent_games {
       }
     }
     .gaming_achievement {
-      border-top : 1px solid $faint_border_color;
+      border-top : 1px solid config.$faint_border_color;
       padding-top: .5em;
-      @media screen and (min-width: $mobile_threshhold) {
+      @media screen and (min-width: config.$mobile_threshhold) {
         /* regular layout */
         margin: 1em 0 0 7.5em;
       }
-      @media screen and (max-width: $mobile_threshhold) {
+      @media screen and (max-width: config.$mobile_threshhold) {
         /* mobile layout */
         margin: 0;
       }
@@ -74,7 +75,7 @@ ul#recent_games {
     }
   }
   .hidden_game {
-    background-color: darken($the_color, 65%);
+    background-color: color.adjust(config.$the_color, $lightness: -65%);
     opacity: .6;
   }
 }

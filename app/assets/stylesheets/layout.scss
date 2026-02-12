@@ -1,21 +1,21 @@
-@import "config.scss";
+@use "config";
+@use "dialog-polyfill";
 
 body {
-  background-color: $page_bg;
+  background-color: config.$page_bg;
 }
 
-@import "dialog-polyfill";
 // make sure that modal dialog overlays look consistent
 dialog::backdrop, dialog + .backdrop {
-  background: image-url('colorbox-overlay.png') repeat 0 0;
+  background: url('colorbox-overlay.png') repeat 0 0;
   opacity: 0.9;
   filter: alpha(opacity = 90);
 }
 dialog {
   max-height: 100% !important;
-  background-color: $page_bg;
-  color: $base_font_color;
-  @include rounded(2px, $navigation_border_color, 1em, 1em, solid);
+  background-color: config.$page_bg;
+  color: config.$base_font_color;
+  @include config.rounded(2px, config.$navigation_border_color, 1em, 1em, solid);
   * {
     width: 300px !important;
     max-width: 100% !important;
@@ -30,17 +30,17 @@ dialog {
   }
   img {
     max-height: 80% !important;
-    @include rounded(0px, transparent, .75em, 0, none);
+    @include config.rounded(0px, transparent, .75em, 0, none);
   }
 }
 dialog.fixed {
   position: fixed;
-  @media screen and (min-width: $mobile_threshhold) {
+  @media screen and (min-width: config.$mobile_threshhold) {
     /* regular layout */
     top: 0;
     transform: translate(0, 0);
   }
-  @media screen and (max-width: $mobile_threshhold) {
+  @media screen and (max-width: config.$mobile_threshhold) {
     /* mobile layout */
     bottom: 0;
     transform: translate(0, -25%);
@@ -56,11 +56,11 @@ dialog.fixed {
   -webkit-text-size-adjust: 100%;
   /* default font size, text color, etc */
   margin: 0;
-  color: $base_font_color;
-  font-size: $base_font_size;
-  font-family: $content_font_family;
+  color: config.$base_font_color;
+  font-size: config.$base_font_size;
+  font-family: config.$content_font_family;
   line-height: 150%;
-  background-color: $page_bg;
+  background-color: config.$page_bg;
 }
 
 // used for pages with "no" layout
@@ -72,16 +72,16 @@ dialog.fixed {
   background-color: #ffffff;
   color: #000000;
   a:link, a:active, a:visited {
-    color: $link_color;
+    color: config.$link_color;
   }
   a:hover {
-    color: $hover_color;
+    color: config.$hover_color;
     text-decoration: underline;
   }
 }
 
 #container {
-  max-width: $max_page_width;
+  max-width: config.$max_page_width;
   margin: auto;
 }
 
@@ -111,9 +111,9 @@ address {
 
 // other link stuff defined in the boilerplate, but I think it's good to
 // have visited non-nav links be a different color
-a:link, a:active { color: $link_color; }
-a:visited { color: $visited_link_color; }
-a:hover { color: $hover_color; }
+a:link, a:active { color: config.$link_color; }
+a:visited { color: config.$visited_link_color; }
+a:hover { color: config.$hover_color; }
 
 // easily align things in haml
 .centered {
@@ -136,20 +136,20 @@ a:hover { color: $hover_color; }
   padding-bottom: .25em;
   line-height: 1.125em;
   #admin_navigation {
-    color: $navigation_font_color;
-    font-family: $navigation_font_family;
-    background-color: $content_bg;
+    color: config.$navigation_font_color;
+    font-family: config.$navigation_font_family;
+    background-color: config.$content_bg;
     overflow: hidden;
     margin: 0;
     padding: 0;
     max-width: 100%;
     a:link, a:active, a:visited {
       text-decoration: none;
-      color: $navigation_font_color;
+      color: config.$navigation_font_color;
     }
     a:hover {
       text-decoration: underline;
-      color: $hover_color;
+      color: config.$hover_color;
     }
     .break {
       /*
@@ -166,7 +166,7 @@ a:hover { color: $hover_color; }
       }
     }
     // navigation will switch to mobile @ given size
-    @media screen and (min-width: $mobile_threshhold) {
+    @media screen and (min-width: config.$mobile_threshhold) {
       /* regular layout */
       .mobile {
         display: none;
@@ -187,7 +187,7 @@ a:hover { color: $hover_color; }
             display: inline;
             padding: 0 1em 0 1em;
             margin: 0;
-            border-right: 1px solid $navigation_border_color;
+            border-right: 1px solid config.$navigation_border_color;
           }
           li:last-child {
             border-right: none;
@@ -195,7 +195,7 @@ a:hover { color: $hover_color; }
         }
       }
     }
-    @media screen and (max-width: $mobile_threshhold) {
+    @media screen and (max-width: config.$mobile_threshhold) {
       /* mobile layout */
       .mobile {
         display: block;
@@ -223,7 +223,7 @@ a:hover { color: $hover_color; }
 
 #pagehead {
   overflow: hidden;
-  max-width: $head_width;
+  max-width: config.$head_width;
   height: 62px;
   padding: 0 0 0 .25em;
   margin: 0;
@@ -231,7 +231,7 @@ a:hover { color: $hover_color; }
     font-size: 150%;
     margin: 20px 0 0 0;
     img {
-      @include transparent(0.8);
+      @include config.transparent(0.8);
     }
   }
 }
@@ -239,12 +239,12 @@ a:hover { color: $hover_color; }
 #navigation {
   display: block;
   margin: auto;
-  max-width: $navigation_width;
-  color: $navigation_font_color;
-  font-family: $navigation_font_family;
-  background-color: $navigation_bg;
-  border-top: 2px solid $navigation_border_color;
-  border-bottom: 2px solid $navigation_border_color;
+  max-width: config.$navigation_width;
+  color: config.$navigation_font_color;
+  font-family: config.$navigation_font_family;
+  background-color: config.$navigation_bg;
+  border-top: 2px solid config.$navigation_border_color;
+  border-bottom: 2px solid config.$navigation_border_color;
   margin: 0;
   padding: .5em;
   overflow: hidden;
@@ -262,17 +262,17 @@ a:hover { color: $hover_color; }
       margin: 0;
       float: left;
       padding: 0.75em 0em 0.75em 0em;
-      width: $navigation_item_width;
+      width: config.$navigation_item_width;
     }
   }
   a:link, a:active, a:visited {
     text-decoration: none;
     font-size: 125%;
-    color: $navigation_font_color;
+    color: config.$navigation_font_color;
   }
   a:hover {
     font-weight: bold;
-    color: $hover_color;
+    color: config.$hover_color;
   }
   .break {
     /*
@@ -280,7 +280,7 @@ a:hover { color: $hover_color; }
       this fixes it.
     */ 
     clear: both;
-    width: $navigation_width;
+    width: config.$navigation_width;
     height: 1px;
   }
   .mobile {
@@ -292,7 +292,7 @@ a:hover { color: $hover_color; }
 
 #social {
   margin: auto;
-  @media screen and (min-width: $mobile_threshhold) {
+  @media screen and (min-width: config.$mobile_threshhold) {
     /* regular layout */
     position: fixed;
     bottom: 0;
@@ -302,7 +302,7 @@ a:hover { color: $hover_color; }
       margin: 0 10px 5px 0;
     }
   }
-  @media screen and (max-width: $mobile_threshhold) {
+  @media screen and (max-width: config.$mobile_threshhold) {
     /* mobile layout */
     position: fixed;
     bottom: 0;
@@ -323,8 +323,8 @@ a:hover { color: $hover_color; }
       padding: 0;
       width: 32px;
       img {
-        @include rounded(0px, transparent, .75em, 0, none);
-        @include transparent(0.8);
+        @include config.rounded(0px, transparent, .75em, 0, none);
+        @include config.transparent(0.8);
         max-width: 32px;
         max-height: 32px;
       }
@@ -335,43 +335,43 @@ a:hover { color: $hover_color; }
 h1 {
   font-weight: bold;
   font-size: 200%;
-  font-family: $heading_font_family;
+  font-family: config.$heading_font_family;
   text-transform: lowercase;
   margin: 3em 0em 1.5em 0;
   padding: 0.25em 0 0.25em 0;
   text-align: right;
-  border-bottom: 1px solid $heading_border_color;
+  border-bottom: 1px solid config.$heading_border_color;
   clear: both;
   a:link, a:visited, a:active {
-    color: $base_font_color;
+    color: config.$base_font_color;
     text-decoration: none;
   }
   a:hover {
-    color: $hover_color;
+    color: config.$hover_color;
   }
 }
 
 h2 {
   font-weight: bold;
   font-size: 150%;
-  font-family: $heading_font_family;
+  font-family: config.$heading_font_family;
   text-transform: lowercase;
   margin: 2em 0em 1.5em 0;
   padding: 0.25em 0 0.25em 0;
   text-align: left;
-  border-bottom: 1px dashed $heading_border_color;
+  border-bottom: 1px dashed config.$heading_border_color;
   a:link, a:visited, a:active {
-    color: $base_font_color;
+    color: config.$base_font_color;
     text-decoration: none;
   }
   a:hover {
-    color: $hover_color;
+    color: config.$hover_color;
   }
 }
 
 #main {
   clear: both;
-  background-color: $content_bg;
+  background-color: config.$content_bg;
   margin: 0;
   padding: 1em;
   max-width: 100%;
@@ -392,11 +392,11 @@ h2 {
 }
 
 #pagefoot {
-  border-top: 1px solid $navigation_border_color;
+  border-top: 1px solid config.$navigation_border_color;
   clear: both;
   text-align: center;
   font-size: 75%;
-  max-width: $foot_width;
+  max-width: config.$foot_width;
   padding: 1em 0 .5em 0;
   margin-top: 3.5em;
   margin: auto;
@@ -405,15 +405,15 @@ h2 {
     text-decoration: none;
   }
   a:hover {
-    color: $hover_color;
+    color: config.$hover_color;
   }
   div {
     margin: 0;
   }
-  @media screen and (min-width: $mobile_threshhold) {
+  @media screen and (min-width: config.$mobile_threshhold) {
     /* regular layout */
   }
-  @media screen and (max-width: $mobile_threshhold) {
+  @media screen and (max-width: config.$mobile_threshhold) {
     /* mobile layout */
     margin-bottom: 35px; // make room for social media links when page is scrolled all the way down
   }
