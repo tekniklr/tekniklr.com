@@ -68,3 +68,39 @@ table.manage {
   font-size: 125%; // ≡ is small
   cursor: pointer;
 }
+
+.large_textarea {
+  textarea {
+    height: 250px;
+  }
+}
+
+ul.scaffold_navigation, ul.item_navigation {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  li {
+    display: inline-block;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin: 0;
+    line-height: 100%;
+    a:link, a:visited, a:active {
+      text-decoration: none;
+    }
+  }
+  li:not(:last-child) {
+    padding-right: 1.2em;
+  }
+  li:not(:first-child) {
+    padding-left: 1.2em;
+    border-left: 1px solid config.$med_border_color;
+  }
+}
+ul.scaffold_navigation {
+  text-align: right;
+}
+ul.item_navigation {
+  text-align: center;
+  margin: .5em 0 1em 0;
+}

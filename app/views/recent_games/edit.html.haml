@@ -1,8 +1,14 @@
 = stylesheet_link_tag 'recent_games'
 
+:ruby
+  links = [
+    link_to('remove this game', @recent_game, method: :delete, data: { confirm: "Are you sure you want to remove #{@recent_game.name}?" }),
+    link_to('view games', new_recent_game_path)
+  ]
+= scaffold_navigation(links: links, additional_class: 'mb-3', label: 'Recent game navigation')
+
 %h1 Update a recent game
 
 = render 'form', submit_label: "Update game"
 
-.right
-  = link_to 'remove this game', @recent_game, method: :delete, data: { confirm: "Are you sure you want to remove #{@recent_game.name}?" }
+= scaffold_navigation(links: links, additional_class: 'mt-3', label: 'Recent game navigation')

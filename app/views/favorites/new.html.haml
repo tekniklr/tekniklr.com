@@ -1,8 +1,11 @@
 = stylesheet_link_tag 'favorites'
 
+:ruby
+  links = [link_to('favorites list', favorites_path)]
+= scaffold_navigation(links: links, additional_class: 'mb-3', label: 'Favorites navigation')
+
 %h1 New favorite
 
 = render 'form'
 
-.centered
-  = link_to 'Show all', favorites_path
+= scaffold_navigation(links: links, additional_class: 'mt-3', label: 'Favorites navigation')

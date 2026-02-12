@@ -1,5 +1,10 @@
 = stylesheet_link_tag 'tabletop_games'
 
+- if logged_in?
+  :ruby
+    links = [link_to('admin view', manage_tabletop_games_path)]
+  = scaffold_navigation(links: links, additional_class: 'mb-3', label: 'Tabletop navigation')
+
 %h1 TableTop games
 
 %ul#tabletop_list
@@ -31,3 +36,7 @@
           - if !tabletop_game.bgg_url.blank?
             .game_bgg
               = link_to 'See on BoardGameGeek', tabletop_game.bgg_url, target: '_blank'
+
+- if logged_in?
+  :ruby
+  = scaffold_navigation(links: links, additional_class: 'mt-3', label: 'Tabletop navigation')

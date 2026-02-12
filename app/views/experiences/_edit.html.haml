@@ -3,5 +3,6 @@
     = render 'form', f: f, experience: @experience
   .centered
     = submit_tag "Update", class: 'btn btn-primary'
-    %p
-      = link_to 'Cancel', @experience, remote: true
+  %ul.item_navigation
+    %li
+      = link_to 'cancel', @experience, remote: true

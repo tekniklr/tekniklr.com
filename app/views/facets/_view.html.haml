@@ -1,6 +1,7 @@
 %h2 ##{facet.slug} => "#{facet.name}"
 = facet_value facet.value, true
-
-%p.centered
-  = link_to 'Edit', edit_facet_path(facet), remote: true
-  = link_to('Delete', facet, data: { confirm: "Are you sure you want to delete #{facet.name}?" }, method: :delete, remote: true)
+%ul.item_navigation
+  %li
+    = link_to 'edit', edit_facet_path(facet), remote: true
+  %li
+    = link_to('delete', facet, data: { confirm: "Are you sure you want to delete #{facet.name}?" }, method: :delete, remote: true)
