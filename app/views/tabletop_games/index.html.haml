@@ -10,14 +10,12 @@
 %ul#tabletop_list
   - cache [@tabletop_games] do
     - @tabletop_games.each do |tabletop_game|
-      %li.tabletop_game
-        .game_basic
+      .row.mb-3
+        .col-sm-4
           - if tabletop_game.image?
             .game_image
               = image_tag tabletop_game.image.url(:default), alt: tabletop_game.name, title: tabletop_game.name
-          - else
-            &nbsp;
-        .game_detail
+        .col-sm-8.game_detail
           .game_name
             = tabletop_game.name
           - if !tabletop_game.players.blank?
