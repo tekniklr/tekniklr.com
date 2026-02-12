@@ -1,7 +1,9 @@
 set :application, 'tekniklr.com'
 set :repo_url,  "https://github.com/tekniklr/tekniklr.com.git"
 set :linked_files, %w{config/master.key config/database.yml}
-set :linked_dirs, %w{public/images public/icons public/recent_games public/favorite_things public/tabletop_games public/remote_cache public/.well-known tmp/pids tmp/sockets tmp/cache log}
+set :linked_dirs, %w{.bundle public/images public/icons public/recent_games public/favorite_things public/tabletop_games public/remote_cache public/.well-known tmp/pids tmp/sockets tmp/cache log}
+set :bundle_version, 4
+set :bundle_jobs, 1
 set :keep_releases, 6
 set :tmp_dir, "/home/tekniklr/tmp"
 set :rvm_type, :user
