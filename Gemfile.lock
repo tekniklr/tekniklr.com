@@ -118,6 +118,8 @@ GEM
       actionpack (>= 7.0)
       railties (>= 7.0)
     bigdecimal (4.0.1)
+    bootstrap (5.3.8)
+      popper_js (>= 2.11.8, < 3)
     brakeman (8.0.2)
       racc
     buftok (0.3.0)
@@ -322,6 +324,7 @@ GEM
       oauth2 (>= 2.0.2, < 3)
       omniauth (~> 2.0)
     ostruct (0.6.3)
+    popper_js (2.11.8)
     pp (0.6.3)
       prettyprint
     prettyprint (0.2.0)
@@ -453,6 +456,7 @@ PLATFORMS
 DEPENDENCIES
   awesome_print
   best_in_place
+  bootstrap
   brakeman
   capistrano
   capistrano-bundler

@@ -6,38 +6,51 @@
         - @favorite.errors.full_messages.each do |msg|
           %li #{msg}
 
-  %p
-    = f.label :favorite_type
-    = f.text_field :favorite_type, size: 36
-    = f.hidden_field :sort
+  .row.mb-5
+    .col-sm-3
+      = f.label :favorite_type, class: 'form-label'
+    .col-sm-9
+      = f.text_field :favorite_type, class: 'form-control', required: true, autocomplete: 'off', data: {'1p-ignore': true}
+      = f.hidden_field :sort
 
-  .things_edit
-    = f.fields_for :favorite_things, @favorite.favorite_things.sorted do |ft|
-      .thing_form
-        .thing_image
-          - if ft.object.image?
-            = image_tag ft.object.image.url(:thumb), alt: ft.object.thing
+  = f.fields_for :favorite_things, @favorite.favorite_things.sorted do |ft|
+    .row.mt-2.mb-2.pt-3.pb-3.thing_form
+      .col-sm-2
+        - if ft.object.image?
+          = image_tag ft.object.image.url(:thumb), alt: ft.object.thing
 
-        .thing_fields
-          .row
-            = ft.label :thing, 'Thing name'
-            = ft.text_field :thing, size: 20
+      .col-sm-10
+        .row.mb-1
+          .col-sm-2
+            = ft.label :thing, 'Thing name', class: 'form-label'
+          .col-sm-10
+            = ft.text_field :thing, class: 'form-control'
 
-            = ft.label :sort, 'Sort order'
-            = ft.number_field :sort, class: 'sort'
+        .row.mb-1
+          .col-sm-2
+            = ft.label :sort, 'Sort order', class: 'form-label'
+          .col-sm-10
+            = ft.number_field :sort, class: 'form-control'
 
-          .row
-            = ft.label :link
-            = ft.text_field :link, size: 30
+        .row.mb-1
+          .col-sm-2
+            = ft.label :link, class: 'form-label'
+          .col-sm-10
+            = ft.text_field :link, class: 'form-control'
 
-          .row
-            = ft.label :image
-            = ft.file_field :image
+        .row.mb-1
+          .col-sm-2
+            = ft.label :image, class: 'form-label'
+          .col-sm-10
+            = ft.file_field :image, class: 'form-control'
 
-          - unless ft.object.new_record?
-            .row
-              = ft.label '_destroy', 'Remove'
-              = ft.check_box '_destroy'
+        - unless ft.object.new_record?
+          .row.mb-1
+            .col-sm-10
+            .col-sm-2
+              .form-check
+                = ft.label '_destroy', 'Remove', class: 'form-check-label'
+                = ft.check_box '_destroy', class: 'form-check-input'
           
   .centered
-    = f.submit
+    = f.submit (f.object.new_record? ? 'Add' : 'Update')+' favorite', class: 'btn btn-primary'

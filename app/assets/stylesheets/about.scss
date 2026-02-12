@@ -30,35 +30,21 @@ dl.favorites {
   dt {
     clear: both;
   }
-  dd.spacey {
-    height: 11em;
-  }
-  ul {
-    margin: 0;
-    padding: 0;
-    text-align: center;
-    li {
-      border-right: 1px solid config.$faint_border_color;
-      height: 11em;
-      display: inline;
-      margin: 0;
-      text-align: center;
-      padding: 0 .5em 0 .5em;
-      float: left;
-      width: 7em;
-      overflow: hidden;
-    }
-    li:last-child {
-      border: none;
-    }
+  dd {
     img {
       @include config.rounded(0px, transparent, .75em, 0, none);
       margin-top: .5em;
       max-width: 100px;
       max-height: 100px;
     }
-  }
-  a:link, a:visited, a:active {
-    text-decoration: none;
+    a:link, a:visited, a:active {
+      text-decoration: none;
+    }
+    .card {
+      width: 7.5em;
+      margin: .5em;
+      background-color: config.$page_bg;
+      @include config.rounded(1px, config.$faint_border_color, .75em, 0, dashed);
+    }
   }
 }

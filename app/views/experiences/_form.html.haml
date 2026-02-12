@@ -5,51 +5,44 @@
       - experience.errors.full_messages.each do |msg|
         %li #{msg}
 
-.row
-  .left
-    = f.label :title, 'Job title'
-  .right
-    = f.text_field :title, size: 48
-  .clear
+.row.mb-3
+  .col-sm-3
+    = f.label :title, 'Job title', class: 'form-label'
+  .col-sm-9
+    = f.text_field :title, class: 'form-control'
   
-.row
-  .left
-    = f.label :affiliation, 'Workplace'
-  .right
-    = f.text_field :affiliation, size: 48
-  .clear
+.row.mb-3
+  .col-sm-3
+    = f.label :affiliation, 'Workplace', class: 'form-label'
+  .col-sm-9
+    = f.text_field :affiliation, class: 'form-control'
 
-.row
-  .left
-    = f.label :affiliation_link, 'Link'
-  .right
-    = f.text_field :affiliation_link, size: 48
-  .clear
+.row.mb-3
+  .col-sm-3
+    = f.label :affiliation_link, 'Link', class: 'form-label'
+  .col-sm-9
+    = f.text_field :affiliation_link, class: 'form-control'
 
-.row
-  .left
-    = f.label :location
-  .right
-    = f.text_field :location, size: 48
-  .clear
+.row.mb-3
+  .col-sm-3
+    = f.label :location, class: 'form-label'
+  .col-sm-9
+    = f.text_field :location, class: 'form-control'
   
-.row
-  .left
-    = f.label :start_date
-  .right
-    = f.date_field :start_date
-  .clear
+.row.mb-3
+  .col-sm-3
+    = f.label :start_date, class: 'form-label'
+  .col-sm-9
+    = f.date_field :start_date, class: 'form-control'
    
-.row
-  .left
-    = f.label :end_date
-  .right
-    = f.date_field :end_date
-  .clear
+.row.mb-3
+  .col-sm-3
+    = f.label :end_date, class: 'form-label'
+  .col-sm-9
+    = f.date_field :end_date, class: 'form-control'
   
-.row
-  .left
-    = f.label :tasks
-  .right
-    = f.text_area :tasks, cols: 46, rows: 13
-  .clear
+.row.mb-3
+  .col-sm-3
+    = f.label :tasks, class: 'form-label'
+  .col-sm-9.large_textarea
+    = f.text_area :tasks, class: 'form-control'

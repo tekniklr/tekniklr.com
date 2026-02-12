@@ -5,26 +5,23 @@
       - facet.errors.full_messages.each do |msg|
         %li #{msg}
 
-.row
-  .left
-    = f.label :name
-  .right
-    = f.text_field :name, size: 48
-  .clear
+.row.mb-3
+  .col-sm-2
+    = f.label :name, class: 'form-label'
+  .col-sm-10
+    = f.text_field :name, class: 'form-control'
 
-.row
-  .left
-    = f.label :slug
-  .right
+.row.mb-3
+  .col-sm-2
+    = f.label :slug, class: 'form-label'
+  .col-sm-10
     - if facet.slug
       %strong #{facet.slug}
     - else
-      = f.text_field :slug, size: 48, maxlength: 12
-  .clear
+      = f.text_field :slug, class: 'form-control'
 
-.row
-  .left
-    = f.label :value
-  .right
-    = f.text_area :value, cols: 46, rows: 13
-  .clear
+.row.mb-3
+  .col-sm-2
+    = f.label :value, class: 'form-label'
+  .col-sm-10.large_textarea
+    = f.text_area :value, class: 'form-control'

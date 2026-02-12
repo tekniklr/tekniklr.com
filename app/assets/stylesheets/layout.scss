@@ -1,5 +1,7 @@
 @use "config";
+@use "html5bp";
 @use "dialog-polyfill";
+@import "bootstrap";
 
 body {
   background-color: config.$page_bg;
@@ -416,31 +418,5 @@ h2 {
   @media screen and (max-width: config.$mobile_threshhold) {
     /* mobile layout */
     margin-bottom: 35px; // make room for social media links when page is scrolled all the way down
-  }
-}
-
-/*
- *  row ensures that left and right are the same height
- *  clear ensures that a new row (or anything else) won't flow around
- *  a row
- */
-.row {
-  margin: 0 0 .5em 0;
-  padding: 0;
-  vertical-align: top;
-  .left {
-    width: 20%;
-    margin: 0;
-    float: left;
-    text-align: right;
-  }
-  .right {
-    width: 80%;
-    margin: 0;
-    float: right;
-    text-align: left;
-  }
-  .clear {
-    clear: both;
   }
 }
