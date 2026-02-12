@@ -49,7 +49,7 @@
           %td
             - if !tabletop_game.expansions.blank?
               - expansions = tabletop_game.expansions.split( /\r?\n/ )
-              %ul
+              %ul.expansion_list
                 - expansions.each do |expansion|
                   %li #{expansion}
           %td
