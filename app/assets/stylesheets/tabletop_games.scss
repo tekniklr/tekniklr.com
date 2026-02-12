@@ -18,34 +18,16 @@ ul.expansion_list {
   }
 }
 
-ul#tabletop_list {
-  width: 90%;
-  max-width: 100%;
-  margin: 0 auto 0 auto;
-  padding: 0;
-  list-style-type: none;
-  li.tabletop_game {
-    display: block;
-    margin: 3em 0 3em 0;
-    padding: 0 0 1em 0;
-    border-bottom: 1px solid config.$faint_border_color;
-    .game_basic {
-      width: 45%;
-      display: inline-block;
-      text-align: center;
-      .game_image {
-        margin-right: 1em;
-        img {
-          max-width: 300px;
-          min-width: 100px;
-          max-width: 100%;
-        }
+#tabletop_list {
+  .row {
+    .game_image {
+      img {
+        max-width: 300px;
+        min-width: 100px;
+        max-width: 100%;
       }
     }
     .game_detail {
-      width: 45%;
-      display: inline-block;
-      vertical-align: top;
       .game_name {
         font-weight: bold;
         font-size: 110%;
@@ -54,14 +36,23 @@ ul#tabletop_list {
         font-style: italic;
         font-size: 90%;
       }
-      .game_expansions {}
-      .game_info {}
+      .game_expansions {
+        margin-top: 1em;
+      }
+      .game_info {
+        margin-top: 1.5em;
+      }
       .game_bgg {
+        margin-top: 1.5em;
         font-size: 80%;
       }
     }
   }
-  li:last-child {
-    border: none;
+  .row:not(:first-child) {
+    padding-top: 2em;
+  }
+  .row:not(:last-child) {
+    padding-bottom: 2em;
+    border-bottom: 1px dashed config.$faint_border_color;
   }
 }
