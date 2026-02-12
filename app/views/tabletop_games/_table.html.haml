@@ -12,18 +12,23 @@
       %tr
         %th
           Image
+          - skipped_columns << col_count
           - col_count += 1
         %th
           Name
+          - sort_column = col_count
           - col_count += 1
         %th
           Players
+          - min_max_filter_columns << col_count
           - col_count += 1
         %th
           Info
+          - skipped_columns << col_count
           - col_count += 1
         %th
           Expansions
+          - skipped_columns << col_count
           - col_count += 1
         %td
           - skipped_columns << col_count
