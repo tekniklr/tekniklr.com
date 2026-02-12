@@ -33,7 +33,7 @@
                   %li #{expansion}
           - if !tabletop_game.bgg_url.blank?
             .game_bgg
-              = link_to 'See on BoardGameGeek', tabletop_game.bgg_url, target: '_blank'
+              = link_to 'See on BoardGameGeek', tabletop_game.bgg_url
 
 - if logged_in?
   :ruby
