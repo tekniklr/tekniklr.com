@@ -8,7 +8,7 @@ class GoodreadsJob < ApplicationJob
     previous_titles = []
     items.each do |item|
       Rails.logger.debug "Parsing #{item.title}..."
-      item.title.gsub(/(started reading|finished reading|currently reading|added|has read|quit reading){1} '(.+)'/, '')
+      item.title.match(/(started reading|finished reading|currently reading|added|has read|quit reading){1} '(.+)'/)
       title = $2
       (title.blank? || previous_titles.include?(title)) and next
       previous_titles << title
