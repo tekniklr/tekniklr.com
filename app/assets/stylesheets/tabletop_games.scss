@@ -1,26 +1,5 @@
 @use "config";
-
-table#manage_tabletop {
-  width: 90%;
-  border-collapse: collapse;
-  border-spacing: 0;
-  margin: 0 auto 2em auto;
-  th, td {
-    padding: 1em;
-    border: 1px solid config.$faint_border_color;
-  }
-  th {
-    font-size: 110%;
-    font-weight: bold;
-  }
-  td {
-  }
-  td.game_image {
-    img {
-      max-width: 100px;
-    }
-  }
-}
+@use "datatables";
 
 ul#tabletop_list {
   width: 90%;
