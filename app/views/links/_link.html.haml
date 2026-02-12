@@ -1,5 +1,6 @@
 %div.link[link]
   = fields_for "links[]", link do |update|
     = render 'form', f: update, link: link
-  .delete
-    = link_to('Delete', link, data: { confirm: "Are you sure you want to delete #{link.name}?" }, method: :delete)
+  %ul.item_navigation
+    %li
+      = link_to('delete', link, data: { confirm: "Are you sure you want to delete #{link.name}?" }, method: :delete)
