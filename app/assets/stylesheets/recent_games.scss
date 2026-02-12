@@ -1,30 +1,11 @@
 @use "config";
 @use "sass:color";
 
-ul#recent_games {
-  width: 90%;
-  max-width: 100%;
-  margin: 0 auto 0 auto;
-  padding: 0;
-  list-style-type: none;
-  li {
-    overflow: auto;
-    clear: both;
-    display: block;
-    margin: 3em 0 3em 0;
+#recent_games {
+  .game {
     @include config.rounded(1px, config.$med_border_color, 2em, 1.5em, dashed);
-    .gaming_image {
-      display: inline-block;
-      width: 7em;
-      margin: 0;
-      padding: 0;
-      img {
-        margin: 0;
-      }
-    }
+    .gaming_image {}
     .gaming_details {
-      display: inline-block;
-      vertical-align: top;
       .time {
         font-style: italic;
       }
@@ -43,15 +24,6 @@ ul#recent_games {
     }
     .gaming_achievement {
       border-top : 1px solid config.$faint_border_color;
-      padding-top: .5em;
-      @media screen and (min-width: config.$mobile_threshhold) {
-        /* regular layout */
-        margin: 1em 0 0 7.5em;
-      }
-      @media screen and (max-width: config.$mobile_threshhold) {
-        /* mobile layout */
-        margin: 0;
-      }
       .achievement_name {
         display: inline;
         font-weight: bold;
@@ -64,14 +36,6 @@ ul#recent_games {
       .achievement_desc {
         font-family: monospace, monospace;
       }
-    }
-    .left {
-      width: 80%;
-      float: left;
-    }
-    .right {
-      width: 20%;
-      float: right;
     }
   }
   .hidden_game {

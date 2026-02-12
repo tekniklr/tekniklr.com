@@ -19,39 +19,41 @@
 %h1 Recent game history
 
 - if @recent_games
-  %ul#recent_games
+  #recent_games
     - @recent_games.each do |game|
-      %li{class: game.hidden? ? 'hidden_game' : ''}
-        .right
-          = link_to 'edit', edit_recent_game_path(game)
-        .left
-          .gaming_image
+      .row.mb-3.game{class: game.hidden? ? 'hidden_game' : ''}
+        .row
+          .col-sm-2.gaming_image
             - if game.image?
               = image_tag game.image.url(:thumb), alt: game.name, align: 'left', hspace: 10
             - else
               = image_tag("game-controller.png", alt: 'placeholder image', width: 100, height: 100)
-          .gaming_details
-            .time
-              = game.last_played.to_fs(:precise)
-            .name
-              = game.name
-              - if game.release_year
-                .year
-                  (#{game.release_year})
-            .platform
-              = game.platform
-          - if game.achievement_name
-            .gaming_achievement
-              .achievement_name
-                = game.achievement_name
-              - if game.achievement_time
-                .achievement_time
-                  = game.achievement_time.to_fs(:precise)
-              - if game.achievement_desc
-                .achievement_desc
-                  = game.achievement_desc
-        .right
-          %p
-            = link_to 'remove', game, method: :delete, data: { confirm: "Are you sure you want to remove #{game.name}?" }
+          .col-sm-9.gaming_details
+            .row
+              .time
+                = game.last_played.to_fs(:precise)
+              .name
+                = game.name
+                - if game.release_year
+                  .year
+                    (#{game.release_year})
+              .platform
+                = game.platform
+            - if game.achievement_name
+              .row.mt-2.pt-2.gaming_achievement
+                .achievement_name
+                  = game.achievement_name
+                - if game.achievement_time
+                  .achievement_time
+                    = game.achievement_time.to_fs(:precise)
+                - if game.achievement_desc
+                  .achievement_desc
+                    = game.achievement_desc
+        .row
+          %ul.item_navigation
+            %li
+              = link_to 'edit', edit_recent_game_path(game)
+            %li
+              = link_to 'remove', game, method: :delete, data: { confirm: "Are you sure you want to remove #{game.name}?" }
 - else
   %p There haven't been any recent games added yet.
