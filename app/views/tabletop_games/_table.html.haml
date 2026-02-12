@@ -1,0 +1,87 @@
+%div{id: "#{type}_loading"}
+  Loading information for #{tabletop_games.size} games(s)...
+
+%div{id: "#{type}_loaded", class: 'hidden'}
+  - filter_threshold = 3
+  - col_count = 0
+  - skipped_columns = []
+  - sort_column = 0
+  %table.table.table-striped{id: "#{type}_tabletop", class: 'display'}
+
+    %thead
+      %tr
+        %th
+          Image
+          - col_count += 1
+        %th
+          Name
+          - col_count += 1
+        %th
+          Players
+          - col_count += 1
+        %th
+          Info
+          - col_count += 1
+        %th
+          Expansions
+          - col_count += 1
+        %td
+          - skipped_columns << col_count
+          - col_count += 1
+
+    %tbody
+      - tabletop_games.sort_by{|t| t.name}.each do |tabletop_game|
+        %tr
+          %td.game_image
+            - if tabletop_game.image?
+              = image_tag tabletop_game.image.url(:thumb), alt: tabletop_game.name, width: 100
+          %td
+            = tabletop_game.name
+          %td{'data-filter-min': tabletop_game.players_min, 'data-filter-max': tabletop_game.players_max}
+            = tabletop_game.players
+          %td
+            = simple_format tabletop_game.other_info
+          %td
+            - if !tabletop_game.expansions.blank?
+              - expansions = tabletop_game.expansions.split( /\r?\n/ )
+              %ul
+                - expansions.each do |expansion|
+                  %li #{expansion}
+          %td
+            %p
+              = link_to 'edit', edit_tabletop_game_path(tabletop_game)
+            %p
+              = link_to 'destroy', tabletop_game, method: :delete, data: { confirm: "Are you sure you want to remove #{tabletop_game.name}?" }
+
+= javascript_tag nonce: true do
+  :plain
+    $(document).ready(function() {
+      $('##{type}_tabletop').DataTable({
+        "searching": #{(tabletop_games.size > filter_threshold) ? 'true' : 'false'},
+        "stateSave": false,
+        "order": [[#{sort_column}, 'asc']],
+        "pageLength": 10,
+        "aLengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, 'All']],
+        "paginate": #{(tabletop_games.size > 5) ? 'true' : 'false'},
+        "info": true,
+        "bAutoWidth": false,
+        "columnDefs": [
+          {
+            "targets": [#{skipped_columns.join(',')}],
+            "orderable": false
+          }
+        ],
+        "language": {
+          "emptyTable":       "No tabletop games to show",
+          "info":             "Showing _START_ to _END_ of _TOTAL_ tabletop games",
+          "infoEmpty":        "Showing 0 to 0 of 0 tabletop games",
+          "infoFiltered":     "(filtered from _MAX_ total tabletop games)",
+          "infoPostFix":      "",
+          "lengthMenu":       "Show _MENU_ tabletop games",
+          "zeroRecords":      "No matching tabletop games found"
+        }
+      });
+
+      $('##{type}_loading').hide();
+      $('##{type}_loaded').show();
+    });
