@@ -1,8 +1,6 @@
-// HTML5 boilerplate
-@import "html5bp-normalize";
-@import "html5bp-main";
-
-// layout used in many places
-@import "layout";
-@import "scaffolds";
-@import "forms";
+/*
+ *= require html5bp
+ *= require layout
+ *= require scaffolds
+ *= require forms
+ */
