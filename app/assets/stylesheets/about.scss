@@ -4,6 +4,9 @@
   float: right;
   margin: 1em 1em 1.5em 2em;
   max-width: 30%;
+  img {
+    @include rounded(0px, transparent, .75em, 0, none);
+  }
 }
 
 dl.contact, dl.info, dl.favorites {
@@ -49,6 +52,7 @@ dl.favorites {
       border: none;
     }
     img {
+      @include rounded(0px, transparent, .75em, 0, none);
       margin-top: .5em;
       max-width: 100px;
       max-height: 100px;
