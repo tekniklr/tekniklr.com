@@ -1,6 +1,19 @@
 @use "config";
 @use "datatables";
 
+td.game_info {
+  position: relative;
+  .game_desc {
+    margin-bottom: 2em;
+  }
+  .game_bgg {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 80%;
+  }
+}
+
 ul.expansion_list {
   list-style-type: none;
   margin: 0;
