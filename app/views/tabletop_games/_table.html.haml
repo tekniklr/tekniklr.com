@@ -61,6 +61,7 @@
           %td.game_image
             - if tabletop_game.image?
               = image_tag tabletop_game.image.url(:thumb), alt: tabletop_game.name, width: 100
+
           %td
             = tabletop_game.name
           :ruby
@@ -69,8 +70,12 @@
             tabletop_game.players_max or filter_string += "-1,"
           %td{'data-filter': filter_string, 'data-filter-min': tabletop_game.players_min, 'data-filter-max': tabletop_game.players_max}
             = tabletop_game.players
-          %td
-            = simple_format tabletop_game.other_info
+          %td.game_info
+            .game_desc
+              = simple_format tabletop_game.other_info
+            - if !tabletop_game.bgg_url.blank?
+              .game_bgg
+                = link_to 'See on BoardGameGeek', tabletop_game.bgg_url
           %td
             - if !tabletop_game.expansions.blank?
               - expansions = tabletop_game.expansions.split( /\r?\n/ )
