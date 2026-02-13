@@ -1,16 +1,16 @@
 :ruby
   maxest_player_max = tabletop_games.collect{|t| t.players_max.to_i || -1}.max
 
-%div{id: "#{type}_loading"}
+%div{id: "tabletop_loading"}
   Loading information for #{tabletop_games.size} games(s)...
 
-%div{id: "#{type}_loaded", class: 'hidden'}
+%div{id: "tabletop_loaded", class: 'hidden'}
   - filter_threshold = 3
   - col_count = 0
   - skipped_columns = []
   - min_max_filter_columns = []
   - sort_column = 0
-  %table.table.table-striped{id: "#{type}_tabletop", class: 'display'}
+  %table.table.table-striped{id: "tabletop_table", class: 'display'}
     - if tabletop_games.size > filter_threshold
       %tfoot.header-group
         %tr
@@ -24,7 +24,7 @@
             - # info
           %th
             - # expansions
-          - if logged_in? && (type == 'admin')
+          - if logged_in?
             %td
               - # management
 
@@ -50,7 +50,7 @@
           Expansions
           - skipped_columns << col_count
           - col_count += 1
-        - if logged_in? && (type == 'admin')
+        - if logged_in?
           %td
             - skipped_columns << col_count
             - col_count += 1
@@ -61,25 +61,8 @@
           %td.game_image
             - if tabletop_game.image?
               = image_tag tabletop_game.image.url(:thumb), alt: tabletop_game.name, class: "tabletop_thumb", id: "opener_tabletop_#{tabletop_game.id}_img"
-              %dialog.fixed{id: "dialog_tabletop_#{tabletop_game.id}", title: tabletop_game.name}
-                = image_tag tabletop_game.image.url(:default), alt: tabletop_game.name
-              = javascript_tag nonce: true do
-                :plain
-                  var dialog_tabletop_#{tabletop_game.id} = document.querySelector("#dialog_tabletop_#{tabletop_game.id}");
-                  dialogPolyfill.registerDialog(dialog_tabletop_#{tabletop_game.id});
-                  $('#opener_tabletop_#{tabletop_game.id}_img').click(function(e) {
-                    dialog_tabletop_#{tabletop_game.id}.showModal();
-                    return false;
-                  });
-                  const updateBackdrop_tabletop_#{tabletop_game.id} = (ev) => {
-                    if (ev && ev.target !== dialog_tabletop_#{tabletop_game.id}) {
-                      return;
-                    }
-                    dialog_tabletop_#{tabletop_game.id}.close();
-                  };
-                  dialog_tabletop_#{tabletop_game.id}.addEventListener('click', updateBackdrop_tabletop_#{tabletop_game.id});
           %td
-            = tabletop_game.name
+            = link_to tabletop_game.name, '#', id: "opener_tabletop_#{tabletop_game.id}_name"
           :ruby
             filter_array = (tabletop_game.players_min.to_i..(tabletop_game.players_max ? tabletop_game.players_max.to_i : maxest_player_max)).to_a
             filter_string = ","+filter_array.join(',')+","
@@ -98,17 +81,59 @@
               %ul.expansion_list
                 - expansions.each do |expansion|
                   %li #{expansion}
-          - if logged_in? && (type == 'admin')
+          - if logged_in?
             %td
               %p
                 = link_to 'edit', edit_tabletop_game_path(tabletop_game)
               %p
                 = link_to 'destroy', tabletop_game, method: :delete, data: { confirm: "Are you sure you want to remove #{tabletop_game.name}?" }
+        %dialog.fixed.game_details{id: "dialog_tabletop_#{tabletop_game.id}", title: tabletop_game.name}
+          - if tabletop_game.image?
+            .game_image
+              = image_tag tabletop_game.image.url(:default), alt: tabletop_game.name
+          .game_detail
+            .game_name
+              = tabletop_game.name
+            - if !tabletop_game.players.blank?
+              .game_players
+                #{tabletop_game.players} players
+            - if !tabletop_game.other_info.blank?
+              .game_info
+                = simple_format tabletop_game.other_info
+            - if !tabletop_game.expansions.blank?
+              .game_expansions
+                %strong Expansions:
+                - expansions = tabletop_game.expansions.split( /\r?\n/ )
+                %ul
+                  - expansions.each do |expansion|
+                    %li #{expansion}
+            - if !tabletop_game.bgg_url.blank?
+              .game_bgg
+                = link_to 'See on BoardGameGeek', tabletop_game.bgg_url
+          = javascript_tag nonce: true do
+            :plain
+              var dialog_tabletop_#{tabletop_game.id} = document.querySelector("#dialog_tabletop_#{tabletop_game.id}");
+              dialogPolyfill.registerDialog(dialog_tabletop_#{tabletop_game.id});
+              $('#opener_tabletop_#{tabletop_game.id}_img').click(function(e) {
+                dialog_tabletop_#{tabletop_game.id}.showModal();
+                return false;
+              });
+              $('#opener_tabletop_#{tabletop_game.id}_name').click(function(e) {
+                dialog_tabletop_#{tabletop_game.id}.showModal();
+                return false;
+              });
+              const updateBackdrop_tabletop_#{tabletop_game.id} = (ev) => {
+                if (ev && ev.target !== dialog_tabletop_#{tabletop_game.id}) {
+                  return;
+                }
+                dialog_tabletop_#{tabletop_game.id}.close();
+              };
+              dialog_tabletop_#{tabletop_game.id}.addEventListener('click', updateBackdrop_tabletop_#{tabletop_game.id});
 
 = javascript_tag nonce: true do
   :plain
     $(document).ready(function() {
-      $('##{type}_tabletop').DataTable({
+      $('#tabletop_table').DataTable({
         "searching": #{(tabletop_games.size > filter_threshold) ? 'true' : 'false'},
         "stateSave": false,
         "order": [[#{sort_column}, 'asc']],
@@ -177,6 +202,6 @@
         }
       });
 
-      $('##{type}_loading').hide();
-      $('##{type}_loaded').show();
+      $('#tabletop_loading').hide();
+      $('#tabletop_loaded').show();
     });

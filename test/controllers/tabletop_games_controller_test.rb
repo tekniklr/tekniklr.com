@@ -9,9 +9,7 @@ class TabletopGamesControllerTest < ActionController::TestCase
   should "only allow limited access without login" do
     get :index
     assert_response :success
-
-    get :manage
-    assert_redirected_to root_url
+    assert_select "[aria-label='Tabletop navigation']", 0
     
     get :new
     assert_redirected_to root_url
@@ -33,12 +31,7 @@ class TabletopGamesControllerTest < ActionController::TestCase
     get :index, params: {}, session: {user_id: @user.id}
     assert_response :success
     assert_not_nil assigns(:tabletop_games)
-  end
-
-  should "get admin index" do
-    get :manage, params: {}, session: {user_id: @user.id}
-    assert_response :success
-    assert_not_nil assigns(:tabletop_games)
+    assert_select "[aria-label='Tabletop navigation']"
   end
 
   should "get new" do
@@ -50,7 +43,7 @@ class TabletopGamesControllerTest < ActionController::TestCase
     assert_difference('TabletopGame.count') do
       post :create, params: {tabletop_game: FactoryBot.attributes_for(:tabletop_game)}, session: {user_id: @user.id}
     end
-    assert_redirected_to manage_tabletop_games_path
+    assert_redirected_to tabletop_games_path
   end
 
   should "get edit" do
@@ -60,13 +53,13 @@ class TabletopGamesControllerTest < ActionController::TestCase
 
   should "update tabletop_game" do
     put :update, params: {id: @tabletop_game.id, tabletop_game: FactoryBot.attributes_for(:tabletop_game)}, session: {user_id: @user.id}
-    assert_redirected_to manage_tabletop_games_path
+    assert_redirected_to tabletop_games_path
   end
 
   should "destroy tabletop_game" do
     assert_difference('TabletopGame.count', -1) do
       delete :destroy, params: {id: @tabletop_game.id}, session: {user_id: @user.id}
     end
-    assert_redirected_to manage_tabletop_games_path
+    assert_redirected_to tabletop_games_path
   end
 end
