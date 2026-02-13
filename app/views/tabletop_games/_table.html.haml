@@ -60,8 +60,24 @@
         %tr
           %td.game_image
             - if tabletop_game.image?
-              = image_tag tabletop_game.image.url(:thumb), alt: tabletop_game.name, width: 100
-
+              = image_tag tabletop_game.image.url(:thumb), alt: tabletop_game.name, class: "tabletop_thumb", id: "opener_tabletop_#{tabletop_game.id}_img"
+              %dialog.fixed{id: "dialog_tabletop_#{tabletop_game.id}", title: tabletop_game.name}
+                = image_tag tabletop_game.image.url(:default), alt: tabletop_game.name
+              = javascript_tag nonce: true do
+                :plain
+                  var dialog_tabletop_#{tabletop_game.id} = document.querySelector("#dialog_tabletop_#{tabletop_game.id}");
+                  dialogPolyfill.registerDialog(dialog_tabletop_#{tabletop_game.id});
+                  $('#opener_tabletop_#{tabletop_game.id}_img').click(function(e) {
+                    dialog_tabletop_#{tabletop_game.id}.showModal();
+                    return false;
+                  });
+                  const updateBackdrop_tabletop_#{tabletop_game.id} = (ev) => {
+                    if (ev && ev.target !== dialog_tabletop_#{tabletop_game.id}) {
+                      return;
+                    }
+                    dialog_tabletop_#{tabletop_game.id}.close();
+                  };
+                  dialog_tabletop_#{tabletop_game.id}.addEventListener('click', updateBackdrop_tabletop_#{tabletop_game.id});
           %td
             = tabletop_game.name
           :ruby

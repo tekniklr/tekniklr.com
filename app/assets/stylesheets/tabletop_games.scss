@@ -1,6 +1,14 @@
 @use "config";
 @use "datatables";
 
+td.game_image {
+  .tabletop_thumb {
+    img {
+      max-width: 100%;
+    }
+  }
+}
+
 td.game_info {
   position: relative;
   .game_desc {
