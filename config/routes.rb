@@ -33,9 +33,7 @@ Rails.application.routes.draw do
     post 'sort_things',    on: :collection
   end
   
-  resources :tabletop_games, except: [:show] do
-    get 'manage',            on: :collection
-  end
+  resources :tabletop_games, except: [:show]
 
   resources :recent_games, only: [:new, :create,  :edit, :update, :destroy]
 
