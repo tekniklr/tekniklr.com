@@ -29,9 +29,10 @@
           Expansions
           - skipped_columns << col_count
           - col_count += 1
-        %td
-          - skipped_columns << col_count
-          - col_count += 1
+        - if logged_in? && (type == 'admin')
+          %td
+            - skipped_columns << col_count
+            - col_count += 1
 
     %tbody
       - tabletop_games.sort_by{|t| t.name}.each do |tabletop_game|
@@ -51,11 +52,12 @@
               %ul.expansion_list
                 - expansions.each do |expansion|
                   %li #{expansion}
-          %td
-            %p
-              = link_to 'edit', edit_tabletop_game_path(tabletop_game)
-            %p
-              = link_to 'destroy', tabletop_game, method: :delete, data: { confirm: "Are you sure you want to remove #{tabletop_game.name}?" }
+          - if logged_in? && (type == 'admin')
+            %td
+              %p
+                = link_to 'edit', edit_tabletop_game_path(tabletop_game)
+              %p
+                = link_to 'destroy', tabletop_game, method: :delete, data: { confirm: "Are you sure you want to remove #{tabletop_game.name}?" }
 
 = javascript_tag nonce: true do
   :plain
