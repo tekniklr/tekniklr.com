@@ -1,3 +1,6 @@
+:ruby
+  maxest_player_max = tabletop_games.collect{|t| t.players_max.to_i || -1}.max
+
 %div{id: "#{type}_loading"}
   Loading information for #{tabletop_games.size} games(s)...
 
@@ -5,8 +8,25 @@
   - filter_threshold = 3
   - col_count = 0
   - skipped_columns = []
+  - min_max_filter_columns = []
   - sort_column = 0
   %table.table.table-striped{id: "#{type}_tabletop", class: 'display'}
+    - if tabletop_games.size > filter_threshold
+      %tfoot.header-group
+        %tr
+          %th
+            - # image
+          %th
+            - # name
+          %th
+            - # players
+          %th
+            - # info
+          %th
+            - # expansions
+          - if logged_in? && (type == 'admin')
+            %td
+              - # management
 
     %thead
       %tr
@@ -20,6 +40,7 @@
           - col_count += 1
         %th
           Players
+          - min_max_filter_columns << col_count
           - col_count += 1
         %th
           Info
@@ -42,7 +63,11 @@
               = image_tag tabletop_game.image.url(:thumb), alt: tabletop_game.name, width: 100
           %td
             = tabletop_game.name
-          %td{'data-filter-min': tabletop_game.players_min, 'data-filter-max': tabletop_game.players_max}
+          :ruby
+            filter_array = (tabletop_game.players_min.to_i..(tabletop_game.players_max ? tabletop_game.players_max.to_i : maxest_player_max)).to_a
+            filter_string = ","+filter_array.join(',')+","
+            tabletop_game.players_max or filter_string += "-1,"
+          %td{'data-filter': filter_string, 'data-filter-min': tabletop_game.players_min, 'data-filter-max': tabletop_game.players_max}
             = tabletop_game.players
           %td
             = simple_format tabletop_game.other_info
@@ -85,6 +110,49 @@
           "infoPostFix":      "",
           "lengthMenu":       "Show _MENU_ tabletop games",
           "zeroRecords":      "No matching tabletop games found"
+        },
+        initComplete: function () { // column filters
+          this.api().columns([#{min_max_filter_columns.join(',')}]).every( function () {
+            var column = this;
+
+            var select = $('<select id="players"><option value=""></option></select>').on( 'change', function () {
+              var val = $.fn.dataTable.util.escapeRegex(
+                $(this).val()
+              );
+              column
+                .search( val ? ','+val+',' : '', true, false )
+                .draw();
+              console.log("filtering column to "+val);
+            } );
+            var label = $('<label for="players">Players </label>');
+            select.appendTo( label );
+            label.appendTo( $(column.footer()) );
+
+            // grab unique min values and add to dropdown
+            var uniqueNums = [];
+            column.nodes().each(function(td) {
+              var filterValue = $(td).data('filter-min');
+              if (filterValue && uniqueNums.indexOf(filterValue) === -1) {
+                uniqueNums.push(filterValue);
+              }
+            });
+
+            // grab unique min and max values and add range to dropdown
+            column.nodes().each(function(td) {
+              var filterValue = $(td).data('filter-max');
+              if (filterValue && uniqueNums.indexOf(filterValue) === -1) {
+                uniqueNums.push(filterValue);
+              }
+            });
+            var sorted = uniqueNums.sort(function(a, b) { return a - b; });
+            var min = sorted[0];
+            var max = sorted[sorted.length-1];
+            for (let i = min; i <= max; i++) {
+              console.log('Appending '+i);
+              select.append('<option value="' + i + '">' + i + '</option>');
+            }
+            select.append('<option value="' + -1 + '">No max</option>');
+          })
         }
       });
 
