@@ -4,7 +4,6 @@ class RecentGamesController < ApplicationController
 
   # GET /recent_games/new
   def new
-    @gotys = Goty.sorted
     @recent_games = RecentGame.sorted
     @recent_game = RecentGame.new
     respond_to do |format|
@@ -29,7 +28,6 @@ class RecentGamesController < ApplicationController
         Rails.cache.delete('gaming_expiry')
         format.html { redirect_to new_recent_game_url, notice: 'Recent game was successfully added.' }
       else
-        @gotys = Goty.sorted
         @recent_games = RecentGame.sorted
         format.html { render action: "new" }
       end

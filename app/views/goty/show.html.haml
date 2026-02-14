@@ -13,6 +13,8 @@
 
 = stylesheet_link_tag 'goty'
 
+= goty_nav(@gotys, @goty.year)
+
 %h1
   = @page_title
 
@@ -20,13 +22,13 @@
   - @goty.goty_games.sorted.first(@top_num).each do |gg|
     - gg.game.hidden? and next
     %li
-      .goty_game{title: gg.game.name}
-        .goty_image
+      .row.mb-5.goty_game{title: gg.game.name}
+        .col-sm-2.goty_image
           - if gg.game.image.present?
             = image_tag gg.game.image.url(:thumb), alt: gg.game.name
           - else
             = image_tag("game-controller.png", alt: 'placeholder image', width: 100, height: 100)
-        .goty_info
+        .col-sm-10.goty_info
           .goty_name
             = gg.game.name
           .goty_explanation
