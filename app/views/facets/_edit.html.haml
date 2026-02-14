@@ -1,6 +1,5 @@
 = form_for @facet, remote: true do |f|
-  %div.facet#facet
-    = render 'form', f: f, facet: @facet
+  = render 'form', f: f, facet: @facet
   .centered
     = submit_tag "Update", class: 'btn btn-primary'
   %ul.item_navigation

@@ -3,8 +3,9 @@
 - if @facets && @facets.size > 0
   %h1 Current facets
   #facets
-  - @facets.each do |facet|
-    = render 'show', facet: facet
+    - @facets.each do |facet|
+      .facet
+        = render 'show', facet: facet
 
 - if @facet
   %h1 New facet
