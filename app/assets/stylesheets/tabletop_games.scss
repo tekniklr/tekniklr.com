@@ -1,12 +1,19 @@
 @use "config";
 @use "datatables";
 
-td.game_image {
-  .tabletop_thumb {
+td {
+  .game_image {
+    margin-bottom: .75em;
+    text-align: center;
     img {
       max-width: 100%;
+      margin: auto;
     }
   }
+}
+
+td.player_count {
+  text-align: center;
 }
 
 td.game_info {
@@ -14,28 +21,26 @@ td.game_info {
   .game_desc {
     margin-bottom: 2em;
   }
+  .expansions {
+    margin-bottom: 2em;
+    .expansion_heading {
+      font-weight: bold;
+      border-bottom: 1px solid config.$med_border_color;
+    }
+    ul {
+      margin: 0 0 0 1em;
+      padding: 0;
+      li {
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
   .game_bgg {
     position: absolute;
     bottom: 0;
     right: 0;
     font-size: 80%;
-  }
-}
-
-ul.expansion_list {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  li {
-    margin: 0;
-    padding: 0 .5em;
-  }
-  li:not(:last-child) {
-    padding-bottom: .5em;
-  }
-  li:not(:first-child) {
-    padding-top: .5em;
-    border-top: 1px solid config.$faint_border_color;
   }
 }
 
@@ -52,6 +57,7 @@ ul.expansion_list {
     .game_name {
       font-weight: bold;
       font-size: 110%;
+      border-bottom: 1px solid config.$med_border_color;
     }
     .game_players {
       font-style: italic;
@@ -62,7 +68,15 @@ ul.expansion_list {
       margin-top: 1.5em;
     }
     .game_expansions {
-      margin-top: 1em;
+      margin-top: 1.5em;
+      ul {
+        margin: 0 0 0 1em;
+        padding: 0;
+        li {
+          margin: 0;
+          padding: 0;
+        }
+      }
     }
     .game_bgg {
       margin-top: 1.5em;
