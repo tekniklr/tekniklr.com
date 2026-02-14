@@ -32,3 +32,9 @@ $(document).ready(function() {
   /* Activating Best In Place */
   jQuery(".best_in_place").best_in_place();
 });
+
+function notify(message, type = 'notice', element = '#notification') {
+   var message_container = $('<div class="flash '+type+'"><h2>'+type+'</h2>'+message+'</div>');
+   message_container.appendTo($(element));
+   $(element).fadeIn('normal');
+}
