@@ -4,7 +4,9 @@
 @media screen and (max-width: config.$mobile_threshhold) {
   /* mobile layout */
   table#tabletop_table {
-    max-width: 98% !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 -1em 0 -1em !important;
   }
 }
 

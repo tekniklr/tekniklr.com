@@ -8,7 +8,7 @@
   - filter_threshold = 3
   - col_count = 0
   - skipped_columns = []
-  - min_max_filter_columns = []
+  - filter_columns = []
   - sort_column = 0
   %table.table.table-striped{id: "tabletop_table", class: 'display'}
     - if tabletop_games.size > filter_threshold
@@ -16,10 +16,9 @@
         %tr
           %th
             - # game image and name
-          %th
+          %th{colspan: 2}
             - # players
-          %th
-            - # info and expansions
+            - # info and expansions, but in colspan
           - if logged_in?
             %td
               - # management
@@ -32,7 +31,7 @@
           - col_count += 1
         %th
           Players
-          - min_max_filter_columns << col_count
+          - filter_columns << col_count
           - col_count += 1
         %th
           Info
@@ -148,7 +147,7 @@
           "zeroRecords":      "No matching tabletop games found"
         },
         initComplete: function () { // column filters
-          this.api().columns([#{min_max_filter_columns.join(',')}]).every( function () {
+          this.api().columns([#{filter_columns.join(',')}]).every( function () {
             var column = this;
 
             var select = $('<select id="players"><option value=""></option></select>').on( 'change', function () {
