@@ -3,6 +3,9 @@
 
 @media screen and (max-width: config.$mobile_threshhold) {
   /* mobile layout */
+  input#dt-search-0 {
+    font-size: 16px;
+  }
   table#tabletop_table {
     width: 100% !important;
     max-width: 100% !important;
