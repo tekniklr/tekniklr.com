@@ -30,7 +30,10 @@
         = time_ago_in_words(game[:published])+' ago'
       -if game[:platform]
         on
-        = game[:platform]
+        - if game[:platform] == 'PlayStation'
+          = link_to game[:platform], 'https://psnprofiles.com/tekniklr'
+        - else
+          = game[:platform]
     - if game[:achievement]
       .cheevo{title: 'last achievement'}
         .cheevo_title
