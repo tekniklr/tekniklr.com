@@ -59,9 +59,6 @@
           %td.game_info
             .game_desc
               = simple_format tabletop_game.other_info
-            - if !tabletop_game.bgg_url.blank?
-              .game_bgg
-                = link_to 'See on BoardGameGeek', tabletop_game.bgg_url
             - if !tabletop_game.expansions.blank?
               .expansions
                 - expansions = tabletop_game.expansions.split( /\r?\n/ )
@@ -70,6 +67,9 @@
                 %ul
                   - expansions.each do |expansion|
                     %li #{expansion}
+            - if !tabletop_game.bgg_url.blank?
+              .game_bgg
+                = link_to 'See on BoardGameGeek', tabletop_game.bgg_url
           - if logged_in?
             %td
               %p
