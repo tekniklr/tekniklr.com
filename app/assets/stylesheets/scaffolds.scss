@@ -4,9 +4,9 @@
 /* flash notices / errors */
 #flash, .flash, #error_explanation {
   clear: both;
-  width: 80%;
-  margin: auto;
-  text-align: center;
+  width: 95%;
+  margin: 0 auto 1em auto;
+  text-align: left;
   font-family: monospace;
   @include config.rounded(1px, config.$border_color, .5em, 1em, dotted);
   padding-top: .5em;
@@ -19,7 +19,10 @@
     border-bottom: 1px solid;
     text-decoration: none;
     padding: 0;
-    margin: 0;
+    margin: 0 0 .5em 0;
+  }
+  h2::first-letter {
+    text-transform: capitalize;
   }
 }
 .notice, #notice {
