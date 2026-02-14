@@ -3,18 +3,8 @@
 
 @media screen and (max-width: config.$mobile_threshhold) {
   /* mobile layout */
-  #main {
-    padding: 0;
-  }
-  .row {
-    --bs-gutter-x: 0 !important;
-  }
   table#tabletop_table {
-    max-width: 100% !important;
-    margin: 0;
-    td {
-      padding: .5em;
-    }
+    max-width: 98% !important;
   }
 }
 
