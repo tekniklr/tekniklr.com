@@ -1,6 +1,8 @@
 class GotyController < ApplicationController
   before_action   :is_admin?, except: :show
 
+  before_action   :set_goty_links, only: [:show, :edit]
+
   def show
     @goty = Goty.find_by_year(params[:year])
     if @goty.blank? || @goty.goty_games.empty? || (!logged_in?  && !@goty.published?)
@@ -17,7 +19,7 @@ class GotyController < ApplicationController
                 else
                   @goty.goty_games.size
                 end
-    @page_title = "tekniklr's top #{@top_num} games of #{@goty.year}"
+    @page_title = "tekniklr's top #{ActionController::Base.helpers.pluralize @top_num, 'game'} of #{@goty.year}"
     page_title @page_title
   end
 
@@ -68,6 +70,17 @@ class GotyController < ApplicationController
       head :ok
     else
       render json: goty.errors.full_messages, status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def set_goty_links
+    @gotys = []
+    Goty.find_or_create_by(year: Date.today.year)
+    Goty.sorted.each do |goty|
+      (!goty.published? && !logged_in?) and next
+      @gotys << goty
     end
   end
 

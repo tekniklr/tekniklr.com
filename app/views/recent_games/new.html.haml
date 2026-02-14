@@ -1,17 +1,6 @@
 = stylesheet_link_tag 'recent_games'
 = stylesheet_link_tag 'goty'
 
-%h1 GOTY
-
-%ol.goty_links
-  %li
-    = link_to Date.today.year, edit_goty_path
-  - unless @gotys.empty?
-    - @gotys.each do |goty|
-      - (goty.year == Date.today.year) and next
-      %li
-        = link_to goty.year, goty_path(year: goty.year)
-
 %h1 Add a recent game
 
 = render 'form', submit_label: "Add game"
