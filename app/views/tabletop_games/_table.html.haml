@@ -28,7 +28,6 @@
       %tr
         %th
           Game
-          - skipped_columns << col_count
           - sort_column = col_count
           - col_count += 1
         %th
@@ -47,7 +46,7 @@
     %tbody
       - tabletop_games.sort_by{|t| t.name}.each do |tabletop_game|
         %tr
-          %td.game_name{'data-sort': tabletop_game.name}
+          %td.game_name{'data-order': tabletop_game.name}
             - if tabletop_game.image?
               .game_image
                 = image_tag tabletop_game.image.url(:thumb), alt: tabletop_game.name, class: "tabletop_thumb", id: "opener_tabletop_#{tabletop_game.id}_img"
