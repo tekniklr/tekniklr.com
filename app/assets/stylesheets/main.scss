@@ -264,11 +264,11 @@ ul#gaming, ul#letterboxd, ul#goodreads, ul#lastfm {
     float: none;
     overflow: hidden;
     height: 155px;
-    padding: 5px 7px;
     margin: 0 7px;
     img {
       @include config.rounded(0px, transparent, .75em, 0, none);
       max-height: 100px;
+      max-width: 85px;
       width: auto;
       height: auto;
       overflow: hidden;
