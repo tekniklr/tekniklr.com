@@ -10,6 +10,8 @@
       %p
         = button_tag 'show post', type: 'button', 'data-id': post.id, class: 'btn btn-secondary'
   .content{class: spoiler_tags.empty? ? '' : 'hidden'}
+    - if post.video
+      = sanitize post.video, tags: %w(video source), attributes: %w(width height controls poster preload muted data-crt-video data-crt-options src type)
     - unless post.photos.empty?
       .images
         - post.photos.each do |photo|
