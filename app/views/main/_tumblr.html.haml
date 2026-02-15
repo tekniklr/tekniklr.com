@@ -15,7 +15,7 @@
         - post.photos.each do |photo|
           .image
             = image_tag photo
-    = sanitize post.body, tags: %w(a p blockquote img figure video source), attributes: %w(href target class src data-npf controls autoplay playsinline muted poster type)
+    = sanitize post.body, tags: %w(a p blockquote img figure video source), attributes: %w(href target src data-npf controls autoplay playsinline muted poster type)
   - unless post.tags.empty?
     .tagged
       Tagged:
