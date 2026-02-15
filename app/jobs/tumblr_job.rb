@@ -37,6 +37,12 @@ class TumblrJob < ApplicationJob
               end
             end
           end
+          video = false
+          if post['video_url']
+            if post['player'] && post['player'].any?{|p| p.width == 500}
+              video = post['player'].select{|p| p.width == 500}.first.embed_code
+            end
+          end
           reblog = false
           unless post['trail'].empty?
             (post['trail'].first.blog.name != 'tekniklr') and reblog = post['trail'].first.blog.name
@@ -46,6 +52,7 @@ class TumblrJob < ApplicationJob
             url:    post['post_url'],
             time:   Time.parse(post['date']),
             photos: photos,
+            video:  video,
             body:   post['body'] ? post['body'] : post['caption'],
             reblog: reblog,
             tags:   post['tags']
