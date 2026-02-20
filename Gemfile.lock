@@ -177,7 +177,7 @@ GEM
       multipart-post (~> 2.0)
     faraday-net_http (3.4.2)
       net-http (~> 0.5)
-    faraday-oauth1 (0.1.1)
+    faraday-oauth1 (1.0.0)
       faraday (>= 1.10, < 3)
       simple_oauth
     feedjira (4.0.1)
@@ -447,7 +447,7 @@ GEM
     websocket-extensions (0.1.5)
     xml-simple (1.1.9)
       rexml
-    zeitwerk (2.7.4)
+    zeitwerk (2.7.5)
 
 PLATFORMS
   arm64-darwin-25
