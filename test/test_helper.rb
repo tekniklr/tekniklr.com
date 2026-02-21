@@ -13,4 +13,5 @@ end
 require 'shoulda-context'
 
 class ActiveSupport::TestCase
+  include ActiveJob::TestHelper
 end
