@@ -2,7 +2,8 @@
 
 :ruby
   links = [
-    link_to('back', favorites_path)
+    link_to('remove favorite', @favorite, data: { confirm: "Are you sure you want to delete your #{@favorite.favorite_type} favorites?" }, method: :delete, remote: true),
+    link_to('view favorites', favorites_path)
   ]
 = scaffold_navigation(links: links, additional_class: 'mb-3', label: 'Favorites navigation')
 

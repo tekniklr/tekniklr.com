@@ -1,5 +1,13 @@
 = stylesheet_link_tag 'tabletop_games'
 
+:ruby
+  links = [
+    link_to('view tabletop', tabletop_games_path)
+  ]
+= scaffold_navigation(links: links, additional_class: 'mb-3', label: 'Recent game navigation')
+
 %h1 New TableTop game
 
 = render 'form'
+
+= scaffold_navigation(links: links, additional_class: 'mt-3', label: 'Recent game navigation')
