@@ -10,14 +10,6 @@ class FavoritesController < ApplicationController
     end
   end
 
-  # GET /favorites/1
-  def show
-    @favorite = Favorite.find(params[:id])
-    respond_to do |format|
-      format.html # show.html.erb
-    end
-  end
-
   # GET /favorites/new
   def new
     @favorite = Favorite.new
@@ -40,10 +32,11 @@ class FavoritesController < ApplicationController
   # POST /favorites
   def create
     @favorite = Favorite.new(favorite_params)
+    @favorite.sort = Favorite.all.size+1
     respond_to do |format|
       if @favorite.save
         Rails.cache.delete('things_fetched')
-        format.html { redirect_to @favorite, notice: 'Favorite was successfully created.' }
+        format.html { redirect_to favorites_url, notice: 'Favorite was successfully created.' }
       else
         format.html { render action: "new" }
       end
@@ -84,7 +77,7 @@ class FavoritesController < ApplicationController
     respond_to do |format|
       if @favorite.update(favorite_params)
         Rails.cache.delete('things_fetched')
-        format.html { redirect_to @favorite, notice: 'Favorite was successfully updated.' }
+        format.html { redirect_to favorites_url, notice: 'Favorite was successfully updated.' }
       else
         format.html { render action: "edit" }
       end
@@ -105,7 +98,7 @@ class FavoritesController < ApplicationController
   private
 
   def favorite_params
-    params.require(:favorite).permit(:favorite_type, :sort, favorite_things_attributes: [:id, :thing, :link, :sort, :image, :_destroy])
+    params.require(:favorite).permit(:favorite_type, favorite_things_attributes: [:id, :thing, :link, :image, :_destroy])
   end
   
 end

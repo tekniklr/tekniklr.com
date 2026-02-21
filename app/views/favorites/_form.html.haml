@@ -11,7 +11,6 @@
       = f.label :favorite_type, class: 'form-label'
     .col-sm-9
       = f.text_field :favorite_type, class: 'form-control', required: true, autocomplete: 'off', data: {'1p-ignore': true}
-      = f.hidden_field :sort
 
   = f.fields_for :favorite_things, @favorite.favorite_things.sorted do |ft|
     .row.mt-2.mb-2.pt-3.pb-3.thing_form
@@ -22,15 +21,9 @@
       .col-sm-10
         .row.mb-1
           .col-sm-2
-            = ft.label :thing, 'Thing name', class: 'form-label'
+            = ft.label :thing, 'Thing', class: 'form-label'
           .col-sm-10
             = ft.text_field :thing, class: 'form-control'
-
-        .row.mb-1
-          .col-sm-2
-            = ft.label :sort, 'Sort order', class: 'form-label'
-          .col-sm-10
-            = ft.number_field :sort, class: 'form-control'
 
         .row.mb-1
           .col-sm-2

@@ -3,19 +3,19 @@
 .thing_form {
   border-bottom: 1px dashed config.$faint_border_color;
   img {
-    max-width: 100px;
-    max-height: 100px;
+    width: 100%;
+    max-width: 100%;
+    max-height: 100%;
   }
 }
 
-#sort_favorites {
-  width: 50%;
-  margin: auto;
-}
-
-.item_drag, .item_dragging {
-  padding: .2em;
-}
-.item_dragging {
-  background-color: config.$faint_border_color;
+.drag, .nested_drag {
+  text-align: center;
+  vertical-align: middle;
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    margin: auto;
+    cursor: grabbing;
+  }
 }

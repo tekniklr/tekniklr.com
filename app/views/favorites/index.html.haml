@@ -6,23 +6,25 @@
 
 %h1 Current favorites
 
-%ol#sort_favorites
+#favorites
   - @favorites.each do |favorite|
-    %li.item_drag{id: "favorite_#{favorite.id}", 'data-id': favorite.id}
-      %span.drag
-        = image_tag 'drag-indicator.svg', alt: 'drag to reorder', width: 50, height: 50
-      %strong #{favorite.favorite_type}
-      %ol
-        - favorite.favorite_things.sorted.each do |thing|
-          %li 
-            = thing.link ? link_to(thing.thing, thing.link) : thing.thing
-      %ul.item_navigation
-        %li
-          = link_to 'sort things', favorite
-        %li
-          = link_to 'edit things', edit_favorite_path(favorite)
-        %li
-          = link_to('destroy', favorite, data: { confirm: "Are you sure you want to delete your #{favorite.favorite_type} favorites?" }, method: :delete, remote: true)
+    .sort_favorite.row.mb-5{'data-id': favorite.id}
+      .col-1.drag
+        = image_tag 'drag-indicator.svg', alt: 'drag to reorder favorites'
+      .col-10
+        %strong #{favorite.favorite_type}
+        .sort_favorite_things.ms-3.mt-2{id: "favorites_#{favorite.id}"}
+          - favorite.favorite_things.sorted.each do |thing|
+            .sort_thing.row.mb-2{'data-id': thing.id}
+              .col-1.nested_drag
+                = image_tag 'drag-indicator.svg', alt: 'drag to reorder things'
+              .col-10
+                = thing.link ? link_to(thing.thing, thing.link) : thing.thing
+        %ul.item_navigation
+          %li
+            = link_to 'edit', edit_favorite_path(favorite)
+          %li
+            = link_to('destroy', favorite, data: { confirm: "Are you sure you want to delete your #{favorite.favorite_type} favorites?" }, method: :delete, remote: true)
 
 = scaffold_navigation(links: links, additional_class: 'mt-3', label: 'Favorites navigation')
 
