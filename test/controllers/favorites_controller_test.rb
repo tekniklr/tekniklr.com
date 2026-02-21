@@ -21,9 +21,6 @@ class FavoritesControllerTest < ActionController::TestCase
     post :create, params: {favorite: FactoryBot.attributes_for(:favorite)}
     assert_redirected_to root_url
     
-    get :show, params: {id: @favorite.id}
-    assert_redirected_to root_url
-    
     get :edit, params: {id: @favorite.id}
     assert_redirected_to root_url
 
@@ -55,12 +52,7 @@ class FavoritesControllerTest < ActionController::TestCase
     assert_difference('Favorite.count') do
       post :create, params: {favorite: FactoryBot.attributes_for(:favorite)}, session: {user_id: @user.id}
     end
-    assert_redirected_to favorite_path(assigns(:favorite))
-  end
-
-  should "show favorite" do
-    get :show, params: {id: @favorite.id}, session: {user_id: @user.id}
-    assert_response :success
+    assert_redirected_to favorites_path
   end
 
   should "get edit" do
@@ -80,7 +72,7 @@ class FavoritesControllerTest < ActionController::TestCase
 
   should "update favorite" do
     put :update, params: {id: @favorite.id, favorite: FactoryBot.attributes_for(:favorite)}, session: {user_id: @user.id}
-    assert_redirected_to favorite_path(assigns(:favorite))
+    assert_redirected_to favorites_path
   end
 
   should "destroy favorite" do

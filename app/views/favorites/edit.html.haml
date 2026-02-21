@@ -2,8 +2,7 @@
 
 :ruby
   links = [
-    link_to('sort things', @favorite),
-    link_to('favorites list', favorites_path)
+    link_to('back', favorites_path)
   ]
 = scaffold_navigation(links: links, additional_class: 'mb-3', label: 'Favorites navigation')
 
