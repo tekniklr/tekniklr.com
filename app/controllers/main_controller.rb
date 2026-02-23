@@ -30,18 +30,18 @@ class MainController < ApplicationController
       GamingJob.perform_later
     end
 
-    @letterboxd_expiry   = Rails.cache.read('letterboxd_expiry')
-    @letterboxd          = Rails.cache.read('letterboxd')
-    if @letterboxd_expiry.nil? || Time.now > @letterboxd_expiry
-      @letterboxd_expiry = Rails.cache.write('letterboxd_expiry', (Time.now + 2.hours))
-      LetterboxdJob.perform_later
-    end
-
     @goodreads_expiry   = Rails.cache.read('goodreads_expiry')
     @goodreads          = Rails.cache.read('goodreads')
     if @goodreads_expiry.nil? || Time.now > @goodreads_expiry
       @goodreads_expiry = Rails.cache.write('goodreads_expiry', (Time.now + 2.hours))
       GoodreadsJob.perform_later
+    end
+
+    @letterboxd_expiry   = Rails.cache.read('letterboxd_expiry')
+    @letterboxd          = Rails.cache.read('letterboxd')
+    if @letterboxd_expiry.nil? || Time.now > @letterboxd_expiry
+      @letterboxd_expiry = Rails.cache.write('letterboxd_expiry', (Time.now + 2.hours))
+      LetterboxdJob.perform_later
     end
 
     @lastfm_expiry   = Rails.cache.read('lastfm_expiry')

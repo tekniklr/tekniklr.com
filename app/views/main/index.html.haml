@@ -44,17 +44,6 @@
         = render 'gaming', game: game, fade: fade_level(games.size, fade_games)
         - fade_games += 1
 
-- if !@letterboxd.blank? && @letterboxd.size > 1
-  - fade_movies = 0
-  - movies = @letterboxd.first(9)
-  .movies_block
-    %h1
-      = link_to 'movies', 'https://letterboxd.com/tekniklr/'
-    %ul#letterboxd
-      - movies.each do |movie|
-        = render 'letterboxd', movie: movie, fade: fade_level(movies.size, fade_movies)
-        - fade_movies += 1
-
 - if !@goodreads.blank? && @goodreads.size > 1
   - fade_books = 0
   - books = @goodreads.first(9)
@@ -65,6 +54,17 @@
       - books.each do |book|
         = render 'goodreads', book: book, fade: fade_level(books.size, fade_books)
         - fade_books += 1
+
+- if !@letterboxd.blank? && @letterboxd.size > 1
+  - fade_movies = 0
+  - movies = @letterboxd.first(9)
+  .movies_block
+    %h1
+      = link_to 'movies', 'https://letterboxd.com/tekniklr/'
+    %ul#letterboxd
+      - movies.each do |movie|
+        = render 'letterboxd', movie: movie, fade: fade_level(movies.size, fade_movies)
+        - fade_movies += 1
 
 - if !@lastfm.blank? && @lastfm.size > 1
   - fade_songs = 0
