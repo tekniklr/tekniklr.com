@@ -8,14 +8,14 @@
 
 #favorites
   - @favorites.each do |favorite|
-    .sort_favorite.row.mb-5{'data-id': favorite.id}
+    .sort_favorite.row.g-0.mb-5{'data-id': favorite.id}
       .col-1.drag
         = image_tag 'drag-indicator.svg', alt: 'drag to reorder favorites'
       .col-10
         %strong #{favorite.favorite_type}
         .sort_favorite_things.ms-3.mt-2{id: "favorites_#{favorite.id}"}
           - favorite.favorite_things.sorted.each do |thing|
-            .sort_thing.row.mb-2{'data-id': thing.id}
+            .sort_thing.row.g-0.mb-2{'data-id': thing.id}
               .col-1.nested_drag
                 = image_tag 'drag-indicator.svg', alt: 'drag to reorder things'
               .col-10
