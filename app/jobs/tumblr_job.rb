@@ -47,13 +47,26 @@ class TumblrJob < ApplicationJob
           unless post['trail'].empty?
             (post['trail'].first.blog.name != 'tekniklr') and reblog = post['trail'].first.blog.name
           end
+          body = ''
+          if post['body']
+            body += post['body']
+          end
+          if post['caption']
+            body += post['caption']
+          end
+          if post['question']
+            body += post['question']
+          end
+          if post['answer']
+            body += post['answer']
+          end
           parsed_post = {
             id:     post['id'],
             url:    post['post_url'],
             time:   Time.parse(post['date']),
             photos: photos,
             video:  video,
-            body:   post['body'] ? post['body'] : post['caption'],
+            body:   body,
             reblog: reblog,
             tags:   post['tags']
           }
