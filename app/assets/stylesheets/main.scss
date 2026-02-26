@@ -138,7 +138,6 @@ ul#mastodon, ul#bluesky {
     display: block;
     margin: 0;
     padding: 1em 0 1em 0;
-    border-bottom: 1px config.$med_border_color solid;
     clear: both;
     a:link, a:visited, a:active {
       text-decoration: none;
@@ -238,6 +237,9 @@ ul#mastodon, ul#bluesky {
       clear: both;
       text-align: right;
     }
+  }
+  li:not(:last-child) {
+    border-bottom: 1px config.$med_border_color solid;
   }
 }
 ul#bluesky .user_pic {
