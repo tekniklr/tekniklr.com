@@ -9,6 +9,7 @@ $the_color: #80Bdf9;
 $page_bg: #292929;
 $field_bg: $page_bg;
 $content_bg: $page_bg;
+$overlay_bg: color.adjust($page_bg, $lightness: -10%);
 $navigation_border_color: $the_color;
 $navigation_bg: color.adjust($the_color, $alpha: -.9);
 $faint_border_color: color.adjust($the_color, $alpha: -.6);

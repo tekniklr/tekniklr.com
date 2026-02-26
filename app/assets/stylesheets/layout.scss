@@ -9,7 +9,7 @@ body {
 
 // make sure that modal dialog overlays look consistent
 dialog::backdrop, dialog + .backdrop {
-  background: url('colorbox-overlay.png') repeat 0 0;
+  background-color: config.$overlay_bg;
   opacity: 0.9;
   filter: alpha(opacity = 90);
 }
