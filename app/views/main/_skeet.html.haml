@@ -94,6 +94,7 @@
             - nested_text         = nested_record.value.text
             - nested_previews     = nested_record.has_key?('embeds') && !nested_record.embeds.empty? && nested_record.embeds.first.has_key?('external')
             - nested_images       = nested_record.has_key?('embeds')  && !nested_record.embeds.empty? && nested_record.embeds.first.has_key?('images')
+            - nested_video        = nested_record.has_key?('embeds') && nested_record.embeds.first.has_key?('playlist')
             - nested_facets       = nested_record.value.has_key?('facets')
             .user_pic
               - if !nested_user_avatar.blank?
@@ -132,6 +133,10 @@
                   - images.each do |image|
                     %p
                       = image_tag(image.thumb, alt: image.alt, title: image.alt)
+              - if nested_video
+                .skeet_images
+                  %p
+                    = link_to image_tag(nested_record.embeds.first.thumbnail, alt: 'video preview'), skeet_link
           .nest_fix
 
     .reach
