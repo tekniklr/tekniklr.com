@@ -4,7 +4,7 @@
 - unless @tumblr.blank?
   %h1
     = link_to 'tumblr', "https://tekniklr.tumblr.com"
-  #tumblr
+  #tumblr.external_links
     - @tumblr.each do |post|
       - begin
         = render 'tumblr', post: post
@@ -15,7 +15,7 @@
   %h1
     = link_to 'Skeets', "https://bsky.app/profile/tekniklr.bsky.social"
   .skeet_block{class: 'show_scroll'}
-    %ul#bluesky
+    %ul#bluesky.external_links
       - @skeets.each_with_index do |skeet, index|
         - begin
           = render 'skeet', skeet: skeet, index: index
@@ -26,7 +26,7 @@
   %h1
     = link_to 'Toots', "#{Rails.application.credentials.mastodon[MASTODON][:url]}/@tekniklr"
   .toot_block{class: 'show_scroll'}
-    %ul#mastodon
+    %ul#mastodon.external_links
       - @toots.each do |toot|
         - begin
           = render 'toot', toot: toot

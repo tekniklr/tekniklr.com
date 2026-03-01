@@ -31,6 +31,10 @@ function scrollDown(){
 $(document).ready(function() {
   /* Activating Best In Place */
   jQuery(".best_in_place").best_in_place();
+
+  /* for certain CSS elements, open all links in new tabs */
+  $('dialog a').attr('target', '_blank');
+  $('.external_links a').attr('target', '_blank');
 });
 
 function notify(message, type = 'notice', element = '#notification') {
