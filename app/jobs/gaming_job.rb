@@ -225,11 +225,11 @@ class GamingJob < ApplicationJob
     clear_local_copies('psn')
   end
 
-  # using the OpenXBL API at https://xbl.io/
+  # using the OpenXBL API at https://api.xbl.io/
   def get_xbox
     Rails.logger.debug "Fetching Xbox activity via OpenXBL API.."
-    games = make_request('https://xbl.io/api/v2/player/titleHistory', type: 'GET', headers: { 'x-authorization': Rails.application.credentials.xbox['api_key'] })
-    games.titles.select{|g| g.type == 'Game' }.first(9).each do |game|
+    games = make_request('https://api.xbl.io/v2/titles', type: 'GET', headers: { 'x-authorization': Rails.application.credentials.xbox['api_key'] })
+    games.content.titles.select{|g| g.type == 'Game' }.first(9).each do |game|
       title = game.name.gsub(/ - Windows Edition/, '')
       time = Time.new(game.titleHistory.lastTimePlayed)
 
@@ -251,12 +251,12 @@ class GamingJob < ApplicationJob
         newest_achievement_time = false
 
         if game.devices.include?('Xbox360')
-          achievements = make_request("https://xbl.io/api/v2/achievements/x360/#{Rails.application.credentials.xbox['id']}/title/#{game.titleId}", type: 'GET', headers: { 'x-authorization': Rails.application.credentials.xbox['api_key'] })
-          newest_achievement = achievements.achievements.select{|a| a.unlocked }.sort_by{|a| a.timeUnlocked}.last
+          achievements = make_request("https://api.xbl.io/v2/achievements/x360/#{Rails.application.credentials.xbox['id']}/title/#{game.titleId}", type: 'GET', headers: { 'x-authorization': Rails.application.credentials.xbox['api_key'] })
+          newest_achievement = achievements.content.achievements.select{|a| a.unlocked }.sort_by{|a| a.timeUnlocked}.last
           newest_achievement_time = newest_achievement ? Time.new(newest_achievement.timeUnlocked) : false
         else
-          achievements = make_request("https://xbl.io/api/v2/achievements/player/#{Rails.application.credentials.xbox['id']}/#{game.titleId}", type: 'GET', headers: { 'x-authorization': Rails.application.credentials.xbox['api_key'] })
-          newest_achievement = achievements.achievements.select{|a| a.progressState == 'Achieved'}.sort_by{|a| a.progression.timeUnlocked}.last
+          achievements = make_request("https://api.xbl.io/v2/achievements/player/#{Rails.application.credentials.xbox['id']}/#{game.titleId}", type: 'GET', headers: { 'x-authorization': Rails.application.credentials.xbox['api_key'] })
+          newest_achievement = achievements.content.achievements.select{|a| a.progressState == 'Achieved'}.sort_by{|a| a.progression.timeUnlocked}.last
           newest_achievement_time = newest_achievement ? Time.new(newest_achievement.progression.timeUnlocked) : false
         end
 
