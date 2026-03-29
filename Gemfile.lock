@@ -117,7 +117,7 @@ GEM
     best_in_place (4.0.0)
       actionpack (>= 7.0)
       railties (>= 7.0)
-    bigdecimal (4.0.1)
+    bigdecimal (4.1.0)
     bootstrap (5.3.8)
       popper_js (>= 2.11.8, < 3)
     brakeman (8.0.4)
