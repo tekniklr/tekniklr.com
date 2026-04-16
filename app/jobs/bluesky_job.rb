@@ -1,50 +1,48 @@
 class BlueskyJob < ApplicationJob
   
-  # inspired by and adapted from https://t27duck.com/posts/17-a-bluesky-at-proto-api-example-in-ruby
-
   def perform
+    defer_retry('fetch_bsky', 3) { get_bsky }
+  end
+
+  private
+
+  # inspired by and adapted from https://t27duck.com/posts/17-a-bluesky-at-proto-api-example-in-ruby
+  def get_bsky
     Rails.logger.debug "Fetching BlueSky via API..."
     @base_url = 'https://bsky.social/xrpc'
     @token_cache = 'bluesky_token_cache'
     skeets = []
-    begin
-      # authenticate
-      token_data = Rails.cache.read(@token_cache)
-      process_tokens(token_data) if token_data.present?
+    # authenticate
+    token_data = Rails.cache.read(@token_cache)
+    process_tokens(token_data) if token_data.present?
 
-      # fetch all skeets
-      verify_tokens
-      posts = make_request("#{@base_url}/app.bsky.feed.getAuthorFeed", type: 'GET', auth_token: @token, params: { actor: @user_did, limit: 100 })
+    # fetch all skeets
+    verify_tokens
+    posts = make_request("#{@base_url}/app.bsky.feed.getAuthorFeed", type: 'GET', auth_token: @token, params: { actor: @user_did, limit: 100 })
 
-      # iterate through all retrieved posts, adding onew beneath the delete 
-      # limit to cache for later display, and deleting ones above the limit
-      newest_skeet = nil
-      posts.feed.each do |post|
-        post_is_reskeet = (post.post.viewer.has_key?('repost'))
-        posted_at = post_is_reskeet ? Time.new(post.reason.indexedAt) : Time.new(post.post.record.createdAt)
-        newest_skeet ||= posted_at # this will just be set to the first item (newest's) post date
-        if posted_at < Time.now-POST_HISTORY
-          # is old - delete
-          uri = post_is_reskeet ? post.post.viewer.repost : post.post.uri
-          Rails.logger.debug "\tRemoving old #{post_is_reskeet ? 'reskeet' : 'skeet'} at URI #{uri}..."
-          did, nsid, record_key = uri.delete_prefix("at://").split("/")
-          verify_tokens
-          make_request("#{@base_url}/com.atproto.repo.deleteRecord", auth_token: @token, body: { repo: did, collection: nsid, rkey: record_key })
-        elsif newest_skeet >= Time.now-1.week # only store skeets if I've been active over there recently
-          # is less old - keep
-          skeets << post
-        end
+    # iterate through all retrieved posts, adding onew beneath the delete 
+    # limit to cache for later display, and deleting ones above the limit
+    newest_skeet = nil
+    posts.feed.each do |post|
+      post_is_reskeet = (post.post.viewer.has_key?('repost'))
+      posted_at = post_is_reskeet ? Time.new(post.reason.indexedAt) : Time.new(post.post.record.createdAt)
+      newest_skeet ||= posted_at # this will just be set to the first item (newest's) post date
+      if posted_at < Time.now-POST_HISTORY
+        # is old - delete
+        uri = post_is_reskeet ? post.post.viewer.repost : post.post.uri
+        Rails.logger.debug "\tRemoving old #{post_is_reskeet ? 'reskeet' : 'skeet'} at URI #{uri}..."
+        did, nsid, record_key = uri.delete_prefix("at://").split("/")
+        verify_tokens
+        make_request("#{@base_url}/com.atproto.repo.deleteRecord", auth_token: @token, body: { repo: did, collection: nsid, rkey: record_key })
+      elsif newest_skeet >= Time.now-1.week # only store skeets if I've been active over there recently
+        # is less old - keep
+        skeets << post
       end
-    rescue => exception
-      ErrorMailer.background_error('caching skeets', exception).deliver_now
-      skeets = []
     end
     unless skeets.blank?
       Rails.cache.write('skeets', skeets.first(40))
     end
   end
-
-  private
 
   # Generate tokens given an account identifier and app password.
   def generate_tokens
