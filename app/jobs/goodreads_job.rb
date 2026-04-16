@@ -1,7 +1,7 @@
 class GoodreadsJob < ApplicationJob
   
   def perform
-    defer_retry('fetch_goodreads', 12) { get_goodreads }
+    defer_retry('failed_fetching_goodreads', 12) { get_goodreads }
   end
 
   private
