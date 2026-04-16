@@ -1,40 +1,13 @@
 @use "config";
 
-ul#cached_items {
-  width: 80%;
-  max-width: 100%;
-  margin: auto;
-  padding: 0;
-  list-style-type: none;
-  li {
-    display: list-item;
-    margin: 0;
-    padding: 1em 0 1em 0;
-    clear: both;
-    .cache_name {
-      display: inline-block;
-      width: 10em;
-      font-weight: bold;
-    }
-    .cache_time {
-      display: inline;
-      font-style: italic;
-      font-size: 80%;
-    }
+#cached_items {
+  .cache_name {
+    font-weight: bold;
   }
-  ul.subcache {
-    list-style-type: circle;
-    padding: 0;
-    margin: .25em 0 0 2em;
-    li {
-      margin: 0;
-      padding: .25em 0 .25em 0;
-      .cache_name, .cache_time {
-        font-size: 80%;
-      }
-      .cache_name {
-        width: 10em;
-      }
-    }
+  .cache_time {
+    font-style: italic;
+  }
+  .subcache {
+    font-size: 80%;
   }
 }
