@@ -2,7 +2,7 @@
 
 %h1 Cached items
 
-%ul#cached_items
+#cached_items
   - CACHED_ITEMS.each do |cache_item|
     :ruby
       cache_name = cache_item.first
@@ -11,18 +11,17 @@
       if cache_item[2]
         cache_subkeys = cache_item[2]
       end
-    %li
-      .cache_name
+    .row.mb-5
+      .col-lg-3.cache_name
         = link_to cache_name, cache_path(id: cache_key), method: :put
-      .cache_time
+      .col-lg-4.cache_time
         - time = Rails.cache.read(cache_key)
         expires: #{time ? time.localtime.to_fs(:precise) : 'expired!'}
       - unless cache_subkeys.empty?
-        %ul.subcache
-          - cache_subkeys.each do |subcache|
-            %li
-              .cache_name
-                = subcache
-              .cache_time
-                - time = Rails.cache.read(subcache)
-                expires: #{time ? time.localtime.to_fs(:precise) : 'expired!'}
+        - cache_subkeys.each do |subcache|
+          .row.ms-3.mb-1
+            .col-lg-3.cache_name
+              = subcache
+            .col-lg-4.cache_time
+              - time = Rails.cache.read(subcache)
+              = time ? "expires #{time.localtime.to_fs(:precise)}" : 'not set'
