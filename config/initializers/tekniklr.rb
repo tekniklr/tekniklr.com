@@ -8,7 +8,7 @@ TUMBLR_HISTORY = 18.months
 CACHED_ITEMS = [
                   ['tumblr', 'tumblr_expiry'],
                   ['skeets', 'skeet_expiry', ['fetch_bsky']],
-                  ['toots', 'toot_expiry'],
+                  ['toots', 'toot_expiry', ['fetch_mastodon']],
                   ['gaming', 'gaming_expiry', ['fetch_nintendo', 'fetch_psn', 'fetch_steam', 'fetch_xbox']],
                   ['letterboxd', 'letterboxd_expiry', ['fetch_letterboxd']],
                   ['goodreads', 'goodreads_expiry', ['fetch_goodreads']],
