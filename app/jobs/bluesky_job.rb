@@ -1,7 +1,7 @@
 class BlueskyJob < ApplicationJob
   
   def perform
-    defer_retry('fetch_bsky', 3) { get_bsky }
+    defer_retry('failed_fetching_bsky', 3) { get_bsky }
   end
 
   private

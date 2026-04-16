@@ -1,7 +1,7 @@
 class LastfmJob < ApplicationJob
   
   def perform
-    defer_retry('fetch_lastfm', 3) { get_lastfm }
+    defer_retry('failed_fetching_lastfm', 3) { get_lastfm }
   end
 
   private
