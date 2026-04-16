@@ -1,18 +1,19 @@
 class LastfmJob < ApplicationJob
   
   def perform
+    defer_retry('fetch_lastfm', 3) { get_lastfm }
+  end
+
+  private
+
+  def get_lastfm
     Rails.logger.debug "Fetching last.fm scrobbles via API..."
     parsed_items = []
     keep_images = []
-    begin
-      require 'lastfm'
-      lastfm = Lastfm.new(Rails.application.credentials.lastfm[:api_key], Rails.application.credentials.lastfm[:api_secret])
-      recent_tracks = lastfm.user.get_recent_tracks(user: 'tekniklr')
-      items = recent_tracks ? recent_tracks.uniq{|i| i.name || 'unnamed'}[0..15] : []
-    rescue => exception
-      ErrorMailer.background_error('caching Last.fm activity', exception).deliver_now
-      items = []
-    end
+    require 'lastfm'
+    lastfm = Lastfm.new(Rails.application.credentials.lastfm[:api_key], Rails.application.credentials.lastfm[:api_secret])
+    recent_tracks = lastfm.user.get_recent_tracks(user: 'tekniklr')
+    items = recent_tracks ? recent_tracks.uniq{|i| i.name || 'unnamed'}[0..15] : []
     items.each do |item|
       title = item.has_key?('name') ? item.name : 'unnamed'
       artist = item.artist.key?('content') ? item.artist.content : ''
