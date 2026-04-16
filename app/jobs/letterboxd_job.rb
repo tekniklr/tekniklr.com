@@ -1,6 +1,12 @@
 class LetterboxdJob < ApplicationJob
   
   def perform
+    defer_retry('fetch_letterboxd', 12) { get_letterboxd }
+  end
+
+  private
+
+  def get_letterboxd
     Rails.logger.debug "Fetching LetterBoxd checkins from RSS..."
     parsed_items = []
     items = get_xml('https://letterboxd.com/tekniklr/rss/', 'letterboxd_expiry')
