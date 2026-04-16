@@ -12,5 +12,5 @@ CACHED_ITEMS = [
                   ['gaming', 'gaming_expiry', ['fetch_nintendo', 'fetch_psn', 'fetch_steam', 'fetch_xbox']],
                   ['letterboxd', 'letterboxd_expiry'],
                   ['goodreads', 'goodreads_expiry', ['fetch_goodreads']],
-                  ['lastfm', 'lastfm_expiry']
+                  ['lastfm', 'lastfm_expiry', ['fetch_lastfm']]
                 ]
