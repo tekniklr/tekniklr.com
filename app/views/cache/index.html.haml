@@ -24,4 +24,4 @@
               = subcache
             .col-lg-4.cache_time
               - time = Rails.cache.read(subcache)
-              = (time && time > Time.now) ? "expires #{time.localtime.to_fs(:precise)}" : 'not set'
+              = (time && time > Time.now) ? "expires #{time.localtime.to_fs(:precise)}" : 'n/a'
