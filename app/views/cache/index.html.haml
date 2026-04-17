@@ -16,7 +16,7 @@
         = link_to cache_name, cache_path(id: cache_key), method: :put
       .col-lg-4.cache_time
         - time = Rails.cache.read(cache_key)
-        expires: #{time ? time.localtime.to_fs(:precise) : 'expired!'}
+        expires: #{(time && time > Time.now) ? time.localtime.to_fs(:precise) : 'expired!'}
       - unless cache_subkeys.empty?
         - cache_subkeys.each do |subcache|
           .row.ms-3.mb-1
@@ -24,4 +24,4 @@
               = subcache
             .col-lg-4.cache_time
               - time = Rails.cache.read(subcache)
-              = time ? "expires #{time.localtime.to_fs(:precise)}" : 'not set'
+              = (time && time > Time.now) ? "expires #{time.localtime.to_fs(:precise)}" : 'not set'
