@@ -6,7 +6,7 @@ class ApplicationJob < ActiveJob::Base
   # should defer the next retry until a later time than normal
   def defer_retry(job_name, defer_hours, &method)
     raise "No method provided" if method.nil?
-    cache_key = 'failed_'+job_name
+    cache_key = 'failed_' + job_name.downcase.gsub(/\s+/, '_').gsub(/[^_A-Za-z0-9]/, '')
     next_check = Rails.cache.read(cache_key)
     if next_check.blank? || (Time.now >= next_check)
       Rails.logger.debug "No previous error on #{job_name} task, or past retry limit..."
