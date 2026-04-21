@@ -1,7 +1,7 @@
 class LetterboxdJob < ApplicationJob
   
   def perform
-    defer_retry('failed_fetching_letterboxd', 12) { get_letterboxd }
+    defer_retry('letterboxd', 12) { get_letterboxd }
   end
 
   private

@@ -1,7 +1,7 @@
 class MastodonJob < ApplicationJob
   
   def perform
-    defer_retry('failed_fetching_mastodon', 3) { get_mastodon }
+    defer_retry('mastodon', 3) { get_mastodon }
   end
 
   private
