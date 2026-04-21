@@ -1,10 +1,10 @@
 class GamingJob < ApplicationJob
   
   def perform
-    defer_retry('failed_fetching_nintendo', 12) { get_nintendo }
-    defer_retry('failed_fetching_psn', 24) { get_psn }
-    defer_retry('failed_fetching_steam', 12) { get_steam }
-    defer_retry('failed_fetching_xbox', 6) { get_xbox }
+    defer_retry('nintendo', 12) { get_nintendo }
+    defer_retry('psn', 24) { get_psn }
+    defer_retry('steam', 12) { get_steam }
+    defer_retry('xbox', 6) { get_xbox }
     recent_games = get_recent_games
     Rails.cache.write('gaming', recent_games[0..9])
   end

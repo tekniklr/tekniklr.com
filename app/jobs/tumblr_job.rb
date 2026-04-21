@@ -1,7 +1,7 @@
 class TumblrJob < ApplicationJob
 
   def perform
-    defer_retry('failed_fetching_tumblr', 2) { get_tumblr }
+    defer_retry('tumblr', 2) { get_tumblr }
   end
 
   private

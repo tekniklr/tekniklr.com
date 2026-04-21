@@ -4,21 +4,22 @@ class ApplicationJob < ActiveJob::Base
 
   # sometimes querying a service has a temporary error - in this case we
   # should defer the next retry until a later time than normal
-  def defer_retry(cache_key, defer_hours, &method)
+  def defer_retry(job_name, defer_hours, &method)
     raise "No method provided" if method.nil?
+    cache_key = 'failed_'+job_name
     next_check = Rails.cache.read(cache_key)
     if next_check.blank? || (Time.now >= next_check)
-      Rails.logger.debug "No previous error on #{cache_key} task, or past retry limit..."
+      Rails.logger.debug "No previous error on #{job_name} task, or past retry limit..."
       begin
         method.call
       rescue => exception
-        Rails.logger.debug "Error running task in #{cache_key}!"
+        Rails.logger.debug "Error running #{job_name}!"
         next_time = Time.now+defer_hours.hours
         Rails.cache.write(cache_key, next_time)
-        ErrorMailer.background_error("running #{cache_key} task", exception, defer_time: next_time).deliver_now
+        ErrorMailer.background_error("running #{job_name} task", exception, defer_time: next_time).deliver_now
       end
     else
-      Rails.logger.debug "#{cache_key} task deferred until at least #{next_check.to_fs(:precise)}"
+      Rails.logger.debug "#{job_name} task deferred until at least #{next_check.to_fs(:precise)}"
     end
   end
 
