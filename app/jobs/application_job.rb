@@ -13,7 +13,7 @@ class ApplicationJob < ActiveJob::Base
       begin
         method.call
       rescue => exception
-        Rails.logger.debug "Error running #{job_name}!"
+        Rails.logger.debug "Error running #{job_name} task!"
         next_time = Time.now+defer_hours.hours
         Rails.cache.write(cache_key, next_time)
         ErrorMailer.background_error("running #{job_name} task", exception, defer_time: next_time).deliver_now
