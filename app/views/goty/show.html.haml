@@ -18,6 +18,10 @@
 %h1
   = @page_title
 
+- unless @goty.explanation.blank?
+  .goty_explanation
+    = goty_explanation @goty
+
 %ol.goty_show
   - @goty.goty_games.sorted.first(@top_num).each do |gg|
     - gg.game.hidden? and next

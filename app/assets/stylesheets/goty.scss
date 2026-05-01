@@ -23,6 +23,21 @@ ol.goty_edit , ol.goty_show {
   margin: 0 0 0 1em;
 }
 
+.goty_explanation {
+  font-family: monospace, monospace;
+  margin: -2em 0 2em 0;
+  @include config.transparent(0.75);
+  textarea {
+    @media screen and (min-width: config.$mobile_threshhold) {
+      width: 40em;
+    }
+    @media screen and (max-width: config.$mobile_threshhold) {
+      width: 25em;
+    }
+    height: 15em;
+  }
+}
+
 .goty_game {
   .goty_image {
     vertical-align: top;

@@ -18,6 +18,8 @@ module GotyHelper
     end
   end
 
+  # accepts either a goty or a goty_game - just needs an 'id' attribute and an
+  # 'explanation' attribute
   def goty_explanation(goty)
     text = simple_format(goty.explanation)
     text.scan(/\|\|(.*)\|\|/).each_with_index do |match, index|
