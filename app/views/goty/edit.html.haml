@@ -44,6 +44,8 @@
                 = gg.game.created_at.to_fs(:goty)
                 \-
               = gg.game.last_played.to_fs(:goty)
+              on
+              = gg.game.platform
 
   = scaffold_navigation(links: links, additional_class: 'mt-3', label: 'GOTY navigation')
 
