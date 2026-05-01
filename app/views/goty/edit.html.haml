@@ -32,7 +32,7 @@
             .goty_name
               = gg.game.name
             .goty_explanation
-              = best_in_place gg, :explanation, as: :textarea, display_with: :simple_format, place_holder: 'click to add explanation', url: update_goty_game_path(goty_game_id: gg.id)
+              = best_in_place gg, :explanation, as: :textarea, display_with: lambda { |text| goty_explanation(gg) }, place_holder: 'click to add explanation', url: update_goty_game_path(goty_game_id: gg.id)
             .goty_played
               Played:
               - if gg.game.last_played.to_date > gg.game.created_at.to_date

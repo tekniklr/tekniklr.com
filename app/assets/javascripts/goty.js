@@ -19,3 +19,13 @@ $('.goty_edit').sortable({
     $.post('/goty/sort', { game_ids: sorted_ids });
   }
 });
+
+$(document).ready(function() {
+  $('.spoiler_reveal').on('click', function() {
+    var spoiler_content_id = $(this).attr("data-id");
+    console.log('Revealing spoiler with id '+spoiler_content_id);
+    var content_div = $('#'+spoiler_content_id);
+    $(this).hide();
+    content_div.fadeIn('normal');
+  });
+});

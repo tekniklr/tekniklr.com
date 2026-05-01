@@ -1,4 +1,5 @@
 @use "config";
+@use "sass:color";
 
 ol.goty_links {
   text-align: right;
@@ -55,4 +56,13 @@ ol.goty_edit , ol.goty_show {
       font-style: italic;
     }
   }
+}
+
+.spoiler_concealed {
+  display: none;
+}
+.spoiler_reveal {
+  color: color.adjust(config.$base_font_color, $lightness: -30%);
+  background-color: color.adjust(config.$base_font_color, $lightness: -30%);
+  cursor: pointer;
 }

@@ -32,7 +32,7 @@
           .goty_name
             = gg.game.name
           .goty_explanation
-            = simple_format gg.explanation
+            = goty_explanation gg
           .goty_played
             Played:
             - if gg.game.last_played.to_date > gg.game.created_at.to_date
@@ -41,3 +41,5 @@
               \-
             - strfse = (gg.game.last_played.year == @goty.year) ? :goty : :goty_w_year
             = gg.game.last_played.to_fs(strfse)
+
+= javascript_include_tag :goty
