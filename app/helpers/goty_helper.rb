@@ -18,4 +18,17 @@ module GotyHelper
     end
   end
 
+  def goty_explanation(goty)
+    text = simple_format(goty.explanation)
+    text.scan(/\|\|(.*)\|\|/).each_with_index do |match, index|
+      spoiler = match.first
+      logger.debug "************ hiding spoiler #{index+1} for goty #{goty.id}: #{spoiler}"
+      spoiler_id = "spoiler_#{goty.id}_#{index}"
+      spoiler_content = spoiler.gsub /\|\|/, ''
+      concealed = "<span class='spoiler_concealed' id='#{spoiler_id}'>#{spoiler_content}</span><span class='spoiler_reveal' data-id='#{spoiler_id}'>#{spoiler_content.gsub(/./, '_')}</span>"
+      text.gsub! "||#{spoiler}||", concealed
+    end
+    text.html_safe
+  end
+
 end
