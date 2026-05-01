@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_01_210706) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_01_001629) do
   create_table "delayed_jobs", id: :integer, charset: "utf8mb3", force: :cascade do |t|
     t.integer "attempts", default: 0
     t.datetime "created_at", precision: nil, null: false
@@ -71,6 +71,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_01_210706) do
 
   create_table "goty", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.text "explanation"
     t.boolean "published", default: false
     t.datetime "updated_at", null: false
     t.integer "year"

@@ -63,6 +63,15 @@ class GotyController < ApplicationController
   end
 
   def update_explanation
+    goty = Goty.find(params[:goty_id])
+    if goty.update_attribute(:explanation, params[:goty][:explanation])
+      head :ok
+    else
+      render json: goty.errors.full_messages, status: :unprocessable_entity
+    end
+  end
+
+  def update_game_explanation
     goty_game = GotyGame.find(params[:goty_game_id])
     if goty_game.update_attribute(:explanation, params[:goty_game][:explanation])
       head :ok

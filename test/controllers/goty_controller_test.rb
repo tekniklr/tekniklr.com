@@ -28,7 +28,10 @@ class GotyControllerTest < ActionController::TestCase
     put :sort
     assert_redirected_to root_url
 
-    put :update_explanation, params: {goty_game_id: @goty.goty_games.first.id, explanation: 'Some terrible reasoning.'}
+    put :update_explanation, params: {goty_id: @unpublished_goty.id, goty: { explanation: 'Some terrible reasoning.'}}
+    assert_redirected_to root_url
+
+    put :update_game_explanation, params: {goty_game_id: @goty.goty_games.first.id, explanation: 'Some terrible reasoning.'}
     assert_redirected_to root_url
   end
 
@@ -52,8 +55,13 @@ class GotyControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  should "update goty explanation" do
+    put :update_explanation, params: {goty_id: @unpublished_goty.id, goty: { explanation: 'Some terrible reasoning.'}}, session: {user_id: @user.id}
+    assert_response :success
+  end
+
   should "update goty_game explanation" do
-    put :update_explanation, params: {goty_game_id: @gg1.id, goty_game: {explanation: 'Some terrible reasoning.'}}, session: {user_id: @user.id}
+    put :update_game_explanation, params: {goty_game_id: @gg1.id, goty_game: {explanation: 'Some terrible reasoning.'}}, session: {user_id: @user.id}
     assert_response :success
   end
 

@@ -37,11 +37,12 @@ Rails.application.routes.draw do
 
   resources :recent_games, only: [:new, :create,  :edit, :update, :destroy]
 
-  get  '/goty/edit',                 to: 'goty#edit',               as: 'edit_goty'
-  get  '/goty/:year',                to: 'goty#show',               as: 'goty'
-  post '/goty/sort',                 to: 'goty#sort',               as: 'sort_goty'
-  put  '/goty/update/:goty_game_id', to: 'goty#update_explanation', as: 'update_goty_game'
-  put  '/goty/publish/:goty_id',     to: 'goty#update_published',   as: 'update_goty_published'
+  get  '/goty/edit',                         to: 'goty#edit',                    as: 'edit_goty'
+  get  '/goty/:year',                        to: 'goty#show',                    as: 'goty'
+  post '/goty/sort',                         to: 'goty#sort',                    as: 'sort_goty'
+  put  '/goty/update_explanation/:goty_id',  to: 'goty#update_explanation',                    as: 'update_goty_explanation'
+  put  '/goty/update/:goty_game_id',         to: 'goty#update_game_explanation',                    as: 'update_goty_game'
+  put  '/goty/publish/:goty_id',             to: 'goty#update_published',                    as: 'update_goty_published'
 
 
   # https://github.com/rails/rails/issues/671
