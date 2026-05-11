@@ -9,7 +9,7 @@ class GoodreadsJob < ApplicationJob
   def get_goodreads
     Rails.logger.debug "Fetching Goodreads checkins from RSS..."
     parsed_items = []
-    items = get_xml('https://www.goodreads.com/user/updates_rss/10905654***REMOVED***', 'goodreads_expiry')
+    items = get_xml('https://www.goodreads.com/user/updates_rss/10905654***REMOVED***')
     items = items.uniq{|i| i.title}
     previous_titles = []
     items.each do |item|

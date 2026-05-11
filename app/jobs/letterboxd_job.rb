@@ -9,7 +9,7 @@ class LetterboxdJob < ApplicationJob
   def get_letterboxd
     Rails.logger.debug "Fetching LetterBoxd checkins from RSS..."
     parsed_items = []
-    items = get_xml('https://letterboxd.com/tekniklr/rss/', 'letterboxd_expiry')
+    items = get_xml('https://letterboxd.com/tekniklr/rss/')
     items = items.uniq{|i| i.title}
     previous_titles = []
     items.each do |item|
