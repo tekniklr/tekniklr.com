@@ -27,7 +27,7 @@
                   .year
                     (#{game.release_year})
               .platform
-                = game.platform
+                = game_platform(game.platform, game.url)
             - if game.achievement_name
               .row.mt-2.pt-2.gaming_achievement
                 .achievement_name

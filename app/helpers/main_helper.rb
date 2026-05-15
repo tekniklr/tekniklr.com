@@ -8,6 +8,17 @@ module MainHelper
     step * step_size
   end
   
+  # display RecentGame platform, linking if relevant
+  def game_platform(platform, url)
+    if platform == 'PlayStation'
+      link_to platform, 'https://psnprofiles.com/tekniklr'
+    elsif (platform == 'the internet') && !url.blank?
+      link_to platform, url
+    else
+      platform
+    end
+  end
+
   # skeets handle links/tags in an overly complicated way
   def skeet_facets(skeet_text, facets)
     replacements = []
