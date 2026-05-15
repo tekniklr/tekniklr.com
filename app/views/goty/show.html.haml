@@ -45,7 +45,8 @@
               \-
             - strfse = (gg.game.last_played.year == @goty.year) ? :goty : :goty_w_year
             = gg.game.last_played.to_fs(strfse)
-            on
-            = gg.game.platform
+            - if gg.game.platform
+              on
+              = game_platform(gg.game.platform, gg.game.url)
 
 = javascript_include_tag :goty
