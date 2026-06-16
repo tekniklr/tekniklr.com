@@ -24,6 +24,7 @@ gem 'feedjira'
 gem 'iconv' # needed to parse some feeds
 
 # non-RSS external services/APIs
+gem 'httparty'
 gem 'lastfm'
 gem 'mastodon-api', require: 'mastodon', git: 'https://github.com/mastodon/mastodon-api'
 gem 'tumblr_client', git: 'https://github.com/tekniklr/tumblr_client.git'
