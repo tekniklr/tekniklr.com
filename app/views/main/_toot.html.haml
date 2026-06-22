@@ -27,6 +27,16 @@
     - boost_count       = toot.reblogs_count
     - fave_count        = toot.favourites_count
     - media             = toot.media_attachments
+
+  - if !toot.attributes['quote'].blank?
+    - quote              = toot.attributes['quote']['quoted_status']
+    - quote_handle       = quote['account']['username']
+    - quote_display_name = quote['account']['display_name']
+    - quote_user_avatar  = quote['account']['avatar']
+    - quote_user_link    = quote['account']['url']
+    - quote_link         = quote['url']
+    - quote_spoiler      = quote['spoiler_text']
+    - quote_text         = quote['content']
       
   .user_pic
     - if !toot_user_avatar.blank?
@@ -53,6 +63,40 @@
             });
       %div{id: "toot_#{toot.id}"}
         = simple_format sanitize(toot_text, tags: %w(a img p br span), attributes: %w(href target src class)), {}, sanitize: false # simple format was double sanitizing
+
+        - if quote
+          .nested
+
+            .user_pic
+              - if !quote_user_avatar.blank?
+                = link_to image_tag(quote_user_avatar, alt: quote_display_name, title:quote_display_name), quote_user_link
+
+            .toot
+
+              .user_name
+                .display_name
+                  = quote_display_name
+                .handle
+                  = link_to "@#{quote_handle}", quote_user_link
+
+              .toot_content
+                - qp_content_id = "qp_#{quote['id']}"
+                - if !quote_spoiler.blank? 
+                  .spoiler{id: "spoiler_#{qp_content_id}", title: 'Click to show content'}
+                    = quote_spoiler
+                  = javascript_tag nonce: true do
+                    :plain
+                      $(document).ready(function() {
+                        $('#toot_#{qp_content_id}').hide();
+                        $('#spoiler_#{qp_content_id}').click(function() {
+                          $('#toot_#{qp_content_id}').toggle(400);
+                        });
+                      });
+                %div{id: "toot_#{qp_content_id}"}
+                  = simple_format sanitize(quote_text, tags: %w(a img p br span), attributes: %w(href target src class)), {}, sanitize: false # simple format was double sanitizing
+
+            .nest_fix
+
         - if !media.blank?
           - media.each do |medium|
             %p
