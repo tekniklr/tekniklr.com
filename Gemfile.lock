@@ -10,9 +10,9 @@ GIT
 
 GIT
   remote: https://github.com/seuros/capistrano-puma.git
-  revision: 06aabfaa40d8dd64a7a8010ecfeb08e25557eae6
+  revision: 00e2cc30ed2d651f943d0e9c4cdabfb1e8fa8883
   specs:
-    capistrano3-puma (8.0.0)
+    capistrano3-puma (8.1.0)
       capistrano (~> 3.7)
       capistrano-bundler
       puma (>= 6.1, < 9.0)
@@ -111,7 +111,9 @@ GEM
       public_suffix (>= 2.0.2, < 8.0)
     airbrussh (1.6.1)
       sshkit (>= 1.6.1, != 1.7.0)
-    auth-sanitizer (0.2.1)
+    anonymous_loader (0.1.2)
+      version_gem (~> 1.1, >= 1.1.13)
+    auth-sanitizer (0.2.2)
       version_gem (~> 1.1, >= 1.1.10)
     awesome_print (1.9.2)
     base64 (0.3.0)
@@ -224,7 +226,7 @@ GEM
       csv
       mini_mime (>= 1.0.0)
       multi_xml (>= 0.5.2)
-    i18n (1.14.8)
+    i18n (1.15.2)
       concurrent-ruby (~> 1.0)
     iconv (1.1.1)
     io-console (0.8.2)
@@ -291,9 +293,9 @@ GEM
       net-protocol
     net-ssh (7.3.2)
     nio4r (2.7.5)
-    nokogiri (1.19.3-arm64-darwin)
+    nokogiri (1.19.4-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.19.3-x86_64-linux-gnu)
+    nokogiri (1.19.4-x86_64-linux-gnu)
       racc (~> 1.4)
     oauth (1.1.7)
       auth-sanitizer (~> 0.2, >= 0.2.1)
@@ -301,18 +303,20 @@ GEM
       oauth-tty (~> 1.0, >= 1.0.10)
       snaky_hash (~> 2.0, >= 2.0.5)
       version_gem (~> 1.1, >= 1.1.12)
-    oauth-tty (1.0.10)
-      auth-sanitizer (~> 0.2, >= 0.2.1)
+    oauth-tty (1.0.12)
+      anonymous_loader (~> 0.1, >= 0.1.1)
+      auth-sanitizer (~> 0.2, >= 0.2.2)
       version_gem (~> 1.1, >= 1.1.12)
-    oauth2 (2.0.23)
-      auth-sanitizer (~> 0.2, >= 0.2.1)
+    oauth2 (2.0.24)
+      anonymous_loader (~> 0.1, >= 0.1.1)
+      auth-sanitizer (~> 0.2, >= 0.2.2)
       faraday (>= 0.17.3, < 4.0)
       jwt (>= 1.0, < 4.0)
       logger (~> 1.2)
       multi_xml (~> 0.5)
       rack (>= 1.2, < 4)
       snaky_hash (~> 2.0, >= 2.0.6)
-      version_gem (~> 1.1, >= 1.1.11)
+      version_gem (~> 1.1, >= 1.1.12)
     oj (3.17.3)
       bigdecimal (>= 3.0)
       ostruct (>= 0.2)
@@ -331,7 +335,7 @@ GEM
       omniauth (~> 2.0)
     ostruct (0.6.3)
     popper_js (2.11.8)
-    pp (0.6.3)
+    pp (0.6.4)
       prettyprint
     prettyprint (0.2.0)
     prism (1.9.0)
@@ -446,7 +450,7 @@ GEM
       concurrent-ruby (~> 1.0)
     uri (1.1.1)
     useragent (0.16.11)
-    version_gem (1.1.12)
+    version_gem (1.1.13)
     websocket-driver (0.8.1)
       base64
       websocket-extensions (>= 0.1.0)
