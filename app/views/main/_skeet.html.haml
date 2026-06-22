@@ -94,7 +94,7 @@
             - nested_text         = nested_record.value.text
             - nested_previews     = nested_record.has_key?('embeds') && !nested_record.embeds.empty? && nested_record.embeds.first.has_key?('external')
             - nested_images       = nested_record.has_key?('embeds')  && !nested_record.embeds.empty? && nested_record.embeds.first.has_key?('images')
-            - nested_video        = nested_record.has_key?('embeds') && nested_record.embeds.first.has_key?('playlist')
+            - nested_video        = nested_record.has_key?('embeds') && nested_record.embeds.first && nested_record.embeds.first.has_key?('playlist')
             - nested_facets       = nested_record.value.has_key?('facets')
             .user_pic
               - if !nested_user_avatar.blank?
