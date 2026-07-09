@@ -27,7 +27,9 @@ module GotyHelper
       logger.debug "************ hiding spoiler #{index+1} for goty #{goty.id}: #{spoiler}"
       spoiler_id = "spoiler_#{goty.id}_#{index}"
       spoiler_content = spoiler.gsub /\|\|/, ''
-      concealed = "<span class='spoiler_concealed' id='#{spoiler_id}'>#{spoiler_content}</span><span class='spoiler_reveal' data-id='#{spoiler_id}'>#{spoiler_content.gsub(/./, '_')}</span>"
+      spoiler_placeholder = spoiler_content.gsub(/./, '&nbsp; ') # replace all spoiler text with a non-breaking space followed by a regular space, so long spoilers will have line wraps. however, this means they will display as twice as long as the original text
+      spoiler_placeholder = spoiler_placeholder[0,(7*(spoiler_content.size/2))] # truncate the too-long placeholder to the correct length, without truncating in the middle of a &nbsp;
+      concealed = "<span class='spoiler_concealed' id='#{spoiler_id}'>#{spoiler_content}</span><span class='spoiler_reveal' data-id='#{spoiler_id}'>#{spoiler_placeholder}</span>"
       text.gsub! "||#{spoiler}||", concealed
     end
     text.html_safe
