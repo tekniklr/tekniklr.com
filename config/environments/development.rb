@@ -9,7 +9,6 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = false
   config.active_support.deprecation = :log
   config.logger = Logger.new(Rails.root.join("log",Rails.env + ".log"),1,5*1024*1024)
-  Paperclip.options[:command_path] = "/opt/local/bin"
   config.action_controller.perform_caching = false
 
   # Enable/disable caching. By default caching is disabled.
