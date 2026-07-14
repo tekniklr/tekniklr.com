@@ -1,5 +1,9 @@
 repos:
-  - repo: https://github.com/betterleaks/betterleaks
-    rev: v1.6.1
+  - repo: local
     hooks:
       - id: betterleaks
+        name: Detect hardcoded secrets
+        description: Detect hardcoded secrets using Betterleaks
+        entry: betterleaks git --pre-commit --redact --staged --verbose
+        language: golang
+        pass_filenames: false
