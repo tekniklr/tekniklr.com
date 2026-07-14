@@ -1,0 +1,7 @@
+[extend]
+useDefault = true
+
+[allowlist]
+regexes = [
+  '''***REMOVED***''', # this is a public RSS feed URL
+]
