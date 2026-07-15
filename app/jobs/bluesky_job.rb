@@ -34,14 +34,12 @@ class BlueskyJob < ApplicationJob
         did, nsid, record_key = uri.delete_prefix("at://").split("/")
         verify_tokens
         make_request("#{@base_url}/com.atproto.repo.deleteRecord", auth_token: @token, body: { repo: did, collection: nsid, rkey: record_key })
-      elsif newest_skeet >= Time.now-1.week # only store skeets if I've been active over there recently
+      else
         # is less old - keep
         skeets << post
       end
     end
-    unless skeets.blank?
-      Rails.cache.write('skeets', skeets.first(40))
-    end
+    Rails.cache.write('skeets', skeets.first(40))
   end
 
   # Generate tokens given an account identifier and app password.
