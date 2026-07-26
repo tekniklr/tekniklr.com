@@ -1,45 +1,72 @@
 @use "config";
 @use "sass:color";
+@use "datatables";
 
-#recent_games {
-  .game {
-    @include config.rounded(1px, config.$med_border_color, 2em, 1.5em, dashed);
-    .gaming_image {}
-    .gaming_details {
-      .time {
-        font-style: italic;
-      }
-      .name {
-        font-weight: bold;
-        .year {
-          display: inline;
-          font-weight: normal;
-          font-style: italic;
-        }
-      }
-      .platform {
-        font-style: italic;
-        font-size: 80%;
-      }
-    }
-    .gaming_achievement {
-      border-top : 1px solid config.$faint_border_color;
-      .achievement_name {
-        display: inline;
-        font-weight: bold;
-      }
-      .achievement_time {
-        display: inline;
-        font-style: italic;
-        font-size: 80%;
-      }
-      .achievement_desc {
-        font-family: monospace, monospace;
+@media screen and (max-width: config.$mobile_threshhold) {
+  /* mobile layout */
+  input#dt-search-0 {
+    font-size: 16px;
+  }
+  table#games_table {
+    table-layout: fixed;
+    width: calc(100% + 2em) !important;
+    margin: 0 -1em 0 -1em !important;
+    td.game_info {
+      .game_bgg {
+        display: none;
       }
     }
   }
-  .hidden_game {
-    background-color: color.adjust(config.$the_color, $lightness: -65%);
-    opacity: .6;
+}
+table#games_table {
+  tr.hidden_game {
+    td {
+      opacity: .25;
+    }
+    td.management {
+      opacity: 1 !important;
+    }
+  }
+  td.game_name {
+    .name {
+      font-weight: bold;
+      text-align: center;
+    }
+    .game_image {
+      margin-bottom: .75em;
+      text-align: center;
+      height: 100px;
+      width: 100px;
+      margin: auto;
+      img {
+        max-width: 100%;
+        margin: auto;
+      }
+    }
+  }
+  td.game_release { }
+  td.game_platform { }
+  td.game_played {
+    .last_played { }
+    .played_time_range {
+      margin-top: 1em;
+      border-top: 1px solid config.$faint_border_color;
+      padding-top: 1em;
+      font-style: italic;
+      font-size: 80%;
+    }
+  }
+  td.game_achievement {
+    .achievement_name {
+      font-weight: bold;
+      border-bottom: 1px solid config.$faint_border_color;
+    }
+    .achievement_time {
+      font-style: italic;
+      font-size: 80%;
+    }
+    .achievement_desc {
+      font-family: monospace, monospace;
+    }
   }
 }

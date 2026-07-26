@@ -1,0 +1,174 @@
+%div{id: "games_loading"}
+  Loading information for #{recent_games.size} games(s)...
+
+%div{id: "games_loaded", class: 'hidden'}
+  - filter_threshold = 3
+  - col_count = 0
+  - skipped_columns = []
+  - filter_columns = []
+  - sort_column = 0
+  - sort_direction = 'asc'
+  - release_column = 0
+  %table.table.table-striped{id: "games_table", class: 'display'}
+    - if recent_games.size > filter_threshold
+      %tfoot.header-group
+        %tr
+          %th
+            - # game image, name
+          %th
+            - # year
+          %th
+            - # platform
+          %th
+            - # last played
+          %th
+            - # cheevo
+          - if logged_in?
+            %th
+              - # management
+
+    %thead
+      %tr
+        %th
+          Game
+          - col_count += 1
+        %th
+          Release year
+          - filter_columns << col_count
+          - release_column = col_count
+          - col_count += 1
+        %th
+          Platform
+          - filter_columns << col_count
+          - col_count += 1
+        %th
+          Played
+          - sort_column = col_count
+          - sort_direction = 'desc'
+          - col_count += 1
+        %th
+          Last achievement
+          - skipped_columns << col_count
+          - col_count += 1
+        - if logged_in?
+          %td
+            - skipped_columns << col_count
+            - col_count += 1
+
+    %tbody
+      - recent_games.sort_by{|t| t.name}.each do |game|
+        %tr{class: game.hidden? ? 'hidden_game' : ''}
+          %td.game_name{'data-order': game.name}
+            .game_image
+              - if game.image?
+                = image_tag game.image.url(:thumb), alt: game.name, align: 'left', hspace: 10
+              - else
+                = image_tag("game-controller.png", alt: 'placeholder image', width: 100, height: 100)
+            .name
+              = game.name
+          %td.game_release{'data-filter': (game.release_year ? game.release_year : 'unknown'), 'data-order': (game.release_year ?  game.release_year : -1)}
+            - if game.release_year
+              = game.release_year
+          %td.game_platform{'data-filter': game.platform}
+            = game_platform(game.platform, game.url)
+          %td.game_played{'data-order': game.last_played.to_i}
+            .last_played
+              = game.last_played.to_fs(:precise)
+            - if game.last_played.to_date > game.created_at.to_date
+              .played_time_range
+                = game.created_at.to_fs(:goty_w_year)
+                \-
+                = game.last_played.to_fs(:goty_w_year)
+          %td.game_achievement
+            - if game.achievement_name
+              .achievement_name
+                = game.achievement_name
+              - if game.achievement_time
+                .achievement_time
+                  = game.achievement_time.to_fs(:precise)
+              - if game.achievement_desc
+                .achievement_desc
+                  = game.achievement_desc
+          - if logged_in?
+            %td.management
+              %p
+                = link_to 'edit', edit_recent_game_path(game)
+              %p
+                = link_to 'remove', game, method: :delete, data: { confirm: "Are you sure you want to remove #{game.name}?" }
+
+= javascript_tag nonce: true do
+  :plain
+    $(document).ready(function() {
+      DataTable.type('num', 'className', 'dt-body-left');
+      DataTable.type('num-fmt', 'className', 'dt-body-left');
+      DataTable.type('date', 'className', 'dt-body-left');
+      $('#games_table').DataTable({
+        "searching": #{(recent_games.size > filter_threshold) ? 'true' : 'false'},
+        "stateSave": false,
+        "order": [[#{sort_column}, '#{sort_direction}']],
+        "pageLength": 10,
+        "aLengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, 'All']],
+        "paginate": true,
+        "info": true,
+        "bAutoWidth": true,
+        "columnDefs": [
+          {
+            "targets": [#{skipped_columns.join(',')}],
+            "orderable": false
+          }
+        ],
+        "language": {
+          "emptyTable":       "No games to show",
+          "info":             "Showing _START_ to _END_ of _TOTAL_ games",
+          "infoEmpty":        "Showing 0 to 0 of 0 games",
+          "infoFiltered":     "(filtered from _MAX_ total games)",
+          "infoPostFix":      "",
+          "lengthMenu":       "Show _MENU_ games",
+          "zeroRecords":      "No matching games found"
+        },
+        initComplete: function () { // column filters
+          this.api().columns([#{filter_columns.join(',')}]).every( function () {
+            var column = this;
+            var select = $('<select><option value=""></option></select>')
+              .appendTo( $(column.footer()).empty() )
+              .on( 'change', function () {
+                var val = $.fn.dataTable.util.escapeRegex(
+                  $(this).val()
+                );
+                column
+                  .search( val ? '^'+val+'$' : '', true, false )
+                  .draw();
+              });
+
+            if (column.index() == #{release_column}) { // build the release year dropdown separately to fine tune sorting
+              var uniqueFilters = [];
+              column.nodes().each(function(td) {
+                var filterValue = $(td).data('filter');
+                if (filterValue && filterValue != 'unknown' && uniqueFilters.indexOf(filterValue) === -1) {
+                  uniqueFilters.push(filterValue);
+                }
+              });
+              uniqueFilters = uniqueFilters.sort().reverse();
+              uniqueFilters.push('unknown');
+              uniqueFilters.forEach(function(value) {
+                select.append('<option value="' + value + '">' + value + '</option>');
+              });
+            } else { // just build dropdown from data-filter values, sorted with typical JS sort logic
+              var uniqueFilters = [];
+              column.nodes().each(function(td) {
+                var filterValue = $(td).data('filter');
+                if (filterValue && uniqueFilters.indexOf(filterValue) === -1) {
+                  uniqueFilters.push(filterValue);
+                }
+              });
+              uniqueFilters.sort().forEach(function(value) {
+                select.append('<option value="' + value + '">' + value + '</option>');
+              });
+            }
+          })
+        }
+      });
+
+      $('#games_loading').hide();
+      $('#games_loaded').show();
+    });
