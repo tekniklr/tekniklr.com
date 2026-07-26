@@ -76,9 +76,9 @@
               = game.last_played.to_fs(:precise)
             - if game.last_played.to_date > game.created_at.to_date
               .played_time_range
-                = game.created_at.to_fs(:goty_w_year)
+                = game.created_at.to_fs(:standard)
                 \-
-                = game.last_played.to_fs(:goty_w_year)
+                = game.last_played.to_fs(:standard)
           %td.game_achievement
             - if game.achievement_name
               .achievement_name
