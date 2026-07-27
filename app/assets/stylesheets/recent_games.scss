@@ -11,11 +11,6 @@
     table-layout: fixed;
     width: calc(100% + 2em) !important;
     margin: 0 -1em 0 -1em !important;
-    td.game_info {
-      .game_bgg {
-        display: none;
-      }
-    }
   }
 }
 table#games_table {
