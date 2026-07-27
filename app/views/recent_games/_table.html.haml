@@ -29,29 +29,29 @@
 
     %thead
       %tr
-        %th
+        %th{'data-priority': 1}
           Game
           - col_count += 1
-        %th
+        %th{'data-priority': 10010}
           Release year
           - filter_columns << col_count
           - release_column = col_count
           - col_count += 1
-        %th
+        %th{'data-priority': 10010}
           Platform
           - filter_columns << col_count
           - col_count += 1
-        %th
+        %th{'data-priority': 3}
           Played
           - sort_column = col_count
           - sort_direction = 'desc'
           - col_count += 1
-        %th
+        %th{'data-priority': 10100}
           Last achievement
           - skipped_columns << col_count
           - col_count += 1
         - if logged_in?
-          %td
+          %td{'data-priority': 10100}
             - skipped_columns << col_count
             - col_count += 1
 
@@ -103,6 +103,7 @@
       DataTable.type('num-fmt', 'className', 'dt-body-left');
       DataTable.type('date', 'className', 'dt-body-left');
       $('#games_table').DataTable({
+        "responsive": true,
         "searching": #{(recent_games.size > filter_threshold) ? 'true' : 'false'},
         "stateSave": false,
         "order": [[#{sort_column}, '#{sort_direction}']],

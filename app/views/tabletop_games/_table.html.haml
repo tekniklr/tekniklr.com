@@ -25,20 +25,20 @@
 
     %thead
       %tr
-        %th
+        %th{'data-priority': 1}
           Game
           - sort_column = col_count
           - col_count += 1
-        %th
+        %th{'data-priority': 2}
           Players
           - filter_columns << col_count
           - col_count += 1
-        %th
+        %th{'data-priority': 10200}
           Info
           - skipped_columns << col_count
           - col_count += 1
         - if logged_in?
-          %td
+          %td{'data-priority': 10100}
             - skipped_columns << col_count
             - col_count += 1
 
@@ -123,6 +123,7 @@
   :plain
     $(document).ready(function() {
       $('#tabletop_table').DataTable({
+        "responsive": true,
         "searching": #{(tabletop_games.size > filter_threshold) ? 'true' : 'false'},
         "stateSave": false,
         "order": [[#{sort_column}, 'asc']],
