@@ -122,6 +122,8 @@ GEM
       actionpack (>= 7.0)
       railties (>= 7.0)
     bigdecimal (4.1.2)
+    bootsnap (1.24.6)
+      msgpack (~> 1.2)
     bootstrap (5.3.8)
       popper_js (>= 2.11.8, < 3)
     brakeman (8.0.5)
@@ -201,7 +203,7 @@ GEM
     google-protobuf (4.35.1-x86_64-linux-gnu)
       bigdecimal
       rake (~> 13.3)
-    haml (7.2.0)
+    haml (7.2.1)
       temple (>= 0.8.2)
       thor
       tilt
@@ -271,6 +273,7 @@ GEM
     minitest (6.0.6)
       drb (~> 2.0)
       prism (~> 1.5)
+    msgpack (1.8.4)
     multi_xml (0.9.1)
       bigdecimal (>= 3.1, < 5)
     multipart-post (2.4.1)
@@ -397,7 +400,7 @@ GEM
       tsort (>= 0.2)
       zeitwerk (~> 2.6)
     rake (13.4.2)
-    rbs (4.0.3)
+    rbs (4.1.0)
       logger
       prism (>= 1.6.0)
       tsort
@@ -468,6 +471,7 @@ PLATFORMS
 DEPENDENCIES
   awesome_print
   best_in_place
+  bootsnap
   bootstrap
   brakeman
   capistrano

@@ -14,6 +14,9 @@ gem 'bootstrap'
 gem 'kt-paperclip'
 gem 'best_in_place'
 
+# Reduces boot times through caching; required in config/boot.rb
+gem 'bootsnap', require: false
+
 # needed for authentication
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
