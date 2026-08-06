@@ -164,7 +164,7 @@ GEM
       delayed_job (>= 3.0, < 5)
     domain_name (0.6.20240107)
     drb (2.2.3)
-    erb (6.0.6)
+    erb (6.0.7)
     erubi (1.13.1)
     exception_notification (5.0.1)
       actionmailer (>= 7.1, < 9)
@@ -321,7 +321,7 @@ GEM
       rack (>= 1.2, < 4)
       snaky_hash (~> 2.0, >= 2.0.7)
       version_gem (~> 1.1, >= 1.1.14)
-    oj (3.17.4)
+    oj (3.17.5)
       bigdecimal (>= 3.0)
       ostruct (>= 0.2)
     omniauth (2.1.4)
@@ -400,7 +400,7 @@ GEM
       tsort (>= 0.2)
       zeitwerk (~> 2.6)
     rake (13.4.2)
-    rbs (4.1.1)
+    rbs (4.1.2)
       logger
       prism (>= 1.6.0)
       tsort
@@ -455,14 +455,14 @@ GEM
       concurrent-ruby (~> 1.0)
     uri (1.1.1)
     useragent (0.16.11)
-    version_gem (1.1.14)
+    version_gem (1.1.15)
     websocket-driver (0.8.2)
       base64
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
     xml-simple (1.1.9)
       rexml
-    zeitwerk (2.8.2)
+    zeitwerk (2.8.3)
 
 PLATFORMS
   arm64-darwin-25
