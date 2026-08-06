@@ -13,18 +13,18 @@
     - if recent_games.size > filter_threshold
       %tfoot.header-group
         %tr
-          %th
+          %td
             - # game image, name
-          %th
+          %td
             - # year
-          %th
+          %td
             - # platform
-          %th
+          %td
             - # last played
-          %th
+          %td
             - # cheevo
           - if logged_in?
-            %th
+            %td
               - # management
 
     %thead
@@ -111,7 +111,7 @@
         "aLengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, 'All']],
         "paginate": true,
         "info": true,
-        "bAutoWidth": true,
+        "autoWidth": true,
         "columnDefs": [
           {
             "targets": [#{skipped_columns.join(',')}],
@@ -130,7 +130,7 @@
         initComplete: function () { // column filters
           this.api().columns([#{filter_columns.join(',')}]).every( function () {
             var column = this;
-            var select = $('<select><option value=""></option></select>')
+            var select = $('<select aria-label="filter column"><option value=""></option></select>')
               .appendTo( $(column.footer()).empty() )
               .on( 'change', function () {
                 var val = $.fn.dataTable.util.escapeRegex(

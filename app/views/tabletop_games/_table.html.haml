@@ -14,9 +14,9 @@
     - if tabletop_games.size > filter_threshold
       %tfoot.header-group
         %tr
-          %th
+          %td
             - # game image and name
-          %th{colspan: 2}
+          %td{colspan: 2}
             - # players
             - # info and expansions, but in colspan
           - if logged_in?
@@ -131,7 +131,7 @@
         "aLengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, 'All']],
         "paginate": false,
         "info": true,
-        "bAutoWidth": true,
+        "autoWidth": true,
         "columnDefs": [
           {
             "targets": [#{skipped_columns.join(',')}],
@@ -151,7 +151,7 @@
           this.api().columns([#{filter_columns.join(',')}]).every( function () {
             var column = this;
 
-            var select = $('<select id="players"><option value=""></option></select>').on( 'change', function () {
+            var select = $('<select aria-label="filter by player count" id="players"><option value=""></option></select>').on( 'change', function () {
               var val = $.fn.dataTable.util.escapeRegex(
                 $(this).val()
               );
