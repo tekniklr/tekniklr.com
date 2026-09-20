@@ -1,0 +1,6 @@
+The tumblr client returned the following non-success status:
+
+Status:  <%= @status.has_key?('status') ? @status['status'] : 'unknown' %>
+Message: <%= @status.has_key?('status') ? @status['msg'] : 'unknown' %>
+
+This stopped the background task from attempting to delete posts prior to <%= (Time.now - TUMBLR_HISTORY).to_fs(:precise) %>. An attempt was still made to fetch the most recent post. If that failed there will be a separate error notification.

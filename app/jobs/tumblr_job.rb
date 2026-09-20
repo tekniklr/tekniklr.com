@@ -18,11 +18,15 @@ class TumblrJob < ApplicationJob
     end
     client = Tumblr::Client.new
 
-    # delete 30 old posts at a time to avoid hitting any API limits
-    old_posts = client.posts('tekniklr.tumblr.com', before: (Time.now-TUMBLR_HISTORY).to_i, sort: 'asc', limit: 30)
-    old_posts['posts'].each do |post|
-      Rails.logger.debug "\tdeleting post with id #{post['id']}..."
-      client.delete('tekniklr.tumblr.com', post['id'])
+    if client.info['status'] < 400
+      # delete 30 old posts at a time to avoid hitting any API limits
+      old_posts = client.posts('tekniklr.tumblr.com', before: (Time.now-TUMBLR_HISTORY).to_i, sort: 'asc', limit: 30)
+      old_posts['posts'].each do |post|
+        Rails.logger.debug "\tdeleting post with id #{post['id']}..."
+        client.delete('tekniklr.tumblr.com', post['id'])
+      end
+    else
+      ErrorMailer.tumblr_post_deletion_error(client.info).deliver_now
     end
 
     # cache data from newest post(s) to display on home page
