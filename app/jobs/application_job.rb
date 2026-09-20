@@ -148,13 +148,16 @@ class ApplicationJob < ActiveJob::Base
     when Net::HTTPUnauthorized, Net::HTTPTooManyRequests, Net::HTTPForbidden, Net::HTTPNotFound then
       raise net_http_error(response, tries: tries)
     when Net::HTTPBadRequest then
-      if JSON.parse(response.body).has_key?('playerstats')
-        # the steam API really overreacts when a game has no achievements and
-        # you try to query those achievements
-        return JSON.parse(response.body)
-      else
-        raise net_http_error(response, tries: tries)
+      begin
+        if JSON.parse(response.body).has_key?('playerstats')
+          # the steam API really overreacts when a game has no achievements and
+          # you try to query those achievements
+          return JSON.parse(response.body)
+        end
+      rescue JSON::ParserError
+        # this fine - just do the normal behavior outside the return block
       end
+      raise net_http_error(response, tries: tries)
     else
       if tries < MAX_TRIES
         # otherwise, retry in case this is a transient error
