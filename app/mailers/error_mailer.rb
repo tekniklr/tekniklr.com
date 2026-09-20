@@ -13,13 +13,5 @@ class ErrorMailer < ApplicationMailer
       subject: "[tekniklr.com] background error #{@message}"
     )
   end
-
-  def tumblr_post_deletion_error(status)
-    @status = status
-    mail(
-      to:      'rails@tekniklr.com',
-      subject: "[tekniklr.com] umable to delete old tumblr posts"
-    )
-  end
   
 end

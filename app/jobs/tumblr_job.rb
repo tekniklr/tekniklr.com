@@ -9,7 +9,6 @@ class TumblrJob < ApplicationJob
   # delete old tumblr posts and update cache of the newest one shown on the
   # front page
   def get_tumblr
-    Rails.logger.debug "Removing old tumblr posts..."
     Tumblr.configure do |config|
       config.consumer_key = Rails.application.credentials.tumblr[:consumer_key]
       config.consumer_secret = Rails.application.credentials.tumblr[:consumer_secret]
@@ -19,14 +18,13 @@ class TumblrJob < ApplicationJob
     client = Tumblr::Client.new
 
     if client.info['status'] < 400
+      Rails.logger.debug "Removing old tumblr posts..."
       # delete 30 old posts at a time to avoid hitting any API limits
       old_posts = client.posts('tekniklr.tumblr.com', before: (Time.now-TUMBLR_HISTORY).to_i, sort: 'asc', limit: 30)
       old_posts['posts'].each do |post|
         Rails.logger.debug "\tdeleting post with id #{post['id']}..."
         client.delete('tekniklr.tumblr.com', post['id'])
       end
-    else
-      ErrorMailer.tumblr_post_deletion_error(client.info).deliver_now
     end
 
     # cache data from newest post(s) to display on home page
