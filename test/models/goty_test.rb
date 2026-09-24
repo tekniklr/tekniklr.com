@@ -35,4 +35,11 @@ class GotyTest < ActiveSupport::TestCase
     
   end
 
+  should "provide a formatted explanation" do
+    goty = FactoryBot.build(:goty)
+    assert_equal "click to add explanation", goty.formatted_explanation
+    goty.explanation = "this is \n a test"
+    assert_equal "<p>this is \n<br /> a test</p>", goty.formatted_explanation
+  end
+
 end

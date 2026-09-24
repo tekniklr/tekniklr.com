@@ -64,19 +64,27 @@ class GotyController < ApplicationController
 
   def update_explanation
     goty = Goty.find(params[:goty_id])
-    if goty.update_attribute(:explanation, params[:goty][:explanation])
-      head :ok
-    else
-      render json: goty.errors.full_messages, status: :unprocessable_entity
+    respond_to do |format|
+      if goty.update_attribute(:explanation, params[:goty][:explanation])
+        format.html { redirect_to(goty, notice: 'Explanation updated.') }
+        format.json { respond_with_bip(goty) }
+      else
+        format.html { redirect_to(goty, error: 'Unable to update explanation!') }
+        format.json { respond_with_bip(goty) }
+      end
     end
   end
 
   def update_game_explanation
     goty_game = GotyGame.find(params[:goty_game_id])
-    if goty_game.update_attribute(:explanation, params[:goty_game][:explanation])
-      head :ok
-    else
-      render json: goty_game.errors.full_messages, status: :unprocessable_entity
+    respond_to do |format|
+      if goty_game.update_attribute(:explanation, params[:goty_game][:explanation])
+        format.html { redirect_to(goty_game.goty, notice: 'Explanation updated.') }
+        format.json { respond_with_bip(goty_game) }
+      else
+        format.html { redirect_to(goty_game.goty, error: 'Unable to update explanation!') }
+        format.json { respond_with_bip(goty_game) }
+      end
     end
   end
 

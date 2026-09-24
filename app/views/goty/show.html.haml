@@ -20,7 +20,7 @@
 
 - unless @goty.explanation.blank?
   .goty_explanation
-    = goty_explanation @goty
+    = @goty.formatted_explanation
 
 %ol.goty_show
   - @goty.goty_games.sorted.first(@top_num).each do |gg|
@@ -36,7 +36,7 @@
           .goty_name
             = gg.game.name
           .goty_explanation
-            = goty_explanation gg
+            = gg.formatted_explanation
           .goty_played
             Played:
             - if gg.game.last_played.to_date > gg.game.created_at.to_date

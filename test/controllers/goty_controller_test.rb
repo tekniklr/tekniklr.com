@@ -57,12 +57,12 @@ class GotyControllerTest < ActionController::TestCase
 
   should "update goty explanation" do
     put :update_explanation, params: {goty_id: @unpublished_goty.id, goty: { explanation: 'Some terrible reasoning.'}}, session: {user_id: @user.id}
-    assert_response :success
+    assert_redirected_to goty_path(@unpublished_goty)
   end
 
   should "update goty_game explanation" do
     put :update_game_explanation, params: {goty_game_id: @gg1.id, goty_game: {explanation: 'Some terrible reasoning.'}}, session: {user_id: @user.id}
-    assert_response :success
+    assert_redirected_to goty_path(@goty)
   end
 
   should "update goty published status" do

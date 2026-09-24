@@ -1,4 +1,5 @@
 class Goty < ActiveRecord::Base
+  include GotyFormat
 
   has_many :goty_games, dependent: :destroy
 

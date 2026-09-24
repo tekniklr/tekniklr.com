@@ -1,4 +1,5 @@
 class GotyGame < ActiveRecord::Base
+  include GotyFormat
 
   belongs_to :goty
   belongs_to :game, class_name: 'RecentGame', foreign_key: :game_id
