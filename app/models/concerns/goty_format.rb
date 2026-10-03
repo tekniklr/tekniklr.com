@@ -5,7 +5,7 @@ module GotyFormat
   def formatted_explanation # needed so best_in_place uses full formatting after update
     explanation.blank? and return 'click to add explanation'
     text = simple_format(explanation)
-    text.scan(/\|\|(.*)\|\|/).each_with_index do |match, index|
+    text.scan(/\|\|(.*?)\|\|/).each_with_index do |match, index|
       spoiler = match.first
       logger.debug "************ hiding spoiler #{index+1} for goty #{id}: #{spoiler}"
       spoiler_id = "spoiler_#{id}_#{index}"
