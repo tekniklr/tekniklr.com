@@ -81,3 +81,6 @@ ol.goty_edit , ol.goty_show {
   background-color: color.adjust(config.$base_font_color, $lightness: -30%);
   cursor: pointer;
 }
+.spoiler_trailing_space {
+  margin-right: 0.5rem;
+}
