@@ -21,6 +21,9 @@ ol.goty_links {
 ol.goty_edit , ol.goty_show {
   padding: 0;
   margin: 0 0 0 1em;
+  li.disqualified {
+    opacity: .25;
+  }
 }
 
 .goty_explanation {
