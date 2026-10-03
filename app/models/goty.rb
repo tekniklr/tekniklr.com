@@ -8,6 +8,12 @@ class Goty < ActiveRecord::Base
   scope :sorted, -> {
     order('year desc')
   }
+  scope :published, -> {
+    where(published: true)
+  }
+  scope :nonempty, -> {
+    where.associated(:goty_games).distinct
+  }
 
   def top_num
     case goty_games.size
