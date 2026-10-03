@@ -9,4 +9,17 @@ class Goty < ActiveRecord::Base
     order('year desc')
   }
 
+  def top_num
+    case goty_games.size
+    when 10..Float::INFINITY
+      10
+    when 5..9
+      5
+    when 3,4
+      3
+    else
+      goty_games.size
+    end
+  end
+
 end

@@ -26,9 +26,9 @@
   - shown = 0
   - @goty.goty_games.sorted.each do |gg|
     - gg.game.hidden? and next
-    - (!logged_in? && shown >= @top_num) and break
+    - (!logged_in? && shown >= @goty.top_num) and break
     - shown += 1
-    %li{class: ((shown > @top_num) ? 'disqualified' : '')}
+    %li{class: ((shown > @goty.top_num) ? 'disqualified' : '')}
       .row.mb-5.goty_game{title: gg.game.name}
         .col-sm-2.goty_image
           - if gg.game.image.present?

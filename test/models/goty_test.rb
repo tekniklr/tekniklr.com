@@ -42,4 +42,16 @@ class GotyTest < ActiveSupport::TestCase
     assert_equal "<p>this is \n<br /> a test</p>", goty.formatted_explanation
   end
 
+  should "know how long the list for this year should be" do
+    goty = FactoryBot.build(:goty)
+    2.times { goty.goty_games.build }
+    assert_equal 2, goty.top_num, 'should show complete number when under 3'
+    2.times { goty.goty_games.build }
+    assert_equal 3, goty.top_num, 'should show 3 when under 5'
+    4.times { goty.goty_games.build }
+    assert_equal 5, goty.top_num, 'should show 5 when under 10'
+    5.times { goty.goty_games.build }
+    assert_equal 10, goty.top_num, 'should show 10 when over 10'
+  end
+
 end
