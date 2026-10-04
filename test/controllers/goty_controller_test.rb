@@ -2,13 +2,13 @@ require 'test_helper'
 
 class GotyControllerTest < ActionController::TestCase
   setup do
-    @goty = FactoryBot.create(:goty, year: 2025, published: true)
+    @goty = FactoryBot.create(:goty, year: 2024, published: true)
     @gg1 = FactoryBot.create(:goty_game, goty: @goty)
     @gg2 = FactoryBot.create(:goty_game, goty: @goty)
-    @unpublished_goty = FactoryBot.create(:goty, year: 2026, published: false)
+    @unpublished_goty = FactoryBot.create(:goty, year: 2025, published: false)
     @ugg1 = FactoryBot.create(:goty_game, goty: @unpublished_goty)
     @ugg2 = FactoryBot.create(:goty_game, goty: @unpublished_goty)
-    @empty_goty = FactoryBot.create(:goty, year: 2027, published: true)
+    @empty_goty = FactoryBot.create(:goty, year: 2026, published: true)
     @user = FactoryBot.create(:user)
   end
 
@@ -20,17 +20,17 @@ class GotyControllerTest < ActionController::TestCase
   should 'redirect to only published non-empty goty for non-admins' do
     assert_equal 1, Goty.published.nonempty.size, "sanity check; should be one published non-empty goty: #{Goty.published.nonempty.collect{|g| ["id: "+g.id.to_s, "published: "+g.published.to_s, "games: "+g.goty_games.size.to_s]}}"
     get :index
-    assert_redirected_to goty_path(year: '2025')
+    assert_redirected_to goty_path(year: '2024')
   end
 
   should "only allow limited access without login" do
-    get :show, params: {year: '2025'}
+    get :show, params: {year: '2024'}
     assert_response :success
 
-    get :show, params: {year: '2026'}
+    get :show, params: {year: '2025'}
     assert_response :not_found
 
-    get :show, params: {year: '2027'}
+    get :show, params: {year: '2026'}
     assert_response :not_found
 
     get :edit
@@ -47,12 +47,12 @@ class GotyControllerTest < ActionController::TestCase
   end
 
   should "get show for published goty when not logged in" do
-    get :show, params: {year: '2025'}
+    get :show, params: {year: '2024'}
     assert_response :success
   end
 
   should "get show for unpublished goty when logged in" do
-    get :show, params: {year: '2026'}, session: {user_id: @user.id}
+    get :show, params: {year: '2025'}, session: {user_id: @user.id}
     assert_response :success
   end
 
