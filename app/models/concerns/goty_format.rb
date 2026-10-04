@@ -2,8 +2,10 @@ module GotyFormat
   extend ActiveSupport::Concern
   include ActionView::Helpers::TextHelper
 
-  def formatted_explanation # needed so best_in_place uses full formatting after update
-    explanation.blank? and return 'click to add explanation'
+  def formatted_explanation(editable: true) # needed so best_in_place uses full formatting after update
+    if editable
+      explanation.blank? and return 'click to add explanation'
+    end
     type = self.model_name.to_s
     text = simple_format(explanation)
     text.scan(/\|\|(.*?)\|\|(.{1})/).each_with_index do |match, index|

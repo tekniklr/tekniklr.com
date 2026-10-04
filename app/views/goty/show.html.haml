@@ -20,7 +20,7 @@
 
 - unless @goty.explanation.blank?
   .goty_explanation
-    = @goty.formatted_explanation
+    = @goty.formatted_explanation(editable: false)
 
 %ol.goty_show
   - shown = 0
@@ -40,7 +40,7 @@
             %a{name: "goty_#{@goty.year}_#{shown}"}
             = gg.game.name
           .goty_explanation
-            = gg.formatted_explanation
+            = gg.formatted_explanation(editable: false)
           .goty_played
             Played:
             - if gg.game.last_played.to_date > gg.game.created_at.to_date
