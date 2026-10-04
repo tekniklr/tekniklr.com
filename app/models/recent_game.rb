@@ -70,8 +70,7 @@ class RecentGame < ApplicationRecord
   scope :with_image, -> {
     where('image_file_name is not null')
   }
-  scope :goty_eligible, -> {
-    year = Date.today.year
+  scope :goty_eligible, lambda { |year|
     where(release_year: year).
     where('created_at <= ?', Time.new(year,12,31,23,59))
   }

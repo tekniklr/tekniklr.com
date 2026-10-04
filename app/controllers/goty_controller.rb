@@ -28,17 +28,18 @@ class GotyController < ApplicationController
   end
 
   def edit
-    year = Date.today.year
+    year = params[:year] || Date.today.year
     page_title "Editing #{year} GOTY"
     @goty = Goty.find_or_create_by(year: year)
 
     # remove any games that were changed to not have the current release year
     @goty.goty_games.each do |goty|
-      (goty.game.release_year == year )or goty.destroy
+      logger.debug "************ verifying releae year of #{goty.game.name}: #{goty.game.release_year} == #{year}?"
+      (goty.game.release_year.to_s == year.to_s) or goty.destroy
     end
 
     # add any new games played with the current release year
-    RecentGame.visible.goty_eligible.each do |game|
+    RecentGame.visible.goty_eligible(year).each do |game|
       (@goty.goty_games.where(game_id: game.id).size == 0) or next
       @goty.goty_games.create(game_id: game.id, sort: @goty.goty_games.size+1)
     end

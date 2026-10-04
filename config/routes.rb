@@ -38,7 +38,7 @@ Rails.application.routes.draw do
   resources :recent_games, only: [:new, :create,  :edit, :update, :destroy]
 
   get  '/goty',                              to: 'goty#index',                    as: 'goty_list'
-  get  '/goty/edit',                         to: 'goty#edit',                    as: 'edit_goty'
+  get  '/goty/edit(/:year)',                 to: 'goty#edit',                    as: 'edit_goty'
   get  '/goty/:year',                        to: 'goty#show',                    as: 'goty'
   post '/goty/sort',                         to: 'goty#sort',                    as: 'sort_goty'
   put  '/goty/update_explanation/:goty_id',  to: 'goty#update_explanation',                    as: 'update_goty_explanation'

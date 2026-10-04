@@ -15,6 +15,13 @@
 
 = goty_nav(@gotys, @goty.year)
 
+- if logged_in?
+  :ruby
+    links = [
+      link_to('edit', edit_goty_path(year: @goty.year))
+    ]
+  = scaffold_navigation(links: links, additional_class: 'mb-3 mt-3', label: 'GOTY navigation')
+
 %h1
   = @page_title
 
