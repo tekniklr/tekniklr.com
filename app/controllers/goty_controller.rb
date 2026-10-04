@@ -31,6 +31,10 @@ class GotyController < ApplicationController
     year = params[:year] || Date.today.year
     page_title "Editing #{year} GOTY"
     @goty = Goty.find_or_create_by(year: year)
+    unless @goty.errors.empty?
+      render '404', status: 404
+      return
+    end
 
     # remove any games that were changed to not have the current release year
     @goty.goty_games.each do |goty|

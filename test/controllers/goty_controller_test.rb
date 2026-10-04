@@ -56,9 +56,14 @@ class GotyControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  should "get edit" do
-    get :edit, session: {user_id: @user.id}
+  should "get edit for cromulent year" do
+    get :edit, params: {year: '2025'}, session: {user_id: @user.id}
     assert_response :success
+  end
+
+  should "not get edit for noncromulent year" do
+    get :edit, params: {year: '2021'}, session: {user_id: @user.id}
+    assert_response :not_found
   end
 
   should "re-order" do
