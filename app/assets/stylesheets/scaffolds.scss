@@ -103,6 +103,9 @@ ul.scaffold_navigation, ul.item_navigation {
 ul.scaffold_navigation {
   text-align: right;
 }
+ul.scaffold_navigation_center {
+  text-align: center !important;
+}
 ul.item_navigation {
   text-align: center;
   margin: .5em 0 1em 0;

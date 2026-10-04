@@ -18,6 +18,42 @@ ol.goty_links {
   }
 }
 
+ul.goty_years {
+  padding: 0;
+  margin: 0 auto;
+  list-style-type: none;
+  li {
+    margin: 2em auto 5em auto;
+    text-align: center;
+    .goty_title {
+      font-size: 150%;
+      font-weight: bold;
+    }
+    .goty_games {
+      margin: 1em 0 0 0;
+      .goty_image {
+        display: inline;
+        img {
+          @include config.rounded(0px, config.$page_bg, 2em, 0, none);
+        }
+      }
+      @media screen and (max-width: config.$mobile_threshhold) {
+        // add linebreak after fifth element only on mobile, as 10 is the most common list size and just two elements would wrap, otherwise
+        .goty_image:nth-child(5):after  {
+          content: "\A";
+          white-space: pre; 
+        }
+      }
+    }
+    .goty_management {
+      margin-top: -1em;
+    }
+  }
+  li.not_public {
+    opacity: .25;
+  }
+}
+
 ol.goty_edit , ol.goty_show {
   padding: 0;
   margin: 0 0 0 1em;

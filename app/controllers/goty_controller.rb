@@ -1,7 +1,21 @@
 class GotyController < ApplicationController
-  before_action   :is_admin?, except: :show
+  before_action   :is_admin?, except: [:index, :show]
 
   before_action   :set_goty_links, only: [:show, :edit]
+
+  def index
+    @years = Goty.sorted
+    unless logged_in?
+      @years = @years.published.nonempty
+      if @years.size == 1
+        return redirect_to goty_path(year: @years.first.year)
+      elsif @years.empty?
+        render '404', status: 404
+        return
+      end
+    end
+    @page_title = "top games by year"
+  end
 
   def show
     @goty = Goty.find_by_year(params[:year])

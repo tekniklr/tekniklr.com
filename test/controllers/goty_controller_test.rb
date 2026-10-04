@@ -12,6 +12,17 @@ class GotyControllerTest < ActionController::TestCase
     @user = FactoryBot.create(:user)
   end
 
+  should 'show index with unpublished and empty goty for admins' do
+    get :index, session: {user_id: @user.id}
+    assert_response :success
+  end
+
+  should 'redirect to only published non-empty goty for non-admins' do
+    assert_equal 1, Goty.published.nonempty.size, "sanity check; should be one published non-empty goty: #{Goty.published.nonempty.collect{|g| ["id: "+g.id.to_s, "published: "+g.published.to_s, "games: "+g.goty_games.size.to_s]}}"
+    get :index
+    assert_redirected_to goty_path(year: '2025')
+  end
+
   should "only allow limited access without login" do
     get :show, params: {year: '2025'}
     assert_response :success

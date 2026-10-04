@@ -27,7 +27,8 @@ class RecentGame < ApplicationRecord
   has_attached_file     :image,
                         styles: {
                           thumb: ["100x100>", :png],
-                          default: ["300x300>", :png]
+                          default: ["300x300>", :png],
+                          overview: ["50x50>", :png]
                         },
                         path: ":rails_root/public/recent_games/:attachment/:id/:style/:filename",
                         url: "/recent_games/:attachment/:id/:style/:filename"

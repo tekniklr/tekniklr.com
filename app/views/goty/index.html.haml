@@ -1,0 +1,30 @@
+= stylesheet_link_tag 'goty'
+
+%h1
+  = @page_title
+
+%ul.goty_years
+  - @years.each do |goty|
+    - unless logged_in?
+      - (!goty.published? || goty.goty_games.empty?) and next
+    %li{class: ((!goty.published? || goty.goty_games.empty?) ? 'not_public' : '')}
+      .goty_title
+        = link_to "top #{pluralize goty.top_num, 'game'} of #{goty.year}", goty_path(year: goty.year)
+      .goty_games
+        - goty.goty_games.sorted.first(goty.top_num).each_with_index do |gg, index|
+          .goty_image{title: "#{goty.year} game #{index+1}: #{gg.game.name}"}
+            - if gg.game.image.present?
+              = link_to image_tag(gg.game.image.url(:overview), alt: gg.game.name), goty_path(year: goty.year, anchor: "goty_#{goty.year}_#{index+1}")
+            - else
+              = link_to image_tag("game-controller.png", alt: 'placeholder image', width: 50, height: 50), goty_path(year: goty.year, anchor: "goty_#{goty.year}_#{index+1}")
+      - if logged_in?
+        .goty_management
+          :ruby
+            links = []
+            if goty.goty_games.size > 0
+              links << best_in_place(goty, :published, as: :checkbox, collection: ["click to publish", "click to unpublish"], url: update_goty_published_path(goty_id: goty.id))
+            end
+            if goty.year == Date.today.year
+              links << link_to('edit', edit_goty_path)
+            end
+          = scaffold_navigation(links: links, additional_class: 'scaffold_navigation_center', label: 'GOTY navigation')
