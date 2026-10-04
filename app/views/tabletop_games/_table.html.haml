@@ -158,7 +158,6 @@
               column
                 .search( val ? ','+val+',' : '', true, false )
                 .draw();
-              console.log("filtering column to "+val);
             } );
             var label = $('<label for="players">Players </label>');
             select.appendTo( label );
@@ -184,7 +183,6 @@
             var min = sorted[0];
             var max = sorted[sorted.length-1];
             for (let i = min; i <= max; i++) {
-              console.log('Appending '+i);
               select.append('<option value="' + i + '">' + i + '</option>');
             }
             select.append('<option value="' + -1 + '">No max</option>');
