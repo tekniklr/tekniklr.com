@@ -10,6 +10,9 @@
     %li{class: ((!goty.published? || goty.goty_games.empty?) ? 'not_public' : '')}
       .goty_title
         = link_to "top #{pluralize goty.top_num, 'game'} of #{goty.year}", goty_path(year: goty.year)
+      - unless goty.explanation.blank?
+        .goty_list_explanation
+          = goty.formatted_explanation(editable: false)
       .goty_games
         - goty.goty_games.sorted.first(goty.top_num).each_with_index do |gg, index|
           .goty_image{title: "#{goty.year} game #{index+1}: #{gg.game.name}"}
@@ -26,3 +29,5 @@
             end
             links << link_to('edit', edit_goty_path(year: goty.year))
           = scaffold_navigation(links: links, additional_class: 'scaffold_navigation_center', label: 'GOTY navigation')
+
+= javascript_include_tag :goty
