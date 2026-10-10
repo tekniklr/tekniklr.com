@@ -51,6 +51,9 @@
       %br
       - if @recent_game.image?
         = image_tag @recent_game.image.url(:default), alt: @recent_game.name
+        .form-check.mt-1
+          = check_box_tag :remove_image, true, class: 'form-check-input'
+          = label_tag :remove_image, "remove image?", class: 'form-check-label'
 
   .centered
     = f.submit submit_label, class: 'btn btn-primary'
