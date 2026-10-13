@@ -19,9 +19,9 @@ GIT
 
 GIT
   remote: https://github.com/tekniklr/tumblr_client.git
-  revision: a8934918ebb4edf3459ef13f0ed705cec4381f7b
+  revision: f2f9c81347f09d33876bfd19e8c32c7aa809ee66
   specs:
-    tumblr_client (0.8.7)
+    tumblr_client (0.8.6)
       faraday
       faraday-multipart
       faraday-oauth1
@@ -161,7 +161,7 @@ GEM
     delayed_job_active_record (4.1.11)
       activerecord (>= 3.0, < 9.0)
       delayed_job (>= 3.0, < 5)
-    domain_name (0.6.20260921)
+    domain_name (0.7.20261007)
     drb (2.2.3)
     erb (6.0.7)
     erubi (1.13.1)
