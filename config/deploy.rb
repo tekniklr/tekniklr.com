@@ -7,7 +7,7 @@ set :bundle_jobs, 1
 set :keep_releases, 6
 set :tmp_dir, "/home/tekniklr/tmp"
 set :rvm_type, :user
-set :rvm_ruby_version, 'ruby-3.4.7'
+set :rvm_ruby_version, 'ruby-4.0.9'
 set :ssh_options, {
   forward_agent: true
 }
