@@ -49,7 +49,7 @@
   - books = @goodreads.first(9)
   .books_block
     %h1
-      = link_to 'Books', 'https://www.goodreads.com/user/show/10905654-tekniklr'
+      = link_to 'Books', 'https://www.goodreads.com/tekniklr'
     %ul#goodreads
       - books.each do |book|
         = render 'goodreads', book: book, fade: fade_level(books.size, fade_books)
