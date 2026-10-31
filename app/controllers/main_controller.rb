@@ -30,11 +30,11 @@ class MainController < ApplicationController
       GamingJob.perform_later
     end
 
-    @goodreads_expiry   = Rails.cache.read('goodreads_expiry')
-    @goodreads          = Rails.cache.read('goodreads')
-    if @goodreads_expiry.nil? || Time.now > @goodreads_expiry
-      @goodreads_expiry = Rails.cache.write('goodreads_expiry', (Time.now + 2.hours))
-      GoodreadsJob.perform_later
+    @hardcover_expiry   = Rails.cache.read('hardcover_expiry')
+    @hardcover          = Rails.cache.read('hardcover')
+    if @hardcover_expiry.nil? || Time.now > @hardcover_expiry
+      @hardcover_expiry = Rails.cache.write('hardcover_expiry', (Time.now + 2.hours))
+      HardcoverJob.perform_later
     end
 
     @letterboxd_expiry   = Rails.cache.read('letterboxd_expiry')

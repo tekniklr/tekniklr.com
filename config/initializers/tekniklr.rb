@@ -11,6 +11,6 @@ CACHED_ITEMS = [
                   ['toots', 'toot_expiry', ['failed_mastodon']],
                   ['gaming', 'gaming_expiry', ['failed_nintendo', 'failed_psn', 'failed_steam', 'failed_xbox']],
                   ['letterboxd', 'letterboxd_expiry', ['failed_letterboxd']],
-                  ['goodreads', 'goodreads_expiry', ['failed_goodreads']],
+                  ['hardcover', 'hardcover_expiry', ['failed_hardcover']],
                   ['lastfm', 'lastfm_expiry', ['failed_lastfm']]
                 ]

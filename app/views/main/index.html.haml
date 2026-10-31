@@ -44,15 +44,15 @@
         = render 'gaming', game: game, fade: fade_level(games.size, fade_games)
         - fade_games += 1
 
-- if !@goodreads.blank? && @goodreads.size > 1
+- if !@hardcover.blank? && @hardcover.size > 1
   - fade_books = 0
-  - books = @goodreads.first(9)
+  - books = @hardcover.first(9)
   .books_block
     %h1
-      = link_to 'Books', 'https://www.goodreads.com/tekniklr'
-    %ul#goodreads
+      = link_to 'Books', 'https://hardcover.app/@tekniklr'
+    %ul#hardcover
       - books.each do |book|
-        = render 'goodreads', book: book, fade: fade_level(books.size, fade_books)
+        = render 'hardcover', book: book, fade: fade_level(books.size, fade_books)
         - fade_books += 1
 
 - if !@letterboxd.blank? && @letterboxd.size > 1
