@@ -52,6 +52,7 @@ end
 group :production do
   gem 'exception_notification'
   gem 'terser'
+  gem 'mini_racer'
 end
 
 group :development do
