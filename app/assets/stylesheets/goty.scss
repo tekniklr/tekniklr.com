@@ -76,6 +76,7 @@ ol.goty_edit , ol.goty_show {
     }
     @media screen and (max-width: config.$mobile_threshhold) {
       width: 25em;
+      font-size: 16px;
     }
     height: 15em;
   }
