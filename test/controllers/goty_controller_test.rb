@@ -42,7 +42,7 @@ class GotyControllerTest < ActionController::TestCase
     put :update_explanation, params: {goty_id: @unpublished_goty.id, goty: { explanation: 'Some terrible reasoning.'}}
     assert_redirected_to root_url
 
-    put :update_game_explanation, params: {goty_game_id: @goty.goty_games.first.id, explanation: 'Some terrible reasoning.'}
+    put :update_game_explanation, params: {goty_game_id: @gg1.id, explanation: 'Som@ terrible reasoning.'}
     assert_redirected_to root_url
   end
 
