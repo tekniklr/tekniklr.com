@@ -39,11 +39,14 @@
             .truncate
               #{g.specification.name} - #{g.specification.version}"}
     - else
-      - Gem.loaded_specs.values.sort{|a,b| a.name <=> b.name}.collect{|s| [s.name, s.version]}.each do |name, version|
+      - Gem.loaded_specs.values.sort{|a,b| a.name <=> b.name}.collect{|s| [s.name, s.version, s.homepage]}.each do |name, version, url|
         .row.mb-1
           .col-lg-4.col-md-5.col-8
             .truncate
-              = name
+              - unless url.blank?
+                = link_to name, url, target: '_blank'
+              - else
+                = name
           .col-lg-2.col-md-3.col-4
             .truncate
               = version
