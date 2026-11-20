@@ -14,12 +14,12 @@
         .goty_list_explanation
           = goty.formatted_explanation(editable: false)
       .goty_games
-        - goty.goty_games.sorted.first(goty.top_num).each_with_index do |gg, index|
-          .goty_image{title: "#{goty.year} game #{index+1}: #{gg.game.name}"}
+        - goty.goty_games.sorted.first(goty.top_num).each do |gg|
+          .goty_image{title: "#{goty.year} game #{gg.rank}: #{gg.game.name}"}
             - if gg.game.image.present?
-              = link_to image_tag(gg.game.image.url(:overview), alt: gg.game.name), goty_path(year: goty.year, anchor: "goty_#{goty.year}_#{index+1}")
+              = link_to image_tag(gg.game.image.url(:overview), alt: gg.game.name), goty_path(year: goty.year, anchor: "goty_#{goty.year}_#{gg.rank}")
             - else
-              = link_to image_tag("game-controller.png", alt: 'placeholder image', width: 50, height: 50), goty_path(year: goty.year, anchor: "goty_#{goty.year}_#{index+1}")
+              = link_to image_tag("game-controller.png", alt: 'placeholder image', width: 50, height: 50), goty_path(year: goty.year, anchor: "goty_#{goty.year}_#{gg.rank}")
       - if logged_in?
         .goty_management
           :ruby

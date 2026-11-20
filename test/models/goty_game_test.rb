@@ -33,4 +33,14 @@ class GotyGameTest < ActiveSupport::TestCase
     assert_equal "<p>this is \n<br /> a test</p>", goty_game.formatted_explanation
   end
 
+  should "know its rank" do
+    goty = FactoryBot.create(:goty)
+    gg1 = FactoryBot.create(:goty_game, goty: goty, sort: 0)
+    gg2 = FactoryBot.create(:goty_game, goty: goty, sort: 451)
+    gg3 = FactoryBot.create(:goty_game, goty: goty, sort: 1408)
+    assert_equal 1, gg1.rank
+    assert_equal 2, gg2.rank
+    assert_equal 3, gg3.rank
+  end
+
 end

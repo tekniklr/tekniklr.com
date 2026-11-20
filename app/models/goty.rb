@@ -1,6 +1,8 @@
 class Goty < ActiveRecord::Base
   include GotyFormat
 
+  after_save :clear_goty_game_ranks
+
   has_many :goty_games, dependent: :destroy
 
   validates :year, numericality: { greater_than_or_equal_to: 2024, less_than_or_equal_to: Date.today.year }, uniqueness: true
@@ -25,6 +27,14 @@ class Goty < ActiveRecord::Base
       3
     else
       goty_games.size
+    end
+  end
+
+  private
+
+  def clear_goty_game_ranks
+    goty_games.each do |gg|
+      Rails.cache.delete("goty_game_#{gg.id}_rank")
     end
   end
 
