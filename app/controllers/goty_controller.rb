@@ -45,6 +45,7 @@ class GotyController < ApplicationController
     # add any new games played with the current release year
     RecentGame.visible.goty_eligible(year).each do |game|
       (@goty.goty_games.where(game_id: game.id).size == 0) or next
+      logger.debug "************ adding missing game to #{year}: #{game.name}"
       @goty.goty_games.create(game_id: game.id, sort: @goty.goty_games.size+1)
     end
 
