@@ -71,6 +71,9 @@
               - goty = Goty.find_by_year(game.release_year)
               - if goty
                 = link_to game.release_year, goty_path(year: goty.year)
+                - if game.goty_game && game.goty_game.sort
+                  %br
+                  (#{link_to "##{game.goty_game.sort}", goty_path(year: goty.year, anchor: "goty_#{goty.year}_#{game.goty_game.sort}")})
               - else
                 = game.release_year
           %td.game_platform{'data-filter': game.platform}

@@ -24,6 +24,8 @@ class RecentGame < ApplicationRecord
                         ]
   PLATFORMS = PSN_PLATFORMS + XBOX_PLATFORMS + NINTENDO_PLATFORMS + STEAM_PLATFORMS + ['Mac', 'the internet', 'iOS']
 
+  has_one               :goty_game, foreign_key: :game_id
+
   has_attached_file     :image,
                         styles: {
                           thumb: ["100x100>", :png],

@@ -2,6 +2,8 @@ require 'test_helper'
 
 class RecentGameTest < ActiveSupport::TestCase
 
+  should have_one :goty_game
+
   def setup
     @game = FactoryBot.build(:recent_game)
   end
