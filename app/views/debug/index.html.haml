@@ -34,19 +34,24 @@
   %dd
     - if Rails.configuration.respond_to?(:gems)
       - Rails.configuration.gems.sort{|a,b| a.specification.name <=> b.specification.name}.each do |g|
-        .row.mb-1
+        .row.mb-2
           .col
             .truncate
               #{g.specification.name} - #{g.specification.version}"}
     - else
-      - Gem.loaded_specs.values.sort{|a,b| a.name <=> b.name}.collect{|s| [s.name, s.version, s.homepage]}.each do |name, version, url|
-        .row.mb-1
-          .col-lg-4.col-md-5.col-8
-            .truncate
-              - unless url.blank?
-                = link_to name, url, target: '_blank'
-              - else
-                = name
-          .col-lg-2.col-md-3.col-4
-            .truncate
-              = version
+      - Gem.loaded_specs.values.sort{|a,b| a.name <=> b.name}.each do |s|
+        .row.mb-3
+          .row
+            .col-lg-4.col-md-5.col-8
+              .truncate
+                - unless s.homepage.blank?
+                  = link_to s.name, s.homepage, target: '_blank'
+                - else
+                  = s.name
+            .col-lg-2.col-md-3.col-4
+              .truncate
+                = s.version
+          .row
+            .col
+              .summary
+                = s.summary

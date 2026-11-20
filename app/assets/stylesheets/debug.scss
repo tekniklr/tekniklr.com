@@ -8,6 +8,11 @@ dl.debug {
   }
   dd {
     font-family: monospace;
+    .summary {
+      margin: 0 0 0 1em;
+      font-size: 85%;
+      @include config.transparent(0.8);
+    }
     @media screen and (min-width: config.$mobile_threshhold) {
       /* regular layout */
       margin: 0 0 3em 2.5em;
