@@ -47,6 +47,15 @@ class GotyController < ApplicationController
       (@goty.goty_games.where(game_id: game.id).size == 0) or next
       @goty.goty_games.create(game_id: game.id, sort: @goty.goty_games.size+1)
     end
+
+    # update the goty game last_played dates to be the recent game last_played
+    # date only if the latter is still in the goty year
+    @goty.goty_games.each do |gg|
+      if gg.game.last_played.blank? || (gg.game.last_played <= Date.new(@goty.year, 12, 31))
+        logger.debug "************ updating last played for #{gg.game.name}"
+        gg.update_attribute(:last_played, gg.game.last_played)
+      end
+    end
   end
 
   def sort

@@ -10,138 +10,139 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_01_001629) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_20_014609) do
   create_table "delayed_jobs", id: :integer, charset: "utf8mb3", force: :cascade do |t|
+    t.integer "priority", default: 0
     t.integer "attempts", default: 0
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "failed_at", precision: nil
     t.text "handler"
     t.text "last_error"
-    t.datetime "locked_at", precision: nil
-    t.string "locked_by"
-    t.integer "priority", default: 0
-    t.string "queue"
     t.datetime "run_at", precision: nil
+    t.datetime "locked_at", precision: nil
+    t.datetime "failed_at", precision: nil
+    t.string "locked_by"
+    t.string "queue"
+    t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
   create_table "experiences", id: :integer, charset: "latin1", force: :cascade do |t|
-    t.string "affiliation"
-    t.string "affiliation_link"
-    t.datetime "created_at", precision: nil
-    t.date "end_date"
-    t.string "location"
     t.date "start_date"
-    t.text "tasks"
+    t.date "end_date"
     t.string "title"
+    t.string "affiliation"
+    t.string "location"
+    t.text "tasks"
+    t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
+    t.string "affiliation_link"
     t.index ["affiliation_link"], name: "index_experiences_on_affiliation_link"
   end
 
   create_table "facets", id: :integer, charset: "latin1", force: :cascade do |t|
-    t.datetime "created_at", precision: nil
     t.string "name"
-    t.string "slug"
-    t.datetime "updated_at", precision: nil
     t.text "value"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.string "slug"
     t.index ["slug"], name: "index_facets_on_slug"
   end
 
   create_table "favorite_things", id: :integer, charset: "latin1", force: :cascade do |t|
-    t.datetime "created_at", precision: nil
     t.integer "favorite_id"
-    t.string "image_content_type"
-    t.string "image_file_name"
-    t.integer "image_file_size"
-    t.datetime "image_updated_at", precision: nil
+    t.string "thing"
     t.string "link"
     t.integer "sort"
-    t.string "thing"
+    t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
+    t.string "image_file_name"
+    t.string "image_content_type"
+    t.integer "image_file_size"
+    t.datetime "image_updated_at", precision: nil
     t.index ["favorite_id"], name: "index_favorite_things_on_favorite_id"
   end
 
   create_table "favorites", id: :integer, charset: "latin1", force: :cascade do |t|
-    t.datetime "created_at", precision: nil
     t.string "favorite_type"
     t.integer "sort"
+    t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
   end
 
   create_table "goty", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.text "explanation"
-    t.boolean "published", default: false
-    t.datetime "updated_at", null: false
     t.integer "year"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "published", default: false
+    t.text "explanation"
     t.index ["year"], name: "index_goty_on_year", unique: true
   end
 
   create_table "goty_games", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.text "explanation"
-    t.integer "game_id"
     t.integer "goty_id"
+    t.integer "game_id"
     t.integer "sort"
+    t.text "explanation"
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "last_played"
     t.index ["goty_id"], name: "index_goty_games_on_goty_id"
   end
 
   create_table "links", id: :integer, charset: "latin1", force: :cascade do |t|
-    t.datetime "created_at", precision: nil
-    t.string "icon_content_type"
-    t.string "icon_file_name"
-    t.integer "icon_file_size"
-    t.datetime "icon_updated_at", precision: nil
     t.string "name"
-    t.boolean "social_icon"
-    t.datetime "updated_at", precision: nil
     t.string "url"
     t.boolean "visible"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.boolean "social_icon"
+    t.string "icon_file_name"
+    t.string "icon_content_type"
+    t.integer "icon_file_size"
+    t.datetime "icon_updated_at", precision: nil
     t.index ["social_icon"], name: "index_links_on_social_icon"
     t.index ["visible"], name: "index_links_on_visible"
   end
 
   create_table "recent_games", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.text "achievement_desc", size: :medium
-    t.string "achievement_name"
-    t.datetime "achievement_time"
-    t.datetime "created_at", precision: nil
-    t.boolean "hidden", default: false
-    t.string "image_content_type"
-    t.string "image_file_name"
-    t.integer "image_file_size"
-    t.datetime "image_updated_at", precision: nil
-    t.datetime "last_played", precision: nil
     t.string "name"
     t.string "platform"
-    t.integer "release_year"
-    t.datetime "updated_at", precision: nil
+    t.datetime "last_played", precision: nil
     t.string "url"
+    t.string "image_file_name"
+    t.string "image_content_type"
+    t.integer "image_file_size"
+    t.datetime "image_updated_at", precision: nil
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.string "achievement_name"
+    t.datetime "achievement_time"
+    t.text "achievement_desc", size: :medium
+    t.boolean "hidden", default: false
+    t.integer "release_year"
   end
 
   create_table "tabletop_games", id: :integer, charset: "utf8mb3", force: :cascade do |t|
-    t.string "bgg_url"
-    t.datetime "created_at", precision: nil, null: false
+    t.string "name"
     t.text "expansions"
-    t.string "image_content_type"
+    t.text "other_info"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.string "players"
+    t.string "bgg_url"
     t.string "image_file_name"
+    t.string "image_content_type"
     t.integer "image_file_size"
     t.datetime "image_updated_at", precision: nil
-    t.string "name"
-    t.text "other_info"
-    t.string "players"
-    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "users", id: :integer, charset: "latin1", force: :cascade do |t|
-    t.datetime "created_at", precision: nil
-    t.boolean "enabled", default: false
-    t.string "handle"
-    t.string "name"
     t.string "provider"
     t.string "uid"
+    t.string "handle"
+    t.string "name"
+    t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
+    t.boolean "enabled", default: false
   end
 end

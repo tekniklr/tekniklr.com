@@ -40,10 +40,10 @@
               = best_in_place gg, :explanation, as: :textarea, display_as: :formatted_explanation, place_holder: placeholder, url: update_goty_game_path(goty_game_id: gg.id)
             .goty_played
               Played:
-              - if gg.game.last_played.to_date > gg.game.created_at.to_date
+              - if gg.last_played.to_date > gg.game.created_at.to_date
                 = gg.game.created_at.to_fs(:goty)
                 \-
-              = gg.game.last_played.to_fs(:goty)
+              = gg.last_played.to_fs(:goty)
               - if gg.game.platform
                 on
                 = game_platform(gg.game.platform, gg.game.url)

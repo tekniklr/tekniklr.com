@@ -59,6 +59,7 @@ FactoryBot.define do
     association(:goty)
     association(:game, factory: :recent_game)
     sort            { 0 }
+    last_played     { Date.today }
   end
 
 end

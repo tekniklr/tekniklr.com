@@ -50,12 +50,12 @@
             = gg.formatted_explanation(editable: false)
           .goty_played
             Played:
-            - if gg.game.last_played.to_date > gg.game.created_at.to_date
+            - if gg.last_played.to_date > gg.game.created_at.to_date
               - strfs = (gg.game.created_at.year == @goty.year) ? :goty : :goty_w_year
               = gg.game.created_at.to_fs(strfs)
               \-
-            - strfse = (gg.game.last_played.year == @goty.year) ? :goty : :goty_w_year
-            = gg.game.last_played.to_fs(strfse)
+            - strfse = (gg.last_played.year == @goty.year) ? :goty : :goty_w_year
+            = gg.last_played.to_fs(strfse)
             - if gg.game.platform
               on
               = game_platform(gg.game.platform, gg.game.url)
