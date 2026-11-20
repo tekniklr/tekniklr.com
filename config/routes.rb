@@ -46,6 +46,8 @@ Rails.application.routes.draw do
   put  '/goty/publish/:goty_id',             to: 'goty#update_published',                    as: 'update_goty_published'
 
 
+  resources :debug, only: [:index]
+
   # https://github.com/rails/rails/issues/671
   # http://techoctave.com/c7/posts/36-rails-3-0-rescue-from-routing-error-solution
   match '*path', to: "application#routing_error", via: :get
