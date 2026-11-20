@@ -68,7 +68,11 @@
               = game.name
           %td.game_release{'data-filter': (game.release_year ? game.release_year : 'unknown'), 'data-order': (game.release_year ?  game.release_year : -1)}
             - if game.release_year
-              = game.release_year
+              - goty = Goty.find_by_year(game.release_year)
+              - if goty
+                = link_to game.release_year, goty_path(year: goty.year)
+              - else
+                = game.release_year
           %td.game_platform{'data-filter': game.platform}
             = game_platform(game.platform, game.url)
           %td.game_played{'data-order': game.last_played.to_i}
