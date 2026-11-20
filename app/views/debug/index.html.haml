@@ -17,7 +17,8 @@
           revision_timestamp = File.read(revision_time)
           deploy_time = Time.at revision_timestamp.strip.to_i
         end
-      = git_revision ? link_to(git_revision, "https://github.com/tekniklr/tekniklr.com/commit/#{git_revision}", target: '_blank') : 'unknown'
+      .truncate
+        = git_revision ? link_to(git_revision, "https://github.com/tekniklr/tekniklr.com/commit/#{git_revision}", target: '_blank') : 'unknown'
       - if deploy_time
         deployed at #{deploy_time.to_fs(:precise)}
 
@@ -35,11 +36,14 @@
       - Rails.configuration.gems.sort{|a,b| a.specification.name <=> b.specification.name}.each do |g|
         .row.mb-1
           .col
-            #{g.specification.name} - #{g.specification.version}"}
+            .truncate
+              #{g.specification.name} - #{g.specification.version}"}
     - else
       - Gem.loaded_specs.values.sort{|a,b| a.name <=> b.name}.collect{|s| [s.name, s.version]}.each do |name, version|
         .row.mb-1
-          .col-4
-            = name
-          .col-2
-            = version
+          .col-lg-4.col-md-5.col-8
+            .truncate
+              = name
+          .col-lg-2.col-md-3.col-4
+            .truncate
+              = version

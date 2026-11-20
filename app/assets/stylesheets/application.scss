@@ -1,3 +1,9 @@
 @use "config";
 @use "layout";
 @use "scaffolds";
+
+.truncate {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

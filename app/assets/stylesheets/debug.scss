@@ -8,6 +8,13 @@ dl.debug {
   }
   dd {
     font-family: monospace;
-    margin: 0 0 3em 2.5em;
+    @media screen and (min-width: config.$mobile_threshhold) {
+      /* regular layout */
+      margin: 0 0 3em 2.5em;
+    }
+    @media screen and (max-width: config.$mobile_threshhold) {
+      /* mobile layout */
+      margin: 0 0 3em 0;
+    }
   }
 }
